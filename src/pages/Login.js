@@ -12,7 +12,7 @@ class Login extends React.Component {
             data-testid="email-input"
           />
         </label>
-        <label htmlFor="">
+        <label htmlFor="password">
           Senha
           <input
             type="password"
