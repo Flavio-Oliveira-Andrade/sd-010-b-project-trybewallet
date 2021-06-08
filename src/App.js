@@ -4,10 +4,10 @@ import { Route } from 'react-router-dom';
 import Login from './components/Login';
 
 function App() {
-  <Route path="/" component={ Login } />
-  return {
-    
-  }
+  return (
+    <h1>Fazendo</h1>
+    // <Route path="/" component={ Login } />
+  )
 }
 
 export default App;
