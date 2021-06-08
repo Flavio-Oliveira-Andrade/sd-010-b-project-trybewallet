@@ -15,7 +15,8 @@ class WalletForms extends Component {
         </label>
 
         <label htmlFor="select-moeda">
-          <select id="select-moeda">
+          Moeda
+          <select id="select-moeda" name="moeda">
             {}
           </select>
         </label>
