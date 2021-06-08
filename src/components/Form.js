@@ -5,7 +5,6 @@ import { updateCurrencies, toAddExpense, isUpdate, isChangeEdit } from '../actio
 import ElementsForm from '../services/createForms/generator';
 import { formsExpense } from '../services/createForms/formChildrens';
 import Button from './Button';
-import '../css/Form.css';
 
 const INITIAL_STATE = {
   value: 0,
