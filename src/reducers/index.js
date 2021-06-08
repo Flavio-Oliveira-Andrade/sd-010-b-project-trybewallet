@@ -1,5 +1,11 @@
-// import user from './user';
-// import wallet from './wallet';
+// esse é o index da pasta Reducers
+import { combineReducers } from 'redux';
+import user from './user';
+import wallet from './wallet';
+// padrão criar esse combine
+const rootReducer = combineReducers({
+  user, // veja que tem no import
+  wallet,
+});
 
-// Configure os seus reducers.
-// ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global
+export default rootReducer;

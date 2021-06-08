@@ -5,7 +5,7 @@ class Login extends React.Component {
   render() {
     return (
       <form>
-        <input data-testid="email-input" type="email" />
+        <input data-testid="email-input" type="email" className="email" />
 
         <input data-testid="password-input" type="password" />
 
