@@ -6,12 +6,12 @@ class Login extends React.Component {
       <div>
         <input
           data-testid="email-input"
-          type="text"
+          type="email"
           placeholder="E-mail"
         />
         <input
           data-testid="password-input"
-          type="text"
+          type="password"
           placeholder="Senha"
         />
         <button type="button">Entrar</button>
