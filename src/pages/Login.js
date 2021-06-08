@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import saveUserInfo from '../actions';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class Login extends React.Component {
 
   render() {
     const {
-      handleChange, state: { email, button }, props: { saveUserInfo },
+      handleChange, state: { email, button }, props: { saveUser },
     } = this;
     return (
       <>
@@ -92,7 +93,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ button }
-            onClick={ () => saveUserInfo(email) }
+            onClick={ () => saveUser(email) }
           >
             Entrar
           </button>
@@ -101,9 +102,12 @@ class Login extends React.Component {
     );
   }
 }
+Login.propTypes = {
+  saveUser: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  saveUserInfo: (email) => dispatch(saveUserInfo(email)),
+  saveUser: (email) => dispatch(saveUserInfo(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
