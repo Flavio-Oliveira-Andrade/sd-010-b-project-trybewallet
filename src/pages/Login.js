@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { userLogin } from '../actions';
 
+import './Login.css';
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -35,9 +37,9 @@ class Login extends React.Component {
     };
 
     return (
-      <>
-        <h3>LOGIN</h3>
-        <label htmlFor="email">
+      <div className="login">
+        <h3 className="paragrafo">LOGIN</h3>
+        <label htmlFor="email" className="title">
           E-mail:
           <input
             type="email"
@@ -48,7 +50,7 @@ class Login extends React.Component {
         </label>
         <br />
         <br />
-        <label htmlFor="senha">
+        <label htmlFor="senha" className="title">
           Senha:
           <input
             type="password"
@@ -61,13 +63,14 @@ class Login extends React.Component {
         <br />
         <button
           type="button"
+          className="btnLogin"
           disabled={ verificaBotao }
           onClick={ checkLogin }
         >
           {' '}
           ENTRAR
         </button>
-      </>
+      </div>
     );
   }
 }

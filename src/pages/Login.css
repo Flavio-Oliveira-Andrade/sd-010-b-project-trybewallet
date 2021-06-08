@@ -1,0 +1,25 @@
+.login {
+  align-items: center;
+  background-color: green;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.4rem;
+  margin: 0 auto 0 auto;
+  max-width: 300px;
+  overflow: hidden;
+  padding:0px 0px 70px 0px;
+}
+
+.btnLogin {
+  border: #27ae60 1px solid;
+  border-radius:4px;
+  float:left;
+  font-size:0.8em;
+  font-weight:800;
+  height: 50px;
+  margin-bottom:20px;
+  margin-left:16px;
+  margin-top:30px;
+  width: 200px;
+}

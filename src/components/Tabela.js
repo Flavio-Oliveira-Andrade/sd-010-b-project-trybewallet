@@ -42,6 +42,13 @@ class Tabela extends React.Component {
             >
               Excluir
             </button>
+            <button
+              type="button"
+              className="buttonExclui"
+              data-testid="edit-btn"
+            >
+              Editar
+            </button>
           </td>
         </tr>
       );

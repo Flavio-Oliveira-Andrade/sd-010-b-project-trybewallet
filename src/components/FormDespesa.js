@@ -187,7 +187,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FormDespesa.propTypes = {
-  currencies: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrency: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   addDespesas: PropTypes.func.isRequired,

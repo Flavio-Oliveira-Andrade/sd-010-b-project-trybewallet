@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { REQUEST_API, GET_COTATION, ADD_DESPESA, DEL_ITEM } from '../actions';
+import { REQUEST_API, GET_COTATION, ADD_DESPESA, DEL_ITEM, EDITA_ITEM } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -31,6 +31,12 @@ function walletReducer(state = INITIAL_STATE, action) {
           exchangeRates: state.currencies,
         },
       ],
+    };
+  case EDITA_ITEM:
+    return {
+      ...state,
+      loading: false,
+      expenses: action.state,
     };
   case DEL_ITEM:
     return {
