@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
-const initialState = {};
+const initialState = { user: 'thiagoleite' };
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
