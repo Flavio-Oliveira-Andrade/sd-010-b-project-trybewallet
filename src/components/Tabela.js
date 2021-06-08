@@ -5,7 +5,7 @@ import { fetchAPI, addDespesa } from '../actions';
 
 import './FormDespesa.css';
 
-class FormDespesa extends React.Component {
+class Tabela extends React.Component {
   constructor() {
     super();
 
@@ -129,33 +129,32 @@ class FormDespesa extends React.Component {
     return (
       <div className="geral">
         <label htmlFor="valor">
-          Valor
+          Valor:
           {this.renderizaInput()}
         </label>
         <label
           htmlFor="moeda"
           className="moeda"
         >
-          Moeda
+          Moeda:
           {this.renderizaSelectMoeda()}
         </label>
         <label
           htmlFor="pgto"
         >
-          Método de pagamento
+          Método de pagamento:
           {this.renderizaSelectPgto()}
         </label>
         <label
           htmlFor="tag"
         >
-          Tag
+          Tag:
           {this.renderizaSelectTag()}
         </label>
-        <label htmlFor="descricao">
-          Descrição
+        <label htmlFor="name">
+          Descrição:
           <input
             type="text"
-            id="descricao"
             data-testid="description-input"
             className="descricao"
             value={ description }
@@ -186,11 +185,11 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-FormDespesa.propTypes = {
+Tabela.propTypes = {
   currencies: PropTypes.string.isRequired,
   getCurrency: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   addDespesas: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormDespesa);
+export default connect(mapStateToProps, mapDispatchToProps)(Tabela);
