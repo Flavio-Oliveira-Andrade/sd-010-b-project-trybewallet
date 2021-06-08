@@ -1,23 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import userAction from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
 
-    this.submit = this.submit.bind(this);
     this.validacao = this.validacao.bind(this);
+    this.state = {
+      email: '',
+    };
   }
 
-  submit() {
-    console.log('passando');
-    // this.setState({
-    //   email: 'disabled',
-    // });
+  componentDidMount() {
+    const button = document.querySelector('.loginButton');
+    button.disabled = true;
   }
 
   validacao() {
     const button = document.querySelector('.loginButton');
     const targ = document.querySelectorAll('input');
+    const email = targ[0].value;
+    this.setState({
+      email,
+    });
     if (targ[0].value.includes('@') && targ[0].value.includes('.com')) {
       const CARAC = 6;
       if (targ[1].value.length >= CARAC) {
@@ -31,6 +38,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { dispatchEmail } = this.props;
+    const { email } = this.state;
     return (
       <div>
         <input
@@ -45,12 +54,26 @@ class Login extends React.Component {
           data-testid="password-input"
           required
         />
-        <button className="loginButton" type="submit" disabled onClick={ this.submit }>
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            className="loginButton"
+            type="button"
+            onClick={ () => dispatchEmail(email) }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmail: (email) => dispatch(userAction(email)),
+});
+
+// const mapState  = (state) => ({
+//   email: state.user.user.email,
+// });
+
+export default connect(null, mapDispatchToProps)(Login);
