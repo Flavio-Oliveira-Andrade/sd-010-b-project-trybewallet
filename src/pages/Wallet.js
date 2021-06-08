@@ -20,7 +20,8 @@ class Wallet extends React.Component {
     const URL = 'https://economia.awesomeapi.com.br/json/all';
     const request = await fetch(URL);
     const jsonResponse = await request.json();
-    const currencies = Object.values(jsonResponse);
+    const data = Object.values(jsonResponse);
+    const currencies = data.filter((item) => !(item.name.includes('Turismo')));
     this.setState({
       allCurrencies: currencies,
     });
