@@ -7,7 +7,7 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/wallet" component={ Wallet } />
+      <Route path="/carteira" component={ Wallet } />
       {/*
       <Route path="/register" component={ Register } />
       <Route path="/clients" component={ Clients } /> */}
