@@ -13,7 +13,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disable: true,
       redirect: false,
     };
   }
@@ -39,10 +38,9 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disable, email, password, redirect } = this.state;
+    const { email, password, redirect } = this.state;
     if (redirect) return <Redirect to="/carteira" />;
     const num = 5;
-
     console.log(password);
 
     return (
@@ -72,7 +70,7 @@ class Login extends React.Component {
           </label>
           <button
             disabled={
-              password.length <= num || (!this.handleEmailVerify() && disable)
+              password.length <= num || (!this.handleEmailVerify())
             }
             type="submit"
           >
