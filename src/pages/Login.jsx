@@ -42,8 +42,7 @@ class Login extends React.Component {
             placeholder="Email"
             data-testid="email-input"
             onChange={ (e) => {
-              this.setState({ email: e.target.value });
-              this.validateLogin();
+              this.setState({ email: e.target.value }, this.validateLogin());
             } }
           />
         </label>
@@ -57,8 +56,7 @@ class Login extends React.Component {
             placeholder="Password"
             data-testid="password-input"
             onChange={ (e) => {
-              this.setState({ password: e.target.value });
-              this.validateLogin();
+              this.setState({ password: e.target.value }, this.validateLogin());
             } }
           />
         </label>
