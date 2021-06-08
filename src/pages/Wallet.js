@@ -39,30 +39,30 @@ class Wallet extends React.Component {
     return (
       <form>
         <label htmlFor="valor">
-          Valor
-          <input type="text" name="valor" />
+          valor
+          <input type="text" name="valor" id="valor" />
         </label>
         <label htmlFor="descricao">
           Descrição
           <input type="text" name="descricao" />
         </label>
         <label htmlFor="moeda">
-          Moeda
+          Moeda:
           <select id="moeda">
             { this.makeOptions() }
           </select>
         </label>
-        <label htmlFor="pagamento">
+        <label htmlFor="método de pagamento">
           Método de pagamento
-          <select name="pagamento">
+          <select name="pagamento" id="método de pagamento">
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="categoria">
+        <label htmlFor="tag">
           Tag
-          <select name="categoria">
+          <select name="categoria" id="tag">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -85,6 +85,7 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">{ currencyField }</p>
         </header>
         { this.renderForms() }
+        <button type="button">Adicionar despesa</button>
         <main>
           <p>a</p>
         </main>
