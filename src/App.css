@@ -1,12 +1,45 @@
 .form-login {
+  align-content: center;
   display: flex;
   flex-direction: column;
-  align-content: center;
-  width: 80%;
   margin: auto;
+  width: 80%;
 }
 
 .login-div {
-  text-align: center;
   margin-top: 20%;
+  text-align: center;
+}
+
+.wallet-header {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 20px;
+  width: 80%;
+}
+
+.wallet-title {
+  text-align: center;
+}
+
+.wallet-header-value {
+  margin-left: 5px;
+}
+
+.wallet-form {
+  background-color: lightgrey;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 18px;
+  justify-content: flex-start;
+  margin: auto;
+}
+
+.wallet-form label {
+  margin: auto 10px;
+}
+
+.input-value {
+  width: 50px;
 }
