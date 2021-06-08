@@ -35,10 +35,10 @@ class Login extends React.Component {
     const { email, password, buttonDisable } = this.state;
     const { login, redirect } = this.props;
     return (
-      <div>
+      <div className="Login">
         { redirect && <Redirect to="/carteira" /> }
         <form className="login">
-          <img src={ travoltaWallet } alt="travoltaWallet" width="185px" />
+          <img src={ travoltaWallet } alt="travoltaWallet" className="travolta" />
           <br />
           <Imput
             place="Email"
@@ -46,8 +46,6 @@ class Login extends React.Component {
             test="email-input"
             handle={ this.handleChange }
           />
-
-          <br />
           <Imput
             place="Senha"
             name="password"
@@ -55,11 +53,11 @@ class Login extends React.Component {
             type="password"
             handle={ this.handleChange }
           />
-          <br />
           <button
             type="button"
             disabled={ !buttonDisable }
             onClick={ () => login({ email, password }) }
+            className="buttonLogin"
           >
             Entrar
           </button>
@@ -70,7 +68,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  redirect: state.user.redirect,
+  redirect: state.user.password,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -79,7 +77,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  redirect: PropTypes.bool.isRequired,
+  redirect: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

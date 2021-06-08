@@ -1,41 +1,33 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+form {
+  margin: 30%;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: #333333;
 }
 
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
+.Login form {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.travolta {
+  border-radius: 7px;
 }
 
-@keyframes App-logo-spin {
+.travoltaWallet {
+  height: 60px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.buttonLogin {
+  margin-top: 10px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.headerWallet {
+  background-color: #969595;
+  display: flex;
 }
