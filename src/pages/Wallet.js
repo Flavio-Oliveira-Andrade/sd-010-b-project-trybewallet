@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import logo from '../images/logo-trybe.png';
+import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -11,6 +12,11 @@ class Wallet extends React.Component {
       cambioAtual: 0,
     };
     this.geraForm = this.geraForm.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetchMoedasThunk } = this.props;
+    fetchMoedasThunk();
   }
 
   geraForm() {
@@ -84,9 +90,13 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
+const mapDispatchToProps = (dispatch) => ({
+  fetchMoedasThunk: () => dispatch(fetchCurrencies()),
+});
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  fetchMoedasThunk: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
