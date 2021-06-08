@@ -1,17 +1,46 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       email: '',
       password: '',
     };
+
+    this.checkValidation = this.checkValidation.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.checkValidation();
+  }
+
+  checkValidation() {
+    const emailCheck = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const { email, password } = this.state;
+    const button = document.getElementById('btn');
+    const SIX_LETTERS = 6;
+
+    if (email.match(emailCheck) && password.length >= SIX_LETTERS) {
+      button.disabled = false;
+    } else {
+      button.disabled = true;
+    }
+  }
+
+  handleChange(event) {
+    const { target: { name, value } } = event;
+
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
-    const { email, password } = this.state;
+    const { handleChange } = this;
+    // const { email, password } = this.state;
 
     return (
       <div className="box">
@@ -21,26 +50,29 @@ class Login extends React.Component {
           </div>
           <section className="inputs">
             <input
+              name="email"
               type="text"
-              onChange={ (e) => this.setState({ email: e.target.value }) }
+              onChange={ (handleChange) }
               placeholder="email"
               data-testid="email-input"
             />
             <input
+              name="password"
               type="password"
-              onChange={ (e) => this.setState({ password: e.target.value }) }
+              minLength="6"
+              onChange={ handleChange }
               placeholder="senha"
               data-testid="password-input"
             />
           </section>
           <div className="link">
-            <Link
-              to="/clients"
-              onClick={ () => console.log({ email, password }) }
-              data-testid="btn-login"
+            <button
+              id="btn"
+              type="button"
+              disabled
             >
               Entrar
-            </Link>
+            </button>
           </div>
         </div>
       </div>

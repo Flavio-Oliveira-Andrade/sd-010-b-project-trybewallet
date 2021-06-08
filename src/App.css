@@ -19,6 +19,7 @@ body {
   background-color: rgb(102, 102, 102);
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   height: 45%;
   width: 30%;
 }
@@ -43,7 +44,7 @@ body {
   justify-content: center;
 }
 
-.link a {
+.link button {
   background-color: rgb(7, 95, 37);
   color: black;
   height: 50px;
