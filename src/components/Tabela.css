@@ -1,7 +1,6 @@
 .despesas {
   border: 3px solid #ddd;
   border-collapse: collapse;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-align: center;
   width: 100%;
 }
@@ -11,7 +10,7 @@
   padding: 8px;
 }
 
-.despesas tr:hover { 
+.despesas tr:hover {
   background-color: #ddd;
 }
 
@@ -27,12 +26,12 @@
   text-align: center;
 }
 
-.button {
+.buttonExclui {
   background-color: green;
   border-radius: 5px;
   color: white;
   font-size: 10px;
   height: 20px;
   padding-right: 5px;
-  width: 40px;
+  width: 50px;
 }

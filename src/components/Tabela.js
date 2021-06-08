@@ -36,7 +36,7 @@ class Tabela extends React.Component {
           <td>
             <button
               type="button"
-              className="button"
+              className="buttonExclui"
               data-testid="delete-btn"
               onClick={ () => { deletarItem(id); } }
             >
