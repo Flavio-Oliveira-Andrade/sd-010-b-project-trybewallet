@@ -11,6 +11,7 @@ class Login extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleValidadeEmail = this.handleValidadeEmail.bind(this);
+    this.handleValidadePassword = this.handleValidadePassword.bind(this);
   }
 
   handleChange({ target }) {
@@ -28,6 +29,15 @@ class Login extends React.Component {
     if(!email.includes('@') || !email.includes('.com')) {
       this.setState({
         emailError: '* invalid email',
+      });
+    }
+  }
+
+  handleValidadePassword() {
+    const { password } = this.state;
+    if(password.length < 6) {
+      this.setState({
+        passWordError: '* invalid password',
       });
     }
   }
@@ -60,6 +70,7 @@ class Login extends React.Component {
               type="password"
               data-testid="password-input"
               onChange = { this.handleChange }
+              onBlur = { this.handleValidadePassword }
             />
             <p className="passwordError"></p>
           </label>
