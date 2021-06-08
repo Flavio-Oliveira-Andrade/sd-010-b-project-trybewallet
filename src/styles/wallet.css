@@ -1,6 +1,6 @@
-header {
+.flexbox {
   align-items: center;
-  background-color: rgba(238, 112, 74, 0.637);
+  background-color: antiquewhite;
   display: flex;
   height: 10vh;
   justify-content: flex-end;
