@@ -1,7 +1,60 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { addEmail } from '../actions/index';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      userEmail: '',
+      redirect: false,
+      validEmail: false,
+      validPassword: false,
+    };
+    // this.verifyPassword = this.verifyPassword(this);
+    this.buttonClick = this.buttonClick(this);
+    this.verifyEmail = this.verifyEmail.bind(this);
+  }
+
+  verifyEmail({ value }) {
+    if (value.match(/[a-z]+@[a-z]+.com/g)) {
+      this.setState({
+        validEmail: true,
+      });
+    // } //else {
+    //   this.setState({
+    //     validEmail: false,
+    //   });
+    }
+
+    this.setState({
+      userEmail: value,
+    });
+  }
+
+  verifyPassword({ value }) {
+    const minimumLength = 6;
+    if (value.length >= minimumLength) {
+      this.setState({
+        validPassword: true,
+      });
+    }
+  }
+
+  buttonClick() {
+    const { loginWallet } = this.props;
+    const { userEmail } = this.state;
+    loginWallet(userEmail);
+    this.setState({
+      redirect: true,
+    });
+  }
+
   render() {
+    const { redirect, validEmail, validPassword } = this.state;
     return (
       <form>
         <label htmlFor="email">
@@ -10,7 +63,7 @@ class Login extends React.Component {
             type="email"
             name="email"
             data-testid="email-input"
-            required
+            onChange={ ({ target }) => this.verifyEmail(target) }
           />
         </label>
         <label htmlFor="password">
@@ -19,16 +72,28 @@ class Login extends React.Component {
             type="password"
             name="password"
             data-testid="password-input"
-            minLength="6"
-            required
+            onChange={ ({ target }) => this.verifyPassword(target) }
           />
         </label>
-        <button type="button">
+        <button
+          type="button"
+          onClick={ this.buttonClick }
+          disabled={ !validEmail || !validPassword }
+        >
           Entrar
         </button>
+        { redirect && <Redirect to="/carteira" /> }
       </form>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginWallet: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  loginWallet: (email) => dispatch(addEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
