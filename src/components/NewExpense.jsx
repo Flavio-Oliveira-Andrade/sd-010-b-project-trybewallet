@@ -154,7 +154,6 @@ class NewExpense extends Component {
       id,
       expenses,
       exchangeRates,
-      total,
       propNewExpense,
       propGetExchangeRates,
     } = this.props;
@@ -169,11 +168,11 @@ class NewExpense extends Component {
       tag,
       exchangeRates,
     };
-    const newTotal = total + (value * exchangeRates[currency].ask);
     expenseList.push(addNewExpense);
-    propNewExpense(expenseList, newTotal);
+    propNewExpense(expenseList);
     this.setState({
       value: 0,
+      description: '',
     });
   }
 
@@ -216,17 +215,15 @@ const mapStateToProps = ({ wallet: {
   id,
   currencies,
   exchangeRates,
-  total,
 } }) => ({
   expenses,
   id,
   currencies,
   exchangeRates,
-  total,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  propNewExpense: (expenses, total) => dispatch(newExpense(expenses, total)),
+  propNewExpense: (expenses) => dispatch(newExpense(expenses)),
   propGetExchangeRates: () => dispatch(getExchangeRates()),
 });
 
