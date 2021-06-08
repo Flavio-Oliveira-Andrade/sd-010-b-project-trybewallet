@@ -1,7 +1,13 @@
 import React from 'react';
+import responseOfAPiWallet from './apiRequest';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render () {
+  return (
+  <div>Hello, TrybeWallet!{console.log(responseOfAPiWallet)}</div>
+    )
+  }
 }
+
 
 export default App;
