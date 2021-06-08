@@ -7,7 +7,6 @@ function App() {
     <Switch>
       <Route exact="true" path="/" component={ Login } />
     </Switch>
-
   );
 }
 
