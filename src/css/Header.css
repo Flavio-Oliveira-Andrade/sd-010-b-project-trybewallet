@@ -1,0 +1,17 @@
+.wallet-container {
+    display: inline-block;
+}
+.wallet-header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.wallet-header select{
+    width: 50px;
+    height: 20px;
+}
+
+.wallet-header * {
+    margin: 0 10px;
+}
