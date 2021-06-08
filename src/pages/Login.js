@@ -6,17 +6,24 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disableButton: true,
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange({ target: { value, name } }) {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      const { email, password } = this.state;
+      const regex = /\S+@\S+\.\S+/;
+      const min = 6;
+      if (regex.test(email) && password.length >= min) {
+        this.setState({ disableButton: false });
+      } else this.setState({ disableButton: true });
+    });
   }
 
   render() {
-    const { email, password } = this.state;
-    console.log(email, password);
+    const { disableButton } = this.state;
     return (
       <div>
         <input
@@ -33,7 +40,12 @@ class Login extends React.Component {
           name="password"
           onChange={ this.handleChange }
         />
-        <button type="button">Entrar</button>
+        <button
+          type="button"
+          disabled={ disableButton }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
