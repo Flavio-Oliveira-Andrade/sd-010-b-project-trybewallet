@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import login from '../actions';
+// import { Redirect } from 'react-router';
 
 class Login extends React.Component {
   constructor(props) {
@@ -18,11 +19,12 @@ class Login extends React.Component {
     const { firstDispatch } = this.props;
     return (
       <div>
-        <label data-testid="email-input" htmlFor="login">
+        <label htmlFor="login">
           <input
             id="login"
             type="email"
             value="email"
+            data-testid="email-input"
             onChange={ ({ target: { value } }) => this.setState({ emailAdress: value }) }
           />
         </label>
