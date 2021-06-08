@@ -39,7 +39,6 @@ class Login extends React.Component {
 
   render() {
     const { userLogin } = this.props;
-    console.log(typeof (userLogin));
     const { isDisable, email } = this.state;
     return (
       <section>
