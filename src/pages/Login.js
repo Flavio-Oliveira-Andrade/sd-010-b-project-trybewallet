@@ -1,30 +1,41 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.handleChange = this.handleChange.bind(this);
-    this.habilitarButton = this.habilitarButton(this);
+    this.validateEmail = this.validateEmail.bind(this);
 
     this.state = {
       email: '',
       password: '',
-      button: false,
+      button: true,
     };
   }
 
   handleChange({ target }) {
-    const { name } = target;
+    const { name, value } = target;
+    const { email, password } = this.state;
+    const passwordMin = 5;
     this.setState({
-      [name]: target.value,
+      [name]: value,
     });
-    habilitarButton();
+    if (this.validateEmail(email) && (password.length >= passwordMin)) {
+      this.setState({
+        button: false,
+      });
+    } else {
+      this.setState({
+        button: true,
+      });
+    }
   }
 
-  habilitarButton(){
-    const { email, password, button } = this.state;
-    const teste = email + password;
+  validateEmail(email) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
   }
 
   render() {
@@ -48,7 +59,10 @@ class Login extends React.Component {
             onChange={ handleChange }
           />
           <div>
-            <button type="button" disabled={ button }>Entrar</button>
+            <Link to="/carteira">
+              <button type="button" disabled={ button }>Entrar</button>
+            </Link>
+
           </div>
         </form>
       </div>
