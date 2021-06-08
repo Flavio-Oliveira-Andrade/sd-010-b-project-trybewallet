@@ -1,0 +1,27 @@
+#login--div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  height: 100%;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.login--form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login--button {
+  color: #000;
+  margin: 10px 0 10px 0;
+  padding: 0 25px;
+  border-radius: 12px;
+  background-color: #fff;
+  border: 2px solid #000;
+  font-size: 15px;
+}
