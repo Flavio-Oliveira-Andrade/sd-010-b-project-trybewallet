@@ -1,5 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Imput from '../components/Input';
+import loginAction from '../actions';
+
 import travoltaWallet from '../images/travoltaWallet.gif';
 
 class Login extends React.Component {
@@ -27,34 +32,54 @@ class Login extends React.Component {
   }
 
   render() {
-    // const { email, password, buttonDisable } = this.state;
-    const { buttonDisable } = this.state;
+    const { email, password, buttonDisable } = this.state;
+    const { login, redirect } = this.props;
     return (
-      <form className="login">
-        <img src={ travoltaWallet } alt="travoltaWallet" width="185px" />
-        <br />
-        <Imput
-          place="Email"
-          name="email"
-          test="email-input"
-          handle={ this.handleChange }
-        />
+      <div>
+        { redirect && <Redirect to="/carteira" /> }
+        <form className="login">
+          <img src={ travoltaWallet } alt="travoltaWallet" width="185px" />
+          <br />
+          <Imput
+            place="Email"
+            name="email"
+            test="email-input"
+            handle={ this.handleChange }
+          />
 
-        <br />
-        <Imput
-          place="Senha"
-          name="password"
-          test="password-input"
-          type="password"
-          handle={ this.handleChange }
-        />
-        <br />
-        <button type="button" disabled={ !buttonDisable }>
-          Entrar
-        </button>
-      </form>
+          <br />
+          <Imput
+            place="Senha"
+            name="password"
+            test="password-input"
+            type="password"
+            handle={ this.handleChange }
+          />
+          <br />
+          <button
+            type="button"
+            disabled={ !buttonDisable }
+            onClick={ () => login({ email, password }) }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  redirect: state.user.redirect,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (e) => dispatch(loginAction(e)),
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  redirect: PropTypes.bool.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
