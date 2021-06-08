@@ -1,7 +1,7 @@
 .despesas {
   border: 3px solid #ddd;
   border-collapse: collapse;
-  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-align: center;
   width: 100%;
 }
@@ -11,9 +11,13 @@
   padding: 8px;
 }
 
-.despesas tr:hover { background-color: #ddd }
+.despesas tr:hover { 
+  background-color: #ddd;
+}
 
-.despesas tr:nth-child( even ) { background-color: #f2f2f2 }
+.despesas tr:nth-child( even ) {
+  background-color: #f2f2f2;
+}
 
 .despesas th {
   background-color: #4caf50;
@@ -21,4 +25,14 @@
   padding-bottom: 12px;
   padding-top: 12px;
   text-align: center;
+}
+
+.button {
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  font-size: 10px;
+  height: 20px;
+  padding-right: 5px;
+  width: 40px;
 }
