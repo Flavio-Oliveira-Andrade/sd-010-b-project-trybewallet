@@ -3,11 +3,11 @@ const INITIAL_STATE = {
   users: [],
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   default:
     return state;
   }
 };
 
-export default userReducer;
+export default user;
