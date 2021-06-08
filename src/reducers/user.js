@@ -1,18 +1,15 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-// const INITIAL_USER_STATE = {
-//   user: {
-//     email: '',
-//   },
-// };
+import { SAVE_LOGIN_EMAIL } from '../actions';
 
-// const user = (state = INITIAL_USER_STATE, action) => {
-//   switch (action.type) {
-//   case xxx:
-//     return {
-//       ...state,
-//       xxxx: 'xxx',
-//     };
-//   }
-// };
+const INITIAL_USER_STATE = { email: '' };
 
-// export default user;
+const userEmail = (state = INITIAL_USER_STATE, action) => {
+  switch (action.type) {
+  case SAVE_LOGIN_EMAIL:
+    return { ...state, email: action.email };
+  default:
+    return state;
+  }
+};
+
+export default userEmail;
