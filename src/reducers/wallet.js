@@ -4,14 +4,12 @@ const INITIAL_STATE = {
 };
 
 function wallet(state = INITIAL_STATE, { type }) {
-  return {
-    switch (type) {
-    case '':
-      return ;
-    default:
-      return state;
-    }
-  };
+  switch (type) {
+  case '':
+    return '';
+  default:
+    return state;
+  }
 }
 
 export default wallet;
