@@ -23,9 +23,10 @@ class Login extends React.Component {
           <input
             id="login"
             type="email"
-            value="email"
             data-testid="email-input"
             onChange={ ({ target: { value } }) => this.setState({ emailAdress: value }) }
+            value={ emailAdress }
+            required
           />
         </label>
         <div />
@@ -34,10 +35,10 @@ class Login extends React.Component {
             <input
               id="password"
               type="text"
-              min="6"
-              value="password"
+              required
               onChange={ ({ target: { value } }) => this
                 .setState({ passwordData: value }) }
+              value={ passwordData }
             />
           </label>
         </div>

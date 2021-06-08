@@ -1,3 +1,5 @@
+import { LOGIN } from '../actions';
+
 const INITIAL_STATE = {
   user: {
     email: '',
@@ -6,9 +8,11 @@ const INITIAL_STATE = {
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case '':
-    return state;
-
+  case LOGIN:
+    return {
+      ...state,
+      email: action.payload.userName,
+    };
   default:
     return state;
   }
