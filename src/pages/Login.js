@@ -70,7 +70,7 @@ class Login extends React.Component {
     return (
       <main className="login">
         Login
-        <form>
+        <form className="formLogin">
           <label htmlFor="email">
             Email
             <input

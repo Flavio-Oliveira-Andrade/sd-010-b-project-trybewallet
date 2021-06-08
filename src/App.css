@@ -13,11 +13,17 @@
 
 }
 
-form {
+.formLogin {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
 }
 
 .logo-trybe {

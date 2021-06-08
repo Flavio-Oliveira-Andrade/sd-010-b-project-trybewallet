@@ -9,8 +9,46 @@ class Wallet extends React.Component {
     this.state = {
       total: 0,
       cambioAtual: 0,
-
     };
+    this.geraForm = this.geraForm.bind(this);
+  }
+
+  geraForm() {
+    return (
+      <form>
+        <label htmlFor="valorDespesa">
+          Valor
+          <input id="valorDespesa" />
+        </label>
+        <label htmlFor="descricao">
+          Descrição
+          <input id="descricao" />
+        </label>
+        <label htmlFor="moeda">
+          Moeda
+          <select name="moeda" id="moeda">
+            <option name="moeda" value="BRL">BRL</option>
+          </select>
+        </label>
+        <label htmlFor="metodoPagamento">
+          Método de pagamento
+          <select name="metodoPagamento" id="metodoPagamento">
+            <option name="metodoPagamento" value="dinheiro">Dinheiro</option>
+            <option name="metodoPagamento" value="credito">Cartão de crédito</option>
+            <option name="metodoPagamento" value="debito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="categoria">
+          Tag
+          <select name="categoria" id="categoria">
+            <option name="categoria" value="alimentacao">Alimentação</option>
+            <option name="categoria" value="lazer">Lazer</option>
+            <option name="categoria" value="trabalho">Trabalho</option>
+            <option name="categoria" value="transporte">Transporte</option>
+            <option name="categoria" value="saude">Saúde</option>
+          </select>
+        </label>
+      </form>);
   }
 
   render() {
@@ -39,6 +77,7 @@ class Wallet extends React.Component {
             {cambioAtual}
           </h3>
         </header>
+        {this.geraForm()}
       </main>);
   }
 }
