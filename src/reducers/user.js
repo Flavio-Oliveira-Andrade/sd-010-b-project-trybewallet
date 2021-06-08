@@ -1,16 +1,22 @@
-// // Esse reducer será responsável por tratar as informações da pessoa usuária
+// Esse reducer será responsável por tratar as informações da pessoa usuária
 
-// const INITIAL_STATE = {
-//   user: {
-//     email: '',
-//   },
-// }
+import { LOGIN_SUCCESS } from '../actions/index';
 
-// const user = (state = INITIAL_STATE, action) => {
-//   switch(action.type) {
-//     default:
-//       return state;
-//   }
-// }
+const INITIAL_STATE = {
+  user: {
+    email: '',
+  },
+};
 
-// export default user;
+const user = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case (LOGIN_SUCCESS):
+    return (
+      { ...state, email: action.email }
+    );
+  default:
+    return state;
+  }
+};
+
+export default user;
