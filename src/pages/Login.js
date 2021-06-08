@@ -1,14 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-class Login extends React.Component {
-  render() {
-    return <div>Login</div>;
-  }
-}
-
-export default Login;
-=======
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -114,4 +104,3 @@ Login.propTypes = {
   loginSubmitAction: PropTypes.func.isRequired,
   emailNotEmpty: PropTypes.string.isRequired,
 };
->>>>>>> ac43fbaa8f9f9b3744fc7ebbaf400d55c3185e14

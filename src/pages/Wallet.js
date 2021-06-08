@@ -1,14 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-class Wallet extends React.Component {
-  render() {
-    return <div>TrybeWallet</div>;
-  }
-}
-
-export default Wallet;
-=======
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FormExpenses from './FormExpenses';
@@ -85,4 +75,3 @@ Wallet.propTypes = {
 Wallet.defaultProps = {
   currentCurrency: null,
 };
->>>>>>> ac43fbaa8f9f9b3744fc7ebbaf400d55c3185e14

@@ -112,11 +112,11 @@ class FormExpenses extends React.Component {
     const { expense } = state;
     return (
       <>
-        <label htmlFor="input-despesa">
-          Adicionar valor da despesa:
+        <label htmlFor="Valor">
+          Valor
           <input
             data-testid="value-input"
-            id="input-despesa"
+            id="Valor"
             type="number"
             name="value"
             value={ expense.value }
@@ -141,29 +141,35 @@ class FormExpenses extends React.Component {
     const { coins, expense: { currency, method } } = this.state;
     return (
       <>
-        <select
-          data-testid="currency-input"
-          id="moeda"
-          name="currency"
-          onChange={ this.handleChange }
-          value={ currency }
-        >
-          {coins.map((coin, index) => (
-            <option value={ coin.code } data-testid={ coin.code } key={ index }>
-              {coin.code}
-            </option>
-          ))}
-        </select>
-        <select
-          name="method"
-          value={ method }
-          data-testid="method-input"
-          onChange={ this.handleChange }
-        >
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de crédito">Cartão de crédito</option>
-          <option value="Cartão de débito">Cartão de débito</option>
-        </select>
+        <label htmlFor="moeda" data-testid="currency-input">
+          Moeda
+          <select
+            id="moeda"
+            name="currency"
+            onChange={ this.handleChange }
+            value={ currency }
+          >
+            {coins.map((coin, index) => (
+              <option value={ coin.code } data-testid={ coin.code } key={ index }>
+                {coin.code}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="Método de pagamento">
+          Método de pagamento
+          <select
+            data-testid="method-input"
+            name="method"
+            value={ method }
+            id="Método de pagamento"
+            onChange={ this.handleChange }
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
       </>
     );
   }
@@ -178,18 +184,21 @@ class FormExpenses extends React.Component {
       <form>
         { this.inputDespesaDescricao(this.state) }
         { this.renderCurrencyAndMethod(this.state) }
-        <select
-          value={ tag }
-          name="tag"
-          data-testid="tag-input"
-          onChange={ this.handleChange }
-        >
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
-        </select>
+        <label htmlFor="tag" data-testid="tag-input">
+          Tag
+          <select
+            value={ tag }
+            name="tag"
+            id="tag"
+            onChange={ this.handleChange }
+          >
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
         { this.handleEditMode() }
       </form>
     );
