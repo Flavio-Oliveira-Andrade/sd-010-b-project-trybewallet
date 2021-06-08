@@ -8,13 +8,13 @@ class Header extends Component {
     const { email } = this.props;
     return (
       <header>
-        <h2 className="header-title" data-testid="email-field">
+        <h2 className='header-title' data-testid='email-field'>
           {email}
         </h2>
-        <p className="header-field" data-testid="total-field">
+        <p className='header-field' data-testid='total-field'>
           0
         </p>
-        <p className="header-field" data-testid="header-currency-field">
+        <p className='header-field' data-testid='header-currency-field'>
           BRL
         </p>
       </header>
