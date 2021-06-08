@@ -7,12 +7,13 @@ class InputWallet extends React.Component {
     const name = labelText.toLowerCase();
     return (
       <label htmlFor={ name }>
-        { labelText }
+        { `${labelText}: ` }
         <input
           type={ type }
           name={ name }
           id={ name }
           onChange={ handle }
+          className={ name }
         />
       </label>
     );

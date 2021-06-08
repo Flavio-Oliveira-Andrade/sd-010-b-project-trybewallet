@@ -3,7 +3,9 @@
 }
 
 .formLogin {
-  margin: 30%;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 15%;
 }
 
 body {
@@ -34,4 +36,8 @@ body {
 
 label {
   color: aliceblue;
+}
+
+.valor {
+  width: 50px;
 }

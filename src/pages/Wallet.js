@@ -11,6 +11,7 @@ class Wallet extends React.Component {
     const { userEmail } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
     return (
       <main>
         <header className="headerWallet">
@@ -21,11 +22,11 @@ class Wallet extends React.Component {
         </header>
         <section>
           <form>
-            <InputWallet labelText="Valor: " />
-            <InputWallet labelText="Descrição: " />
-            <SelectWallet labelText="Moeda: " />
-            <SelectWallet labelText="Método de pagamento: " options={ opPayments } />
-            <SelectWallet labelText="Tag " options={ opTags } />
+            <InputWallet labelText="Valor" />
+            <InputWallet labelText="Descrição" />
+            <SelectWallet labelText="Moeda" />
+            <SelectWallet labelText="Método de pagamento" options={ opPayments } />
+            <SelectWallet labelText="Tag" options={ opTags } />
           </form>
         </section>
       </main>
