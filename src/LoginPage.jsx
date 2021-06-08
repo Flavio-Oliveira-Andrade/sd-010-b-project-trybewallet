@@ -1,15 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { userAction } from './actions/index';
 
 class LoginPage extends React.Component {
   constructor() {
     super();
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.clicked = this.clicked.bind(this);
 
     this.state = {
       email: '',
       validPassword: false,
       validEmail: false,
+      shouldRedirect: false,
     };
   }
 
@@ -38,8 +44,17 @@ class LoginPage extends React.Component {
     }
   }
 
+  clicked() {
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+    saveEmail(email);
+    this.setState({
+      shouldRedirect: true,
+    });
+  }
+
   render() {
-    const { validEmail, validPassword } = this.state;
+    const { validEmail, validPassword, shouldRedirect } = this.state;
     return (
       <section>
         <form>
@@ -53,13 +68,26 @@ class LoginPage extends React.Component {
             data-testid="password-input"
             onChange={ ({ target }) => this.handlePassword(target) }
           />
-          <button type="button" disabled={ !validEmail || !validPassword }>
+          <button
+            type="button"
+            disabled={ !validEmail || !validPassword }
+            onClick={ this.clicked }
+          >
             Entrar
           </button>
         </form>
+        { shouldRedirect && <Redirect to="/carteira" /> }
       </section>
     );
   }
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(userAction(email)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginPage);

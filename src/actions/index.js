@@ -1,9 +1,7 @@
 // Coloque aqui suas actions
-const SAVE_EMAIL = 'SAVE_EMAIL';
+export const SAVE_EMAIL = 'SAVE_EMAIL';
 
-const userAction = () => ({
+export const userAction = (email) => ({
   type: SAVE_EMAIL,
-  email: '',
+  email,
 });
-
-export default userAction;
