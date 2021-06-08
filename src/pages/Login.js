@@ -1,10 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { submitEmail } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
+      emailInput: '',
       isValidEmail: false,
       isValidPassword: false,
     };
@@ -13,10 +17,11 @@ class Login extends React.Component {
     this.changeDisabled = this.changeDisabled.bind(this);
   }
 
-  handleEmail({ target: { value } }) {
+  handleEmail({ target: { name, value } }) {
     const emailRegexp = RegExp(/[a-z]+@[a-z]+.com/g);
     const isValidEmail = emailRegexp.test(value);
     this.setState({
+      [name]: value,
       isValidEmail,
     });
   }
@@ -36,11 +41,14 @@ class Login extends React.Component {
   }
 
   render() {
+    const { emailInput } = this.state;
+    const { saveEmail } = this.props;
     return (
       <div>
         <input
           type="text"
           data-testid="email-input"
+          name="emailInput"
           placeholder="email"
           onChange={ (e) => this.handleEmail(e) }
         />
@@ -53,12 +61,26 @@ class Login extends React.Component {
           onChange={ (e) => this.handlePassword(e) }
         />
         <br />
-        <Link to="/wallet">
-          <button type="button" disabled={ !this.changeDisabled() }>Entrar</button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !this.changeDisabled() }
+            onClick={ () => saveEmail(emailInput) }
+          >
+            Entrar
+          </button>
         </Link>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(submitEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
