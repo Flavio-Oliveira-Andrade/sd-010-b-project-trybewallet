@@ -1,17 +1,15 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
 function App() {
   return (
     <div>
-      <Route path="/">
-        <Login />
-      </Route>
-      <Route path="/carteira">
-        <Wallet />
-      </Route>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/carteira" component={ Wallet } />
+      </Switch>
     </div>
   );
 }
