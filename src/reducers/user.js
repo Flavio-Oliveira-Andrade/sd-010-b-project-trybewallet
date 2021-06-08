@@ -12,4 +12,4 @@ export default function user(state = INITIAL_USER, action) {
     default:
       return state;
   }
-};
+}
