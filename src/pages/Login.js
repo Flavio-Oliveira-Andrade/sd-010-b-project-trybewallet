@@ -23,6 +23,15 @@ class Login extends React.Component {
     });
   }
 
+  handleValidadeEmail() {
+    const { email } = this.state;
+    if(!email.includes('@') || !email.includes('.com')) {
+      this.setState({
+        emailError: '* invalid email',
+      });
+    }
+  }
+
   render() {
     const { emailError } = this.state;
     return (
