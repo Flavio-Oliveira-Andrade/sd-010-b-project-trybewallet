@@ -8,7 +8,7 @@ const INITIAL_USER = {
 
 function userReducer(state = INITIAL_USER, action) {
   switch (action.type) {
-  case state:
+  case 'USER':
     break;
   default:
     return state;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   render() {
@@ -7,13 +8,21 @@ class Login extends React.Component {
         <form>
           <label htmlFor="email">
             E-mail:
-            <input type="email" id="email" data-testid="email-input" />
+            <input type="email" id="email" data-testid="email-input" required />
           </label>
           <label htmlFor="password">
             Senha:
-            <input type="password" id="password" data-testid="password-input" />
+            <input
+              type="password"
+              id="password"
+              data-testid="password-input"
+              minLength="6"
+              required
+            />
           </label>
-          <button type="submit">Entrar</button>
+          <Link to="/carteira">
+            <button type="submit" data-testid="my-action">Entrar</button>
+          </Link>
         </form>
       </div>
     );
