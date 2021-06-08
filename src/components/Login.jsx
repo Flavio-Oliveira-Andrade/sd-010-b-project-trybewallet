@@ -11,6 +11,9 @@ export default function Login() {
         Password
         <input type='password' id='password' data-testid="password-input" />
       </label>
+      <button type='submit'>
+        Entrar
+      </button>
     </form>
   )
 }
