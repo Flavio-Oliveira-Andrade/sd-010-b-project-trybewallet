@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Input extends React.Component {
+class InputLogin extends React.Component {
   render() {
     const { place, type = 'text', name, handle, test } = this.props;
     return (
@@ -17,7 +17,7 @@ class Input extends React.Component {
   }
 }
 
-Input.propTypes = {
+InputLogin.propTypes = {
   place: PropTypes.string.isRequired,
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -25,8 +25,8 @@ Input.propTypes = {
   handle: PropTypes.func.isRequired,
 };
 
-Input.defaultProps = {
+InputLogin.defaultProps = {
   type: 'text',
 };
 
-export default Input;
+export default InputLogin;

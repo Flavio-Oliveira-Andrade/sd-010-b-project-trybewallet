@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import Imput from '../components/Input';
+import Input from '../components/InputLogin';
 import loginAction from '../actions';
 
 import travoltaWallet from '../images/travoltaWallet.gif';
@@ -37,16 +37,16 @@ class Login extends React.Component {
     return (
       <div className="Login">
         { redirect && <Redirect to="/carteira" /> }
-        <form className="login">
+        <form className="formLogin">
           <img src={ travoltaWallet } alt="travoltaWallet" className="travolta" />
           <br />
-          <Imput
+          <Input
             place="Email"
             name="email"
             test="email-input"
             handle={ this.handleChange }
           />
-          <Imput
+          <Input
             place="Senha"
             name="password"
             test="password-input"

@@ -4,13 +4,13 @@ const initialState = {
   redirect: false,
 };
 
-function userReducer(state = initialState, action) {
-  switch (action.type) {
+function userReducer(state = initialState, { type, payload }) {
+  switch (type) {
   case 'LOGIN':
     return {
       ...state,
-      email: action.payload.email,
-      password: action.payload.password,
+      email: payload.email,
+      password: payload.password,
       redirect: true,
     };
   default:

@@ -2,7 +2,7 @@
   margin: 0;
 }
 
-form {
+.formLogin {
   margin: 30%;
 }
 
@@ -30,4 +30,8 @@ body {
 .headerWallet {
   background-color: #969595;
   display: flex;
+}
+
+label {
+  color: aliceblue;
 }
