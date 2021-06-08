@@ -16,7 +16,7 @@ class Login extends React.Component {
             placeholder="Digite seu senha"
             data-testid="password-input"
           />
-          <button type="button" >Entrar</button>
+          <button type="button">Entrar</button>
         </form>
       </div>
     );
