@@ -1,21 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      email: '',
       emailVerified: false,
       passwordVerified: false,
+      redirect: false,
     };
+
     this.verifyEmail = this.verifyEmail.bind(this);
     this.verifyPassword = this.verifyPassword.bind(this);
+    this.login = this.login.bind(this);
   }
 
   verifyEmail({ target }) {
     const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
 
-    this.setState({ emailVerified: emailRegex.test(target.value) });
+    this.setState({
+      email: target.value,
+      emailVerified: emailRegex.test(target.value),
+    });
   }
 
   verifyPassword({ target }) {
@@ -26,8 +36,19 @@ class Login extends React.Component {
     });
   }
 
+  login() {
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+
+    saveEmail(email);
+    this.setState({ redirect: true });
+  }
+
   render() {
-    const { emailVerified, passwordVerified } = this.state;
+    const { emailVerified, passwordVerified, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <div>
         <form action="">
@@ -50,7 +71,11 @@ class Login extends React.Component {
             />
           </label>
         </form>
-        <button type="button" disabled={ !emailVerified || !passwordVerified }>
+        <button
+          type="button"
+          onClick={ this.login }
+          disabled={ !emailVerified || !passwordVerified }
+        >
           Entrar
         </button>
       </div>
@@ -58,4 +83,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (userEmail) => dispatch(userLogin(userEmail)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
