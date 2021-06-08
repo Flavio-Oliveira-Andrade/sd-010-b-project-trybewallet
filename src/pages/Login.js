@@ -6,11 +6,26 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      loginError: true,
     };
+    this.validateLogin = this.validateLogin.bind(this);
+  }
+
+  validateLogin() {
+    const MIN_LENGTH = 5;
+    const { email, password } = this.state;
+    const verifySign = email.includes('@');
+    const verifyDotCom = email.includes('.com');
+    if (password.length >= MIN_LENGTH && verifySign && verifyDotCom) {
+      this.setState({ loginError: false });
+    }
+    if (password.length < MIN_LENGTH) {
+      this.setState({ loginError: true });
+    }
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, loginError } = this.state;
     return (
       <form>
         <label htmlFor="emailInput">
@@ -21,7 +36,10 @@ class Login extends React.Component {
             id="emailInput"
             placeholder="Email"
             data-testid="email-input"
-            onChange={ (e) => this.setState({ email: e.target.value }) }
+            onChange={ (e) => {
+              this.setState({ email: e.target.value });
+              this.validateLogin();
+            } }
           />
         </label>
 
@@ -33,7 +51,10 @@ class Login extends React.Component {
             id="passwordInput"
             placeholder="Password"
             data-testid="password-input"
-            onChange={ (e) => this.setState({ password: e.target.value }) }
+            onChange={ (e) => {
+              this.setState({ password: e.target.value });
+              this.validateLogin();
+            } }
           />
         </label>
 
@@ -41,6 +62,8 @@ class Login extends React.Component {
           type="button"
           data-testid="btn-login"
           onClick={ () => [email, password] }
+          disabled={ loginError }
+
         >
           Entrar
         </button>
