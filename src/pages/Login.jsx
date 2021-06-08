@@ -1,5 +1,10 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { login } from '../actions';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -7,27 +12,23 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      isBtnDisable: true,
     };
 
     this.checkValidation = this.checkValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidUpdate() {
-    this.checkValidation();
-  }
-
   checkValidation() {
     const emailCheck = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const { email, password } = this.state;
-    const button = document.getElementById('btn');
     const SIX_LETTERS = 6;
 
-    if (email.match(emailCheck) && password.length >= SIX_LETTERS) {
-      button.disabled = false;
-    } else {
-      button.disabled = true;
-    }
+    const isValid = password.length >= SIX_LETTERS && email.match(emailCheck);
+
+    this.setState({
+      isBtnDisable: !isValid,
+    });
   }
 
   handleChange(event) {
@@ -35,12 +36,13 @@ class Login extends React.Component {
 
     this.setState({
       [name]: value,
-    });
+    }, this.checkValidation);
   }
 
   render() {
     const { handleChange } = this;
-    // const { email, password } = this.state;
+    const { setUserEmail, history } = this.props;
+    const { email, isBtnDisable } = this.state;
 
     return (
       <div className="box">
@@ -69,7 +71,8 @@ class Login extends React.Component {
             <button
               id="btn"
               type="button"
-              disabled
+              disabled={ isBtnDisable }
+              onClick={ () => (setUserEmail(email) && history.push('/carteira')) }
             >
               Entrar
             </button>
@@ -80,4 +83,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  setUserEmail: (email) => (dispatch(login(email))),
+});
+
+Login.propTypes = {
+  setUserEmail: PropTypes.func.isRequired,
+  history: PropTypes.shape().isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

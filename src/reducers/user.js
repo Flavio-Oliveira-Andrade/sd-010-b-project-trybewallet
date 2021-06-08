@@ -1,9 +1,11 @@
-const initialState = {};
+const initialState = {
+  email: '',
+};
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
   case 'LOGIN':
-    return action.value;
+    return { ...state, email: action.value };
   default:
     return state;
   }
