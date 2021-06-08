@@ -7,9 +7,9 @@ const INITIAL_USER = {
 
 export default function user(state = INITIAL_USER, action) {
   switch (action.type) {
-    case SET_EMAIL:
-      return { ...state, email: action.email };
-    default:
+  case SET_EMAIL:
+    return { ...state, email: action.email };
+  default:
       return state;
   }
 }
