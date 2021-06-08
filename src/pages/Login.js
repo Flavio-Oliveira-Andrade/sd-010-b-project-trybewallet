@@ -1,17 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      userEmail: '',
-      userPassword: '',
+      email: '',
+      password: '',
     };
   }
 
   render() {
-    const { userEmail, userPassword } = this.state;
+    const { email, password } = this.state;
     return (
       <form>
         <label htmlFor="emailInput">
@@ -22,7 +21,7 @@ class Login extends React.Component {
             id="emailInput"
             placeholder="Email"
             data-testid="email-input"
-            onChange={ (e) => this.setState({ userEmail: e.target.value }) }
+            onChange={ (e) => this.setState({ email: e.target.value }) }
           />
         </label>
 
@@ -34,17 +33,17 @@ class Login extends React.Component {
             id="passwordInput"
             placeholder="Password"
             data-testid="password-input"
-            onChange={ (e) => this.setState({ userPassword: e.target.value }) }
+            onChange={ (e) => this.setState({ password: e.target.value }) }
           />
         </label>
 
-        <Link
-          to="/clients"
+        <button
+          type="button"
           data-testid="btn-login"
-          onClick={ () => [userEmail, userPassword] } // temp
+          onClick={ () => [email, password] }
         >
           Entrar
-        </Link>
+        </button>
       </form>
     );
   }
