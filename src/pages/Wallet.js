@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../components/Header';
 import FormDespesa from '../components/FormDespesa';
 import './Wallet.css';
+import Tabela from '../components/Tabela';
 
 class Wallet extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class Wallet extends React.Component {
         <div className="form-despesa">
           <FormDespesa />
         </div>
+        <Tabela />
       </div>
     );
   }
