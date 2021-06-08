@@ -7,6 +7,7 @@ export default function Login() {
     <>
       <InputEmail />
       <InputPassword />
+      <ButtonEnter />
     </>
   );
 }
