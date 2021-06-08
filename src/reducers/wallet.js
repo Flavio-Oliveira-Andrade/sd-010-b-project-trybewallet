@@ -3,7 +3,7 @@ const INITIAL_STATE = {
   totalExpenses: 0,
 };
 
-function walletReducer(state = INITIAL_STATE, action) {
+function walletReducer(state = INITIAL_STATE) {
   return state;
 }
 
