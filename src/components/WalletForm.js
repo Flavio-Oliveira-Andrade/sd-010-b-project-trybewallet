@@ -1,7 +1,7 @@
 import React from 'react';
 
 const paymentMethodOptions = (
-  <select>
+  <select id="payment-method">
     <option>
       Cartão de crédito
     </option>
@@ -15,7 +15,7 @@ const paymentMethodOptions = (
 );
 
 const tagOptions = (
-  <select>
+  <select id="tag">
     <option>
       Alimentação
     </option>
@@ -44,7 +44,7 @@ class WalletForm extends React.Component {
         </label>
         <label htmlFor="currency">
           Moeda
-          <select>
+          <select id="currency">
             teste
           </select>
         </label>
@@ -56,7 +56,7 @@ class WalletForm extends React.Component {
           Método de Pagamento
           { paymentMethodOptions }
         </label>
-        <label htmlFor="payment-method">
+        <label htmlFor="tag">
           Tag
           { tagOptions }
         </label>
