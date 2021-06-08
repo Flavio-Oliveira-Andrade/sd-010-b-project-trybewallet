@@ -1,11 +1,13 @@
+import { SUBMIT_EMAIL } from '../actions';
+
 const INITIAL_STATE = {
   email: '',
 };
 
-function user(state = INITIAL_STATE, { type }) {
+function user(state = INITIAL_STATE, { type, email }) {
   switch (type) {
-  case 'A':
-    return '';
+  case SUBMIT_EMAIL:
+    return { ...state, email };
   default:
     return state;
   }
