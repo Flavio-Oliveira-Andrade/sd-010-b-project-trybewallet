@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { string, number } from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { string, number } from 'prop-types';
 
 class Header extends Component {
   render() {
