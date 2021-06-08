@@ -2,7 +2,7 @@ import React from 'react';
 
 class Login extends React.Component {
   render() {
-    return(
+    return (
       <form>
         <label htmlFor="email">
           E-mail
@@ -10,14 +10,17 @@ class Login extends React.Component {
             type="email"
             name="email"
             data-testid="email-input"
+            required
           />
         </label>
-        <label htmlFor="">
+        <label htmlFor="password">
           Senha
           <input
             type="password"
             name="password"
             data-testid="password-input"
+            minLength="6"
+            required
           />
         </label>
         <button type="button">
