@@ -22,4 +22,19 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.vscode
+.vscode.eslintignore
+.eslintrc.json
+.github/
+.stylelintignore
+.stylelintrc.json
+.trybe/
+README.md
+bonusDropdown.gif
+btnEditar.gif
+btnExcluir.gif
+carteira.gif
+login.gif
+package-lock.json
+package.json
+public/
+
