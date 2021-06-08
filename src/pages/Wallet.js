@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import NewExpense from '../components/NewExpense';
+import Table from '../components/Table';
 import '../styles/wallet.css';
 
 class Wallet extends React.Component {
@@ -9,6 +10,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <NewExpense />
+        <Table />
       </div>
     );
   }
