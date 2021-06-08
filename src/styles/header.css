@@ -1,0 +1,16 @@
+header {
+    align-items: center;
+    background-color: rgba(238, 112, 74, 0.637);
+    display: flex;
+    height: 10vh;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  
+  .header-title {
+    margin-right: 42vw;
+  }
+  
+  .header-field {
+    margin-right: 0.5vw;
+  }

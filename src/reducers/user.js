@@ -10,6 +10,6 @@ export default function user(state = INITIAL_USER, action) {
   case SET_EMAIL:
     return { ...state, email: action.email };
   default:
-      return state;
+    return state;
   }
 }
