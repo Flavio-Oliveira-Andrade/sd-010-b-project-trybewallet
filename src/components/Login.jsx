@@ -7,6 +7,10 @@ export default function Login() {
         Login
         <input type='email' id='login' data-testid="email-input" />
       </label>
+      <label htmlFor='password'>
+        Password
+        <input type='password' id='password' data-testid="password-input" />
+      </label>
     </form>
   )
 }
