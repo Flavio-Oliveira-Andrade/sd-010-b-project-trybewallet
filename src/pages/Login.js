@@ -8,7 +8,7 @@ class Login extends React.Component {
 
         <input data-testid="email-input" />
         <input data-testid="password-input" />
-        <button>Entrar</button>
+        <button type="button">Entrar</button>
       </div>
     );
   }

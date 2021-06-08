@@ -1,7 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-import { bindActionCreators } from "redux";
-
 const initialState = {
   wallet: {
     currencies: [],
@@ -9,7 +7,7 @@ const initialState = {
   },
 };
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type }) => {
   switch (type) {
   case '':
     // return { ...state, ...payload };
