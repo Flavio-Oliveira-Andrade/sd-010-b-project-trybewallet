@@ -20,15 +20,19 @@ class LoginPage extends React.Component {
   }
 
   handleEmail({ value }) {
-    this.setState({
-      email: value,
-    });
-    const { email } = this.state;
-    if (email.includes('@') && email.includes('.')) {
+    if (value.match(/[a-z]+@[a-z]+.com/g)) {
       this.setState({
         validEmail: true,
       });
+    } else {
+      this.setState({
+        validEmail: false,
+      });
     }
+
+    this.setState({
+      email: value,
+    });
   }
 
   handlePassword({ value }) {
