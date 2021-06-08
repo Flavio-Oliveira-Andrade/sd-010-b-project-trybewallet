@@ -3,41 +3,57 @@ import React from 'react';
 class LoginPage extends React.Component {
   constructor() {
     super();
-    this.handleInput = this.handleInput.bind(this);
-    this.handleInput = this.handleInput.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
 
     this.state = {
       email: '',
-      buttonDisabled: true,
+      validPassword: false,
+      validEmail: false,
     };
   }
 
-  handleInput({ value }) {
-    const email = value;
+  handleEmail({ value }) {
     this.setState({
-      email,
+      email: value,
     });
+    const { email } = this.state;
+    if (email.includes('@') && email.includes('.')) {
+      this.setState({
+        validEmail: true,
+      });
+    }
   }
 
-  goToWallet() {
-
+  handlePassword({ value }) {
+    const MIN_LENGTH_PASSWORD = 6;
+    if (value.length >= MIN_LENGTH_PASSWORD) {
+      this.setState({
+        validPassword: true,
+      });
+    } else {
+      this.setState({
+        validPassword: false,
+      });
+    }
   }
 
   render() {
-    const { buttonDisabled } = this.state;
+    const { validEmail, validPassword } = this.state;
     return (
       <section>
         <form>
           <input
             type="email"
             data-testid="email-input"
-            onChange={ ({ target }) => this.handleInput(target) }
+            onChange={ ({ target }) => this.handleEmail(target) }
           />
           <input
             type="password"
             data-testid="password-input"
+            onChange={ ({ target }) => this.handlePassword(target) }
           />
-          <button type="button" disabled={ buttonDisabled } onClick={ this.goToWallet }>
+          <button type="button" disabled={ !validEmail || !validPassword }>
             Entrar
           </button>
         </form>
