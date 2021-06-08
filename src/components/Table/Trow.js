@@ -5,15 +5,6 @@ import { removeExpense, isChangeEdit, handleExpense } from '../../actions';
 import Button from '../Button';
 
 class Trow extends Component {
-  constructor() {
-    super();
-    this.updateExpense = this.updateExpense.bind(this);
-  }
-
-  updateExpense() {
-
-  }
-
   render() {
     const {
       changeEdit,
