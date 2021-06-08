@@ -2,15 +2,15 @@
 import { SET_USER } from '../actions/index';
 
 const initialState = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
   case SET_USER:
-    return action.payload.name;
+    return {
+      email: action.payload.email,
+    };
   default:
     return state;
   }

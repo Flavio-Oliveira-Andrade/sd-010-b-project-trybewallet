@@ -1,10 +1,10 @@
 import { SET_USER } from './index';
 
-const longinAction = (name) => ({
+const loginAction = (email) => ({
   type: SET_USER,
   payload: {
-    name,
+    email,
   },
 });
 
-export default longinAction;
+export default loginAction;
