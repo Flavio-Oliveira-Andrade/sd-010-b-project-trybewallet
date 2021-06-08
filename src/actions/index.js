@@ -25,9 +25,9 @@ export const deleteExpense = (id) => ({
 });
 
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
-export const editExpense = (id) => ({
+export const editExpense = (expense) => ({
   type: EDIT_EXPENSE,
-  id,
+  expense,
 });
 
 export const CONFIRM_EDIT = 'CONFIRM_EDIT';

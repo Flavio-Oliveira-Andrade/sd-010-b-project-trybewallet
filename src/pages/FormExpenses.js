@@ -19,10 +19,30 @@ class FormExpenses extends React.Component {
     this.renderCurrencyAndMethod = this.renderCurrencyAndMethod.bind(this);
     this.handleEditMode = this.handleEditMode.bind(this);
     this.resetState = this.resetState.bind(this);
+    this.retrieveEditExpenseState = this.retrieveEditExpenseState.bind(this);
   }
 
   componentDidMount() {
     this.doFetch();
+  }
+
+  retrieveEditExpenseState() {
+    const { editExpense } = this.props;
+    // console.log(editExpense)
+    const { expense } = this.state;
+    this.setState((oldState) => ({
+      ...oldState,
+      shouldLoop: false,
+      expense: {
+        ...expense,
+        value: editExpense.value,
+        currency: editExpense.currency,
+        method: editExpense.currency,
+        tag: editExpense.tag,
+        description: editExpense.description,
+        exchangeRates: editExpense.exchangeRates,
+      },
+    }));
   }
 
   async doFetch() {
@@ -33,6 +53,7 @@ class FormExpenses extends React.Component {
       ...oldState,
       coins: formattedResult,
       isFetched: true,
+      shouldLoop: true,
       expense: {
         id: 0,
         value: 0,
@@ -74,29 +95,23 @@ class FormExpenses extends React.Component {
     const { expenseSubmitAction, thunkerAction } = this.props;
     const { expense } = this.state;
     const coins = await thunkerAction();
-    expense.exchangeRates = coins;
-    expenseSubmitAction(expense);
+    expenseSubmitAction({ ...expense, exchangeRates: coins });
     this.resetState();
   }
 
-  async handleConfirmEdit(editId) {
-    const { confirmEditAction, expensesList } = this.props;
-    const editExpenseHandler = expensesList.find((expense) => expense.id === editId);
-    const { expense } = this.state;
-    const editExpense = expense;
-    editExpense.id = editExpenseHandler.id;
-    editExpense.exchangeRates = editExpenseHandler.exchangeRates;
-    confirmEditAction(editId, editExpense);
+  async handleConfirmEdit(expenseToEdit) {
+    const { confirmEditAction } = this.props;
+    confirmEditAction(expenseToEdit.id, expenseToEdit);
     this.resetState();
   }
 
   handleEditMode() {
     const { editMode } = this.props;
+    const { expense } = this.state;
     if (editMode) {
-      const { editExpenseId } = this.props;
       return (
         <button
-          onClick={ () => this.handleConfirmEdit(editExpenseId) }
+          onClick={ () => this.handleConfirmEdit(expense) }
           type="button"
         >
           Editar Despesa
@@ -179,7 +194,9 @@ class FormExpenses extends React.Component {
     if (!isFetched) {
       return <div>Carregando...</div>;
     }
-    const { expense: { tag } } = this.state;
+    const { expense: { tag }, shouldLoop } = this.state;
+    const { editMode } = this.props;
+    if (editMode && shouldLoop) { this.retrieveEditExpenseState(); }
     return (
       <form>
         { this.inputDespesaDescricao(this.state) }
@@ -214,7 +231,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   expensesList: state.wallet.expenses,
   editMode: state.wallet.editMode,
-  editExpenseId: state.wallet.editExpenseId,
+  editExpense: state.wallet.editExpense,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpenses);
@@ -224,7 +241,7 @@ FormExpenses.propTypes = {
   thunkerAction: PropTypes.func.isRequired,
   confirmEditAction: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
-  editExpenseId: PropTypes.number,
+  editExpense: PropTypes.objectOf,
   expensesList: PropTypes.arrayOf(
     PropTypes.shape({
       currency: PropTypes.string.isRequired,
@@ -239,5 +256,5 @@ FormExpenses.propTypes = {
 
 FormExpenses.defaultProps = {
   editMode: null,
-  editExpenseId: null,
+  editExpense: null,
 };
