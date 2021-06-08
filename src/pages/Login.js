@@ -19,8 +19,14 @@ class Login extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.verifyLoginConditions = this.verifyLoginConditions.bind(this);
     this.handleEnterButtonClick = this.handleEnterButtonClick.bind(this);
+    this.handleEnterKeyDown = this.handleEnterKeyDown.bind(this);
   }
 
+  /*
+    O código abaixo é uma adaptação de
+    https://www.w3resource.com/javascript/form/email-validation.php,
+    afinal, não domino regex.
+  */
   verifyEmail(email) {
     const format = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (email.match(format)) {
@@ -61,6 +67,13 @@ class Login extends React.Component {
     () => this.verifyLoginConditions());
   }
 
+  handleEnterKeyDown(event) {
+    const { email, disabled } = this.state;
+    if (event.key === 'Enter' && !disabled) {
+      this.handleEnterButtonClick(email);
+    }
+  }
+
   handleEnterButtonClick(email) {
     const { dispatchUserLogin } = this.props;
     dispatchUserLogin(email);
@@ -79,16 +92,28 @@ class Login extends React.Component {
     }
     return (
       <section>
-        <input
-          type="email"
-          data-testid="email-input"
-          onChange={ this.handleEmailChange }
-        />
-        <input
-          type="password"
-          data-testid="password-input"
-          onChange={ this.handlePasswordChange }
-        />
+        <label htmlFor="email-input">
+          Email:
+          <input
+            type="email"
+            id="email-input"
+            data-testid="email-input"
+            onChange={ this.handleEmailChange }
+            onKeyDown={ this.handleEnterKeyDown }
+            placeholder="Email"
+          />
+        </label>
+        <label htmlFor="password-input">
+          Senha:
+          <input
+            type="password"
+            id="password-input"
+            data-testid="password-input"
+            onChange={ this.handlePasswordChange }
+            placeholder="Senha"
+            onKeyDown={ this.handleEnterKeyDown }
+          />
+        </label>
         <button
           type="button"
           disabled={ disabled }
