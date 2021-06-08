@@ -24,6 +24,7 @@ class Login extends React.Component {
               data-testid="password-input"
             />
           </label>
+          <button type="button">Entrar</button>
         </form>
       </>
     );
