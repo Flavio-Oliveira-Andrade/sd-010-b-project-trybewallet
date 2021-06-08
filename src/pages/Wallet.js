@@ -44,7 +44,7 @@ class Wallet extends React.Component {
         </label>
         <label htmlFor="descricao">
           Descrição
-          <input type="text" name="descricao" />
+          <input type="text" name="descricao" id="descricao" />
         </label>
         <label htmlFor="moeda">
           Moeda:

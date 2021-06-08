@@ -91,7 +91,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(debitOption).toBeInTheDocument();
   });
 
-  test.only('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
+  test('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const tagInput = await screen.findByRole('combobox', {
       name: /tag/i,
