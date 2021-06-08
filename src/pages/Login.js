@@ -1,4 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import userLoginAction from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -33,7 +37,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { isDisable } = this.state;
+    const { userLogin } = this.props;
+    const { isDisable, email } = this.state;
     return (
       <section>
         Login
@@ -59,11 +64,23 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="submit" disabled={ isDisable }>Entrar</button>
+          <Link to="/carteira">
+            <button
+              type="submit"
+              disabled={ isDisable }
+              onClick={ () => userLogin(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </section>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (email) => dispatch(userLoginAction(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
