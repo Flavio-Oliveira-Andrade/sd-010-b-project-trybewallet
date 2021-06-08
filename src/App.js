@@ -1,3 +1,4 @@
+// iniciando o projeto
 import React from 'react';
 
 function App() {
