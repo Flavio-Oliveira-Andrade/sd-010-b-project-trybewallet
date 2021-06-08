@@ -56,9 +56,9 @@ class Login extends React.Component {
               type="text"
               id="email-input"
               name="email"
-              value={ email }
+              value={email}
               data-testid="email-input"
-              onChange={ this.handleChange }
+              onChange={this.handleChange}
             />
           </label>
         </div>
@@ -69,17 +69,17 @@ class Login extends React.Component {
               type="text"
               id="password-input"
               name="password"
-              value={ password }
+              value={password}
               data-testid="password-input"
-              onChange={ this.handleChange }
+              onChange={this.handleChange}
             />
           </label>
         </div>
         <div>
           <button
             type="button"
-            onClick={ this.handleClick }
-            disabled={ !(this.handleValidateEmail() && this.handleValidatePassword()) }
+            onClick={this.handleClick}
+            disabled={!(this.handleValidateEmail() && this.handleValidatePassword())}
           >
             Entrar
           </button>
