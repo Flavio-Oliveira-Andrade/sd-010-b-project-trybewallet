@@ -4,13 +4,30 @@ import { Link } from 'react-router-dom';
 class Login extends React.Component {
   render() {
     return (
-      <section>
-        <input type="email" data-testid="email-input" placeholder="E-mail" />
-        <input type="password" data-testid="password-input" placeholder="Senha" />
+      <form>
+        <label htmlFor="email">
+          <input
+            type="email"
+            name="email"
+            data-testid="email-input"
+            required
+            placeholder="E-mail"
+          />
+        </label>
+        <label htmlFor="password">
+          <input
+            type="password"
+            name="password"
+            data-testid="password-input"
+            required
+            placeholder="Senha"
+            min="6"
+          />
+        </label>
         <Link to="/carteira">
           <button type="button">Entrar</button>
         </Link>
-      </section>
+      </form>
     );
   }
 }
