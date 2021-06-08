@@ -1,0 +1,26 @@
+.div-wallet {
+  display: flex;
+  flex-direction: row;
+  float: right;
+}
+
+.email {
+  margin-right: 10px;
+}
+
+.header-wallet {  
+  display: flex;
+  flex-direction: row;
+  font-size: smaller;
+  padding: 0;
+}
+
+.despesa {
+  padding-right: 5px;
+  margin-right: 10px;
+}
+
+.cambio {
+  padding-right: 5px;
+  margin-right: 10px;
+}

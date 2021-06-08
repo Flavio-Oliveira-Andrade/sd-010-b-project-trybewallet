@@ -1,0 +1,11 @@
+.wallet {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-despesa {
+  background-color: black;
+  color: white;
+  height: 22px;
+  padding: 6px;
+}
