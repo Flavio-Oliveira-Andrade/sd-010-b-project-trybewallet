@@ -1,9 +1,12 @@
 import React from 'react';
+import InputEmail from '../components/ComponentsLogin/InputEmail';
+import InputPassword from '../components/ComponentsLogin/InputPassword';
 
-class Login extends React.Component {
-  render() {
-    return <div>Pagina de Login</div>;
-  }
+export default function Login() {
+  return (
+    <>
+      <InputEmail />
+      <InputPassword />
+    </>
+  );
 }
-
-export default Login;
