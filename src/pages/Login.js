@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { saveEmailLogin } from '../actions';
 
 class Login extends React.Component {
@@ -81,21 +83,27 @@ class Login extends React.Component {
           />
         </label>
         {' '}
-        <button
-          type="button"
-          disabled={ !validLogin }
-          onClick={ this.executeLogin }
-        >
-          Entrar
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !validLogin }
+            onClick={ this.executeLogin }
+          >
+            Entrar
 
-        </button>
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch(saveEmailLogin()),
+  login: (email) => dispatch(saveEmailLogin(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  login: PropTypes.function,
+}.isRequired;
