@@ -1,7 +1,15 @@
 import React from 'react';
+import { Route, Switch } from 'react-router';
+import Login from './components/Login';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render() {
+    return (
+      <Switch>
+        <Route path="/" component={ Login } />
+      </Switch>
+    );
+  }
 }
 
 export default App;
