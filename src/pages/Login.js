@@ -1,9 +1,9 @@
 import React from 'react';
-import ButtonEnter from '../components/ComponentsLogin/ButtonEnter';
-import InputEmail from '../components/ComponentsLogin/InputEmail';
-import InputPassword from '../components/ComponentsLogin/InputPassword';
+import ButtonEnter from '../components/componentslogin/ButtonEnter';
+import InputEmail from '../components/componentslogin/InputEmail';
+import InputPassword from '../components/componentslogin/InputPassword';
 
-export default function Login() {
+function Login() {
   return (
     <>
       <InputEmail />
@@ -12,3 +12,5 @@ export default function Login() {
     </>
   );
 }
+
+export default Login;

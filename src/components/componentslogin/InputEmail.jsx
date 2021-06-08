@@ -6,7 +6,7 @@ function InputEmail() {
     <input
       id="email-id"
       type="text"
-      testid="email-input"
+      data-testid="email-input"
       placeholder="Insira seu email"
     />
 
