@@ -17,6 +17,7 @@ class Login extends React.Component {
             min="6"
           />
         </label>
+        <button type="button">Entrar</button>
       </div>);
   }
 }
