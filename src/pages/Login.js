@@ -1,18 +1,18 @@
 import React from 'react';
+import './Login.css';
 
 class Login extends React.Component {
   render() {
+    return (
+      <form>
+        <input data-testid="email-input" type="email" />
 
-    return <div>Login</div>;
-       <form>
-        <label>
-        <input data-testid="email-input"/>
-      </label>
-        <label>
-        <input data-testid="password-input"/>
-      </label>
-      <button>Entrar</button>
-      </form>;
+        <input data-testid="password-input" type="password" />
+
+        <button type="button">Entrar</button>
+      </form>
+
+    );
   }
 }
 
