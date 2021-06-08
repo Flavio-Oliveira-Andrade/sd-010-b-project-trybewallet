@@ -8,7 +8,7 @@
   margin-right: 10px;
 }
 
-.header-wallet {  
+.header-wallet {
   display: flex;
   flex-direction: row;
   font-size: smaller;
@@ -16,11 +16,11 @@
 }
 
 .despesa {
-  padding-right: 5px;
   margin-right: 10px;
+  padding-right: 5px;
 }
 
 .cambio {
-  padding-right: 5px;
   margin-right: 10px;
+  padding-right: 5px;
 }
