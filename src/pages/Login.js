@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import loginAction from '../actions';
 
@@ -9,6 +10,7 @@ class Login extends React.Component {
     this.state = {
       isEmail: false,
       isPassword: false,
+      email: '',
     };
     this.checkEmail = this.checkEmail.bind(this);
     this.checkPassword = this.checkPassword.bind(this);
@@ -21,6 +23,7 @@ class Login extends React.Component {
     const isEmail = emailRegexp.test(value);
     this.setState({
       isEmail,
+      email: target.value,
     });
   }
 
@@ -35,7 +38,16 @@ class Login extends React.Component {
     return (isEmail && isPassword);
   }
 
+  // handleEmail({ target }) {
+  //   const { value } = target;
+  //   this.setState({
+  //     email: value,
+  //   });
+  // }
+
   render() {
+    const { login } = this.props;
+    const { email } = this.state;
     return (
       <form>
         <label htmlFor="email">
@@ -59,9 +71,13 @@ class Login extends React.Component {
         </label>
         <br />
         <Link
-          to="/wallet"
+          to="/carteira"
         >
-          <button type="button" disabled={ !this.enableButton() }>
+          <button
+            type="button"
+            disabled={ !this.enableButton() }
+            onClick={ () => login(email) }
+          >
             Entrar
           </button>
         </Link>
@@ -69,6 +85,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   login: (e) => dispatch(loginAction(e)),
