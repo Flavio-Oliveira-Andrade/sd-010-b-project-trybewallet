@@ -9,15 +9,9 @@ class Login extends React.Component {
       invalidEmail: false,
       invalidPassword: false,
       buttonDisabled: true,
-      loggedIn: false,
     };
     this.validateFields = this.validateFields.bind(this);
-    this.setLogOn = this.setLogOn.bind(this);
     this.loginEnabled = this.loginEnabled.bind(this);
-  }
-
-  setLogOn() {
-    this.setState({ loggedIn: true });
   }
 
   validateFields() {
@@ -82,7 +76,6 @@ class Login extends React.Component {
           </label>
           <button
             type="button"
-            onClick={ () => { this.setLogOn(); } }
             disabled={ buttonDisabled }
           >
             Entrar
