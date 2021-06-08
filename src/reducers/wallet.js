@@ -1,11 +1,13 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const reducerWallet = (state,action) => {
-//   switch (key) {
-//     case value:
+const initialState = [];
+const reducerWallet = (state = initialState, action) => {
+  switch (action.type) {
+  case 'WALLET':
+    return '';
 
-//       break;
+  default:
+    return state;
+  }
+};
 
-//     default:
-//       break;
-//   }
-// }
+export default reducerWallet;
