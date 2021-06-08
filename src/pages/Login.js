@@ -1,4 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,9 +13,15 @@ class Login extends React.Component {
       invalidEmail: false,
       invalidPassword: false,
       buttonDisabled: true,
+      loggedIn: false,
     };
     this.validateFields = this.validateFields.bind(this);
     this.loginEnabled = this.loginEnabled.bind(this);
+    this.setLogOn = this.setLogOn.bind(this);
+  }
+
+  setLogOn() {
+    this.setState({ loggedIn: true });
   }
 
   validateFields() {
@@ -42,48 +52,61 @@ class Login extends React.Component {
   }
 
   render() {
-    const { buttonDisabled } = this.state;
+    const { buttonDisabled, loggedIn, email } = this.state;
+    const { login } = this.props;
 
     return (
-      <div>
-        <form>
-          <label htmlFor="email-input">
-            Usuário:
-            <input
-              data-testid="email-input"
-              id="email-input"
-              type="text"
-              name="usuario"
-              onChange={ (event) => {
-                this.validateFields();
-                this.setState({ email: event.target.value },
-                  () => { this.validateFields(); });
-              } }
-            />
-          </label>
-          <label htmlFor="password-input">
-            Senha:
-            <input
-              data-testid="password-input"
-              id="password-input"
-              type="password"
-              onChange={ (event) => {
-                this.validateFields();
-                this.setState({ password: event.target.value },
-                  () => { this.validateFields(); });
-              } }
-            />
-          </label>
-          <button
-            type="button"
-            disabled={ buttonDisabled }
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
+      loggedIn ? <Redirect to="/carteira" />
+        : (
+          <div>
+            <form>
+              <h1>Trybe Wallet</h1>
+              <label htmlFor="email-input">
+                Usuário:
+                <input
+                  data-testid="email-input"
+                  id="email-input"
+                  type="text"
+                  name="usuario"
+                  onChange={ (event) => {
+                    this.validateFields();
+                    this.setState({ email: event.target.value },
+                      () => { this.validateFields(); });
+                  } }
+                />
+              </label>
+              <label htmlFor="password-input">
+                Senha:
+                <input
+                  data-testid="password-input"
+                  id="password-input"
+                  type="password"
+                  onChange={ (event) => {
+                    this.validateFields();
+                    this.setState({ password: event.target.value },
+                      () => { this.validateFields(); });
+                  } }
+                />
+              </label>
+              <button
+                type="button"
+                disabled={ buttonDisabled }
+                onClick={ () => { this.setLogOn(); login({ email }); } }
+              >
+                Entrar
+              </button>
+            </form>
+          </div>)
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (event) => dispatch(loginAction(event)),
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
