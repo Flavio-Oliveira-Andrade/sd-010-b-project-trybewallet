@@ -31,7 +31,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, disabledButton } = this.state;
+    const { email, disabledButton } = this.state;
     const { login } = this.props;
     return (
       <main>
@@ -44,8 +44,8 @@ class Login extends React.Component {
               type="email"
               name="email"
               onChange={ (event) => {
-                this.validarCampos();
                 this.setState({ email: event.target.value });
+                this.validarCampos();
               } }
             />
           </label>
@@ -56,8 +56,8 @@ class Login extends React.Component {
               type="password"
               name="password"
               onChange={ (event) => {
-                this.validarCampos();
                 this.setState({ password: event.target.value });
+                this.validarCampos();
               } }
             />
           </label>
@@ -65,7 +65,7 @@ class Login extends React.Component {
             <button
               type="button"
               disabled={ disabledButton }
-              onClick={ () => login({ email, password }) }
+              onClick={ () => login({ email }) }
             >
               Entrar
             </button>
