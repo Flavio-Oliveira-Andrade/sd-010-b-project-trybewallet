@@ -37,7 +37,15 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="expense-currency">
             Moeda
-            <select id="expense-currency" />
+            <select id="expense-currency">Alo</select>
+          </label>
+          <label htmlFor="expense-payment-method">
+            Método de Pagamento
+            <select id="expense-payment-method">
+              <option value="cash">Dinheiro</option>
+              <option value="credit-card">Cartão de crédito</option>
+              <option value="debit-card">Cartão de débito</option>
+            </select>
           </label>
         </form>
       </div>
