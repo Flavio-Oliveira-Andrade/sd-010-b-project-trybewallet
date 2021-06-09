@@ -1,8 +1,12 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  listTodo: [],
-  filter: 'all',
-  id: 0,
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
 };
 
 function wallet(state = INITIAL_STATE, action) {

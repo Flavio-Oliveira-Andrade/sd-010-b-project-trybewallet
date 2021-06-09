@@ -1,9 +1,13 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
 const INITIAL_STATE = {
-  listTodo: [],
-  filter: 'all',
-  id: 0,
+  user: {
+    email: '',
+  },
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
 };
 
 function user(state = INITIAL_STATE, action) {
