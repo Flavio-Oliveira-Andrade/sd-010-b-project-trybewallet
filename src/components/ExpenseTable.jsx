@@ -50,4 +50,12 @@ function ExpenseTable({ expenses }) {
   );
 }
 
-export default ExpenseTable;
+const mapStateToProps = ({ wallet: { expenses } }) => ({
+  expenses,
+});
+
+export default connect(mapStateToProps)(ExpenseTable);
+
+ExpenseTable.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
