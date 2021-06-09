@@ -75,7 +75,7 @@ class Wallet extends React.Component {
       const onlyValues = Object.values(item.exchangeRates);
       const withoutBRLT = onlyValues.filter((el) => el.codein !== 'BRLT');
       const findCurrency = withoutBRLT.filter((el) => choosenCurrency === el.code);
-      const valueCurrency = findCurrency[0].ask
+      const valueCurrency = findCurrency[0].ask;
       total += Number(item.value) * valueCurrency;
       return (total);
     }, 0);
