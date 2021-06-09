@@ -17,8 +17,8 @@ class Wallet extends React.Component {
         value: '',
         description: '',
         currency: 'USD',
-        method: '',
-        tag: '',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
       },
     };
   }
@@ -65,6 +65,10 @@ class Wallet extends React.Component {
     });
   }
 
+  findCurrency () {
+    
+  }
+
   calculateTotal() {
     const { expenses } = this.props;
     if (expenses.length < 1) {
@@ -81,16 +85,75 @@ class Wallet extends React.Component {
     }, 0);
   }
 
+  otherInfos(item) {
+    // finds our exchange name and value
+    const choosenCurrency = item.currency;
+    const onlyValues = Object.values(item.exchangeRates);
+    const withoutBRLT = onlyValues.filter((el) => el.codein !== 'BRLT');
+    const exchangeUsed = withoutBRLT.filter((el) => choosenCurrency === el.code)[0];
+    const exchangeName = exchangeUsed.name.split('/')[0];
+    const valueCurrency = Number(exchangeUsed.ask).toFixed(2);
+
+    // finds our converted to BRL value
+    const { value } = item;
+    const convertedValue = Number(value) * exchangeUsed.ask;
+
+    return ([exchangeName, valueCurrency, convertedValue.toFixed(2)]);
+  }
+
   returnDispensesList() {
     const { expenses } = this.props;
     return (
-      <section>
-        { expenses.map((item, index) => (
-          <div key={ index }>
-            <p>{ item.valor }</p>
-          </div>
-        ))}
-      </section>
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map((item, index) => this.renderRow(item, index)) }
+        </tbody>
+      </table>
+    );
+  }
+
+  renderRow(item, index) {
+    const [exchangeName, valueCurrency, convertedValue] = this.otherInfos(item);
+    return (
+      <tr key={ index }>
+        <td>
+          {item.description}
+        </td>
+        <td>
+          {item.tag}
+        </td>
+        <td>
+          {item.method}
+        </td>
+        <td>
+          {item.value}
+        </td>
+        <td>
+          { valueCurrency }
+        </td>
+        <td>
+          { exchangeName }
+        </td>
+        <td>
+          { convertedValue }
+        </td>
+        <td>
+          Real
+        </td>
+      </tr>
     );
   }
 
