@@ -3,18 +3,6 @@ import ExpenseForms from '../components/ExpenseForms';
 import Header from '../components/Header';
 import ExpenseTable from '../components/ExpenseTable';
 
-const tableHeader = [
-  'Descrição',
-  'Tag',
-  'Método de pagamento',
-  'Valor',
-  'Moeda',
-  'Câmbio utilizado',
-  'Valor convertido',
-  'Moeda de conversão',
-  'Editar/Excluir',
-];
-
 class Wallet extends React.Component {
   constructor() {
     super();
@@ -48,16 +36,7 @@ class Wallet extends React.Component {
       <>
         <Header />
         <ExpenseForms currencies={ currencies } fetchAPI={ this.fetchAPI } />
-
-        <table>
-          <thead>
-            <tr>
-              {tableHeader.map((th, idx) => <th key={ idx }>{th}</th>)}
-            </tr>
-          </thead>
-          <ExpenseTable />
-        </table>
-
+        <ExpenseTable />
       </>
     );
   }
