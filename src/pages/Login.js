@@ -8,23 +8,24 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      disabled: true,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    document.getElementById('login-button').disabled = true;
-  }
-
   handleChange() {
+    const re = /\S+@\S+\.\S+/;
+    const MIN_PASSWORD_LENGTH = 6;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const re = /\S+@\S+\.\S+/;
-    const MIN_PASSWORD_LENGTH = 6;
     if (re.test(email) && password.length >= MIN_PASSWORD_LENGTH) {
-      document.getElementById('login-button').disabled = false;
+      this.setState({ disabled: false });
     } else {
-      document.getElementById('login-button').disabled = true;
+      this.setState({ disabled: true });
     }
   }
 
@@ -35,6 +36,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const { disabled } = this.state;
     return (
       <section id="login">
         <h1>Login</h1>
@@ -61,6 +63,7 @@ class Login extends React.Component {
           id="login-button"
           value="Entrar"
           onClick={ this.handleClick }
+          disabled={ disabled }
         />
       </section>
     );
