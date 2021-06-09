@@ -1,11 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Input } from './Input';
+import { Input } from '../components/Input';
+import { fetchCurrency as fetchCurrencyThunk } from '../actions';
+import { SelectPagamento } from '../components/SelectPagamento';
 
 class Wallet extends React.Component {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     currency: [],
+  //   };
+  //   this.attState = this.attState.bind(this);
+  // }
+
+  componentDidMount() {
+    const { fetchCurrency } = this.props;
+    fetchCurrency();
+  }
+
+  // attState(arg) {
+  //   this.setState({
+  //     currency: arg,
+  //   });
+  // }
+
   render() {
-    const { emailUser } = this.props;
+    const { emailUser, currencyM } = this.props;
+    console.log(currencyM);
     return (
       <>
         <header>
@@ -25,17 +47,17 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda:
             <select name="moeda" id="moeda">
-              <option>1</option>
+              {Object.keys(currencyM)
+                .map((element, index) => (
+                  <option
+                    key={ index }
+                  >
+                    {element}
+                  </option>
+                ))}
             </select>
           </label>
-          <label htmlFor="pagamento">
-            Método de Pagamento:
-            <select name="pagamento" id="pagamento">
-              <option>Dinheiro</option>
-              <option>Cartão de Crédito</option>
-              <option>Cartão de Débito</option>
-            </select>
-          </label>
+          <SelectPagamento />
           <label htmlFor="tag">
             Tag:
             <select name="tag" id="tag">
@@ -58,6 +80,11 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   emailUser: state.user.email,
+  currencyM: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrency: () => dispatch(fetchCurrencyThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
