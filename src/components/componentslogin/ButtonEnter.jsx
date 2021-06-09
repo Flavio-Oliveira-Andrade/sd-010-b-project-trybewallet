@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ButtonEnter({ enterLogin = null }) {
+function ButtonEnter({
+  enterLogin = null,
+  disabledEnter = false,
+}) {
   function login() {
     if (enterLogin) {
       enterLogin();
