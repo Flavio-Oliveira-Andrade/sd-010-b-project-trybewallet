@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { actionLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -12,6 +15,8 @@ class Login extends React.Component {
     this.state = {
       passwordInvalid: true,
       emailInvalid: true,
+      email: 'teste',
+      redirect: false,
     };
   }
 
@@ -29,17 +34,22 @@ class Login extends React.Component {
     // código tirado do site: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
     const re = /\S+@\S+\.\S+/;
     if (re.test(event.target.value)) {
-      this.setState({ emailInvalid: false });
+      this.setState({ emailInvalid: false, email: event.target.value });
     }
   }
 
   handleClick() {
-    const { history } = this.props;
-    history.push('/carteira');
+    const { loginUser } = this.props;
+    const { email } = this.state;
+    loginUser(email);
+    this.setState({ redirect: true });
   }
 
   render() {
-    const { passwordInvalid, emailInvalid } = this.state;
+    const { passwordInvalid, emailInvalid, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <div>
         <form>
@@ -68,8 +78,12 @@ class Login extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (payload) => dispatch(actionLogin(payload)),
+});
+
 Login.propTypes = {
-  history: PropTypes.arrayOf.isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
