@@ -1,8 +1,9 @@
 const API_URL = 'https://economia.awesomeapi.com.br/json/all';
 
-const currenciesAPI = () => fetch(API_URL)
+export const currenciesInitialsAPI = () => fetch(API_URL)
   .then((res) => res.json())
-  .then((res) => Object.entries(res))
-  .then((res) => res.filter((pair) => pair[0] !== 'USDT'));
+  .then((res) => Object.keys(res))
+  .then((res) => res.filter((currency) => currency !== 'USDT'));
 
-export default currenciesAPI;
+export const exchangeRatesAPI = () => fetch(API_URL)
+  .then((res) => res.json());
