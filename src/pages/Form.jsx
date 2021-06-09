@@ -11,7 +11,7 @@ class Form extends React.Component {
         <form>
           <label htmlFor="valor">
             Valor:
-            <input id="valor" type="text" name="valor" onChange={ (e) => console.log(e.target.value) } />
+            <input id="valor" type="text" name="valor" />
           </label>
           <label htmlFor="descricao">
             Descrição:
@@ -34,11 +34,11 @@ class Form extends React.Component {
           <label htmlFor="Tag">
             Tag
             <select id="Tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
+              <option value="alimentacao">Alimentação</option>
+              <option value="lazer">Lazer</option>
+              <option value="trabalho">Trabalho</option>
+              <option value="transporte">Transporte</option>
+              <option value="saude">Saúde</option>
             </select>
             <button type="button">Adicionar Despesa</button>
           </label>
