@@ -1,14 +1,15 @@
 const INITIAL_STATE = {
-    state: '',
-  };
-  
-  function user(state = INITIAL_STATE, action) {
-    switch (action.type) {
-      case 'NEW_ACTION':
-        return { state: action.state };
-      default:
-        return state;
-    }
+  email: '',
+  password: '',
+};
+
+function user(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case 'login':
+    return { state: action.state };
+  default:
+    return state;
   }
-  
-  export default user;
+}
+
+export default user;
