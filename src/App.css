@@ -1,4 +1,9 @@
-.App {
+.validateError {
+  color: rgb(252, 63, 63);
+  font-size: small;
+  margin-top: 3px;
+}
+/* .App {
   text-align: center;
 }
 
@@ -38,4 +43,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
