@@ -39,3 +39,29 @@
     transform: rotate(360deg);
   }
 }
+
+.loginSection {
+  border: solid black 1px;
+  border-radius: 4px;
+  width: 200px;
+  height: 150px; 
+  left: 50%;
+  position: absolute; 
+  top: 50%;
+}
+
+.loginSection input {
+  border: solid black 1px;
+  border-radius: 4px;
+  height: 20px;
+  margin: 8px;
+  width: 90%;
+}
+
+.loginSection button {
+  border: solid black 1px;
+  border-radius: 4px;
+  height: 20px;
+  margin: 8px;
+  width: 90%;
+}
