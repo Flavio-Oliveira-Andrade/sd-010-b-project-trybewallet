@@ -113,8 +113,8 @@ class Wallet extends React.Component {
 }
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  currencies: state.wallet.wallet.currencies,
-  isFetching: state.wallet.wallet.isFetching,
+  currencies: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchMoedasThunk: () => dispatch(fetchCurrencies()),

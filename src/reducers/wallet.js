@@ -1,9 +1,9 @@
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-    isFetching: false,
-  },
+
+  currencies: [],
+  expenses: [],
+  isFetching: false,
+
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -11,15 +11,13 @@ const wallet = (state = INITIAL_STATE, action) => {
   case 'REQUEST':
     return {
       ...state,
-      wallet: { ...state.wallet, isFetching: action.payload.isFetching },
+      isFetching: action.payload.isFetching,
     };
   case 'ADD_MOEDAS':
     return {
       ...state,
-      wallet: { ...state.wallet,
-        currencies: [action.payload.currencies],
-        isFetching: action.payload.isFetching,
-      },
+      currencies: [action.payload.currencies],
+      isFetching: action.payload.isFetching,
     };
   case 'ERROR':
     return state;
