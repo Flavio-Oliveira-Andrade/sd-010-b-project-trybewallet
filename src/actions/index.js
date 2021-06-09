@@ -1,5 +1,13 @@
-function userLoginAction(email) {
+export function userLoginAction(email) {
   return { type: 'LOGIN', email };
 }
 
-export default userLoginAction;
+function getApi(currencies) {
+  return { type: 'GET_API', currencies };
+}
+
+export function requestMoedasApi(dataApi) {
+  return (dispatch) => {
+    dataApi.then((currencies) => dispatch(getApi(currencies)));
+  };
+}
