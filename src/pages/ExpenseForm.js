@@ -6,15 +6,15 @@ class ExpenseForm extends React.Component {
       <form>
         <label htmlFor="valor">
           Valor
-          <input type="text" name="valor" />
+          <input type="text" name="valor" id="valor" />
         </label>
         <label htmlFor="descricao">
           Descrição
-          <input type="text" name="descricao" />
+          <input type="text" name="descricao" id="descricao" />
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select>oi</select>
+          <select id="moeda">{' '}</select>
         </label>
         <label htmlFor="pagamento">
           Método de pagamento
