@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './Login.css';
 import { Redirect } from 'react-router-dom';
-import Wallet from './Wallet';
 import bitcoin from '../images/5a105381eed609b127ec423c337f64e3.gif';
 
 const PASSWORD_LENGTH = 5;
@@ -18,10 +17,10 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
     this.ableButton = this.ableButton.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
   }
 
   validate() {
+    // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail -> referência da validação do email
     const { email, password } = this.state;
     const emailTester = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/i;
     if (emailTester.test(email) && password.length >= PASSWORD_LENGTH) {
@@ -45,10 +44,6 @@ class Login extends React.Component {
         buttonDisable: false,
       });
     }
-  }
-
-  handleLogin() {
-
   }
 
   render() {
@@ -79,7 +74,7 @@ class Login extends React.Component {
             className="login--button"
             disabled={ buttonDisable }
             min={ 6 }
-            onClick={ this.handleLogin }
+            onClick={ () => <Redirect to="/carteira" /> }
             style={ { backgroundColor: buttonDisable ? '#AD3838' : '#DAF7A6' } }
           >
             Entrar
