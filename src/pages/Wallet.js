@@ -65,10 +65,6 @@ class Wallet extends React.Component {
     });
   }
 
-  findCurrency () {
-    
-  }
-
   calculateTotal() {
     const { expenses } = this.props;
     if (expenses.length < 1) {
