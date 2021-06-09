@@ -7,11 +7,19 @@ export const actionAddEmailUser = (email) => ({
     email,
   },
 });
+export const requestCurrencies = () => ({
+  type: 'REQUEST',
+  payload: {
+    isFetching: true,
+  },
+});
 
-export const requestCurrenciesSuccess = (currencies) => ({ // eslint-disable-line
+export const requestCurrenciesSuccess = (json) => ({
   type: 'ADD_MOEDAS',
   payload: {
-    currencies,
+    currencies: json,
+    currenciesData: json,
+    isFetching: false,
   },
 });
 
@@ -23,16 +31,13 @@ export const requestCurrenciesError = (error) => ({
 });
 
 export const fetchCurrencies = () => (dispatch) => {
+  dispatch(requestCurrencies());
   fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((response) => (
-      response.json()
-        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
-    ))
-    // problema na hora de colocar no store
-    .then((currenciesResponse) => dispatch(
-      requestCurrenciesSuccess(currenciesResponse),
-    ))
-    .catch((currenciesError) => dispatch(
-      requestCurrenciesError(currenciesError),
-    ));
+    .then((response) => (response.json())
+      .then((json) => {
+        dispatch(requestCurrenciesSuccess(json));
+      }))
+    .catch((currenciesError) => {
+      dispatch(requestCurrenciesError(currenciesError));
+    });
 };

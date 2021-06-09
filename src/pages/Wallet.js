@@ -12,6 +12,9 @@ class Wallet extends React.Component {
       cambioAtual: 0,
     };
     this.geraForm = this.geraForm.bind(this);
+    this.geraValor = this.geraValor.bind(this);
+    this.geraDescricao = this.geraDescricao.bind(this);
+    this.geraMoeda = this.geraMoeda.bind(this);
   }
 
   componentDidMount() {
@@ -19,23 +22,40 @@ class Wallet extends React.Component {
     fetchMoedasThunk();
   }
 
+  geraValor() {
+    return (
+      <label htmlFor="valorDespesa">
+        Valor
+        <input id="valorDespesa" />
+      </label>);
+  }
+
+  geraDescricao() {
+    return (
+      <label htmlFor="descricao">
+        Descrição
+        <input id="descricao" />
+      </label>);
+  }
+
+  geraMoeda() {
+    const { currencies } = this.props;
+    const moedas = Object.keys(currencies[0]).filter((moeda) => moeda !== 'USDT');
+    return (
+      <label htmlFor="moeda">
+        Moeda
+        <select name="moeda" id="moeda">
+          {moedas.map((moeda) => <option key={ moeda }>{moeda}</option>)}
+        </select>
+      </label>);
+  }
+
   geraForm() {
     return (
       <form>
-        <label htmlFor="valorDespesa">
-          Valor
-          <input id="valorDespesa" />
-        </label>
-        <label htmlFor="descricao">
-          Descrição
-          <input id="descricao" />
-        </label>
-        <label htmlFor="moeda">
-          Moeda
-          <select name="moeda" id="moeda">
-            <option name="moeda" value="BRL">BRL</option>
-          </select>
-        </label>
+        {this.geraValor()}
+        {this.geraDescricao()}
+        {this.geraMoeda()}
         <label htmlFor="metodoPagamento">
           Método de pagamento
           <select name="metodoPagamento" id="metodoPagamento">
@@ -58,8 +78,9 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, isFetching, currencies } = this.props;
     const { total, cambioAtual } = this.state;
+
     return (
       <main>
         <header>
@@ -83,12 +104,17 @@ class Wallet extends React.Component {
             {cambioAtual}
           </h3>
         </header>
-        {this.geraForm()}
+
+        {isFetching === true || currencies[0] === undefined
+          ? <h2>Carregando</h2> : this.geraForm()}
+
       </main>);
   }
 }
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.wallet.currencies,
+  isFetching: state.wallet.wallet.isFetching,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchMoedasThunk: () => dispatch(fetchCurrencies()),
@@ -97,6 +123,8 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   fetchMoedasThunk: PropTypes.func.isRequired,
+  currencies: PropTypes.shape().isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
