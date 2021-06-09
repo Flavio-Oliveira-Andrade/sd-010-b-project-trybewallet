@@ -5,7 +5,7 @@
 #login {
   display: flex;
   width: fit-content;
-  margin: 25vh auto 0 auto;
+  margin: 25vh auto 0;
   padding: 80px;
   border: 1px solid white;
   border-radius: 10px;
@@ -40,4 +40,9 @@ input[type="button"] {
   align-self: center;
   background-color: lightgreen;
   cursor: pointer;
+}
+
+header {
+  background-color: black;
+  color: white;
 } */
