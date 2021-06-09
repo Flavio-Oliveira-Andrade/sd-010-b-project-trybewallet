@@ -91,7 +91,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  currencies: PropTypes.array.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.array).isRequired,
   fetchCurrency: PropTypes.func.isRequired,
 };
 
