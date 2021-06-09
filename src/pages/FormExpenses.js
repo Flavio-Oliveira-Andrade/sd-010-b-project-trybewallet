@@ -11,12 +11,11 @@ class FormExpenses extends React.Component {
       isFetched: false,
       coins: [],
     };
-
     this.doFetch = this.doFetch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.inputDespesaDescricao = this.inputDespesaDescricao.bind(this);
-    this.renderCurrencyAndMethod = this.renderCurrencyAndMethod.bind(this);
+    this.renderCurrenciesAndMethod = this.renderCurrenciesAndMethod.bind(this);
     this.handleEditMode = this.handleEditMode.bind(this);
     this.resetState = this.resetState.bind(this);
     this.retrieveEditExpenseState = this.retrieveEditExpenseState.bind(this);
@@ -28,7 +27,7 @@ class FormExpenses extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { editMode, editExpense } = this.props;
-    if (editExpense.id && editMode && prevProps.editExpense.id !== editExpense.id) {
+    if (editMode && prevProps.editExpense !== editExpense) {
       this.retrieveEditExpenseState();
     }
   }
@@ -39,7 +38,6 @@ class FormExpenses extends React.Component {
       ...oldState,
       shouldLoop: false,
       expense: {
-        ...oldState.expense,
         ...editExpense,
       },
     }));
@@ -80,13 +78,8 @@ class FormExpenses extends React.Component {
     this.setState((oldState) => ({
       ...oldState,
       expense: {
+        ...oldState.expense,
         id: (editId ? expense.id + editId : expense.id + 1),
-        value: 0,
-        currency: 'USD',
-        method: 'dinheiro',
-        tag: 'alimentacao',
-        description: '',
-        exchangeRates: '',
       },
     }));
   }
@@ -154,13 +147,14 @@ class FormExpenses extends React.Component {
     );
   }
 
-  renderCurrencyAndMethod() {
+  renderCurrenciesAndMethod() {
     const { coins, expense: { currency, method } } = this.state;
     return (
       <>
-        <label htmlFor="moeda" data-testid="currency-input">
+        <label htmlFor="moeda">
           Moeda
           <select
+            data-testid="currency-input"
             id="moeda"
             name="currency"
             onChange={ this.handleChange }
@@ -198,10 +192,11 @@ class FormExpenses extends React.Component {
     return (
       <form>
         { this.inputDespesaDescricao(this.state) }
-        { this.renderCurrencyAndMethod(this.state) }
-        <label htmlFor="tag" data-testid="tag-input">
+        { this.renderCurrenciesAndMethod(this.state) }
+        <label htmlFor="tag">
           Tag
           <select
+            data-testid="tag-input"
             value={ tag }
             name="tag"
             id="tag"
@@ -240,7 +235,11 @@ FormExpenses.propTypes = {
   thunkerAction: PropTypes.func.isRequired,
   confirmEditAction: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
-  editExpense: PropTypes.objectOf,
+  editExpense: PropTypes.shape({
+    id: PropTypes.number,
+    exchangeRates: PropTypes.shape({
+    }),
+  }),
 };
 
 FormExpenses.defaultProps = {
