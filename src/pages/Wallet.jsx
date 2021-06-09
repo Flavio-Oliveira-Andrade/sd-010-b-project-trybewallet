@@ -9,19 +9,24 @@ class Wallet extends React.Component {
       currencies: [],
     };
     this.fetchAPI = this.fetchAPI.bind(this);
+    this.updateCurrencies = this.updateCurrencies.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
+    this.updateCurrencies();
+  }
+
+  async updateCurrencies() {
+    const currencies = await this.fetchAPI();
+    this.setState({ currencies: Object.keys(currencies) });
   }
 
   async fetchAPI() {
     const getCurrencies = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await getCurrencies.json();
-    const currenciesCode = Object.keys(response);
-    currenciesCode.splice(currenciesCode.indexOf('USDT'), 1);
+    delete response.USDT;
 
-    this.setState({ currencies: currenciesCode });
+    return response;
   }
 
   render() {
@@ -29,7 +34,7 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        <ExpenseForms currencies={ currencies } />
+        <ExpenseForms currencies={ currencies } fetchAPI={ this.fetchAPI } />
       </>
     );
   }
