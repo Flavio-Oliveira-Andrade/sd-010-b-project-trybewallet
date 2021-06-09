@@ -1,5 +1,5 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import { objectOf, string, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Forms } from '../components';
 import coins from '../services/apiCoins';
@@ -22,11 +22,11 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
     const { currencies } = this.state;
     return (
       <>
-        <Header email={ email } />
+        <Header email={ email } expenses={ expenses } />
         <Forms currencies={ currencies } />
       </>
     );
@@ -34,10 +34,11 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = ({
-  user: { email } }) => ({ email });
+  user: { email }, wallet: { expenses } }) => ({ email, expenses });
 
 Wallet.propTypes = {
-  email: Proptypes.string,
+  email: string,
+  expenses: objectOf(object),
 }.isRequired;
 
 export default connect(mapStateToProps)(Wallet);

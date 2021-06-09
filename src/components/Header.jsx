@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { objectOf, object, string } from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { email } = this.props;
-    const totalSpending = 0;
+    const { expenses, email } = this.props;
+    const totalSpending = expenses.reduce((acc, curr) => (
+      acc + ((curr.value) * (curr.exchangeRates[curr.currency].ask))), 0).toFixed(2);
     return (
       <header>
         <span data-testid="email-field">{`User: ${email}`}</span>
@@ -16,6 +17,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  expenses: objectOf(object),
   email: string,
 }.isRequired;
 

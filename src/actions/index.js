@@ -1,3 +1,2 @@
 export const login = (email) => ({ type: 'LOGIN', email });
-
-export default login;
+export const addExpense = (data) => ({ type: 'ADD_EXPENSE', data });
