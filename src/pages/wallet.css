@@ -1,5 +1,17 @@
 header {
   background-color: rgb(168, 212, 131);
+  display: flex;
   height: 70px;
+  justify-content: flex-end;
   width: 100%;
+}
+
+header div {
+  align-items: center;
+  display: flex;
+  margin-right: 30px;
+}
+
+header div span {
+  margin-right: 5px;
 }
