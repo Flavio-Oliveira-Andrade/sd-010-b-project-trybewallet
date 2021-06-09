@@ -14,7 +14,6 @@ class Wallet extends React.Component {
       description: '',
       currency: '',
       tag: '',
-      expenses: [],
     };
 
     this.labelValor = this.labelValor.bind(this);
@@ -38,19 +37,19 @@ class Wallet extends React.Component {
     const { wallet } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json()).then((response) => {
+        const itens = response;
         const object = Object.values(response);
         const lista = object.filter((itens) => itens.codein !== 'BRLT');
-        const { value, method, description, currency, tag, expenses } = this.state;
-        this.setState({
-          categories: lista,
-          expenses: [...expenses, { value,
-            currency,
-            method,
-            tag,
-            description,
-            exchangeRates: lista }],
-        });
-        wallet(expenses);
+        const { value, method, description, currency, tag } = this.state;
+        const result = {
+          value,
+          method,
+          description,
+          currency,
+          tag,
+          exchangeRates: itens,
+        };
+        wallet(result);
       });
   }
 
@@ -83,9 +82,9 @@ class Wallet extends React.Component {
           name="method"
           id="despesa"
         >
-          <option value="cash">Dinheiro</option>
-          <option value="credit">Cartão de crédito</option>
-          <option value="debit">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -122,9 +121,7 @@ class Wallet extends React.Component {
 
   render() {
     const { user, carteira } = this.props;
-    console.log(carteira);
-    const { categories, expenses } = this.state;
-    console.log(expenses);
+    const { categories } = this.state;
     return (
       <>
         <header>
@@ -160,6 +157,9 @@ class Wallet extends React.Component {
         >
           Adicionar despesa
         </button>
+        <ol>
+          {carteira.map((itens) => <li key={ itens.method }>{itens.method}</li>)}
+        </ol>
       </>
     );
   }
@@ -167,7 +167,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  carteira: state.wallet,
+  carteira: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

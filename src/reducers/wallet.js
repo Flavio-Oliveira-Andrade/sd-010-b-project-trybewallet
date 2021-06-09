@@ -1,14 +1,16 @@
 const initialState = {
   expenses: [],
+  id: 0,
 };
 
 function walletReducer(state = initialState, action) {
   switch (action.type) {
   case 'WALLET':
-    return ({
+    return {
       ...state,
-      expenses: action.value,
-    });
+      expenses: [...state.expenses, { id: state.id, ...action.value }],
+      id: state.id + 1,
+    };
   default:
     return state;
   }
