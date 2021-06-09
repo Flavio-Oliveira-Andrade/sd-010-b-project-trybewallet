@@ -8,3 +8,15 @@ export const wallet = (currences, expenses) => (
     expenses,
 
   });
+
+  export const requestSuccess = (data) => ({
+    type: "REQUEST_SUCCESS",
+    payload: Object.keys(data)
+  }
+)
+  const getApi = () => (dispatch) =>{
+    fetch('https://economia.awesomeapi.com.br/json/all')
+    .then(response => response.json())
+    .then(data => dispatch(requestSuccess(data))
+    .catch((erro) => )
+  }
