@@ -66,7 +66,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(valueInput).toBeInTheDocument();
   });
 
-  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+  test only('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
