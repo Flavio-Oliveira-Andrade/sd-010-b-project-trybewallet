@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.inputValor = this.inputValor.bind(this);
+    this.inputDescripiton = this.inputDescripiton.bind(this);
+    this.inputMoeda = this.inputMoeda.bind(this);
+    this.inputPaymente = this.inputPaymente.bind(this);
+    this.inputCategory = this.inputCategory.bind(this);
+    this.inputHeader = this.inputHeader.bind(this);
+  }
+
   inputValor() {
     return (
       <label htmlFor="idValor">
@@ -11,7 +21,7 @@ class Wallet extends React.Component {
       </label>);
   }
 
-  inputdescripiton() {
+  inputDescripiton() {
     return (
       <label htmlFor="idDescription">
         Descrição
@@ -34,7 +44,7 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="idPayment">
         Metodo de Pagamento
-        <select id="idPayment">
+        <select name="Payment" id="idPayment">
           <option value="dinheiro">Dinheiro</option>
           <option value="credito">Cartão de crédito</option>
           <option value="debito">Cartão de débito</option>
@@ -43,7 +53,22 @@ class Wallet extends React.Component {
     );
   }
 
-  render() {
+  inputCategory() {
+    return (
+      <label htmlFor="idCategory">
+        Tag
+        <select name="tag " id="idCategory">
+          <option value="alimentacao">Alimentação</option>
+          <option value="lazer">Lazer</option>
+          <option value="trabalho">Trabalho</option>
+          <option value="transporte">Transporte</option>
+          <option value="saude">Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
+  inputHeader() {
     const { userEmail } = this.props;
     return (
       <>
@@ -54,6 +79,24 @@ class Wallet extends React.Component {
           {0}
         </span>
         <span data-testid="header-currency-field">BRL</span>
+      </>
+    );
+  }
+
+  render() {
+    return (
+      <>
+        <header>
+          {this.inputHeader()}
+        </header>
+
+        <forms>
+          {this.inputValor()}
+          {this.inputDescripiton()}
+          {this.inputMoeda()}
+          {this.inputPaymente()}
+          {this.inputCategory()}
+        </forms>
       </>
     );
   }
