@@ -22,6 +22,7 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
+    this.renderExpensesTable = this.renderExpensesTable.bind(this);
   }
 
   componentDidMount() {
@@ -77,8 +78,53 @@ class Wallet extends React.Component {
     );
   }
 
+  renderExpensesTable() {
+    const { expenses } = this.props;
+
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {expenses.map((
+            { id, description, tag, method, value, currency, exchangeRates },
+          ) => (
+            <tr key={ id }>
+              <td>{description}</td>
+              <td>{tag}</td>
+              <td>{method}</td>
+              <td>{value}</td>
+              <td>{exchangeRates[currency].name}</td>
+              <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
+              <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
+              <td>Real</td>
+
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
-    const { renderHeader, renderCurrency, saveExpenses, handleChange } = this;
+    const {
+      renderHeader,
+      renderCurrency,
+      saveExpenses,
+      handleChange,
+      renderExpensesTable,
+    } = this;
     return (
       <>
         {renderHeader()}
@@ -91,27 +137,20 @@ class Wallet extends React.Component {
             Descrição:
             <input type="text" id="description" onChange={ handleChange } />
           </label>
-
           {renderCurrency()}
-
           <label htmlFor="method">
             Método de pagamento:
             <select id="method" onChange={ handleChange }>
-              <option defaultValue hidden>
-                {' '}
-              </option>
+              <option defaultValue hidden> </option>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
-
           <label htmlFor="tag">
             Tag:
             <select id="tag" onChange={ handleChange }>
-              <option defaultValue hidden>
-                {' '}
-              </option>
+              <option defaultValue hidden> </option>
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
@@ -121,6 +160,7 @@ class Wallet extends React.Component {
           </label>
           <button type="submit">Adicionar despesa</button>
         </form>
+        {renderExpensesTable()}
       </>
     );
   }
