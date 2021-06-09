@@ -48,23 +48,22 @@ class Login extends React.Component {
           />
         </label>
         <div />
-        <div>
-          <label htmlFor="password">
-            <input
-              id="password"
-              minLength="6"
-              data-testid="password-input"
-              type="password"
-              placeholder="insert your password"
-              onChange={ ({ target: { value } }) => {
-                this.setState({ passwordData: value });
-                this.validationFields();
-              } }
-              value={ passwordData }
-              required
-            />
-          </label>
-        </div>
+        <label htmlFor="password">
+          <input
+            id="password"
+            minLength="6"
+            data-testid="password-input"
+            type="password"
+            placeholder="insert your password"
+            onChange={ ({ target: { value } }) => {
+              this.setState({ passwordData: value });
+              this.validationFields();
+            } }
+            value={ passwordData }
+            required
+          />
+        </label>
+
         <button
           type="button"
           id="btn-submit"
@@ -79,9 +78,8 @@ class Login extends React.Component {
 }
 
 const mapDipatchToProps = (dispatch) => ({
-  firstDispatch: (emailAdress, passwordData) => dispatch(login(
-    emailAdress, passwordData,
-  )),
+  firstDispatch: (emailAdress, passwordData) => dispatch(login({
+    userName: emailAdress, password: passwordData })),
 });
 
 Login.propTypes = {

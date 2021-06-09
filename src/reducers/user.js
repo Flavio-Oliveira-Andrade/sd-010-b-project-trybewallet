@@ -1,9 +1,9 @@
 import { LOGIN } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+
+  email: '',
+
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -11,8 +11,7 @@ export default function user(state = INITIAL_STATE, action) {
   case LOGIN:
     return {
       ...state,
-      user: { email: action.payload.userName,
-      },
+      email: action.payload.userName,
     };
   default:
     return state;
