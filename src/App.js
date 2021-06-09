@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Loguin from './pages/Login';
+import Wallet from './pages/Wallet';
 
 class App extends React.Component {
   render() {
@@ -9,7 +10,8 @@ class App extends React.Component {
       <main>
         <h1>Trybe Wallet!</h1>
         <Switch>
-          <Route path="/" component={ Loguin } />
+          <Route exact path="/" component={ Loguin } />
+          <Route path="/carteira" component={ Wallet } />
         </Switch>
       </main>
     );

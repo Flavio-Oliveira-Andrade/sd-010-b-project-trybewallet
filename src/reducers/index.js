@@ -3,22 +3,11 @@
 
 // Configure os seus reducers.
 // ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global
+import { combineReducers } from 'redux';
+import reducerUser from './user';
 
-const INNITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
-};
+const rootReducers = combineReducers({
+  reducerUser,
+});
 
-const reducer = (state = INNITIAL_STATE, action) => {
-  switch (action.type) {
-  default:
-    return state;
-  }
-};
-
-export default reducer;
+export default rootReducers;
