@@ -31,19 +31,23 @@ export default class Form extends React.Component {
           <input type="text" id="valor" name="valor" />
         </label>
         <label htmlFor="descricao">
-          Descriçao:
+          Descrição:
           <input type="text" id="descricao" name="descricao" />
         </label>
         <label htmlFor="moeda">
           Moeda:
           <select id="moeda" name="moeda">
-            { request && request.map((element) => <option key>{ element.code }</option>) }
-            {/* { request && console.log(request) } */}
+            { request && request.map((element, index) => (
+              <option key={ index }>{ element.code }</option>)) }
           </select>
         </label>
         <label htmlFor="metodo">
-          Metodo de pagamento:
-          <input type="text" id="metodo" name="metodo" />
+          Método de pagamento:
+          <select id="metodo" name="metodo">
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
+          </select>
         </label>
         <label htmlFor="despesas">
           Tag:
