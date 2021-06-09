@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import Loguin from './pages/Login';
 import Wallet from './pages/Wallet';
 
+import './App.css';
+
 class App extends React.Component {
   render() {
     return (

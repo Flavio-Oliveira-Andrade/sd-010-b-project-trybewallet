@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import saveEmailAction from '../actions';
 
+import '../App.css';
+
 class Login extends React.Component {
   constructor() {
     super();

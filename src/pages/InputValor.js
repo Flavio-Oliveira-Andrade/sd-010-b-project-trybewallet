@@ -1,14 +1,9 @@
 import React from 'react';
 
-import Header from './Header';
-
-import '../App.css';
-
-class Wallet extends React.Component {
-  render() {
+class InputValor extends React.Component {
+  redner() {
     return (
       <section>
-        <Header />
         <form>
           <label htmlFor="input-valor">
             Valor:
@@ -20,31 +15,28 @@ class Wallet extends React.Component {
           <label htmlFor="input-descricao">
             Descrição:
             <input
+              data-testid=""
               id="input-descricao"
             />
           </label>
-          <label htmlFor="input-moeda">
-            Método de Pagamento:
+          <label htmlFor="input-select">
+            Moeda:
             <select
-              id="input-moeda"
+              data-testid=""
+              id="input-select"
             >
               select
+
             </select>
           </label>
           <label htmlFor="input-pagamento">
             Método de Pagamento:
             <select
+              data-testid=""
               id="input-pagamento"
             >
               select
-            </select>
-          </label>
-          <label htmlFor="input-debito">
-            Cartão de débito:
-            <select
-              id="input-debito"
-            >
-              select
+
             </select>
           </label>
         </form>
@@ -53,4 +45,4 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+export default InputValor;
