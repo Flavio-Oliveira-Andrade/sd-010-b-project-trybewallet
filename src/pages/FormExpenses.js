@@ -27,8 +27,8 @@ class FormExpenses extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { editMode } = this.props;
-    if (editMode && prevProps !== this.props) {
+    const { editMode, editExpense } = this.props;
+    if (editExpense.id && editMode && prevProps.editExpense.id !== editExpense.id) {
       this.retrieveEditExpenseState();
     }
   }

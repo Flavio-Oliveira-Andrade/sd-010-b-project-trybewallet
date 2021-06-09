@@ -115,4 +115,5 @@ Table.propTypes = {
     }).isRequired,
   ).isRequired,
   editExpenseAction: PropTypes.func.isRequired,
+  getCurrentExchangeAction: PropTypes.func.isRequired,
 };
