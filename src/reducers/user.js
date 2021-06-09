@@ -12,7 +12,7 @@ export default function userReducer(state = INITIAL_STATE, action) {
   case SAVE_MAIL:
     return {
       ...state,
-      user: { email: action.payload.user.email },
+      user: { email: action.payload.email },
     };
   default:
     return state;
