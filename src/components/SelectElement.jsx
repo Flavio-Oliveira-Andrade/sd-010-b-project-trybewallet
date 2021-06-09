@@ -9,7 +9,12 @@ class SelectElement extends Component {
         {label}
         :
         <select name={ name } id={ name } onChange={ onChange }>
-          {options.map((option, idx) => <option key={ idx }>{option}</option>)}
+          {options.map((option, idx) => {
+            if (idx === 0) {
+              return <option selected key={ idx }>{option}</option>;
+            }
+            return <option key={ idx }>{option}</option>;
+          })}
         </select>
       </label>
     );
