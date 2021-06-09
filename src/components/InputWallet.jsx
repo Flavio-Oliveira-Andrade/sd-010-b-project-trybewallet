@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class InputWallet extends React.Component {
   render() {
-    const { text, name, type = 'text', handle } = this.props;
+    const { text, name, type = 'text', handle, value } = this.props;
     return (
       <label htmlFor={ name }>
         { `${text}: ` }
@@ -13,6 +13,7 @@ class InputWallet extends React.Component {
           id={ name }
           onChange={ handle }
           className={ name }
+          value={ value }
         />
       </label>
     );
@@ -24,6 +25,7 @@ InputWallet.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   handle: PropTypes.func,
+  value: PropTypes.string.isRequired,
 };
 
 InputWallet.defaultProps = {

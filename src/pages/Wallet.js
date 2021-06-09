@@ -10,7 +10,7 @@ import updateWallet from '../actions/updateWalletAction';
 import travoltaWallet from '../images/travoltaWallet.gif';
 
 const defautState = {
-  value: 0,
+  value: '',
   description: '',
   currency: 'USD',
   method: 'Dinheiro',
@@ -26,6 +26,7 @@ class Wallet extends React.Component {
     };
 
     this.handle = this.handle.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +38,12 @@ class Wallet extends React.Component {
     this.setState({ [name]: value });
   }
 
+  resetState() {
+    this.setState({ ...defautState });
+  }
+
   render() {
+    const { value, description } = this.state;
     const { userEmail, walletCurrencies, updateExpenses, total, expenses } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -51,33 +57,37 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <form>
-          <InputWallet text="Valor" name="value" handle={ this.handle } />
-          <InputWallet text="Descrição" name="description" handle={ this.handle } />
-
+          <InputWallet text="Valor" name="value" handle={ this.handle } value={ value } />
+          <InputWallet
+            text="Descrição"
+            name="description"
+            handle={ this.handle }
+            value={ description }
+          />
           <SelectWallet
             text="Moeda"
             options={ walletCurrencies }
             name="currency"
             handle={ this.handle }
           />
-
           <SelectWallet
             text="Método de pagamento"
             options={ opPayments }
             name="method"
             handle={ this.handle }
           />
-
           <SelectWallet text="Tag" options={ opTags } name="tag" handle={ this.handle } />
           <button
             type="button"
-            onClick={ () => updateExpenses(this.state) }
+            onClick={ () => {
+              updateExpenses(this.state);
+              this.resetState();
+            } }
           >
             Adicionar despesa
           </button>
         </form>
         <TableWallet expenses={ expenses } />
-
       </main>
     );
   }
