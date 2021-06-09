@@ -4,7 +4,6 @@ import Login from './pages/Login';
 function App() {
   return (
     <div>
-      Hello, TrybeWallet!
       <Login />
     </div>);
 }

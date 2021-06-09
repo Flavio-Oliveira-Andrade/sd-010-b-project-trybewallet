@@ -59,6 +59,7 @@ class Login extends React.Component {
             <button
               type="button"
               className="login-form-btn"
+              onClick={ () => console.log('oi') }
               disabled={ !emailValido || password.length <= '5' }
             >
               Entrar
