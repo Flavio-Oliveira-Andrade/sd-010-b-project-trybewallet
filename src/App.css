@@ -29,3 +29,9 @@ header {
 .logo-trybe {
   width: 150px;
 }
+
+.grid {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}

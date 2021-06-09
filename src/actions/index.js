@@ -7,6 +7,18 @@ export const actionAddEmailUser = (email) => ({
     email,
   },
 });
+
+export const actionAddExpenive = (expense) => ({
+  type: 'ADD_EXPENSE',
+  payload: {
+    expense,
+  },
+});
+
+export const actionCalcTotal = () => ({
+  type: 'CALC_TOTAL',
+});
+
 export const requestCurrencies = () => ({
   type: 'REQUEST',
   payload: {
@@ -39,5 +51,32 @@ export const fetchCurrencies = () => (dispatch) => {
       }))
     .catch((currenciesError) => {
       dispatch(requestCurrenciesError(currenciesError));
+    });
+};
+
+export const requestCurrencieSuccess = (json) => ({
+  type: 'ADD__CURRENCIE',
+  payload: {
+    currencies: json,
+    isFetching: false,
+  },
+});
+
+export const requestCurrencieError = (error) => ({
+  type: 'ERROR_CURRENCIE',
+  payload: {
+    error,
+  },
+});
+
+export const fetchCurrencie = (moeda) => (dispatch) => {
+  console.log(moeda);
+  fetch(`https://economia.awesomeapi.com.br/json/${moeda}-BRL`)
+    .then((response) => (response.json())
+      .then((json) => {
+        dispatch(requestCurrencieSuccess(json));
+      }))
+    .catch((currenciesError) => {
+      dispatch(requestCurrencieError(currenciesError));
     });
 };
