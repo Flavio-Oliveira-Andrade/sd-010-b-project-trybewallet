@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchApi } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -11,6 +12,12 @@ class Wallet extends React.Component {
     this.renderMetodoDePagamento = this.renderMetodoDePagamento.bind(this);
     this.renderMoeda = this.renderMoeda.bind(this);
     this.renderCategoria = this.renderCategoria.bind(this);
+    this.renderForm = this.renderForm.bind(this);
+  }
+
+  componentDidMount() {
+    const { moedasApi } = this.props;
+    moedasApi();
   }
 
   renderHeader() {
@@ -56,12 +63,17 @@ class Wallet extends React.Component {
   }
 
   renderMoeda() {
+    const { moedas } = this.props;
+    const usdtIndex = moedas.findIndex((el) => el === 'USDT');
+    moedas.splice(usdtIndex, 1);
     return (
       <label htmlFor="moeda">
         {' '}
         Moeda
         <select name="moeda" id="moeda">
-          <option value="temporary">Temporary</option>
+          {moedas.map((moeda, index) => (
+            <option key={ index } value={ moeda }>{moeda}</option>
+          ))}
         </select>
       </label>
     );
@@ -96,28 +108,41 @@ class Wallet extends React.Component {
     );
   }
 
+  renderForm() {
+    return (
+      <form>
+        {this.renderValor()}
+        {this.renderDescrição()}
+        {this.renderMoeda()}
+        {this.renderMetodoDePagamento()}
+        {this.renderCategoria()}
+      </form>
+    );
+  }
+
   render() {
+    const { moedas, isFetching } = this.props;
     return (
       <div>
         TrybeWallet
         {this.renderHeader()}
-        <form>
-          {this.renderValor()}
-          {this.renderDescrição()}
-          {this.renderMoeda()}
-          {this.renderMetodoDePagamento()}
-          {this.renderCategoria()}
-        </form>
+        { (moedas === undefined || isFetching) ? <h1> Carregando... </h1> : this.renderForm() }
       </div>);
   }
 }
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  moedas: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  moedasApi: () => dispatch(fetchApi()),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string,
 }.isRequired;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
