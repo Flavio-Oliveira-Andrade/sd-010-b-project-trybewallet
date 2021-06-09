@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Redirect } from 'react-router';
 // import Wallet from './Wallet';
-import login from '../actions';
+import loginAction from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class Login extends React.Component {
     firstDispatch(emailAdress, passwordData);
     this.setState({ shouldRedirect: true });
   }
+  // https://pt.stackoverflow.com/questions/369892/como-redirecionar-para-uma-rota-usando-onclick-e-react-router
 
   validationFields() {
     const { emailAdress, passwordData } = this.state;
@@ -35,6 +36,8 @@ class Login extends React.Component {
     } else { this.setState({ buttonEnabler: true }); }
   }
 
+  // os valores das constantes emailChecker e passwordChecker me foram ensinados pelo colega Miguel. São valores que identificam se um e-mail
+  // possui @ e .com, além disso verifica se a senha possui mais de 6 caracteres.
   render() {
     const { emailAdress, passwordData, buttonEnabler, shouldRedirect } = this.state;
 
@@ -88,7 +91,7 @@ class Login extends React.Component {
 }
 
 const mapDipatchToProps = (dispatch) => ({
-  firstDispatch: (emailAdress, passwordData) => dispatch(login({
+  firstDispatch: (emailAdress, passwordData) => dispatch(loginAction({
     userName: emailAdress, password: passwordData })),
 });
 
