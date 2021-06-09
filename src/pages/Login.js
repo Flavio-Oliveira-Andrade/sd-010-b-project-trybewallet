@@ -11,12 +11,13 @@ class Login extends React.Component {
       email: {
         value: '',
         message: '',
+        error: false,
       },
       password: {
         value: '',
         message: '',
+        error: false,
       },
-      formError: true,
     };
   }
 
@@ -25,12 +26,15 @@ class Login extends React.Component {
     if (message) {
       this.setState((prevState) => ({
         [name]: {
-          ...prevState[name], message,
+          ...prevState[name], message, error: true,
         },
-        formError: true,
       }));
     } else {
-      this.setState({ formError: false });
+      this.setState((prevState) => ({
+        [name]: {
+          ...prevState[name], message: '', error: false,
+        },
+      }));
     }
   }
 
@@ -39,7 +43,10 @@ class Login extends React.Component {
       [name]: {
         ...prevState[name], value,
       },
-    }));
+    }), () => {
+      if (name === 'password') this.checkInputError(name, passwordCheck, value);
+      if (name === 'email') this.checkInputError(name, emailCheck, value);
+    });
   }
 
   handleSubmit(e, email) {
@@ -50,11 +57,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email: { value: emailValue, message: emailMessage },
-      password: { value: passwordValue, message: passwordMessage },
-      formError } = this.state;
-
-    const FormHasError = formError
+    const { email: { value: emailValue, message: emailMessage, error: EError },
+      password: { value: passwordValue, message: passwordMessage, error: PError },
+    } = this.state;
+    const FormHasError = EError
+    || PError
     || emailValue.length === 0
     || passwordValue.length === 0;
     return (
@@ -65,8 +72,6 @@ class Login extends React.Component {
           name="email"
           value={ emailValue }
           onChange={ ({ target: { name, value } }) => this.handleChanges(name, value) }
-          onBlur={ ({ target: { name } }) => this.checkInputError(name, emailCheck,
-            emailValue) }
         />
         <span>{emailMessage}</span>
         <input
@@ -75,8 +80,6 @@ class Login extends React.Component {
           name="password"
           value={ passwordValue }
           onChange={ ({ target: { name, value } }) => this.handleChanges(name, value) }
-          onBlur={ ({ target: { name } }) => this.checkInputError(name, passwordCheck,
-            passwordValue) }
         />
         <span>{passwordMessage}</span>
         <button

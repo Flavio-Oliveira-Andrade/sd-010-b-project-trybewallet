@@ -8,6 +8,7 @@ export const emailCheck = (email) => {
 
 export const passwordCheck = (password) => {
   const minChar = 6;
+
   if (password.length < minChar) {
     return 'password must be at least 6 characters long';
   }
