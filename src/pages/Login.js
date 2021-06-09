@@ -1,6 +1,4 @@
 import React from 'react';
-import '../log/css/main.css';
-import img from '../log/images/img1.png';
 
 class Login extends React.Component {
   constructor(props) {
@@ -31,7 +29,7 @@ class Login extends React.Component {
               <h1>Sua Cotação </h1>
               <h3>Em qualquer Moeda</h3>
             </section>
-            <img alt="img" src={ img } width="270" />
+            {/* <img alt="img" src={ img } width="270" /> */}
           </div>
           <form>
             <span className="login-form-title">
