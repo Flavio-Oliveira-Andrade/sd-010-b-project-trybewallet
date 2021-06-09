@@ -5,6 +5,7 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
+      userEmail: '',
       emailMessageError: '',
       pwMessageError: '',
       invalidEmail: true,
@@ -17,6 +18,9 @@ class Login extends React.Component {
   }
 
   handleValidateEmail({ value }) {
+    this.setState({
+      userEmail: value,
+    });
     if (value.includes('@') && value.includes('.com')) {
       this.setState({
         invalidEmail: false,
