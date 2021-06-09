@@ -26,20 +26,21 @@ class FormExpenses extends React.Component {
     this.doFetch();
   }
 
+  componentDidUpdate(prevProps) {
+    const { editMode } = this.props;
+    if (editMode && prevProps !== this.props) {
+      this.retrieveEditExpenseState();
+    }
+  }
+
   retrieveEditExpenseState() {
     const { editExpense } = this.props;
-    const { expense } = this.state;
     this.setState((oldState) => ({
       ...oldState,
       shouldLoop: false,
       expense: {
-        ...expense,
-        value: editExpense.value,
-        currency: editExpense.currency,
-        method: editExpense.method,
-        tag: editExpense.tag,
-        description: editExpense.description,
-        exchangeRates: editExpense.exchangeRates,
+        ...oldState.expense,
+        ...editExpense,
       },
     }));
   }
@@ -74,12 +75,12 @@ class FormExpenses extends React.Component {
     }));
   }
 
-  resetState() {
+  resetState(editId) {
     const { expense } = this.state;
     this.setState((oldState) => ({
       ...oldState,
       expense: {
-        id: expense.id + 1,
+        id: (editId ? expense.id + editId : expense.id + 1),
         value: 0,
         currency: 'USD',
         method: 'dinheiro',
@@ -109,9 +110,7 @@ class FormExpenses extends React.Component {
 
   handleEditMode() {
     const { editMode } = this.props;
-    const { shouldLoop } = this.state;
     if (editMode) {
-      if (shouldLoop) { this.retrieveEditExpenseState(); }
       return (
         <button
           onClick={ () => this.handleConfirmEdit() }
