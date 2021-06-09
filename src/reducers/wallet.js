@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const DEPOSIT = 'DEPOSIT';
+import { REQUEST_CURRENCY_SUCCESS } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -8,7 +8,7 @@ const initialState = {
 
 const wallet = (state = initialState, { type, payload }) => {
   switch (type) {
-  case DEPOSIT:
+  case REQUEST_CURRENCY_SUCCESS:
     return { ...state, ...payload };
 
   default:
