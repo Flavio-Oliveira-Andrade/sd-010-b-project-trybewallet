@@ -28,7 +28,6 @@ class FormExpenses extends React.Component {
 
   retrieveEditExpenseState() {
     const { editExpense } = this.props;
-    // console.log(editExpense)
     const { expense } = this.state;
     this.setState((oldState) => ({
       ...oldState,
@@ -99,19 +98,21 @@ class FormExpenses extends React.Component {
     this.resetState();
   }
 
-  async handleConfirmEdit(expenseToEdit) {
-    const { confirmEditAction } = this.props;
-    confirmEditAction(expenseToEdit.id, expenseToEdit);
+  async handleConfirmEdit() {
+    const { confirmEditAction, editExpense } = this.props;
+    const { expense } = this.state;
+    const propExchangeRate = editExpense.exchangeRates;
+    confirmEditAction(expense.id,
+      { ...expense, expense: { exchangeRates: propExchangeRate } });
     this.resetState();
   }
 
   handleEditMode() {
     const { editMode } = this.props;
-    const { expense } = this.state;
     if (editMode) {
       return (
         <button
-          onClick={ () => this.handleConfirmEdit(expense) }
+          onClick={ () => this.handleConfirmEdit() }
           type="button"
         >
           Editar Despesa
@@ -191,9 +192,7 @@ class FormExpenses extends React.Component {
 
   render() {
     const { isFetched } = this.state;
-    if (!isFetched) {
-      return <div>Carregando...</div>;
-    }
+    if (!isFetched) { return <div>Carregando...</div>; }
     const { expense: { tag }, shouldLoop } = this.state;
     const { editMode } = this.props;
     if (editMode && shouldLoop) { this.retrieveEditExpenseState(); }
@@ -242,16 +241,6 @@ FormExpenses.propTypes = {
   confirmEditAction: PropTypes.func.isRequired,
   editMode: PropTypes.bool,
   editExpense: PropTypes.objectOf,
-  expensesList: PropTypes.arrayOf(
-    PropTypes.shape({
-      currency: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      exchangeRates: PropTypes.objectOf.isRequired,
-      id: PropTypes.number.isRequired,
-      method: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
 };
 
 FormExpenses.defaultProps = {
