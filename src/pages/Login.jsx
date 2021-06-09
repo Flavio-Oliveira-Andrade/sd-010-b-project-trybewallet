@@ -5,16 +5,54 @@ import { Redirect } from 'react-router-dom';
 import Wallet from './Wallet';
 import bitcoin from '../images/5a105381eed609b127ec423c337f64e3.gif';
 
+const PASSWORD_LENGTH = 5;
+
 class Login extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     email: '',
-  //     password: '',
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      buttonDisable: true,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.validate = this.validate.bind(this);
+    this.ableButton = this.ableButton.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  validate() {
+    const { email, password } = this.state;
+    const emailTester = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/i;
+    if (emailTester.test(email) && password.length >= PASSWORD_LENGTH) {
+      return true;
+    }
+  }
+
+  handleChange({ target }) {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({
+      [name]: value,
+    });
+    this.ableButton();
+  }
+
+  ableButton() {
+    const isValid = this.validate();
+    if (isValid) {
+      this.setState({
+        buttonDisable: false,
+      });
+    }
+  }
+
+  handleLogin() {
+
+  }
 
   render() {
+    const { buttonDisable } = this.state;
     return (
       <div id="login--div">
         <img
@@ -25,18 +63,24 @@ class Login extends React.Component {
           <input
             data-testid="email-input"
             type="email"
+            name="email"
             placeholder="Email"
-            value={ user }
+            onChange={ this.handleChange }
           />
           <input
             data-testid="password-input"
             type="password"
+            name="password"
             placeholder="Password"
+            onChange={ this.handleChange }
           />
           <button
             type="button"
             className="login--button"
-            onClick={ () => <Redirect to="/carteira" component={ Wallet } /> }
+            disabled={ buttonDisable }
+            min={ 6 }
+            onClick={ this.handleLogin }
+            style={ { backgroundColor: buttonDisable ? '#AD3838' : '#DAF7A6' } }
           >
             Entrar
           </button>
@@ -51,4 +95,12 @@ const mapStateToProps = (state) => ({
   wallet: state.walletReducer,
 });
 
-export default connect(mapStateToProps, null)(Login);
+const mapDispatchToProps = (state) => ({
+  type: 'LOGIN',
+  payload: {
+    email: state.email,
+    password: state.password,
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
