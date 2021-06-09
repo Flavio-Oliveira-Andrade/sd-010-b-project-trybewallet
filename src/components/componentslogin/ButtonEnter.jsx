@@ -1,9 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function ButtonEnter() {
+function ButtonEnter({ enterLogin = null }) {
+  function login() {
+    if (enterLogin) {
+      enterLogin();
+    }
+  }
+
   return (
-    <button type="button">Entrar</button>
+    <Link to="/carteira">
+      <button
+        type="button"
+        onClick={ login }
+      >
+        Entrar
+      </button>
+    </Link>
   );
 }
 
