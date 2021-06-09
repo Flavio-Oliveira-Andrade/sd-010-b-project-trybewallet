@@ -2,6 +2,7 @@ import { REQUEST_CURRENCY } from '../actions/types';
 
 const initialState = {
   currencies: [],
+  expenses: [],
 };
 
 export default (state = initialState, { type, payload }) => {
