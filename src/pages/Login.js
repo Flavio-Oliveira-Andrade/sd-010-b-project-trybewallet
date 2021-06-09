@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import LoginUser from '../actions';
 
 class Login extends React.Component {
@@ -17,6 +18,12 @@ class Login extends React.Component {
       buttonState: false,
       redirect: false,
     };
+  }
+
+  getUserEmail() {
+    const { userLogin } = this.props;
+    const { email } = this.state;
+    return userLogin(email);
   }
 
   emailInput(e) {
@@ -49,10 +56,9 @@ class Login extends React.Component {
     }
   }
 
-  teste() {
-    const { userLogin } = this.props;
-    const { email } = this.state;
-    return userLogin(email);
+  mergeFnc() {
+    this.redirect();
+    this.getUserEmail();
   }
 
   render() {
@@ -85,7 +91,8 @@ class Login extends React.Component {
 
           {buttonState === false
             ? <button type="button" disabled>Entrar</button>
-            : <button type="button" onClick={ () => { this.teste(); this.redirect(); } }>Entrar</button>}
+            : <button type="button" onClick={ () => this.mergeFnc() }>Entrar</button>}
+
         </form>
       </div>
     );
@@ -95,5 +102,10 @@ class Login extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   userLogin: (state) => dispatch(LoginUser(state)),
 });
+
+Login.propTypes = {
+  history: PropTypes.string.isRequired,
+  userLogin: PropTypes.string.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
