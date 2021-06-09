@@ -20,11 +20,19 @@ class Wallet extends React.Component {
     const { userEmail } = this.props;
     const total = this.calculateTotal();
     return (
-      <header>
-        <section data-testid="email-field">{userEmail}</section>
-        <section data-testid="total-field">{`Total: ${total}`}</section>
-        <section data-testid="header-currency-field">Moeda atual: BRL</section>
-      </header>
+      <div>
+        <header>
+          <section data-testid="email-field">{userEmail}</section>
+          <section data-testid="total-field">{`Total: ${total}`}</section>
+          <section data-testid="header-currency-field">Moeda atual: BRL</section>
+        </header>
+        <form>
+          <label htmlFor="expense-value">
+            Valor:
+            <input type="number" id="expense-value" name="expenseValue" />
+          </label>
+        </form>
+      </div>
     );
   }
 }
