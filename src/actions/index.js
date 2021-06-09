@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
-
+// Actions Login
 export const saveEmailLogin = (email) => ({
   type: 'SAVE_EMAIL_LOGIN',
   payload: email,
@@ -33,6 +33,7 @@ export const fetchApi = () => (dispatch) => {
     .then((res) => res.json())
     .then(
       (sucesso) => {
+        console.log(sucesso);
         dispatch(requestApiSuccess(sucesso));
       },
     )
@@ -42,3 +43,10 @@ export const fetchApi = () => (dispatch) => {
       );
     });
 };
+
+// Action Wallet
+
+export const salvarDespesa = (despesa) => ({
+  type: 'SALVAR_DESPESA',
+  payload: despesa,
+});
