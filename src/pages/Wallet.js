@@ -34,9 +34,10 @@ class Wallet extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({
+    this.setState((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   }
 
   adicionarDespesa(despesa) {
@@ -45,11 +46,22 @@ class Wallet extends React.Component {
     const { dados } = this.props;
     const informacoesDespesa = { ...despesa, exchangeRates: dados };
     enviarDespesa(informacoesDespesa);
-    this.setState((prev) => ({ ...prev, despesas: true }));
+    this.setState({
+      valor: '',
+      descrição: '',
+      moeda: 'USD',
+      metodoDePagamento: 'Dinheiro',
+      tag: 'Alimentação',
+      despesas: true });
   }
 
   renderHeader() {
-    const { email } = this.props;
+    const { email, todasDespesasSalvas } = this.props;
+    let totalDespesas = 0;
+    todasDespesasSalvas.forEach((des) => {
+      totalDespesas
+      += (parseFloat(des.valor) * parseFloat(des.exchangeRates[des.moeda].high));
+    });
     return (
       <header>
         <p data-testid="email-field">
@@ -63,7 +75,7 @@ class Wallet extends React.Component {
         {' '}
         <div data-testid="total-field">
           Despesa Total:
-          { 0 }
+          { totalDespesas }
           {' '}
         </div>
         <span data-testid="header-currency-field">BRL</span>
@@ -190,8 +202,42 @@ class Wallet extends React.Component {
     );
   }
 
+  renderDespesas() {
+    const { todasDespesasSalvas } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de Pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor Convertido</th>
+            <th>Moeda de Conversão</th>
+          </tr>
+        </thead>
+        <tbody>
+          {todasDespesasSalvas.map((des) => (
+            <tr key={ des.id }>
+              <td>{des.descrição}</td>
+              <td>{des.tag}</td>
+              <td>{des.metodoDePagamento}</td>
+              <td>{des.valor}</td>
+              <td>{des.moeda}</td>
+              <td>{des.exchangeRates[des.moeda].high}</td>
+              <td>{(parseFloat(des.valor) * parseFloat(des.exchangeRates[des.moeda].high))}</td>
+              <td>Real Brasileiro</td>
+            </tr>))}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     const { moedas, isFetching } = this.props;
+    const { despesas } = this.state;
     return (
       <div>
         TrybeWallet
@@ -199,6 +245,8 @@ class Wallet extends React.Component {
         { (moedas === undefined || isFetching)
           ? <h1> Carregando... </h1> : this.renderForm() }
         <br />
+        <br />
+        { despesas ? this.renderDespesas() : <h2>Não há despesas</h2>}
       </div>);
   }
 }
