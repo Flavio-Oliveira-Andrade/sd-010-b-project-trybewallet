@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../store/index';
+import Form from '../components/Form';
 
 class Wallet extends Component {
   constructor() {
@@ -26,6 +26,7 @@ class Wallet extends Component {
         <span data-testid="header-currency-field">
           { currency }
         </span>
+        <Form />
       </div>
     );
   }
@@ -36,3 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Wallet);
+
+Wallet.propTypes = {
+  login: PropTypes.string.isRequired,
+};
