@@ -53,3 +53,21 @@
 .input-value {
   width: 50px;
 }
+
+table, tbody {
+  width: 100%;
+  padding: 0;
+  margin-top: 5px;
+}
+
+th {
+  box-sizing: border-box;
+  border-bottom: solid 1px black;
+  text-align: center;
+  margin: 0;
+}
+
+td {
+  text-align: center;
+  border-bottom: solid 1px black;
+}

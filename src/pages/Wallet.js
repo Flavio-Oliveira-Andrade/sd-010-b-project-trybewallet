@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpenseThunk } from '../actions';
+import TableOfExpenses from '../components/TableofExpenses';
 
 class Wallet extends React.Component {
   constructor() {
@@ -51,8 +52,8 @@ class Wallet extends React.Component {
   calculateTotal() {
     const { expenses } = this.props;
     if (expenses || expenses.length > 0) {
-      const total = expenses.reduce((acc, curr) => {
-        acc += parseFloat(curr.value.replace(',', '.'));
+      const total = expenses.reduce((acc, { value, exchangeRates, currency }) => {
+        acc += (parseFloat(value.replace(',', '.') * exchangeRates[currency].ask));
         return acc;
       }, 0);
       return total.toFixed(2);
@@ -148,6 +149,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <TableOfExpenses />
       </div>
     );
   }
