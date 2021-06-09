@@ -9,8 +9,8 @@ export function getCurrencieData(data) {
   return { type: GET_CURRENCIES, payload: { currencies: Object.keys(data) } };
 }
 
-export function fetchURLSuccess(data) {
-  return { type: FETCH_URL_SUCCESS, payload: Object.entries(data) };
+export function fetchURLSuccess(payload) {
+  return { type: FETCH_URL_SUCCESS, payload };
 }
 
 export function fetchURLError(payload) {

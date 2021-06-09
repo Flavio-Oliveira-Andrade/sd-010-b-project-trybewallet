@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import addExpenseAction from '../actions/addExpense';
+import addExpenseAction from '../actions/addExpenseAction';
 
 const intitialState = {
   id: 0,
@@ -15,8 +15,15 @@ const intitialState = {
 class Form extends React.Component {
   constructor() {
     super();
-    this.state = intitialState;
+    this.state = { ...intitialState };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { addExpense, data } = this.props;
+    addExpense(this.state, data);
+    this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
   handleChange({ target }) {
@@ -25,7 +32,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { currencies, addExpense } = this.props;
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -63,7 +70,7 @@ class Form extends React.Component {
         </label>
         <button
           type="button"
-          onClick={ () => addExpense(this.state) }
+          onClick={ this.handleClick }
         >
           Adicionar despesa
         </button>
@@ -75,10 +82,12 @@ class Form extends React.Component {
 Form.propTypes = {
   currencies: PropTypes.string.isRequired,
   addExpense: PropTypes.func.isRequired,
+  data: PropTypes.shape(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  data: state.wallet.exchangeRates,
 });
 
 const mapDispatchToProps = (dispatch) => ({

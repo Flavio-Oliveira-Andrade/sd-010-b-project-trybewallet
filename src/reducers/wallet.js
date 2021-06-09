@@ -30,16 +30,15 @@ const walletReducer = (state = initialState, action) => {
   case FETCH_URL_SUCCESS:
     return {
       ...state,
-      // loading: false,
-      // currencies: action.payload.currencies,
-      // expenses: action.payload.expenses,
+      loading: false,
+      exchangeRates: action.payload,
     };
 
   case ADD_EXPENSE:
     return {
       ...state,
       loading: false,
-      expenses: [...state.expenses, action.payload.expenses],
+      expenses: [...state.expenses, action.payload.expense],
     };
 
   case FETCH_URL_ERROR:
