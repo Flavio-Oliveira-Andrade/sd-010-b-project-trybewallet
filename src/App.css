@@ -1,7 +1,32 @@
 .validateError {
   color: rgb(252, 63, 63);
   font-size: small;
-  margin-top: 3px;
+  margin-top: 5px;
+}
+
+.login-form-container {
+  background-color:rgb(136, 165, 166);
+  max-width: 300px;
+  min-height: 20vh;
+  padding: 5rem;
+  border-radius: 8px;
+  box-shadow: 5px 5px 15px rgb(80, 79, 79);
+}
+
+body {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  text-align: center;
+}
+
+.text-login {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 /* .App {

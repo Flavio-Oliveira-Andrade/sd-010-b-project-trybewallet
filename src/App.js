@@ -5,12 +5,9 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <>
-      <div>Hello, TrybeWallet!</div>
-      <Switch>
-        <Route exact path="/" component={ Login } />
-      </Switch>
-    </>
+    <Switch>
+      <Route exact path="/" component={ Login } />
+    </Switch>
   );
 }
 

@@ -70,11 +70,10 @@ class Login extends React.Component {
   render() {
     const { emailMessageError, pwMessageError, invalidEmail, invalidPw } = this.state;
     return (
-      <>
-        <div>
-          Login
-        </div>
-        <form>
+      <section className="login-form-container">
+        <form className="login-form">
+          <div><h1>TrybeWallet!</h1></div>
+          <div className="text-login">Login</div>
           <label htmlFor="email">
             Email:
             <input
@@ -99,7 +98,7 @@ class Login extends React.Component {
           </label>
           <button type="button" disabled={ invalidEmail || invalidPw }>Entrar</button>
         </form>
-      </>
+      </section>
     );
   }
 }
