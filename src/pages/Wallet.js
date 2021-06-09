@@ -3,6 +3,46 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Wallet extends React.Component {
+  inputValor() {
+    return (
+      <label htmlFor="idValor">
+        Valor
+        <input type="number" name="valor" id="idValor" />
+      </label>);
+  }
+
+  inputdescripiton() {
+    return (
+      <label htmlFor="idDescription">
+        Descrição
+        <input type="number" name="description" id="idDescription" />
+      </label>);
+  }
+
+  inputMoeda() {
+    return (
+
+      <label htmlFor="idMoeda">
+        Moeda
+        <select name="moeda" id="idMoeda">
+          <option>nada</option>
+        </select>
+      </label>);
+  }
+
+  inputPaymente() {
+    return (
+      <label htmlFor="idPayment">
+        Metodo de Pagamento
+        <select id="idPayment">
+          <option value="dinheiro">Dinheiro</option>
+          <option value="credito">Cartão de crédito</option>
+          <option value="debito">Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
   render() {
     const { userEmail } = this.props;
     return (
