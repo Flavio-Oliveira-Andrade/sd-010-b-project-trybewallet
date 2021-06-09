@@ -4,13 +4,24 @@ export const REQUEST_API = 'REQUEST_API';
 
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 
+export const UPDATE_EXCHANGE = 'UPDATE_EXCHANGE';
+
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+
 export const submitEmail = (email) => ({ type: SUBMIT_EMAIL, email });
 
 // export const requestCurrencies = () => ({ type: REQUEST_API });
 
 export const getCurrencies = (currencies) => ({ type: SAVE_CURRENCIES, currencies });
 
-export function fetchCurrencies() {
+export const updateExchangeRates = (exchangeRates) => ({
+  type: UPDATE_EXCHANGE,
+  exchangeRates,
+});
+
+export const submitExpense = (expense) => ({ type: SAVE_EXPENSES, expense });
+
+export function fetchAPI(requirement) {
   // dispatch(requestCurrencies());
   return async (dispatch) => {
     const request = await fetch('https://economia.awesomeapi.com.br/json/all');
