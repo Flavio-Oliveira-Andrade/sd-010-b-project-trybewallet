@@ -1,9 +1,10 @@
-export const login = (value) => (
+export const actionLogin = (email) => (
   { type: 'LOGIN',
-    value });
+    email });
 
-export const wallet = (value) => (
+export const wallet = (currences, expenses) => (
   { type: 'WALLET',
-    value,
+    currences,
+    expenses,
 
   });
