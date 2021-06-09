@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import setLogin from '../actions/index';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -14,7 +17,10 @@ class LoginForm extends Component {
 
   walletRedirect(e) {
     e.preventDefault();
+    const { setLoginToState } = this.props;
+    const email = document.getElementById('email-input').value;
     this.setState((oldState) => ({ ...oldState, shouldRedirect: true }));
+    setLoginToState(email);
   }
 
   validateLogin() {
@@ -78,4 +84,12 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+function mapDispatchToProps(dispatch) {
+  return {
+    setLoginToState: (values) => dispatch(setLogin(values)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(LoginForm);
+
+LoginForm.propTypes = PropTypes.func.isRequired;
