@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login as loginSave } from '../actions/index';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class Login extends React.Component {
       buttonReady: false,
       email: '',
       password: '',
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -20,12 +21,14 @@ class Login extends React.Component {
   }
 
   onClick() {
-    const { login, history } = this.props;
-    const { email, buttonReady } = this.state;
-    if (buttonReady === true) {
-      login(email);
-      history.push('/carteira');
-    }
+    const { sendLogin } = this.props;
+    const { email } = this.state;
+    console.log('Entrei aqui');
+    sendLogin(email);
+
+    this.setState({
+      redirect: true,
+    });
   }
 
   emailVerify() {
@@ -38,6 +41,7 @@ class Login extends React.Component {
       && password.length > less) {
       return this.setState({ buttonReady: true });
     }
+    return this.setState({ buttonReady: false });
   }
 
   handleChange({ target: { value, name } }) {
@@ -48,6 +52,7 @@ class Login extends React.Component {
   }
 
   all(buttonReady) {
+    const { redirect } = this.state;
     return (
       <>
         <h1>Login</h1>
@@ -69,7 +74,7 @@ class Login extends React.Component {
           <button
             type="button"
             onClick={ () => {
-
+              this.onClick();
             } }
             disabled={ buttonReady !== true }
           >
@@ -79,6 +84,7 @@ class Login extends React.Component {
 
           </button>
         </Link>
+        { redirect && <Redirect to="/carteira" /> }
       </>);
   }
 
@@ -94,10 +100,10 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
-  }).isRequired,
-};
+  }),
+}.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (e) => dispatch(loginSave(e)) });
+  sendLogin: (e) => dispatch(login(e)) });
 
 export default connect(null, mapDispatchToProps)(Login);

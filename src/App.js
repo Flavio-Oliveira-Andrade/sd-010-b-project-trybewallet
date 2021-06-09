@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
@@ -7,11 +7,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <BrowserRouter>
-          <Route exact path="/" component={ Login } />
+        <Switch>
           <Route exact path="/carteira" component={ Wallet } />
-
-        </BrowserRouter>
+          <Route exact path="/" component={ Login } />
+        </Switch>
       </div>
     );
   }
