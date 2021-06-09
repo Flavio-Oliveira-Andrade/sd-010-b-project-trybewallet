@@ -54,15 +54,15 @@
   width: 50px;
 }
 
-table,tbody {
+table , tbody {
   margin-top: 5px;
   padding: 0;
   width: 100%;
 }
 
 th {
-  box-sizing: border-box;
   border-bottom: solid 1px black;
+  box-sizing: border-box;
   margin: 0;
   text-align: center;
 }

@@ -15,23 +15,24 @@ class TableOfExpenses extends React.Component {
         method, tag, id } = expense;
       const exchangeRate = (parseFloat(exchangeRates[currency].ask)).toFixed(2);
       return (
-      <tr key={ id }>
-        <td name={ description }>{ description }</td>
-        <td name={ tag }>{ tag }</td>
-        <td name={ method }>{ method }</td>
-        <td name={ value }>{ value }</td>
-        <td>{ exchangeRates[currency].name.split("/")[0] }</td>
-        <td name={ exchangeRate }>{ exchangeRate }</td>
-        <td>
-          {(parseFloat(value.replace(',', '.') * exchangeRates[currency].ask)).toFixed(2)}
-        </td>
-        <td>Real</td>
-      </tr>
-    )});
+        <tr key={ id }>
+          <td name={ description }>{ description }</td>
+          <td name={ tag }>{ tag }</td>
+          <td name={ method }>{ method }</td>
+          <td name={ value }>{ value }</td>
+          <td>{ exchangeRates[currency].name.split('/')[0] }</td>
+          <td name={ exchangeRate }>{ exchangeRate }</td>
+          <td>
+            {(parseFloat(value.replace(',', '.') * exchangeRates[currency].ask)).toFixed(2)}
+          </td>
+          <td>Real</td>
+        </tr>
+    );
+  });
     return allExpenses;
   }
 
-  render(){
+  render() {
     return (
       <table>
         <tbody>
@@ -50,15 +51,15 @@ class TableOfExpenses extends React.Component {
         </tbody>
       </table>
     );
-  };
+  }
 }
 
 const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses
-})
+  expenses: state.wallet.expenses,
+});
 
 TableOfExpenses.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+};
 
 export default connect(mapStateToProps)(TableOfExpenses);
