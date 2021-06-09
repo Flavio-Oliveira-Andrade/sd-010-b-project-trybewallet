@@ -22,6 +22,7 @@ class Wallet extends React.Component {
     this.setState = this.setState.bind(this);
     this.todasDespesas = this.todasDespesas.bind(this);
     this.labelTag = this.labelTag.bind(this);
+    this.totalValue = this.totalValue.bind(this);
   }
 
   componentDidMount() {
@@ -38,8 +39,8 @@ class Wallet extends React.Component {
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json()).then((response) => {
         const itens = response;
-        const object = Object.values(response);
-        const lista = object.filter((itens) => itens.codein !== 'BRLT');
+        // const object = Object.values(response);
+        // const lista = object.filter((itens) => itens.codein !== 'BRLT');
         const { value, method, description, currency, tag } = this.state;
         const result = {
           value,
@@ -52,6 +53,7 @@ class Wallet extends React.Component {
         wallet(result);
       });
   }
+  // agradecimento ao Lucas Martins e Diego pela ajuda para corrigir a função acima.
 
   mudaEstado({ target: { name, value } }) {
     this.setState({
@@ -119,6 +121,22 @@ class Wallet extends React.Component {
     );
   }
 
+  totalValue() {
+    const { carteira } = this.props;
+    if (carteira.length === 0) {
+      return 0;
+    }
+    return (
+      carteira.reduce((valorAcc, carteiras) => {
+        const { value, currency, exchangeRates } = carteiras;
+        const valueToNumber = parseFloat(value);
+        const { ask } = exchangeRates[currency];
+        const brlExpense = valueToNumber * ask;
+        return brlExpense + valorAcc;
+      }, 0));
+  }
+  // agradecimento ao Lucas Martins pela ajuda na solução desta etapa de soma.
+
   render() {
     const { user, carteira } = this.props;
     const { categories } = this.state;
@@ -126,7 +144,7 @@ class Wallet extends React.Component {
       <>
         <header>
           <p data-testid="email-field">{user.email}</p>
-          <p data-testid="total-field">0</p>
+          <p data-testid="total-field">{this.totalValue()}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <form>
@@ -158,7 +176,11 @@ class Wallet extends React.Component {
           Adicionar despesa
         </button>
         <ol>
-          {carteira.map((itens) => <li key={ itens.method }>{itens.method}</li>)}
+          {carteira.map((itens) => (
+            <li key={ itens.method }>
+              {itens.method}
+              {itens.value}
+            </li>))}
         </ol>
       </>
     );
