@@ -23,14 +23,24 @@ export const submitExpense = (expense) => ({ type: SAVE_EXPENSES, expense });
 
 export function fetchAPI(requirement) {
   // dispatch(requestCurrencies());
-  return async (dispatch) => {
-    const request = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const response = await request.json();
-    const responseValues = Object.values(response);
-    const currenciesCode = responseValues.reduce((prev, curr) => {
-      const codes = prev;
-      return (curr.codein !== 'BRLT') ? codes.concat(curr.code) : codes;
-    }, []);
-    dispatch(getCurrencies(currenciesCode));
-  };
+  if (requirement === 'getExchanges') {
+    return async (dispatch) => {
+      const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const response = await request.json();
+      dispatch(updateExchangeRates(response));
+    };
+  }
+
+  if (requirement === 'getCurrencies') {
+    return async (dispatch) => {
+      const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const response = await request.json();
+      const responseValues = Object.values(response);
+      const currenciesCode = responseValues.reduce((prev, curr) => {
+        const codes = prev;
+        return curr.codein !== 'BRLT' ? codes.concat(curr.code) : codes;
+      }, []);
+      dispatch(getCurrencies(currenciesCode));
+    };
+  }
 }
