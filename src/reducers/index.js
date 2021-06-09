@@ -6,6 +6,6 @@ import wallet from './wallet';
 const rootReducer = combineReducers({
   user, // veja que tem no import
   wallet,
-});
+}); // dentro deste combineReducers eu coloquei 2 dentro. Aí tenho que usar o switch e o case nos arquivos destes 2. Aí importei esse 2 aqui,
 
 export default rootReducer;

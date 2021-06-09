@@ -6,8 +6,7 @@ class Login extends React.Component {
     return (
       <form>
         <input data-testid="email-input" type="email" className="email" />
-
-        <input data-testid="password-input" type="password" />
+        <input data-testid="password-input" type="password" className="password" />
 
         <button type="button">Entrar</button>
       </form>
