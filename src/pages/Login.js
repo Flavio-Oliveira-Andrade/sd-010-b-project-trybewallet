@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-// import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';
+// import Wallet from './Wallet';
 import login from '../actions';
-// import { Redirect } from 'react-router';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,9 +12,18 @@ class Login extends React.Component {
       emailAdress: '',
       passwordData: '',
       buttonEnabler: true,
+      shouldRedirect: false,
     };
 
     this.validationFields = this.validationFields.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    const { emailAdress, passwordData } = this.state;
+    const { firstDispatch } = this.props;
+    firstDispatch(emailAdress, passwordData);
+    this.setState({ shouldRedirect: true });
   }
 
   validationFields() {
@@ -28,8 +36,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const { emailAdress, passwordData, buttonEnabler } = this.state;
-    const { firstDispatch } = this.props;
+    const { emailAdress, passwordData, buttonEnabler, shouldRedirect } = this.state;
+
+    if (shouldRedirect) {
+      return <Redirect to="/carteira" />;
+    }
 
     return (
       <div>
@@ -67,8 +78,7 @@ class Login extends React.Component {
         <button
           type="button"
           id="btn-submit"
-          onClick={ () => firstDispatch(emailAdress,
-            passwordData) }
+          onClick={ () => this.onClick() }
           disabled={ buttonEnabler }
         >
           Entrar
