@@ -1,8 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import userInput from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
+
+    this.state = {
+      email: '',
+    };
 
     this.validation = this.validation.bind(this);
   }
@@ -26,6 +33,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { emailDispatch } = this.props;
+    const { email } = this.state;
     return (
       <form>
         <label htmlFor="email">
@@ -49,17 +58,27 @@ class Login extends React.Component {
             required
           />
         </label>
-        <button
-          className="login-button"
-          type="button"
-          disabled
-          onClick={ this.validation }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            className="login-button"
+            type="button"
+            disabled
+            onClick={ () => emailDispatch(email) }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (email) => dispatch(userInput(email)),
+});
+
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
