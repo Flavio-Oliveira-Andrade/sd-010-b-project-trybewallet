@@ -4,9 +4,9 @@ class Forms extends Component {
   render() {
     return (
       <form>
-        <label htmlFor="name">
+        <label htmlFor="value">
           Valor
-          <input type="text" name="name" />
+          <input type="text" name="value" />
         </label>
         <label htmlFor="desc">
           Descrição
@@ -15,7 +15,7 @@ class Forms extends Component {
         <label htmlFor="moeda">
           Moeda
           <select name="moeda">
-            <option value="valor1">Valor 1</option>
+            <option value="lint">lint</option>
           </select>
         </label>
         <label htmlFor="pay">
