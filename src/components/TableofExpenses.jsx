@@ -9,24 +9,25 @@ class TableOfExpenses extends React.Component {
   }
 
   renderExpenses() {
-    const { expenses } = this.props
+    const { expenses } = this.props;
     const allExpenses = expenses.map((expense) => {
-      const { value, description, exchangeRates, currency
-        , payment, tag, id } = expense;
+      const { value, description, exchangeRates, currency,
+        method, tag, id } = expense;
+      const exchangeRate = (parseFloat(exchangeRates[currency].ask)).toFixed(2);
       return (
       <tr key={ id }>
         <td name={ description }>{ description }</td>
         <td name={ tag }>{ tag }</td>
-        <td name={ payment }>{ payment }</td>
+        <td name={ method }>{ method }</td>
         <td name={ value }>{ value }</td>
         <td>{ exchangeRates[currency].name.split("/")[0] }</td>
-        <td name={currency}>{ currency }</td>
+        <td name={ exchangeRate }>{ exchangeRate }</td>
         <td>
           {(parseFloat(value.replace(',', '.') * exchangeRates[currency].ask)).toFixed(2)}
         </td>
         <td>Real</td>
       </tr>
-    )})
+    )});
     return allExpenses;
   }
 
@@ -61,4 +62,3 @@ TableOfExpenses.propTypes = {
 }
 
 export default connect(mapStateToProps)(TableOfExpenses);
-

@@ -10,6 +10,7 @@ class Wallet extends React.Component {
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.getCurrencies = this.getCurrencies.bind(this);
     this.onChangeHandle = this.onChangeHandle.bind(this);
+    this.onClickHandle = this.onClickHandle.bind(this);
     this.calculateTotal = this.calculateTotal.bind(this);
     this.state = {
       currencies: [],
@@ -18,7 +19,7 @@ class Wallet extends React.Component {
         value: '',
         description: '',
         currency: 'USD',
-        payment: 'Dinheiro',
+        method: 'Dinheiro',
         tag: 'Alimentação',
       },
     };
@@ -29,14 +30,25 @@ class Wallet extends React.Component {
   }
 
   onChangeHandle({ target }) {
-    const countExpenses = 1;
     this.setState((prev) => ({
       expense: {
         ...prev.expense,
-        id: prev.expense.id + countExpenses,
         [target.id]: target.value,
       },
     }));
+  }
+
+  async onClickHandle() {
+    const { addExpense } = this.props;
+    const countExpenses = 1;
+    await this.setState((prev) => ({
+      expense: {
+        ...prev.expense,
+        id: prev.expense.id + countExpenses,
+      },
+    }));
+    const { expense } = this.state;
+    return addExpense(expense);
   }
 
   getCurrencies() {
@@ -104,8 +116,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, addExpense } = this.props;
-    const { expense } = this.state;
+    const { email } = this.props;
     const total = this.calculateTotal();
     return (
       <div>
@@ -124,16 +135,16 @@ class Wallet extends React.Component {
               { this.getCurrencies() }
             </select>
           </label>
-          <label htmlFor="payment">
+          <label htmlFor="method">
             Método de Pagamento
-            <select id="payment" onChange={ (e) => this.onChangeHandle(e) }>
+            <select id="method" onChange={ (e) => this.onChangeHandle(e) }>
               <option name="Dinheiro">Dinheiro</option>
               <option name="Cartão de crédito">Cartão de crédito</option>
               <option name="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="tag" name="tag">
-            Categoria
+          <label htmlFor="tag">
+            Tag
             <select id="tag" onChange={ (e) => this.onChangeHandle(e) }>
               <option name="Alimentação">Alimentação</option>
               <option name="Lazer">Lazer</option>
@@ -144,7 +155,7 @@ class Wallet extends React.Component {
           </label>
           <button
             type="button"
-            onClick={ () => addExpense(expense) }
+            onClick={ this.onClickHandle }
           >
             Adicionar despesa
           </button>
