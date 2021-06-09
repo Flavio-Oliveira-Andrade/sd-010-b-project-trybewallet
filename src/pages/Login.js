@@ -16,6 +16,7 @@ class Login extends React.Component {
   }
 
   validarCampos() {
+    // Função criada com ajuda do colega Miguel Albuquerque
     const { email, password } = this.state;
     const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const validPassword = /\d{5,}/;
@@ -61,7 +62,13 @@ class Login extends React.Component {
             />
           </label>
           <Link to="/carteira">
-            <button type="button" disabled={ disabledButton } onClick={ () => login({ email, password }) }>Entrar</button>
+            <button
+              type="button"
+              disabled={ disabledButton }
+              onClick={ () => login({ email, password }) }
+            >
+              Entrar
+            </button>
           </Link>
         </form>
       </main>
