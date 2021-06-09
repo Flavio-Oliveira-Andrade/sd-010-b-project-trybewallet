@@ -1,16 +1,15 @@
 import React from 'react';
-import { objectOf, string, object } from 'prop-types';
 import { connect } from 'react-redux';
+import { arrayOf, string, object } from 'prop-types';
+import { updateCurrencies } from '../actions';
 import { Header, Forms } from '../components';
 import coins from '../services/apiCoins';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.fetchApi = this.fetchApi.bind(this);
-    this.state = {
-      currencies: [],
-    };
   }
 
   componentDidMount() {
@@ -18,27 +17,33 @@ class Wallet extends React.Component {
   }
 
   async fetchApi() {
-    this.setState({ currencies: Object.keys(await coins()) });
+    const { propUpdateCurrencies } = this.props;
+    propUpdateCurrencies(Object.keys(await coins()));
   }
 
   render() {
-    const { email, expenses } = this.props;
-    const { currencies } = this.state;
+    const { email, currencies, expenses } = this.props;
     return (
       <>
         <Header email={ email } expenses={ expenses } />
         <Forms currencies={ currencies } />
+        <Table expenses={ expenses } />
       </>
     );
   }
 }
 
 const mapStateToProps = ({
-  user: { email }, wallet: { expenses } }) => ({ email, expenses });
+  user: { email }, wallet: { currencies, expenses } }) => ({
+  email, currencies, expenses });
+
+const mapDispatchToProps = (dispatch) => ({
+  propUpdateCurrencies: (data) => dispatch(updateCurrencies(data)),
+});
 
 Wallet.propTypes = {
   email: string,
-  expenses: objectOf(object),
+  expenses: arrayOf(object),
 }.isRequired;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

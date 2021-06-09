@@ -18,8 +18,8 @@ class Forms extends Component {
       id: 0,
       value: 0,
       description: '',
-      method: 'Escolha',
-      tag: 'Escolha',
+      method: '',
+      tag: '',
       currency: 'USD',
     };
   }
