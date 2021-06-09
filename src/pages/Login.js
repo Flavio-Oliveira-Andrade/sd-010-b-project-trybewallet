@@ -27,7 +27,7 @@ class Login extends React.Component {
   }
 
   submit() {
-    const { usuario } = this.props;
+    const { usuario } = this.props; // tenho que fazer esse props.
     const { email } = this.state; // vem do state.
     // tenho que fazer essas desestruturações porque uso as duas pra chamar a função usuario.
     usuario(email); // aqui tou chamando a função usuario que fiz lá embaixo no dispatch.
@@ -85,7 +85,7 @@ Login.propTypes = {
   usuario: PropTypes.func.isRequired,
 };
 const mapDispatchToProps = (dispatch) => ({
-  usuario: (email) => dispatch(action(email)), // esse usuario(nome que dei) é UMA FUNÇÃO, tanto que botei assim no propTypes. E o email vem do state.E eu irei chamar essa função DENTRO DA FUNÇÃO SUBMIT.
+  usuario: (email) => dispatch(action(email)), // esse usuario(nome que dei) é UMA FUNÇÃO, tanto que botei assim no propTypes. E o email nos parênteses vem do state.Eu irei chamar essa função DENTRO DA FUNÇÃO SUBMIT.
 }); // tenho que botar essa função usuario(nome que eu dei) como props. Aí é legal fazer dentro da função de submit
 // action foi o nome que dei pra action e exportei ela no index da pasta actions(meu segundo exporte lá). Esse nome email eu coloquei dentro de payload naquele arquivo.
 // o mapDispatch serve pra despachar a action
