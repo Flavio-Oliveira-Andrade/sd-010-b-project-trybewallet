@@ -47,6 +47,16 @@ class Wallet extends React.Component {
               <option value="debit-card">Cartão de débito</option>
             </select>
           </label>
+          <label htmlFor="expense-tag">
+            Tag
+            <select name="expenseTag" id="expense-tag">
+              <option value="food">Alimentação</option>
+              <option value="leisure">Lazer</option>
+              <option value="work">Trabalho</option>
+              <option value="transportation">Transporte</option>
+              <option value="health">Saúde</option>
+            </select>
+          </label>
         </form>
       </div>
     );
