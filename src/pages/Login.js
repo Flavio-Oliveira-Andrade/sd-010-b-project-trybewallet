@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { submitEmail } from '../actions';
 
+const MIN_LENGTH_PASSWORD = 5;
 class Login extends React.Component {
   constructor() {
     super();
@@ -27,12 +28,10 @@ class Login extends React.Component {
   }
 
   handlePassword({ target: { value } }) {
-    const MIN_LENGTH_PASSWORD = 5;
-    if (value.length > MIN_LENGTH_PASSWORD) {
-      this.setState({
-        isValidPassword: true,
-      });
-    }
+    const isValidPassword = (value.length > MIN_LENGTH_PASSWORD);
+    this.setState({
+      isValidPassword,
+    });
   }
 
   changeDisabled() {
