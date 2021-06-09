@@ -10,24 +10,26 @@ class Wallet extends React.Component {
 
   category() {
     return (
-      <select name="categoria">
-        <option>
-          Alimentação
-        </option>
-        <option>
-          Lazer
-        </option>
-        <option>
-          Trabalho
-        </option>
-        <option>
-          Transporte
-        </option>
-        <option>
-          Saúde
-        </option>
-
-      </select>
+      <label htmlFor="tag">
+        tag
+        <select id="tag">
+          <option>
+            Alimentação
+          </option>
+          <option>
+            Lazer
+          </option>
+          <option>
+            Trabalho
+          </option>
+          <option>
+            Transporte
+          </option>
+          <option>
+            Saúde
+          </option>
+        </select>
+      </label>
     );
   }
 
@@ -42,39 +44,43 @@ class Wallet extends React.Component {
             { user }
           </h3>
           <h3 data-testid="total-field">
-            {' '}
             Despesa Total: R$ 0,00
             {' '}
           </h3>
           <h3 data-testid="header-currency-field">{' BRL '}</h3>
         </header>
-        <section>
+        <form>
           <label htmlFor="Valor">
             Valor:
-            <input type="number" name="Valor" />
+            <input type="number" id="Valor" />
           </label>
           <label htmlFor="Descrição">
             Descrição:
-            <input type="text" name="Descrição" />
+            <input type="text" id="Descrição" />
           </label>
-          <label htmlFor="Moeda">
-            Moeda:
-            <select name="Moeda">
-              batata
+          <label htmlFor="moeda">
+            moeda
+            <select id="moeda">
+              moeda
             </select>
           </label>
-          Método de pagamento:
-          <select name="Método de pagamento">
-            <option>
-              Cartão de crédito
-            </option>
-            <option>
-              Cartão de débito
-            </option>
-          </select>
-
+          <label htmlFor="Método de pagamento">
+            Método de pagamento
+            <select id="Método de pagamento">
+              Método de pagamento
+              <option name="Cartão de crédito">
+                Cartão de crédito
+              </option>
+              <option name="Cartão de crédito">
+                Cartão de débito
+              </option>
+              <option name="Dinheiro">
+                Dinheiro
+              </option>
+            </select>
+          </label>
           {this.category()}
-        </section>
+        </form>
       </div>);
   }
 }

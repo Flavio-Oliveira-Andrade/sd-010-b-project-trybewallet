@@ -63,6 +63,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const valueInput = await screen.findByLabelText(/valor/i);
 
+
     expect(valueInput).toBeInTheDocument();
   });
 
