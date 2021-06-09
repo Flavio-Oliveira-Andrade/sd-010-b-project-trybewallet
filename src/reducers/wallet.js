@@ -31,7 +31,7 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       editMode: false,
       expenses: state.expenses.map((expense) => {
-        if (expense.id === state.editExpense.id) {
+        if (expense.id === action.id) {
           return action.expense;
         } return expense;
       }) };

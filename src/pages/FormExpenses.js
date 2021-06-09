@@ -36,7 +36,7 @@ class FormExpenses extends React.Component {
         ...expense,
         value: editExpense.value,
         currency: editExpense.currency,
-        method: editExpense.currency,
+        method: editExpense.method,
         tag: editExpense.tag,
         description: editExpense.description,
         exchangeRates: editExpense.exchangeRates,
@@ -102,14 +102,16 @@ class FormExpenses extends React.Component {
     const { confirmEditAction, editExpense } = this.props;
     const { expense } = this.state;
     const propExchangeRate = editExpense.exchangeRates;
-    confirmEditAction(expense.id,
-      { ...expense, expense: { exchangeRates: propExchangeRate } });
+    confirmEditAction(editExpense.id,
+      { ...expense, exchangeRates: propExchangeRate });
     this.resetState();
   }
 
   handleEditMode() {
     const { editMode } = this.props;
+    const { shouldLoop } = this.state;
     if (editMode) {
+      if (shouldLoop) { this.retrieveEditExpenseState(); }
       return (
         <button
           onClick={ () => this.handleConfirmEdit() }
@@ -193,9 +195,7 @@ class FormExpenses extends React.Component {
   render() {
     const { isFetched } = this.state;
     if (!isFetched) { return <div>Carregando...</div>; }
-    const { expense: { tag }, shouldLoop } = this.state;
-    const { editMode } = this.props;
-    if (editMode && shouldLoop) { this.retrieveEditExpenseState(); }
+    const { expense: { tag } } = this.state;
     return (
       <form>
         { this.inputDespesaDescricao(this.state) }
