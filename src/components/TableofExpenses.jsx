@@ -23,12 +23,13 @@ class TableOfExpenses extends React.Component {
           <td>{ exchangeRates[currency].name.split('/')[0] }</td>
           <td name={ exchangeRate }>{ exchangeRate }</td>
           <td>
-            {(parseFloat(value.replace(',', '.') * exchangeRates[currency].ask)).toFixed(2)}
+            {(parseFloat(value.replace(',', '.') * exchangeRates[currency].ask))
+            .toFixed(2)}
           </td>
           <td>Real</td>
         </tr>
-    );
-  });
+      );
+    });
     return allExpenses;
   }
 
