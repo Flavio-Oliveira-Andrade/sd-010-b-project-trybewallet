@@ -1,13 +1,16 @@
 import React from 'react';
-import responseOfAPiWallet from './apiRequest';
+import { Route, Switch } from 'react-router-dom';
+import Login from './pages/Login';
 
-class App extends React.Component {
-  render () {
+function App() {
   return (
-  <div>Hello, TrybeWallet!{console.log(responseOfAPiWallet)}</div>
-    )
-  }
+    <div>
+      <header> Header </header>
+      <Switch>
+        <Route path="/" component={ Login } />
+      </Switch>
+    </div>
+  );
 }
-
 
 export default App;
