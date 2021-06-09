@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { delExpense, updateAmount } from '../actions';
+import TableBody from './TableBody';
 
 const tableHeader = [
   'Descrição',
@@ -32,36 +33,7 @@ class ExpenseTable extends Component {
             {tableHeader.map((th, idx) => <th key={ idx }>{th}</th>)}
           </tr>
         </thead>
-        <tbody>
-          {expenses.map(({
-            value, description, currency, method, tag, exchangeRates,
-          }, idx) => {
-            const currencyName = exchangeRates[currency].name.split('/');
-            return (
-              <tr key={ idx }>
-                <td>{description}</td>
-                <td>{tag}</td>
-                <td>{method}</td>
-                <td>{value}</td>
-                <td>{currencyName[0]}</td>
-                <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>Real</td>
-                <td>
-                  <button type="submit">Editar</button>
-                  <button
-                    type="submit"
-                    onClick={ () => {
-                      removeExpense(idx);
-                    } }
-                    data-testid="delete-btn"
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>);
-          })}
-        </tbody>
+        <TableBody expenses={ expenses } removeExpense={ removeExpense } />
       </table>
     );
   }

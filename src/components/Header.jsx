@@ -6,7 +6,6 @@ class Header extends Component {
   render() {
     const { userEmail, amount } = this.props;
 
-    const CURRENCY = 'BRL';
     return (
       <header>
         <p data-testid="email-field">
@@ -18,7 +17,7 @@ class Header extends Component {
           Despesa: R$
           {parseFloat(amount).toFixed(2)}
         </p>
-        <p data-testid="header-currency-field">{CURRENCY}</p>
+        <p data-testid="header-currency-field">BRL</p>
       </header>
     );
   }

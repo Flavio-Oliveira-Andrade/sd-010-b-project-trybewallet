@@ -4,10 +4,10 @@ const INITIAL_STATE = {
   email: '',
 };
 
-function user(state = INITIAL_STATE, action) {
-  switch (action.type) {
+function user(state = INITIAL_STATE, { type, payload }) {
+  switch (type) {
   case SET_USER:
-    return { ...state, email: action.payload };
+    return { ...state, email: payload };
   default:
     return state;
   }
