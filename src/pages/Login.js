@@ -28,11 +28,10 @@ class Login extends React.Component {
 
   validateInput() {
     const { email, password } = this.state;
-    const validateEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
-    validateEmail.test(email);
+    const validateEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(email);
     const validatePassword = password;
-    const seis = 6;
-    if (validatePassword.length > seis && validateEmail) {
+    const cinco = 5;
+    if (validateEmail && (validatePassword.length > cinco)) {
       this.setState({ validate: false });
     } else {
       this.setState({ validate: true });
