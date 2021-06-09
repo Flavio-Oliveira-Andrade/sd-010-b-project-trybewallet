@@ -16,6 +16,33 @@ const tableHead = () => (
   </thead>
 );
 
+const tableBody = (expenses) => (
+  <tbody>
+    { expenses.map(({
+      id,
+      description,
+      tag,
+      method,
+      value,
+      currency,
+      exchangeRates,
+    }) => (
+      <tr key={ id }>
+        <td>{description}</td>
+        <td>{tag}</td>
+        <td>{method}</td>
+        <td>{value}</td>
+        <td>{exchangeRates[currency].name}</td>
+        <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
+        <td>{(exchangeRates[currency].ask * parseFloat(value)).toFixed(2)}</td>
+        <td>Real</td>
+        {/* <td>Editar/Excluir</td> */}
+      </tr>
+    ))}
+  </tbody>
+);
+
+function ExpenseTable({ expenses }) {
   return (
     <table>
       { tableHead() }
