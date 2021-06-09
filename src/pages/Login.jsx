@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './Login.css';
 import { Redirect } from 'react-router-dom';
+import { login as loginAction } from '../actions';
 import bitcoin from '../images/5a105381eed609b127ec423c337f64e3.gif';
 
 const PASSWORD_LENGTH = 5;
@@ -49,9 +50,12 @@ class Login extends React.Component {
   }
 
   handleLogin() {
+    const { login } = this.props;
+    const { email } = this.state;
     this.setState({
       redirect: true,
     });
+    login(email);
   }
 
   render() {
@@ -98,17 +102,9 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.userReducer,
-  wallet: state.walletReducer,
+const mapDispatchToProps = (dispatch) => ({
+
+  login: (email) => dispatch(loginAction(email)),
 });
 
-const mapDispatchToProps = (state) => ({
-  type: 'LOGIN',
-  payload: {
-    email: state.email,
-    password: state.password,
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

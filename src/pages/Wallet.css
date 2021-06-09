@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: black;
+  font-size: 25px;
+  font-family: 'Courier New', Courier, monospace;
+  color: #fff;
+  height: 50px;
+  padding-right: 10px;
+}
