@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import './Login.css';
 import { Redirect } from 'react-router-dom';
@@ -106,5 +107,13 @@ const mapDispatchToProps = (dispatch) => ({
 
   login: (email) => dispatch(loginAction(email)),
 });
+
+Login.propTypes = {
+  login: PropTypes.func,
+};
+
+Login.defaultProps = {
+  login: undefined,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
