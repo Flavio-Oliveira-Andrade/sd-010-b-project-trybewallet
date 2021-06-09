@@ -10,11 +10,7 @@ const WalletReducer = (state = INITIAL_STATE, action) => {
   case ('WALLET_ACTION'):
     return ({
       ...state,
-      wallet: {
-        ...state.wallet,
-        currencies: action.payload.currencies,
-        expenses: action.payload.expenses,
-      },
+      expenses: [...state.expenses, action.dispenseInfo],
     });
   default:
     return state;
