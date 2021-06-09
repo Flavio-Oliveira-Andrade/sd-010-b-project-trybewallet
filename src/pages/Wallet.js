@@ -25,7 +25,7 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="idDescription">
         Descrição
-        <input type="number" name="description" id="idDescription" />
+        <input type="text" name="description" id="idDescription" />
       </label>);
   }
 
@@ -43,7 +43,7 @@ class Wallet extends React.Component {
   inputPaymente() {
     return (
       <label htmlFor="idPayment">
-        Metodo de Pagamento
+        Método de Pagamento
         <select name="Payment" id="idPayment">
           <option value="dinheiro">Dinheiro</option>
           <option value="credito">Cartão de crédito</option>
