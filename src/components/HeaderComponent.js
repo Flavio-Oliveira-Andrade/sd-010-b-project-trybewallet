@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-class HeaderComponent extends Component {s
+class HeaderComponent extends Component {
   render() {
     const { email, total } = this.props;
     return (
