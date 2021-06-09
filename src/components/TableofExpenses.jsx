@@ -43,6 +43,7 @@ class TableOfExpenses extends React.Component {
             <th name="Câmbio utilizado">Câmbio utilizado</th>
             <th name="Valor convertido">Valor convertido</th>
             <th name="Moeda de conversão">Moeda de conversão</th>
+            <th name="Editar/Excluir">Editar/Excluir</th>
           </tr>
           {this.renderExpenses()}
         </tbody>
