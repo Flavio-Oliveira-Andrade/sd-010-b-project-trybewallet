@@ -5,17 +5,16 @@ import ExpenseForm from './ExpenseForm';
 
 class Wallet extends React.Component {
   render() {
-    const { email, total } = this.props;
+    const { email } = this.props;
     return (
       <header>
         <div data-testid="email-field">
           Email:
           { email }
         </div>
-        <div data-testid="total-field">
-          Despesa Total:
-          { total }
-        </div>
+        <span data-testid="total-field">
+          0
+        </span>
         <div data-testid="header-currency-field">
           BRL
         </div>
@@ -27,7 +26,6 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
