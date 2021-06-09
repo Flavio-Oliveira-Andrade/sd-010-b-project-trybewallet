@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Login from './components/Login';
-import Carteira from './components/Carteira';
+import Login from './pages/Login';
+import Wallet from './pages/Wallet';
 
 function App() {
   return (
     <>
       <Route path="/" component={ Login } />
-      <Route path="/carteira" component={ Carteira } />
+      <Route path="/carteira" component={ Wallet } />
     </>
   );
 }
