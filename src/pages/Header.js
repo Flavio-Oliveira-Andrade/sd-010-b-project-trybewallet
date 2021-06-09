@@ -20,9 +20,13 @@ class Header extends React.Component {
         <h1>Header</h1>
         <span>{userEmail}</span>
         <p data-testid="total-field">
+          Valor Total:
+          {' '}
           {total}
         </p>
         <p data-testid="header-currency-field">
+          Câmbio:
+          {' '}
           {cambio}
         </p>
       </header>
