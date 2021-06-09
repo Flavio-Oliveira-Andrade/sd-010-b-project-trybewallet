@@ -5,6 +5,7 @@ import { getDataThunk } from '../actions/apiRequests';
 import Header from '../components/Header';
 // import { exchangeAPI } from '../services/api';
 import Form from '../components/Form';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -22,6 +23,7 @@ class Wallet extends React.Component {
       <section>
         <Header />
         <Form />
+        <Table />
       </section>);
   }
 }

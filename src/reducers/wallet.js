@@ -2,7 +2,8 @@
 import { FETCH_URL,
   FETCH_URL_SUCCESS,
   FETCH_URL_ERROR,
-  GET_CURRENCIES } from '../actions';
+  GET_CURRENCIES,
+  ADD_EXPENSE } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -32,6 +33,13 @@ const walletReducer = (state = initialState, action) => {
       // loading: false,
       // currencies: action.payload.currencies,
       // expenses: action.payload.expenses,
+    };
+
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      loading: false,
+      expenses: [...state.expenses, action.payload.expenses],
     };
 
   case FETCH_URL_ERROR:

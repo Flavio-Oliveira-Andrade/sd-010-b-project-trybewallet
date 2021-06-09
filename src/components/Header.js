@@ -11,7 +11,9 @@ class Header extends React.Component {
         <p
           data-testid="total-field"
         >
-          {expenses ? expenses.reduce((acc, curr) => acc + curr, 0) : 0 }
+          {!expenses
+            ? 0
+            : expenses.reduce((acc, curr) => acc + parseInt(curr.value, 10), 0)}
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </section>
@@ -27,7 +29,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  currencies: state.wallet.currencies,
+  // currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
 });
 
