@@ -10,7 +10,7 @@ class App extends React.Component {
         <Route path="/carteira" component={ Wallet } />
         <Route path="/" component={ Principal } />
       </Switch>
-    )
+    );
   }
 }
 
