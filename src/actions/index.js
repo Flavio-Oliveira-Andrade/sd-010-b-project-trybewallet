@@ -1,1 +1,1 @@
-// Coloque aqui suas actions
+export default function (state) { return ({ type: 'login', state }); }

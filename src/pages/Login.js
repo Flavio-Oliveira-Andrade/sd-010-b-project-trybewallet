@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import '../css/login.css';
+import { connect } from 'react-redux';
+import action from '../actions';
 
 class Login extends React.Component {
   constructor(state) {
@@ -11,7 +14,7 @@ class Login extends React.Component {
       emailValid: false,
       passwordValid: false,
       redirect: false,
-      // email: '',
+      email: '',
     };
   }
 
@@ -34,13 +37,12 @@ class Login extends React.Component {
     if (target.type === 'email') {
       this.setState(() => ({
         emailValid: target.validity.valid && target.value.includes('.com'),
-        // email: target.value,
+        email: target.value,
       }));
     } else {
-      const MIN_PASSWORD_LEN = 6;
+      const MIN_PASSWORD_LEN = 5;
       this.setState(() => ({
         passwordValid: target.value.length >= MIN_PASSWORD_LEN,
-        // email: target.value,
       }));
     }
 
@@ -49,7 +51,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { redirect } = this.state;
+    const { redirect, email } = this.state;
+    const { emailDispatch } = this.props;
 
     if (redirect) return <Redirect to="/carteira" />;
     return (
@@ -60,11 +63,27 @@ class Login extends React.Component {
           <form className="form" onChange={ this.loginHandler }>
             <input data-testid="email-input" type="email" placeholder="Email" />
             <input data-testid="password-input" type="password" placeholder="Senha" />
-            <button id="submit" onClick={ this.onSubmit } type="button">Entrar</button>
+            <button
+              id="submit"
+              onClick={ () => {
+                this.onSubmit();
+                emailDispatch(email);
+              } }
+              type="button"
+            >
+              Entrar
+            </button>
           </form>
         </div>
       </div>);
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (state) => dispatch(action(state)) });
+
+Login.propTypes = {
+  emailDispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
