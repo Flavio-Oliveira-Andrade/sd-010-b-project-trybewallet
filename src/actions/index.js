@@ -1,4 +1,4 @@
 // Coloque aqui suas actions
-const login = (value) => ({ type: 'LOGIN', value });
+export const login = (value) => ({ type: 'LOGIN', value });
 
-export default login;
+export const batata = (value) => ({ type: 'BATATA', value });
