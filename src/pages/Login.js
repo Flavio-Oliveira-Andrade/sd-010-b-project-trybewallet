@@ -18,6 +18,12 @@ function Login() {
   function clickEnter() {
     console.log('clicou');
   }
+
+  const minPassword = 6;
+  const validetLogin = (!email.includes('.com')
+    || !email.includes('@')
+    || password.length < minPassword);
+
   return (
     <>
       <InputEmail
@@ -30,7 +36,10 @@ function Login() {
         inputValuePassword={ password }
         onInputPasswordChange={ handlePasswordChange }
       />
-      <ButtonEnter enterLogin={ clickEnter } />
+      <ButtonEnter
+        enterLogin={ clickEnter }
+        disabledEnter={ validetLogin }
+      />
     </>
   );
 }
