@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { delExpense } from '../actions';
+import { delExpense, updateAmount } from '../actions';
 
 const tableHeader = [
   'Descrição',
@@ -17,7 +17,14 @@ const tableHeader = [
 
 class ExpenseTable extends Component {
   render() {
-    const { expenses, removeExpense } = this.props;
+    const { expenses, removeExpense, updateExpenses } = this.props;
+
+    const expenseAmount = expenses.reduce((acc, curr) => {
+      const { value, currency, exchangeRates } = curr;
+      return acc + value * exchangeRates[currency].ask;
+    }, 0);
+    updateExpenses(expenseAmount);
+
     return (
       <table>
         <thead>
@@ -45,7 +52,6 @@ class ExpenseTable extends Component {
                   <button
                     type="submit"
                     onClick={ () => {
-                      // console.log(idx);
                       removeExpense(idx);
                     } }
                     data-testid="delete-btn"
@@ -67,6 +73,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (value) => dispatch(delExpense(value)),
+  updateExpenses: (value) => dispatch(updateAmount(value)),
 });
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf,

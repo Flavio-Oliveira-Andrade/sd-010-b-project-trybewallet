@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, DEL_EXPENSE } from '../actions';
+import { ADD_EXPENSE, DEL_EXPENSE, UPDATE_AMOUNT } from '../actions';
 
 function arrayRemove(arr, id) {
   return arr.filter((e) => e.id !== id);
@@ -7,6 +7,7 @@ function arrayRemove(arr, id) {
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  amount: 0,
 };
 
 function wallet(state = INITIAL_STATE, { type, payload }) {
@@ -14,7 +15,9 @@ function wallet(state = INITIAL_STATE, { type, payload }) {
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, payload] };
   case DEL_EXPENSE:
-    return { ...state, expenses: [arrayRemove(state.expenses, payload)] };
+    return { ...state, expenses: arrayRemove(state.expenses, payload) };
+  case UPDATE_AMOUNT:
+    return { ...state, amount: payload };
   default:
     return state;
   }

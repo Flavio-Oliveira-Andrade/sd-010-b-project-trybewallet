@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
-    const { userEmail, expenses } = this.props;
-    const expenseAmount = expenses.reduce((acc, curr) => {
-      const { value, currency, exchangeRates } = curr;
-      return acc + value * exchangeRates[currency].ask;
-    }, 0);
+    const { userEmail, amount } = this.props;
 
     const CURRENCY = 'BRL';
     return (
@@ -20,7 +16,7 @@ class Header extends Component {
         </p>
         <p data-testid="total-field">
           Despesa: R$
-          {expenseAmount.toFixed(2)}
+          {parseFloat(amount).toFixed(2)}
         </p>
         <p data-testid="header-currency-field">{CURRENCY}</p>
       </header>
@@ -29,7 +25,7 @@ class Header extends Component {
 }
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
-  expenses: state.wallet.expenses,
+  amount: state.wallet.amount,
 });
 
 Header.propTypes = {

@@ -1,6 +1,7 @@
 export const SET_USER = 'SET_USER';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DEL_EXPENSE = 'DEL_EXPENSE';
+export const UPDATE_AMOUNT = 'UPDATE_AMOUNT';
 
 export const setUser = (payload) => ({
   type: SET_USER,
@@ -14,5 +15,10 @@ export const addExpense = (payload) => ({
 
 export const delExpense = (payload) => ({
   type: DEL_EXPENSE,
+  payload,
+});
+
+export const updateAmount = (payload) => ({
+  type: UPDATE_AMOUNT,
   payload,
 });
