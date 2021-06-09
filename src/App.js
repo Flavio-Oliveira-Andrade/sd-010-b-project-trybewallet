@@ -7,7 +7,7 @@ import Login from './pages/Login';
 function App() {
   return (
     <Switch>
-      <Route path="/">
+      <Route exact path="/">
         <Login />
       </Route>
     </Switch>

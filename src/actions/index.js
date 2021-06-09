@@ -1,1 +1,4 @@
-// Coloque aqui suas actions
+export const setLogin = (email) => ({
+  type: 'SET_EMAIL',
+  payload: email,
+});
