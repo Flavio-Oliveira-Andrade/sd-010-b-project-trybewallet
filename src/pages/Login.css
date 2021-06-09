@@ -1,28 +1,28 @@
 #login--div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: green;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  width: 50%;
+  justify-content: center;
   margin: 0 auto;
+  width: 50%;
 }
 
 .login--form {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .login--button {
-  color: #000;
-  margin: 10px 0 10px 0;
-  padding: 0 25px;
+  background-color: white;
+  border: 2px solid black;
   border-radius: 12px;
-  background-color: #fff;
-  border: 2px solid #000;
-  font-size: 15px;
+  color: black;
   cursor: pointer;
+  font-size: 15px;
+  margin: 10px 0;
+  padding: 0 25px;
 }

@@ -4,13 +4,13 @@
 }
 
 header {
-  display: flex;
-  justify-content: flex-end;
   align-items: center;
   background-color: black;
+  color: white;
+  display: flex;
   font-size: 25px;
-  font-family: 'Courier New', Courier, monospace;
-  color: #fff;
+  font-family: "Courier New", Courier, monospace;
   height: 50px;
+  justify-content: flex-end;
   padding-right: 10px;
 }
