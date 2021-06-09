@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email:'',
-      password:'',
-    }
+      email: '',
+      password: '',
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -29,22 +29,22 @@ class Home extends React.Component {
         </header>
         <div className="input-box">
           <form>
-            <label htmlFor="user-email">
+            <label htmlFor="email">
               <input
                 type="text"
                 name="email"
                 placeholder="Usuário"
                 data-testid="email-input"
-                onChange={this.handleChange}
+                onChange={ this.handleChange }
               />
             </label>
-            <label htmlFor="user-password">
+            <label htmlFor="password">
               <input
                 type="password"
                 name="password"
                 placeholder="Senha"
                 data-testid="password-input"
-                onChange={this.handleChange}
+                onChange={ this.handleChange }
               />
             </label>
             <Link to="/carteira">
