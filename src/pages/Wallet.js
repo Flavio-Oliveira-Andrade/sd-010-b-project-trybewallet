@@ -126,7 +126,8 @@ class Wallet extends React.Component {
       <div>
         TrybeWallet
         {this.renderHeader()}
-        { (moedas === undefined || isFetching) ? <h1> Carregando... </h1> : this.renderForm() }
+        { (moedas === undefined || isFetching)
+          ? <h1> Carregando... </h1> : this.renderForm() }
       </div>);
   }
 }
