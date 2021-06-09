@@ -8,16 +8,20 @@ class Header extends Component {
 
     return (
       <header>
-        <p data-testid="email-field">
-          Email:
-          {' '}
-          {userEmail}
-        </p>
-        <p data-testid="total-field">
-          Despesa: R$
-          {parseFloat(amount).toFixed(2)}
-        </p>
-        <p data-testid="header-currency-field">BRL</p>
+        <section className="user-info">
+          <p data-testid="email-field">
+            Email:
+            {' '}
+            {userEmail}
+          </p>
+        </section>
+        <section className="expense-info">
+          <p data-testid="total-field">
+            Despesa: R$
+            {parseFloat(amount).toFixed(2)}
+          </p>
+          <p data-testid="header-currency-field">BRL</p>
+        </section>
       </header>
     );
   }
