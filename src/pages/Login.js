@@ -6,38 +6,19 @@ class Login extends React.Component {
     super(props);
     this.state = {
       Email: '',
-      Senha: false,
-      Alert: '',
-      page: '',
+      EmailBol: true,
+      Senha: true,
+      page: false,
     };
-    this.entrar = this.entrar.bind(this);
     this.email = this.email.bind(this);
     this.senha = this.senha.bind(this);
-  }
-
-  entrar() {
-    const { Senha, Email } = this.state;
-    if (Email === '') {
-      this.setState({
-        Alert: 'Loguin invalido',
-      });
-      return console.log('Loguin');
-    }
-    if (Senha === false) {
-      this.setState({
-        Alert: 'senha invalida',
-      });
-      return console.log('Senha');
-    }
-    this.setState({
-      page: 'carteira',
-    });
   }
 
   email({ target: { value } }) {
     if (value.match(/[a-z]+@[a-z]+.com/g)) {
       this.setState({
         Email: value,
+        EmailBol: false,
       });
     }
   }
@@ -46,20 +27,21 @@ class Login extends React.Component {
     const senhaMinima = 6;
     if (value.length > senhaMinima) {
       this.setState({
-        Senha: true,
+        Senha: false,
       });
     }
   }
 
   render() {
-    const { Alert, page } = this.state;
+    const { page, EmailBol, Senha, Email } = this.state;
 
-    if (page === 'carteira') {
+    if (page === true) {
       return <Redirect to="/carteira" />;
     }
 
     return (
       <form>
+        {console.log(Email)}
         <label htmlFor="Login">
           Login
           <input
@@ -80,8 +62,13 @@ class Login extends React.Component {
             onChange={ this.senha }
           />
         </label>
-        <button type="button" onClick={ this.entrar }>Entrar</button>
-        <p>{`${Alert}`}</p>
+        <button
+          type="button"
+          disabled={ EmailBol || Senha }
+          onClick={ this.setState({ page: true }) }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
