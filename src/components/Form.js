@@ -7,17 +7,18 @@ export default class Form extends React.Component {
     this.api = this.api.bind(this);
 
     this.state = {
-      request: '',
+      request: [],
     };
   }
 
   componentDidMount() {
-    this.api();
+    this.api().then((resolve) => resolve);
   }
 
   async api() {
     const obj = await fetch('https://economia.awesomeapi.com.br/json/all').then((resolve) => resolve.json());
-    const array = Object.entries(obj);
+    const array = Object.values(obj);
+    array.splice(1, 1);
     this.setState({ request: array });
   }
 
@@ -36,7 +37,8 @@ export default class Form extends React.Component {
         <label htmlFor="moeda">
           Moeda:
           <select id="moeda" name="moeda">
-            {/* { request.map((element) => <option key>{ element[1].code }</option>) } */}
+            { request && request.map((element) => <option key>{ element.code }</option>) }
+            {/* { request && console.log(request) } */}
           </select>
         </label>
         <label htmlFor="metodo">
