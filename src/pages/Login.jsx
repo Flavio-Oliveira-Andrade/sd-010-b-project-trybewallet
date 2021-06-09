@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { userLogin } from '../actions';
 
@@ -70,8 +71,8 @@ class Login extends React.Component {
             type="button"
             disabled={ disabledButton }
             onClick={ () => {
-              this.redirect();
               dispatchLogin(email);
+              this.redirect();
             } }
           >
             Entrar
@@ -92,4 +93,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 mapDispatchToProps();
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
