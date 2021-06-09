@@ -32,45 +32,47 @@ class Login extends React.Component {
     const { email, loginError } = this.state;
     const { setUserEmail } = this.props;
     return (
-      <form>
-        <label htmlFor="emailInput">
-          Email:
-          <input
-            type="email"
-            name="emailInput"
-            id="emailInput"
-            placeholder="Email"
-            data-testid="email-input"
-            onChange={ (e) => {
-              this.setState({ email: e.target.value }, this.validateLogin);
-            } }
-          />
-        </label>
+      <section className="login-container">
+        <form>
+          <label htmlFor="emailInput">
+            Email:
+            <input
+              type="email"
+              name="emailInput"
+              id="emailInput"
+              placeholder="Email"
+              data-testid="email-input"
+              onChange={ (e) => {
+                this.setState({ email: e.target.value }, this.validateLogin);
+              } }
+            />
+          </label>
 
-        <label htmlFor="passwordInput">
-          Senha:
-          <input
-            type="password"
-            name="passwordInput"
-            id="passwordInput"
-            placeholder="Password"
-            data-testid="password-input"
-            onChange={ (e) => {
-              this.setState({ password: e.target.value }, this.validateLogin);
-            } }
-          />
-        </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            data-testid="btn-login"
-            disabled={ loginError }
-            onClick={ () => setUserEmail(email) }
-          >
-            Entrar
-          </button>
-        </Link>
-      </form>
+          <label htmlFor="passwordInput">
+            Senha:
+            <input
+              type="password"
+              name="passwordInput"
+              id="passwordInput"
+              placeholder="Password"
+              data-testid="password-input"
+              onChange={ (e) => {
+                this.setState({ password: e.target.value }, this.validateLogin);
+              } }
+            />
+          </label>
+          <Link to="/carteira">
+            <button
+              type="button"
+              data-testid="btn-login"
+              disabled={ loginError }
+              onClick={ () => setUserEmail(email) }
+            >
+              Entrar
+            </button>
+          </Link>
+        </form>
+      </section>
     );
   }
 }
