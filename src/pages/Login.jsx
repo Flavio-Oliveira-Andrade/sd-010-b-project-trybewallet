@@ -13,10 +13,12 @@ class Login extends React.Component {
       email: '',
       password: '',
       buttonDisable: true,
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.validate = this.validate.bind(this);
     this.ableButton = this.ableButton.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   validate() {
@@ -46,42 +48,53 @@ class Login extends React.Component {
     }
   }
 
+  handleLogin() {
+    this.setState({
+      redirect: true,
+    });
+  }
+
   render() {
-    const { buttonDisable } = this.state;
-    return (
-      <div id="login--div">
-        <img
-          src={ bitcoin }
-          alt="bitcoin"
-        />
-        <form className="login--form">
-          <input
-            data-testid="email-input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={ this.handleChange }
+    const { buttonDisable, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
+    if (!redirect) {
+      return (
+        <div id="login--div">
+          <img
+            src={ bitcoin }
+            alt="bitcoin"
           />
-          <input
-            data-testid="password-input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={ this.handleChange }
-          />
-          <button
-            type="button"
-            className="login--button"
-            disabled={ buttonDisable }
-            min={ 6 }
-            onClick={ () => <Redirect to="/carteira" /> }
-            style={ { backgroundColor: buttonDisable ? '#AD3838' : '#DAF7A6' } }
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
-    );
+          <form className="login--form">
+            <input
+              data-testid="email-input"
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={ this.handleChange }
+            />
+            <input
+              data-testid="password-input"
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={ this.handleChange }
+            />
+            <button
+              type="button"
+              className="login--button"
+              disabled={ buttonDisable }
+              min={ 6 }
+              onClick={ this.handleLogin }
+              style={ { backgroundColor: buttonDisable ? '#AD3838' : '#DAF7A6' } }
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      );
+    }
   }
 }
 
