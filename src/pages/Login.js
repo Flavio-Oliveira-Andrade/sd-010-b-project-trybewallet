@@ -5,45 +5,45 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
-      password: '',
-      emailError: '',
-      passWordError: '',
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleValidadeEmail = this.handleValidadeEmail.bind(this);
-    this.handleValidadePassword = this.handleValidadePassword.bind(this);
+      emailMessageError: '',
+      passwordMessageError: '',
+      invalidEmail: true,
+      invalidPassword: true,
+    };
+    this.handleValidateEmail = this.handleValidateEmail.bind(this);
+    this.handleValidatePassword = this.handleValidatePassword.bind(this);
   }
 
-  handleChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-  
+  handleValidateEmail({ value }) {
     this.setState({
-      [name]: value,
-      emailError: '',
+      email: value,
     });
-  }
-
-  handleValidadeEmail() {
-    const { email } = this.state;
-    if(!email.includes('@') || !email.includes('.com')) {
+    if (value.includes('@') && value.includes('.com')) {
       this.setState({
-        emailError: '* invalid email',
+        invalidEmail: false,
+      });
+    } else {
+      this.setState({
+        invalidEmail: true,
       });
     }
   }
 
-  handleValidadePassword() {
-    const { password } = this.state;
-    if(password.length < 6) {
+  handleValidatePassword({ value }) {
+    const lengthChar = 6;
+    if (value.length >= lengthChar) {
       this.setState({
-        passWordError: '* invalid password',
+        invalidPassword: false,
+      });
+    } else {
+      this.setState({
+        invalidPassword: true,
       });
     }
   }
 
   render() {
-    const { emailError } = this.state;
+    const { emailMessageError, passwordMessageError, invalidEmail, invalidPassword } = this.state;
     return (
       <>
         <div>
@@ -57,10 +57,9 @@ class Login extends React.Component {
               name="email"
               type="email"
               data-testid="email-input"
-              onChange = { this.handleChange }
-              onBlur = { this.handleValidadeEmail }
+              onChange={ ({ target }) => { this.handleValidateEmail(target)} }
             />
-            <p>{ emailError }</p>
+            <p className="validateError">{ emailMessageError }</p>
           </label>
           <label htmlFor="password">
             Senha:
@@ -69,12 +68,11 @@ class Login extends React.Component {
               name="password"
               type="password"
               data-testid="password-input"
-              onChange = { this.handleChange }
-              onBlur = { this.handleValidadePassword }
+              onChange={ ({ target }) => {this.handleValidatePassword(target)} }
             />
-            <p className="passwordError"></p>
+            <p className="validateError">{ passwordMessageError }</p>
           </label>
-          <button type="button" disabled>Entrar</button>
+          <button type="button" disabled={ invalidEmail || invalidPassword }>Entrar</button>
         </form>
       </>
     );
