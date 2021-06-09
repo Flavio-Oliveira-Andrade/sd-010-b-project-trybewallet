@@ -45,7 +45,8 @@ const tableBody = (expenses) => (
 function ExpenseTable({ expenses }) {
   return (
     <table>
-      { tableHead() }
+      {tableHead()}
+      {tableBody(expenses)}
     </table>
   );
 }
