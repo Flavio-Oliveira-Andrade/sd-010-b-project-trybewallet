@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 
 class ExpenseForms extends Component {
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="expense">
@@ -17,27 +22,22 @@ class ExpenseForms extends Component {
         <label htmlFor="currency">
           Moeda:
           <select name="currency" id="currency">
-            <option>BRL</option>
+            {currencies.map((currency, idx) => <option key={ idx }>{currency}</option>)}
+
           </select>
         </label>
 
         <label htmlFor="currency">
           Método de pagamento:
           <select name="currency" id="currency">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+            {paymentMethod.map((method, idx) => <option key={ idx }>{method}</option>)}
           </select>
         </label>
 
         <label htmlFor="currency">
           Tag:
           <select name="currency" id="currency">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+            {tags.map((tag, idx) => <option key={ idx }>{tag}</option>)}
           </select>
         </label>
 
@@ -46,5 +46,9 @@ class ExpenseForms extends Component {
     );
   }
 }
+
+ExpenseForms.propTypes = {
+  currencies: PropTypes.arrayOf,
+}.isRequired;
 
 export default ExpenseForms;
