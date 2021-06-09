@@ -9,7 +9,6 @@ const INITIAL_WALLET_STATE = {
 };
 
 const wallet = (state = INITIAL_WALLET_STATE, action) => {
-  const despesasAnteriores = state.expenses;
   switch (action.type) {
   case 'REQUEST_API':
     return {

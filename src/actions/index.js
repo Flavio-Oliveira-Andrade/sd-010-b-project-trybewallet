@@ -33,7 +33,6 @@ export const fetchApi = () => (dispatch) => {
     .then((res) => res.json())
     .then(
       (sucesso) => {
-        console.log(sucesso);
         dispatch(requestApiSuccess(sucesso));
       },
     )

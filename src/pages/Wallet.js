@@ -9,9 +9,10 @@ class Wallet extends React.Component {
     this.state = {
       valor: '',
       descrição: '',
-      moeda: '',
-      metodoDePagamento: '',
-      tag: '',
+      moeda: 'USD',
+      metodoDePagamento: 'Dinheiro',
+      tag: 'Alimentação',
+      despesas: false,
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +24,7 @@ class Wallet extends React.Component {
     this.renderCategoria = this.renderCategoria.bind(this);
     this.renderForm = this.renderForm.bind(this);
     this.renderBotaoAdicionarDespesa = this.renderBotaoAdicionarDespesa.bind(this);
+    this.adicionarDespesa = this.adicionarDespesa.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +37,15 @@ class Wallet extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  adicionarDespesa(despesa) {
+    const { enviarDespesa, moedasApi } = this.props;
+    moedasApi();
+    const { dados } = this.props;
+    const informacoesDespesa = { ...despesa, exchangeRates: dados };
+    enviarDespesa(informacoesDespesa);
+    this.setState((prev) => ({ ...prev, despesas: true }));
   }
 
   renderHeader() {
@@ -74,7 +85,12 @@ class Wallet extends React.Component {
       <label htmlFor="descrição">
         {' '}
         Descrição
-        <input type="text" name="descrição" id="descrição" onChange={ this.handleChange } />
+        <input
+          type="text"
+          name="descrição"
+          id="descrição"
+          onChange={ this.handleChange }
+        />
       </label>
     );
   }
@@ -87,8 +103,11 @@ class Wallet extends React.Component {
       <label htmlFor="moeda">
         {' '}
         Moeda
-        <select name="moeda" id="moeda" onChange={ this.handleChange }>
-          <option value="selecione">SELECIONE</option>
+        <select
+          name="moeda"
+          id="moeda"
+          onChange={ this.handleChange }
+        >
           {moedas.map((moeda, index) => (
             <option key={ index } value={ moeda }>{moeda}</option>
           ))}
@@ -107,7 +126,6 @@ class Wallet extends React.Component {
           id="metodoDePagamento"
           onChange={ this.handleChange }
         >
-          <option value="selecione">SELECIONE</option>
           <option value="dinheiro">Dinheiro</option>
           <option value="credito">Cartão de Crédito</option>
           <option value="debito">Cartão de Débito</option>
@@ -120,8 +138,11 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select name="tag" id="tag" onChange={ this.handleChange }>
-          <option value="selecione">SELECIONE</option>
+        <select
+          name="tag"
+          id="tag"
+          onChange={ this.handleChange }
+        >
           <option value="alimentação">Alimentação</option>
           <option value="lazer">Lazer</option>
           <option value="trabalho">Trabalho</option>
@@ -133,7 +154,7 @@ class Wallet extends React.Component {
   }
 
   renderBotaoAdicionarDespesa() {
-    const { enviarDespesa, todasDespesasSalvas } = this.props;
+    const { todasDespesasSalvas } = this.props;
     const { valor, descrição, moeda, metodoDePagamento, tag } = this.state;
     let id = 0;
     if (todasDespesasSalvas.length !== 0) {
@@ -145,7 +166,13 @@ class Wallet extends React.Component {
     return (
       <span>
         {' '}
-        <button type="button" onClick={ () => enviarDespesa(despesa) }>Adionar Despesa</button>
+        <button
+          type="button"
+          onClick={ () => this.adicionarDespesa(despesa) }
+        >
+          Adionar Despesa
+
+        </button>
       </span>
     );
   }
@@ -171,6 +198,7 @@ class Wallet extends React.Component {
         {this.renderHeader()}
         { (moedas === undefined || isFetching)
           ? <h1> Carregando... </h1> : this.renderForm() }
+        <br />
       </div>);
   }
 }
@@ -180,6 +208,8 @@ const mapStateToProps = (state) => ({
   moedas: state.wallet.currencies,
   isFetching: state.wallet.isFetching,
   todasDespesasSalvas: state.wallet.expenses,
+  dados: state.wallet.dados,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
