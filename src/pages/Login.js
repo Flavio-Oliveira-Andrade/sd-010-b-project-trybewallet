@@ -16,7 +16,7 @@ class Login extends React.Component {
   }
 
   botao() {
-    this.setState({ page: true })
+    this.setState({ page: true });
   }
 
   email({ target: { value } }) {
@@ -46,6 +46,7 @@ class Login extends React.Component {
 
     return (
       <form>
+        {console.log(Email)}
         <label htmlFor="Login">
           Login
           <input
