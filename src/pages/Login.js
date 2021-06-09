@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // https://cursos.alura.com.br/forum/topico-como-validar-email-e-senha-em-javascript-80469
@@ -13,8 +13,6 @@ const validForm = (email, password) => {
     button.disabled = false;
   } else { button.disabled = true; }
 };
-
-const redirectPageCarteira = () => <Redirect to="/carteira" />;
 
 class Login extends React.Component {
   componentDidMount() {
@@ -50,13 +48,14 @@ class Login extends React.Component {
               onChange={ (e) => setUserPassword(e.target.value) }
             />
           </label>
-          <button
-            type="submit"
-            data-testid="my-action"
-            onClick={ redirectPageCarteira }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              type="submit"
+              data-testid="my-action"
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
