@@ -1,14 +1,20 @@
 .form-login {
-  align-content: center;
   display: flex;
+  align-items: center;
   flex-direction: column;
   margin: auto;
   width: 80%;
 }
 
-.login-div {
+.login-heading {
   margin-top: 20%;
   text-align: center;
+}
+
+.login-inputs {
+  height: 20px;
+  width: 200px;
+  margin-bottom: 5px;
 }
 
 .wallet-header {

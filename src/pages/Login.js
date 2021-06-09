@@ -33,19 +33,21 @@ class Login extends React.Component {
     const minLength = 6;
     return (
       <div>
-        <div className="login-div">Login</div>
+        <h1 className="login-heading">Login</h1>
         <form className="form-login">
           <input
             type="email"
-            placeholder="e-mail"
+            placeholder="E-mail"
             data-testid="email-input"
             onChange={ this.onChangeHandleEmail }
+            className="login-inputs"
           />
           <input
             type="text"
-            placeholder="senha"
+            placeholder="Senha"
             data-testid="password-input"
             onChange={ this.onChangeHandlePassword }
+            className="login-inputs"
           />
           <Link to="/carteira">
             <button

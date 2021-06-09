@@ -1,19 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addExpenseThunk } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.getCurrencies = this.getCurrencies.bind(this);
+    this.onChangeHandle = this.onChangeHandle.bind(this);
     this.state = {
+      id: -1,
       currencies: [],
+      expense: {
+        value: '',
+        description: '',
+        currency: 'USD',
+        payment: 'Dinheiro',
+        tag: 'Alimentação',
+      },
     };
   }
 
   componentDidMount() {
     this.fetchCurrencies();
+  }
+
+  onChangeHandle({ target }) {
+    const countExpenses = 1;
+    this.setState((prev) => ({
+      expense: {
+        ...prev.expense,
+        id: prev.id + countExpenses,
+        [target.id]: target.value,
+      },
+    }));
   }
 
   getCurrencies() {
@@ -53,8 +74,24 @@ class Wallet extends React.Component {
     );
   }
 
+  renderWalletForms(name, value) {
+    return (
+      <label htmlFor={ name }>
+        { value }
+        <input
+          type="text"
+          id={ name }
+          className={ `input-${name}` }
+          name={ name }
+          onChange={ (e) => this.onChangeHandle(e) }
+        />
+      </label>
+    );
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, addExpense } = this.props;
+    const { expense } = this.state;
     return (
       <div>
         <header className="wallet-header">
@@ -64,31 +101,25 @@ class Wallet extends React.Component {
         </header>
         <h1 className="wallet-title">TrybeWallet</h1>
         <form className="wallet-form">
-          <label htmlFor="value">
-            Valor
-            <input type="text" id="value" className="input-value" />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input type="text" id="description" />
-          </label>
+          { this.renderWalletForms('value', 'Valor') }
+          { this.renderWalletForms('description', 'Descrição') }
           <label htmlFor="currency">
             Moeda
-            <select id="currency">
+            <select id="currency" onChange={ (e) => this.onChangeHandle(e) }>
               { this.getCurrencies() }
             </select>
           </label>
           <label htmlFor="payment">
             Método de Pagamento
-            <select id="payment">
+            <select id="payment" onChange={ (e) => this.onChangeHandle(e) }>
               <option name="Dinheiro">Dinheiro</option>
               <option name="Cartão de crédito">Cartão de crédito</option>
               <option name="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag">
+          <label htmlFor="tag" name="tag">
+            Categoria
+            <select id="tag" onChange={ (e) => this.onChangeHandle(e) }>
               <option name="Alimentação">Alimentação</option>
               <option name="Lazer">Lazer</option>
               <option name="Trabalho">Trabalho</option>
@@ -96,6 +127,12 @@ class Wallet extends React.Component {
               <option name="Saúde">Saúde</option>
             </select>
           </label>
+          <button
+            type="button"
+            onClick={ () => addExpense(expense) }
+          >
+            Adicionar despesa
+          </button>
         </form>
       </div>
     );
@@ -106,8 +143,13 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (payload) => dispatch(addExpenseThunk(payload)),
+});
+
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  addExpense: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
