@@ -14,13 +14,13 @@ class Forms extends Component {
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select>
+          <select name="moeda">
             <option value="valor1">Valor 1</option>
           </select>
         </label>
-        <label htmlFor="desc">
+        <label htmlFor="pay">
           Método de pagamento
-          <select>
+          <select name="pay">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
