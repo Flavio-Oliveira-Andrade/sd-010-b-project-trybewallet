@@ -9,58 +9,72 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: false,
       loged: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.veryfyEmail = this.veryfyEmail.bind(this);
-    this.veryfyButton = this.veryfyButton.bind(this);
   }
 
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value }, () => {
-      this.veryfyEmail();
-    });
+  handleChange(e) {
+    const { value, id } = e.target;
+    const emailPadrao = /^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$/;
+    const passwordLimit = 6;
+    if (id === 'email') {
+      if (emailPadrao.test(value)) {
+        this.setState({
+          loged: true,
+          email: value,
+        });
+      } else {
+        this.setState({
+          loged: false,
+        });
+      }
+    }
+    if (id === 'password') {
+      if (value.length >= passwordLimit) {
+        this.setState({
+          password: true,
+        });
+      } if (value.length !== passwordLimit) {
+        this.setState({
+          password: false,
+        });
+      }
+    }
   }
 
   veryfyEmail() {
-    const { email, password } = this.state;
-    const emailPadrao = /^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$/;
-    const passwordLimit = 6;
-    this.setState({
-      loged: emailPadrao.test(email) && password.length >= passwordLimit,
-    });
-  }
-
-  veryfyButton() {
     const { email } = this.state;
     const { login } = this.props;
     login(email);
   }
 
   render() {
-    const { email, password, loged } = this.state;
+    const { password, loged } = this.state;
+    let valid = false;
+    if (loged && password) {
+      valid = true;
+    }
     return (
       <div className="Login">
         <section className="login-inputs">
           <input
             type="text"
             name="email"
-            id="email-input"
-            placeholder="alguem@alguem.com"
+            id="email"
+            placeholder="Email"
             data-testid="email-input"
-            value={ email }
             onChange={ this.handleChange }
           />
           <input
             type="password"
             name="password"
-            id="password-input"
+            id="password"
             placeholder="Senha"
             data-testid="password-input"
-            value={ password }
             onChange={ this.handleChange }
           />
         </section>
@@ -68,8 +82,8 @@ class Login extends React.Component {
           <Link to="/carteira">
             <button
               type="button"
-              disabled={ !loged }
-              onClick={ this.handleClick }
+              disabled={ !valid }
+              onClick={ this.veryfyEmail }
             >
               Entrar
             </button>
