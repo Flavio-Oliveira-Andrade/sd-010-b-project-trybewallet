@@ -1,8 +1,14 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const initialState = {};
+const initialState = {
+  expenses: [],
+};
 
 function walletReducer(state = initialState, action) {
   switch (action.type) {
+  case 'WALLET':
+    return ({
+      ...state,
+      expenses: action.value,
+    });
   default:
     return state;
   }

@@ -6,5 +6,5 @@ import user from './user';
 import wallet from './wallet';
 
 const rootReducers = combineReducers({ user, wallet });
-
+// user é o loginreducer
 export default rootReducers;
