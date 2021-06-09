@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense, editExpense } from '../actions/index';
+import { deleteExpense, editExpense, getCurrentExchange } from '../actions/index';
 
 class Table extends React.Component {
   constructor() {
@@ -17,8 +17,9 @@ class Table extends React.Component {
   }
 
   handleEditExpense(expense) {
-    const { editExpenseAction } = this.props;
+    const { editExpenseAction, getCurrentExchangeAction } = this.props;
     editExpenseAction(expense);
+    getCurrentExchangeAction(expense.exchangeRates);
   }
 
   renderExpensesTable() {
@@ -90,11 +91,13 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   getWalletState: state.wallet.expenses,
+  storeCurrencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpenseAction: (id) => dispatch(deleteExpense(id)),
   editExpenseAction: (id) => dispatch(editExpense(id)),
+  getCurrentExchangeAction: (coins) => dispatch(getCurrentExchange(coins)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

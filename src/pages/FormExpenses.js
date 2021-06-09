@@ -230,6 +230,7 @@ const mapStateToProps = (state) => ({
   expensesList: state.wallet.expenses,
   editMode: state.wallet.editMode,
   editExpense: state.wallet.editExpense,
+  storeCurrencies: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpenses);
