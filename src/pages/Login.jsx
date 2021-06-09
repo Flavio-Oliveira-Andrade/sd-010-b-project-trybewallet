@@ -16,10 +16,10 @@ class Login extends React.Component {
   }
 
   validateLogin() {
-    const MIN_LENGTH = 5;
+    const MIN_LENGTH = 6;
     const { email, password } = this.state;
-    const verifySign = email.includes('@');
-    const verifyDotCom = email.includes('.com');
+    const verifySign = email.includes('@'); // change to regex
+    const verifyDotCom = email.includes('.com'); // change to regex
     if (password.length >= MIN_LENGTH && verifySign && verifyDotCom) {
       this.setState({ loginError: false });
     }
@@ -42,7 +42,7 @@ class Login extends React.Component {
             placeholder="Email"
             data-testid="email-input"
             onChange={ (e) => {
-              this.setState({ email: e.target.value }, this.validateLogin());
+              this.setState({ email: e.target.value }, this.validateLogin);
             } }
           />
         </label>
@@ -56,7 +56,7 @@ class Login extends React.Component {
             placeholder="Password"
             data-testid="password-input"
             onChange={ (e) => {
-              this.setState({ password: e.target.value }, this.validateLogin());
+              this.setState({ password: e.target.value }, this.validateLogin);
             } }
           />
         </label>
