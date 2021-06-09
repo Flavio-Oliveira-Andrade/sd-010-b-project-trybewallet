@@ -48,6 +48,12 @@ class Login extends React.Component {
     });
   }
 
+  passwordMessageError() {
+    this.setState({
+      passwordMessageError: '* Invalid password!'
+    });
+  }
+
   render() {
     const { emailMessageError, passwordMessageError, invalidEmail, invalidPassword } = this.state;
     return (
