@@ -9,37 +9,22 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      activeLoginButton: false,
     };
   };
 
-  componentDidUpdate() {
-    this.validateFields();
-  };
-
   // Verificar se os campos estão preenchidos
-  validateFields = () => {
-    const { activeLoginButton} = this.state;
-
-    if(this.validateEmailInput() && this.validatePasswordInput() && !activeLoginButton) {
-      this.setState({ activeLoginButton: true });
-    } else if (!this.validateEmailInput() && !this.validatePasswordInput() && activeLoginButton) {
-      this.setState({ activeLoginButton: false });
-    }
-  };
-
+  // *SOURCE* https://cursos.alura.com.br/forum/topico-como-validar-email-e-senha-em-javascript-80469
   validateEmailInput = () => {
     const { email } = this.state;
+    const emailPattern =  /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
 
-    if(email.includes('@') && email.includes('.')) {
-      return true;
-    }
+    return emailPattern.test(email);
   };
 
   validatePasswordInput = () => {
     const { password } = this.state;
 
-    if(password.length >= 6){
+    if (password.length >= 6) {
       return true;
     }
   };
@@ -50,7 +35,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { activeLoginButton } = this.state;
+    const validateFields = this.validateEmailInput() && this.validatePasswordInput();
     const { dispatchEmail } = this.props;
     return (
       <section className="loginSection">
@@ -58,8 +43,8 @@ class Login extends React.Component {
           dispatchEmail(target),
           this.handleChange(target)
           ) } />
-        <input id="password" type="password" placeholder="Senha" data-testid="password-input" onChange={ (event) => this.handleChange(event) } />
-        <button type="button" disabled={ activeLoginButton } >Entrar</button>
+        <input id="password" type="password" placeholder="Senha" data-testid="password-input" onChange={ ({ target }) => this.handleChange(target) } />
+        <button type="button" disabled={ !validateFields } >Entrar</button>
       </section>
     );
   }
