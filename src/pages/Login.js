@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
 import { actionEmail } from '../actions/index';
 
 class Login extends React.Component {
@@ -9,21 +10,22 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      // isValided: false,
+      isRedirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleValid = this.handleValid.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // handleValid() {
-  //   const { email } = this.state;
+  handleSubmit() {
+    const { email } = this.state;
+    const { user } = this.props;
 
-  //   if (email.match(/((\w+)@(\w+)\.(\w+))/i)) {
-  //     this.setState({
-  //       isValided: true,
-  //     });
-  //   }
-  // }
+    user(email);
+
+    this.setState({
+      isRedirect: true,
+    });
+  }
 
   handleChange({ target: { value, name } }) {
     this.setState({
@@ -32,8 +34,7 @@ class Login extends React.Component {
   }
 
   render() {
-    // const { user } = this.props;
-    const { email, password } = this.state;
+    const { email, password, isRedirect } = this.state;
     // Valida email. Detalhe! Eu tentei de várias formas fazer a validação do email com regex que encontrei na internet e até mesmo no plantão, porém não deu certo, então vi no repo do colega Henrique Clementino a sua fórmula do regex (email.match(/((\w+)@(\w+)\.(\w+))/i), unicamente. Link: https://github.com/tryber/sd-010-b-project-trybewallet/pull/13/commits/fe865497b5e72890104811ccd5edd70fe006494e.
     let isEmail = '';
     if (email.match(/((\w+)@(\w+)\.(\w+))/i)) {
@@ -46,9 +47,13 @@ class Login extends React.Component {
       isPassword = true;
     }
 
+    if (isRedirect) {
+      return <Redirect to="/carteira" />;
+    }
+
     return (
       <div>
-        <form onSubmit={ (e) => e.preventDefault() }>
+        <form>
           <label htmlFor="email">
             <input
               type="text"
@@ -68,7 +73,7 @@ class Login extends React.Component {
           <button
             type="submit"
             disabled={ isEmail === '' || isPassword === '' }
-            onClick={ () => <Redirect to="/Carteira" /> }
+            onClick={ () => this.handleSubmit() }
           >
             Entrar
           </button>
@@ -77,6 +82,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  user: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   user: (email) => dispatch(actionEmail(email)),

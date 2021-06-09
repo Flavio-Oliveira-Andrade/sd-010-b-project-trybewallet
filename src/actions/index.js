@@ -1,7 +1,7 @@
 // Coloque aqui suas actions
-export const ACTION_EMAIL = 'get-email';
+export const VALID_EMAIL = 'get-email';
 
 export const actionEmail = (email) => ({
-  type: ACTION_EMAIL,
+  type: VALID_EMAIL,
   email,
 });
