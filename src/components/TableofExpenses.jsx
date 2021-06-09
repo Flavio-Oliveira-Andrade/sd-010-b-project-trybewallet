@@ -24,7 +24,7 @@ class TableOfExpenses extends React.Component {
           <td name={ exchangeRate }>{ exchangeRate }</td>
           <td>
             {(parseFloat(value.replace(',', '.') * exchangeRates[currency].ask))
-            .toFixed(2)}
+              .toFixed(2)}
           </td>
           <td>Real</td>
         </tr>
