@@ -66,7 +66,7 @@ class Login extends React.Component {
     }
     if (!redirect) {
       return (
-        <div id="login--div">
+        <div className="login--div">
           <img
             src={ bitcoin }
             alt="bitcoin"
