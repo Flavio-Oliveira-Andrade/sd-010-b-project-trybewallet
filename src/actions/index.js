@@ -1,12 +1,18 @@
 export const SET_USER = 'SET_USER';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_EXPENSE = 'DEL_EXPENSE';
 
 export const setUser = (payload) => ({
-  type: 'SET_USER',
+  type: SET_USER,
   payload,
 });
 
 export const addExpense = (payload) => ({
-  type: 'ADD_EXPENSE',
+  type: ADD_EXPENSE,
+  payload,
+});
+
+export const delExpense = (payload) => ({
+  type: DEL_EXPENSE,
   payload,
 });

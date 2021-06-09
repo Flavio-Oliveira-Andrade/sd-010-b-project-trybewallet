@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { delExpense } from '../actions';
 
 const tableHeader = [
   'Descrição',
@@ -16,7 +17,7 @@ const tableHeader = [
 
 class ExpenseTable extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, removeExpense } = this.props;
     return (
       <table>
         <thead>
@@ -39,7 +40,19 @@ class ExpenseTable extends Component {
                 <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
                 <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
                 <td>Real</td>
-                <td>Editar/Excluir</td>
+                <td>
+                  <button type="submit">Editar</button>
+                  <button
+                    type="submit"
+                    onClick={ () => {
+                      // console.log(idx);
+                      removeExpense(idx);
+                    } }
+                    data-testid="delete-btn"
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>);
           })}
         </tbody>
@@ -52,8 +65,11 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  removeExpense: (value) => dispatch(delExpense(value)),
+});
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf,
 }.isRequired;
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
