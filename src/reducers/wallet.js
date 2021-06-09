@@ -3,6 +3,7 @@ import { SAVE_CURRENCIES, SAVE_EXPENSES, UPDATE_EXCHANGE } from '../actions';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  exchangeRates: {},
 };
 
 function wallet(state = INITIAL_STATE, { type, currencies }) {
