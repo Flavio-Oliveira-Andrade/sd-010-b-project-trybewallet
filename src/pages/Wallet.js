@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { dispenseAction } from '../actions/index';
+import { dispenseAction, excludeAction } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -19,6 +19,7 @@ class Wallet extends React.Component {
         currency: 'USD',
         method: 'Dinheiro',
         tag: 'Alimentação',
+        id: 0,
       },
     };
   }
@@ -49,18 +50,22 @@ class Wallet extends React.Component {
   saveDispense() {
     const { sendDispense } = this.props;
     const { dispenseCurrentInfo } = this.state;
-    sendDispense(dispenseCurrentInfo);
+    sendDispense(dispenseCurrentInfo, dispenseCurrentInfo.id);
+    this.setState({
+      dispenseCurrentInfo: {
+        ...dispenseCurrentInfo,
+        id: dispenseCurrentInfo.id + 1,
+      },
+    });
   }
 
   handleChange({ target }) {
     const { value, name } = target;
     const { dispenseCurrentInfo } = this.state;
-    const { id } = this.props;
     this.setState({
       dispenseCurrentInfo: {
         ...dispenseCurrentInfo,
         [name]: value,
-        id,
       },
     });
   }
@@ -121,6 +126,13 @@ class Wallet extends React.Component {
     );
   }
 
+  excludeLine({ target }) {
+    const { id } = target;
+    const { expenses, excludeDispense } = this.props;
+    const expensesExcluded = (expenses.filter((el) => (Number(el.id) !== Number(id))));
+    return excludeDispense(expensesExcluded);
+  }
+
   renderRow(item, index) {
     const [exchangeName, valueCurrency, convertedValue] = this.otherInfos(item);
     return (
@@ -148,6 +160,16 @@ class Wallet extends React.Component {
         </td>
         <td>
           Real
+        </td>
+        <td>
+          <button
+            id={ item.id }
+            type="button"
+            data-testid="delete-btn"
+            onClick={ (event) => this.excludeLine(event) }
+          >
+            Excluir
+          </button>
         </td>
       </tr>
     );
@@ -224,17 +246,17 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   sendDispense: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  excludeDispense: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  sendDispense: (dispenseInfo) => dispatch(dispenseAction(dispenseInfo)),
+  sendDispense: (dispenseInfo, id) => dispatch(dispenseAction(dispenseInfo, id)),
+  excludeDispense: (expensesNotExcluded) => dispatch(excludeAction(expensesNotExcluded)),
 });
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  id: state.wallet.expenses.length,
   expenses: state.wallet.expenses,
 });
 
