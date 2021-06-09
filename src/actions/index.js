@@ -1,8 +1,6 @@
 export const ADD_USER = 'ADD_USER';
 
-const userInput = (payload) => ({
+export const userInput = (email) => ({
   type: ADD_USER,
-  payload,
+  payload: email,
 });
-
-export default userInput;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import userInput from '../actions';
+import { userInput } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -77,8 +77,8 @@ const mapDispatchToProps = (dispatch) => ({
   emailDispatch: (email) => dispatch(userInput(email)),
 });
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-});
+// const mapStateToProps = (state) => ({
+//   email: state.user.email,
+// });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
