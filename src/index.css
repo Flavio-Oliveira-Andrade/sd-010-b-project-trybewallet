@@ -19,6 +19,11 @@ code {
   width: 25vw;
 }
 
+.App a{
+  display: grid;
+  text-decoration: auto;
+}
+
 .Login {
   align-items: center;
   display: grid;

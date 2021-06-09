@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { addUsername } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -15,15 +19,31 @@ class Login extends React.Component {
 
   loginBtn() {
     const { email, password } = this.state;
-    if (email === '' || password === '') {
+    const { setUser } = this.props;
+    // fonte: https://www.w3resource.com/javascript/form/email-validation.php
+
+    const mail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const passwordMinLenght = 6;
+    if (email.match(mail) && password.length >= passwordMinLenght) {
       return (
-        <button type="button" disabled>
-          Entrar
-        </button>
+        <Link
+          to="/carteira"
+          onClick={ (e) => {
+            if (!email) {
+              e.preventDefault();
+            }
+            setUser(email);
+          } }
+        >
+          <button type="button">
+            Entrar
+          </button>
+        </Link>
+
       );
     }
     return (
-      <button type="button">
+      <button type="button" disabled>
         Entrar
       </button>
     );
@@ -67,4 +87,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
+};
+
+const mapDispathToProps = (dispatch) => ({
+  setUser: (email) => dispatch(addUsername(email)),
+});
+
+export default connect(null, mapDispathToProps)(Login);
