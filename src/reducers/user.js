@@ -6,7 +6,7 @@ const INITIAL_USER_STATE = { email: '' };
 const userEmail = (state = INITIAL_USER_STATE, action) => {
   switch (action.type) {
   case SAVE_LOGIN_EMAIL:
-    return { ...state, email: action.email };
+    return { email: action.email };
   default:
     return state;
   }
