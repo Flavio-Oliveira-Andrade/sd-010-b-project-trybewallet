@@ -14,9 +14,9 @@ class Login extends React.Component {
       validEmail: false,
       validPassword: false,
     };
-    // this.verifyPassword = this.verifyPassword(this);
-    this.buttonClick = this.buttonClick(this);
     this.verifyEmail = this.verifyEmail.bind(this);
+    this.verifyPassword = this.verifyPassword.bind(this);
+    this.buttonClick = this.buttonClick.bind(this);
   }
 
   verifyEmail({ value }) {
@@ -24,10 +24,6 @@ class Login extends React.Component {
       this.setState({
         validEmail: true,
       });
-    // } //else {
-    //   this.setState({
-    //     validEmail: false,
-    //   });
     }
 
     this.setState({
@@ -45,8 +41,8 @@ class Login extends React.Component {
   }
 
   buttonClick() {
-    const { loginWallet } = this.props;
     const { userEmail } = this.state;
+    const { loginWallet } = this.props;
     loginWallet(userEmail);
     this.setState({
       redirect: true,
