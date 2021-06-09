@@ -8,7 +8,7 @@ function App() {
   return (
     <Switch>
       <Route path="/" component={ login } />
-      <Route path="carteira" component={ Wallet } />
+      <Route path="/carteira" component={ Wallet } />
     </Switch>
   ); // o componente Wallet é o dentro de pages, com W maiúsculo. Não é o dentro de reducers com w minúsculo.
 }
