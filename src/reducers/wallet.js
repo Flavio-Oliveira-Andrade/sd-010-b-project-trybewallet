@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   exchangeRates: {},
 };
 
-function wallet(state = INITIAL_STATE, { type, currencies }) {
+function wallet(state = INITIAL_STATE, { type, currencies, exchangeRates, expense }) {
   switch (type) {
   case SAVE_CURRENCIES:
     return {
