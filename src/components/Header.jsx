@@ -20,7 +20,7 @@ class Header extends Component {
         </p>
         <p data-testid="total-field">
           Despesa: R$
-          {expenseAmount}
+          {expenseAmount.toFixed(2)}
         </p>
         <p data-testid="header-currency-field">{CURRENCY}</p>
       </header>

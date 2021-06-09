@@ -11,7 +11,7 @@ class SelectElement extends Component {
         <select name={ name } id={ name } onChange={ onChange }>
           {options.map((option, idx) => {
             if (idx === 0) {
-              return <option selected key={ idx }>{option}</option>;
+              return <option defaultValue key={ idx }>{option}</option>;
             }
             return <option key={ idx }>{option}</option>;
           })}
