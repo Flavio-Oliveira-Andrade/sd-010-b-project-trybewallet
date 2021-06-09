@@ -14,7 +14,7 @@ class Login extends React.Component {
       validEmail: false,
       validPassword: false,
     };
-    // this.verifyEmail = this.verifyEmail.bind(this);
+    this.verifyEmail = this.verifyEmail.bind(this);
     this.verifyPassword = this.verifyPassword.bind(this);
     this.buttonClick = this.buttonClick.bind(this);
   }

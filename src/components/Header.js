@@ -7,89 +7,70 @@ class Header extends React.Component {
     super();
 
     this.state = {
-      expenses:'',
-      descrition: '',
-      coin:'',
-      payment:'money',
-      categories:'food',
-    }
+      expenses: '',
+      describe: '',
+      coin: '',
+      payment: 'money',
+      categorie: 'food',
+    };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    const { name, value } = event.target,
+    const { target: { value, id } } = event;
     this.setState({
-      [name]: value,
+      [id]: value,
     });
   }
 
   render() {
     const { emailLogin } = this.props;
+    const { expenses, describe, coin, payment, categorie } = this.state;
     return (
       <header>
-        <section>
-          <span data-testid="email-field">{ emailLogin }</span>
-          <span data-testid="total-field">0</span>
-          <span data-testid="header-currency-field">BRL</span>
-        </section>
-        <section>
-          <form>
-            <label htmlFor="expenses">
-              Valor
-              <input
-                type="number"
-                value={ this.state.expenses }
-                name="expenses"
-                onChange={ this.handleChange }
-              />
-            </label>
-            <label htmlFor="descrition">
-              Descrição
-              <input
-                type="string"
-                value={ this.state.descrition }
-                name="descrition"
-                onChange={ this.handleChange }
-              />
-            </label>
-            <label htmlFor="coin">
-              Moeda
-              <select
-                name="coin"
-                value={ this.state.coin }
-                onChange={ this.handleChange }
-              >
-              </select>
-            </label>
-            <label htmlFor="payment">
-              Método de Pagamento
-              <select
-                name="payment"
-                value={ this.state.payment }
-                onChange={ this.handleChange }
-              >
-                <option value="money">Dinheiro</option>
-                <option value="creditCard">Cartão de Crédito</option>
-                <option value="debitCard">Cartão de Débito</option>
-              </select>
-            </label>
-            <label htmlFor="categories">
-              Tag
-              <select
-                name="categories"
-                value={ this.state.categories }
-                onChange={ this.handleChange }
-              >
-                <option value="food">Alimentação</option>
-                <option value="roby">Lazer</option>
-                <option value="job">Trabalho</option>
-                <option value="transport">Transporte</option>
-                <option value="hearth">Saúde</option>
-              </select>
-            </label>
-          </form>
-        </section>
+        <span data-testid="email-field">{ emailLogin }</span>
+        <span data-testid="total-field">0</span>
+        <span data-testid="header-currency-field">BRL</span>
+        <form>
+          <label htmlFor="expenses">
+            Valor
+            <input
+              type="number"
+              value={ expenses }
+              id="expenses"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="describe">
+            Descrição
+            <input value={ describe } id="describe" onChange={ this.handleChange } />
+          </label>
+          <label htmlFor="coin">
+            Moeda
+            <select id="coin" value={ coin } onChange={ this.handleChange }>
+              <option value="a">a</option>
+            </select>
+          </label>
+          <label htmlFor="payment">
+            Método de Pagamento
+            <select id="payment" value={ payment } onChange={ this.handleChange }>
+              <option value="money">Dinheiro</option>
+              <option value="creditCard">Cartão de Crédito</option>
+              <option value="debitCard">Cartão de Débito</option>
+            </select>
+          </label>
+          <label htmlFor="categorie">
+            Tag
+            <select id="categorie" value={ categorie } onChange={ this.handleChange }>
+              <option value="food">Alimentação</option>
+              <option value="roby">Lazer</option>
+              <option value="job">Trabalho</option>
+              <option value="transport">Transporte</option>
+              <option value="hearth">Saúde</option>
+            </select>
+          </label>
+        </form>
       </header>
     );
   }
