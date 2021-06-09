@@ -13,7 +13,6 @@ class Wallet extends React.Component {
           <label htmlFor="input-valor">
             Valor:
             <input
-              data-testid=""
               id="input-valor"
             />
           </label>
@@ -24,10 +23,8 @@ class Wallet extends React.Component {
             />
           </label>
           <label htmlFor="input-moeda">
-            Método de Pagamento:
-            <select
-              id="input-moeda"
-            >
+            Moeda:
+            <select id="input-moeda">
               select
             </select>
           </label>
@@ -36,7 +33,9 @@ class Wallet extends React.Component {
             <select
               id="input-pagamento"
             >
-              select
+              <option>Dinheiro</option>
+              <option>Cartão de Crédito</option>
+              <option>Cartão de Débito</option>
             </select>
           </label>
           <label htmlFor="input-debito">
@@ -44,7 +43,11 @@ class Wallet extends React.Component {
             <select
               id="input-debito"
             >
-              select
+              <option>Alimentação</option>
+              <option>Lazer</option>
+              <option>Trabalho</option>
+              <option>Transporte</option>
+              <option>Saúde</option>
             </select>
           </label>
         </form>
