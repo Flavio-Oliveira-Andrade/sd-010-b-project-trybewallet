@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { arrayOf, object } from 'prop-types';
+import { delExpense } from '../actions';
 
 class Table extends Component {
   constructor() {
@@ -22,7 +24,7 @@ class Table extends Component {
   }
 
   tableBody() {
-    const { expenses } = this.props;
+    const { expenses, propDelExpense } = this.props;
     return (
       <tbody>
         { expenses
@@ -36,6 +38,15 @@ class Table extends Component {
               <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
               <td>{Number(value * exchangeRates[currency].ask).toFixed(2)}</td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => propDelExpense(id) }
+                >
+                  Deletar
+                </button>
+              </td>
             </tr>
           ))}
       </tbody>
@@ -52,8 +63,12 @@ class Table extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  propDelExpense: (data) => dispatch(delExpense(data)),
+});
+
 Table.propTypes = {
   expenses: arrayOf(object),
 }.isRequired;
 
-export default Table;
+export default connect(null, mapDispatchToProps)(Table);
