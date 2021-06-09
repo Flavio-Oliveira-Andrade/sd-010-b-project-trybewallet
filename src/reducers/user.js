@@ -1,9 +1,7 @@
 import { LOGIN } from '../actions';
 
 const initialState = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 export default (state = initialState, { type, payload }) => {

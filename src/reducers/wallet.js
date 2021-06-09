@@ -1,8 +1,7 @@
 const initialState = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  outgoing: 0,
 };
 
 export default (state = initialState, { type /* payload */ }) => {
