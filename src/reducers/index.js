@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 import reducerUser from './user';
 
 const rootReducers = combineReducers({
-  reducerUser,
+  user: reducerUser,
 });
 
 export default rootReducers;

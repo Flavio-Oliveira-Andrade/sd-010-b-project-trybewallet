@@ -11,7 +11,7 @@ class App extends React.Component {
         <h1>Trybe Wallet!</h1>
         <Switch>
           <Route exact path="/" component={ Loguin } />
-          <Route path="/carteira" component={ Wallet } />
+          <Route exact path="/carteira" component={ Wallet } />
         </Switch>
       </main>
     );

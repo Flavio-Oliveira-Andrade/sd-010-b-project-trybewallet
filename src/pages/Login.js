@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import saveEmailAction from '../actions';
 
 class Login extends React.Component {
@@ -41,9 +41,8 @@ class Login extends React.Component {
 
   render() {
     const { active, password, email } = this.state;
-    const { saveEmail } = this.props;
-    // console.log(redirect);
-    // if (redirect) return <Redirect to="/carteira" />;
+    const { saveEmail, redirect } = this.props;
+    if (redirect) return <Redirect to="/carteira" />;
     return (
       <section>
         <h2>Loguin</h2>
@@ -72,7 +71,7 @@ class Login extends React.Component {
           disabled={ active }
           type="button"
         >
-          <Link to="/carteira">Entrar</Link>
+          Entrar
         </button>
       </section>
     );
@@ -81,11 +80,11 @@ class Login extends React.Component {
 
 Login.propTypes = {
   saveEmail: PropTypes.func.isRequired,
-  // redirect: PropTypes.string.isRequired,
+  redirect: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  redirect: state.reducerUser.user,
+  redirect: state.user.email,
 });
 
 const mapDispatchToProp = (dispatch) => ({
