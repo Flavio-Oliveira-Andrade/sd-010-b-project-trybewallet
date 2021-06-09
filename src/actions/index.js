@@ -11,3 +11,7 @@ export function requestMoedasApi(dataApi) {
     dataApi.then((currencies) => dispatch(getApi(currencies)));
   };
 }
+
+export function addNewExpense(expense) {
+  return { type: 'ADD_EXPENSE', expense };
+}

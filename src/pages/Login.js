@@ -25,7 +25,7 @@ class Login extends React.Component {
 
     // Verificação de email conseguido através do site do Stackoverflow no link https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
     const emailValidationRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-
+    // Conseguido a resolução do emailValidationRegex.test atrasvés do site do w3schools
     if (emailValidationRegex.test(email) && password.length >= minimalPasswordLength) {
       this.setState({ isDisable: false });
     } else {

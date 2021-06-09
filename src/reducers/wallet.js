@@ -9,6 +9,11 @@ function requestApi(state = INITIAL_STATE, action) {
       ...state,
       currencies: action.currencies,
     };
+
+  case 'ADD_EXPENSE':
+    return { ...state,
+      expenses: [...state.expenses, action.expense],
+    };
   default:
     return state;
   }
