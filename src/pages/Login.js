@@ -1,4 +1,6 @@
 import React from 'react';
+import '../log/css/main.css';
+import img from '../log/images/img1.png';
 
 class Login extends React.Component {
   constructor(props) {
@@ -22,31 +24,50 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const emailValido = email.match(/^[^ ]+@[^ ]+.[a-z]{2,3}$/);
     return (
-      <form>
-        <label htmlFor="email">
-          E-mail:
-          <input type="email" id="email" onChange={ this.handleChange } />
-        </label>
-        <label htmlFor="password">
-          Senha:
-          <input
-            type="password"
-            id="password"
-            maxLength="12"
-            onChange={ this.handleChange }
-          />
-        </label>
-        {/* {(email) ? button.on : button.offline } */}
-        <button
-          type="button"
-          disabled={ !emailValido || password.length <= '5' }
-        >
-          Entrar
-
-        </button>
-      </form>
+      <div className="container-login">
+        <div className="wrap-login">
+          <div>
+            <section className="slogan-container">
+              <h1>Sua Cotação </h1>
+              <h3>Em qualquer Moeda</h3>
+            </section>
+            <img alt="img" src={ img } width="270" />
+          </div>
+          <form>
+            <span className="login-form-title">
+              Faça seu Login
+            </span>
+            <div className="wrap-input">
+              <input
+                className="input"
+                type="email"
+                id="email"
+                placeholder="Email"
+                onChange={ this.handleChange }
+              />
+            </div>
+            <div className="wrap-input">
+              <input
+                className="input"
+                type="password"
+                id="password"
+                placeholder="Password"
+                maxLength="12"
+                onChange={ this.handleChange }
+              />
+            </div>
+            <button
+              type="button"
+              className="login-form-btn"
+              disabled={ !emailValido || password.length <= '5' }
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      </div>
     );
   }
 }
-// creditto a Antenor Zapata;
+
 export default Login;
