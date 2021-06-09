@@ -14,12 +14,12 @@ class Login extends React.Component {
       validEmail: false,
       validPassword: false,
     };
-    this.verifyEmail = this.verifyEmail.bind(this);
+    // this.verifyEmail = this.verifyEmail.bind(this);
     this.verifyPassword = this.verifyPassword.bind(this);
     this.buttonClick = this.buttonClick.bind(this);
   }
 
-  verifyEmail({ value }) {
+  verifyEmail({ target: { value } }) {
     if (value.match(/[a-z]+@[a-z]+.com/g)) {
       this.setState({
         validEmail: true,
@@ -31,7 +31,7 @@ class Login extends React.Component {
     });
   }
 
-  verifyPassword({ value }) {
+  verifyPassword({ target: { value } }) {
     const minimumLength = 6;
     if (value.length >= minimumLength) {
       this.setState({
@@ -59,7 +59,7 @@ class Login extends React.Component {
             type="email"
             name="email"
             data-testid="email-input"
-            onChange={ ({ target }) => this.verifyEmail(target) }
+            onChange={ (event) => this.verifyEmail(event) }
           />
         </label>
         <label htmlFor="password">
@@ -68,7 +68,7 @@ class Login extends React.Component {
             type="password"
             name="password"
             data-testid="password-input"
-            onChange={ ({ target }) => this.verifyPassword(target) }
+            onChange={ (event) => this.verifyPassword(event) }
           />
         </label>
         <button
