@@ -16,6 +16,7 @@ function ButtonEnter({
       <button
         type="button"
         onClick={ login }
+        disabled={ disabledEnter }
       >
         Entrar
       </button>
