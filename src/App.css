@@ -25,6 +25,10 @@
   width: 80%;
 }
 
+.wallet-header span {
+  margin-left: 5px;
+}
+
 .wallet-title {
   text-align: center;
 }

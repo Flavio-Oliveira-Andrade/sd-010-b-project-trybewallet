@@ -9,10 +9,11 @@ class Wallet extends React.Component {
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
     this.getCurrencies = this.getCurrencies.bind(this);
     this.onChangeHandle = this.onChangeHandle.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
     this.state = {
-      id: -1,
       currencies: [],
       expense: {
+        id: -1,
         value: '',
         description: '',
         currency: 'USD',
@@ -31,7 +32,7 @@ class Wallet extends React.Component {
     this.setState((prev) => ({
       expense: {
         ...prev.expense,
-        id: prev.id + countExpenses,
+        id: prev.expense.id + countExpenses,
         [target.id]: target.value,
       },
     }));
@@ -45,6 +46,18 @@ class Wallet extends React.Component {
       }
       return null;
     });
+  }
+
+  calculateTotal() {
+    const { expenses } = this.props;
+    if (expenses || expenses.length > 0) {
+      const total = expenses.reduce((acc, curr) => {
+        acc += parseFloat(curr.value.replace(',', '.'));
+        return acc;
+      }, 0);
+      return total.toFixed(2);
+    }
+    return 0;
   }
 
   fetchCurrencies() {
@@ -92,11 +105,12 @@ class Wallet extends React.Component {
   render() {
     const { email, addExpense } = this.props;
     const { expense } = this.state;
+    const total = this.calculateTotal();
     return (
       <div>
         <header className="wallet-header">
           { this.renderHeadingInputs('Email', email, 'email-field')}
-          { this.renderHeadingInputs('Total', 0, 'total-field')}
+          { this.renderHeadingInputs('Total', `R$ ${total}`, 'total-field')}
           { this.renderHeadingInputs('Câmbio', 'BRL', 'header-currency-field')}
         </header>
         <h1 className="wallet-title">TrybeWallet</h1>
@@ -141,6 +155,7 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -150,6 +165,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   addExpense: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
