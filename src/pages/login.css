@@ -23,8 +23,12 @@
   width: 100%;
 }
 
+.form-login a {
+  max-width: 200px;
+  width: 100%;
+}
+
 .form-login button {
   height: 70px;
-  max-width: 200px;
   width: 100%;
 }

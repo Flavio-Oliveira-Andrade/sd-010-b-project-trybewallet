@@ -1,5 +1,9 @@
 import React from 'react';
 import './login.css';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { actionEmail } from '../actions';
 
 const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
 const regexPassword = /[\w]{6}/;
@@ -49,6 +53,8 @@ class Login extends React.Component {
 
   render() {
     const { email, password, isDisabled } = this.state;
+    const { userLogged } = this.props;
+
     return (
       <div className="form-login">
         <form>
@@ -68,16 +74,34 @@ class Login extends React.Component {
             placeholder="Digite seu senha"
             data-testid="password-input"
           />
-          <button type="button" disabled={ isDisabled }>Entrar</button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ isDisabled }
+              onClick={ () => userLogged(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = (dispatch) => ({
+  userLogged: (email) => dispatch(actionEmail(email)),
+});
+
+Login.propTypes = {
+  userLogged: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapStateToProps)(Login);
 
 // Referências
 // conteudo sobre componentDidUpdate: https://medium.com/@ashleywnj/componentdidupdate-prevstate-prevprops-and-a-silly-mistake-38afc72f5abc
+
 // expressão regular Email: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+
 // expressão regular Passowrd: https://regexone.com/
