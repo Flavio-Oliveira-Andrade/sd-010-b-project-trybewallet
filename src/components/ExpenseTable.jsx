@@ -1,6 +1,5 @@
 import React from 'react';
 
-function ExpenseTable() {
 const tableHead = () => (
   <thead>
     <tr>
