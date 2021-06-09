@@ -12,6 +12,11 @@ class Login extends React.Component {
     };
     this.email = this.email.bind(this);
     this.senha = this.senha.bind(this);
+    this.botao = this.botao.bind(this);
+  }
+
+  botao() {
+    this.setState({ page: true })
   }
 
   email({ target: { value } }) {
@@ -24,7 +29,7 @@ class Login extends React.Component {
   }
 
   senha({ target: { value } }) {
-    const senhaMinima = 6;
+    const senhaMinima = 5;
     if (value.length > senhaMinima) {
       this.setState({
         Senha: false,
@@ -41,7 +46,6 @@ class Login extends React.Component {
 
     return (
       <form>
-        {console.log(Email)}
         <label htmlFor="Login">
           Login
           <input
@@ -56,7 +60,7 @@ class Login extends React.Component {
           Senha
           <input
             type="text"
-            data-testid="email-input"
+            data-testid="password-input"
             name="Senha"
             placeholder="Digite sua senha"
             onChange={ this.senha }
@@ -65,7 +69,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ EmailBol || Senha }
-          onClick={ this.setState({ page: true }) }
+          onClick={ this.botao }
         >
           Entrar
         </button>
