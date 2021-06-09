@@ -1,4 +1,6 @@
 import React from 'react';
+import SelectDespesa from './SelectDespesa';
+import SelectPay from './SelectPay';
 
 export default class Form extends React.Component {
   constructor() {
@@ -8,6 +10,11 @@ export default class Form extends React.Component {
 
     this.state = {
       request: [],
+      valor: '',
+      descricao: '',
+      moeda: '',
+      metodo: '',
+      despesas: '',
     };
   }
 
@@ -22,43 +29,52 @@ export default class Form extends React.Component {
     this.setState({ request: array });
   }
 
+  handleChange({ target }) {
+    const { name } = target;
+    const value = target.type === 'select' ? target.checked : target.value;
+    console.log(target.type);
+    this.setState({ [name]: value });
+  }
+
   render() {
-    const { request } = this.state;
+    const { request, valor, descricao, moeda, metodo, despesas } = this.state;
+    const { handleChange } = this;
     return (
       <form>
         <label htmlFor="valor">
           Valor:
-          <input type="text" id="valor" name="valor" />
+          <input
+            type="text"
+            id="valor"
+            name="valor"
+            value={ valor }
+            onChange={ (e) => handleChange(e) }
+          />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" id="descricao" name="descricao" />
+          <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            value={ descricao }
+            onChange={ (e) => handleChange(e) }
+          />
         </label>
         <label htmlFor="moeda">
           Moeda:
-          <select id="moeda" name="moeda">
+          <select
+            id="moeda"
+            name="moeda"
+            value={ moeda }
+            onChange={ (e) => handleChange(e) }
+          >
             { request && request.map((element, index) => (
               <option key={ index }>{ element.code }</option>)) }
           </select>
         </label>
-        <label htmlFor="metodo">
-          Método de pagamento:
-          <select id="metodo" name="metodo">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="despesas">
-          Tag:
-          <select id="despesas" name="despesas">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
+        <SelectPay metodo={ metodo } handleChange={ handleChange } />
+        <SelectDespesa despesas={ despesas } handleChange={ handleChange } />
       </form>
     );
   }
