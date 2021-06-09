@@ -4,28 +4,28 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: '',
       emailMessageError: '',
-      passwordMessageError: '',
+      pwMessageError: '',
       invalidEmail: true,
-      invalidPassword: true,
+      invalidPw: true,
     };
     this.handleValidateEmail = this.handleValidateEmail.bind(this);
     this.handleValidatePassword = this.handleValidatePassword.bind(this);
+    this.emailMessageError = this.emailMessageError.bind(this);
+    this.pwMessageError = this.pwMessageError.bind(this);
   }
 
   handleValidateEmail({ value }) {
-    this.setState({
-      email: value,
-    });
     if (value.includes('@') && value.includes('.com')) {
       this.setState({
         invalidEmail: false,
+        emailMessageError: '',
       });
     } else {
       this.setState({
         invalidEmail: true,
       });
+      this.emailMessageError(value);
     }
   }
 
@@ -33,29 +33,41 @@ class Login extends React.Component {
     const lengthChar = 6;
     if (value.length >= lengthChar) {
       this.setState({
-        invalidPassword: false,
+        invalidPw: false,
+        pwMessageError: '',
       });
     } else {
       this.setState({
-        invalidPassword: true,
+        invalidPw: true,
+      });
+      this.pwMessageError(value);
+    }
+  }
+
+  emailMessageError(value) {
+    this.setState({
+      emailMessageError: '* Invalid e-mail!',
+    });
+    if (value === '') {
+      this.setState({
+        emailMessageError: '',
       });
     }
   }
 
-  emailMessageError() {
+  pwMessageError(value) {
     this.setState({
-      emailMessageError: '* Invalid e-mail!'
+      pwMessageError: '* Invalid password!',
     });
-  }
-
-  passwordMessageError() {
-    this.setState({
-      passwordMessageError: '* Invalid password!'
-    });
+    if (value === '') {
+      this.setState({
+        pwMessageError: '',
+      });
+    }
   }
 
   render() {
-    const { emailMessageError, passwordMessageError, invalidEmail, invalidPassword } = this.state;
+    const { emailMessageError, pwMessageError, invalidEmail, invalidPw } = this.state;
     return (
       <>
         <div>
@@ -69,7 +81,7 @@ class Login extends React.Component {
               name="email"
               type="email"
               data-testid="email-input"
-              onChange={ ({ target }) => { this.handleValidateEmail(target)} }
+              onChange={ ({ target }) => { this.handleValidateEmail(target); } }
             />
             <p className="validateError">{ emailMessageError }</p>
           </label>
@@ -80,11 +92,11 @@ class Login extends React.Component {
               name="password"
               type="password"
               data-testid="password-input"
-              onChange={ ({ target }) => {this.handleValidatePassword(target)} }
+              onChange={ ({ target }) => { this.handleValidatePassword(target); } }
             />
-            <p className="validateError">{ passwordMessageError }</p>
+            <p className="validateError">{ pwMessageError }</p>
           </label>
-          <button type="button" disabled={ invalidEmail || invalidPassword }>Entrar</button>
+          <button type="button" disabled={ invalidEmail || invalidPw }>Entrar</button>
         </form>
       </>
     );
