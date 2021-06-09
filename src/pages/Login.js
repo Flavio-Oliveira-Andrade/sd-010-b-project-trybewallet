@@ -15,38 +15,28 @@ class Login extends React.Component {
 
     this.loginBtn = this.loginBtn.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.shouldRedirect = this.shouldRedirect.bind(this);
   }
 
   loginBtn() {
     const { email, password } = this.state;
-    const { setUser } = this.props;
     // fonte: https://www.w3resource.com/javascript/form/email-validation.php
 
     const mail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const passwordMinLenght = 6;
     if (email.match(mail) && password.length >= passwordMinLenght) {
-      return (
-        <Link
-          to="/carteira"
-          onClick={ (e) => {
-            if (!email) {
-              e.preventDefault();
-            }
-            setUser(email);
-          } }
-        >
-          <button type="button">
-            Entrar
-          </button>
-        </Link>
-
-      );
+      return false;
     }
-    return (
-      <button type="button" disabled>
-        Entrar
-      </button>
-    );
+    return true;
+  }
+
+  shouldRedirect(e) {
+    const { setUser } = this.props;
+    const { email } = this.state;
+    if (!email) {
+      e.preventDefault();
+    }
+    setUser(email);
   }
 
   handleChange({ value, name }) {
@@ -80,7 +70,16 @@ class Login extends React.Component {
             onChange={ (e) => this.handleChange(e.target) }
             required
           />
-          { this.loginBtn() }
+          <button
+            disabled={ this.loginBtn() }
+            type="button"
+            to="/carteira"
+            onClick={ this.shouldRedirect }
+          >
+            <Link to="/carteira">
+              Entrar
+            </Link>
+          </button>
         </form>
       </div>
     );

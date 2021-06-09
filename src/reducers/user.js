@@ -2,15 +2,13 @@
 import { ADD_USER } from '../actions';
 
 const initialState = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
   case ADD_USER:
-    return payload;
+    return { email: payload };
 
   default:
     return state;
