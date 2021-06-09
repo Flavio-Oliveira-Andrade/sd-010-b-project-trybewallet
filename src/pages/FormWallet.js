@@ -20,9 +20,11 @@ class FormWallet extends Component {
               name="description"
             />
           </label>
-          <label htmlFor="select-coin">
+          <label htmlFor="coin">
             Moeda
-            <select name="select-coin" />
+            <select name="coin">
+              <option value="brl">BRL</option>
+            </select>
           </label>
           <label htmlFor="payment">
             Método de pagamento
