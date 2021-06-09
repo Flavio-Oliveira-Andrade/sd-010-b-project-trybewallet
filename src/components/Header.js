@@ -7,9 +7,60 @@ class Header extends React.Component {
     const { emailLogin } = this.props;
     return (
       <header>
-        <span data-testid="email-field">{ emailLogin }</span>
-        <span data-testid="total-field">0</span>
-        <span data-testid="header-currency-field">BRL</span>
+        <section>
+          <span data-testid="email-field">{ emailLogin }</span>
+          <span data-testid="total-field">0</span>
+          <span data-testid="header-currency-field">BRL</span>
+        </section>
+        <section>
+          <form>
+            <label htmlFor="expenses">
+              Valor
+              <input
+                type="number"
+                value={}
+                name="expenses"
+              />
+            </label>
+            <label htmlFor="descrition">
+              Descrição
+              <input
+                type="string"
+                value={}
+                name="descrition"
+              />
+            </label>
+            <label htmlFor="coin">
+              Moeda
+              <select
+                name="coin"
+              >
+              </select>
+            </label>
+            <label htmlFor="payment">
+              Método de Pagamento
+              <select
+                name="payment"
+              >
+                <option value={}>Dinheiro</option>
+                <option value={}>Cartão de Crédito</option>
+                <option value={}>Cartão de Débito</option>
+              </select>
+            </label>
+            <label htmlFor="categories">
+              Tag
+              <select
+                name="categories"
+              >
+                <option value={}>Alimentação</option>
+                <option value={}>Lazer</option>
+                <option value={}>Trabalho</option>
+                <option value={}>Transporte</option>
+                <option value={}>Saúde</option>
+              </select>
+            </label>
+          </form>
+        </section>
       </header>
     );
   }
