@@ -1,8 +1,12 @@
 import React from 'react';
+import HeaderComponent from '../components/HeaderComponent';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return (
+      <div>
+        <HeaderComponent />
+      </div>);
   }
 }
 
