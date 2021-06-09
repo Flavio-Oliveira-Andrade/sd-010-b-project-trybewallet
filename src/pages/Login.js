@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { userInput } from '../actions';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import userInput from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -9,32 +10,58 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
+      buttonAble: false,
+      isValid: false,
     };
 
     this.validation = this.validation.bind(this);
+    this.catchEmail = this.catchEmail.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    const button = document.querySelector('.login-button');
+    // console.log(button);
+    button.disabled = true;
   }
 
   validation() {
+    const { isValid } = this.state;
     const button = document.querySelector('.login-button');
-    const loginInput = document.querySelectorAll('input')[0].value;
-    const passwordInput = document.querySelectorAll('input')[1].value;
-
-    if (loginInput.includes('@') && loginInput.includes('.com')) {
-      const lenghtPassword = 6;
-
-      if (passwordInput.length >= lenghtPassword) {
-        button.disabled = false;
-      } else {
-        button.disabled = true;
-      }
-    } else {
-      button.disabled = true;
+    const login = document.querySelectorAll('input');
+    const email = login[0].value;
+    this.setState({
+      email,
+    });
+    // console.log(email);
+    const lenghtPassword = 6;
+    if (login[0].value.includes('@')
+      && login[0].value.includes('.com')
+      && login[1].value.length >= lenghtPassword) {
+      button.disabled = false;
+      this.setState({ isValid: true });
     }
   }
 
-  render() {
-    const { emailDispatch } = this.props;
+  handleChange({ target }) {
+    const { name } = target;
+    const { value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  catchEmail() {
     const { email } = this.state;
+    const { emailDispatch } = this.props;
+    emailDispatch(email);
+    this.setState({
+      buttonAble: true,
+    });
+  }
+
+  render() {
+    const { buttonAble } = this.state;
     return (
       <form>
         <label htmlFor="email">
@@ -44,7 +71,7 @@ class Login extends React.Component {
             name="email"
             data-testid="email-input"
             className="login-input"
-            onChange={ this.validation }
+            onChange={ (e) => { this.validation(); this.handleChange(e); } }
             required
           />
         </label>
@@ -58,16 +85,14 @@ class Login extends React.Component {
             required
           />
         </label>
-        <Link to="/carteira">
-          <button
-            className="login-button"
-            type="button"
-            disabled
-            onClick={ () => emailDispatch(email) }
-          >
-            Entrar
-          </button>
-        </Link>
+        <button
+          className="login-button"
+          type="button"
+          onClick={ this.catchEmail }
+        >
+          Entrar
+        </button>
+        {(buttonAble) && <Redirect to="/carteira" />}
       </form>
     );
   }
@@ -81,4 +106,8 @@ const mapDispatchToProps = (dispatch) => ({
 //   email: state.user.email,
 // });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+Login.propTypes = {
+  emailDispatch: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
