@@ -1,10 +1,3 @@
-* {
-	margin: 0px;
-	padding: 0px;
-	box-sizing: border-box;
-}
-
-/*---------------------------------------------*/
 button {
 	outline: none !important;
 	border: none;
@@ -18,7 +11,6 @@ button:hover {
 
 img{
   width:270;
-
 }
 
 .container-login {
@@ -42,7 +34,6 @@ img{
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 127px 120px 113px 95px;
-
 }
 
 .login-form-title {
@@ -55,18 +46,18 @@ img{
   display: block;
   padding-bottom: 54px;
 }
+
 .slogan-container{
   display:block;
   text-align: center;
   margin-bottom: 40px;
   color: wheat;
 }
+
 h1{
   margin-bottom:8px ;
 }
 
-
-/*---------------------------------------------*/
 .wrap-input {
   position: relative;
   width: 100%;
@@ -102,11 +93,4 @@ h1{
   justify-content: center;
   align-items: center;
   padding: 0 25px;
-
 }
-
-
-
-
-
-
