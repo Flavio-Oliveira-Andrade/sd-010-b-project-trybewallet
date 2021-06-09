@@ -8,29 +8,23 @@ import updateWallet from '../actions/updateWalletAction';
 
 import travoltaWallet from '../images/travoltaWallet.gif';
 
-// const defautState = {
-//   value: 0,
-//   description: '',
-//   currency: 'USD',
-//   method: 'Dinheiro',
-//   tag: 'Alimentação',
-// };
+const defautState = {
+  value: 0,
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+};
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state = Object.assign({}, ...defautState);
     this.state = {
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      ...defautState,
     };
 
     this.handle = this.handle.bind(this);
-    // this.fillTotal = this.fillTotal.bind(this);
   }
 
   componentDidMount() {
@@ -38,18 +32,12 @@ class Wallet extends React.Component {
     fetchCurr();
   }
 
-  // fillTotal() {
-  //   const { expenses } = this.props;
-  //   const total = expenses.length > 0 ? expenses.length : 0;
-  //   this.setState({ total });
-  // }
-
   handle({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
   render() {
-    const { userEmail, walletCurrencies, updateExpenses, total } = this.props;
+    const { userEmail, walletCurrencies, updateExpenses, total = 0 } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
@@ -111,7 +99,11 @@ Wallet.propTypes = {
   // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurr: PropTypes.func.isRequired,
   updateExpenses: PropTypes.func.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
+};
+
+Wallet.defaultProps = {
+  total: 0,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
