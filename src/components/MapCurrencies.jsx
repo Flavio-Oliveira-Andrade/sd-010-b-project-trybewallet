@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 class MapCurrencies extends React.Component {
   render() {
@@ -19,6 +18,8 @@ class MapCurrencies extends React.Component {
   }
 }
 
-const mapStateToProps = ({ wallet: { currencies } }) => currencies;
+MapCurrencies.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
-export default connect(mapStateToProps)(MapCurrencies);
+export default MapCurrencies;

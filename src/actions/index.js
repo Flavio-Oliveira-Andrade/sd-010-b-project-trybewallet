@@ -21,6 +21,8 @@ export const requestFetchError = (reject) => ({
 
 export const fetchOnComponentDidMount = () => (dispatch) => {
   fetchInformation()
-    .then((response) => dispatch(requestFetchSuccess(response)))
+    .then((response) => {
+      dispatch(requestFetchSuccess(response));
+    })
     .catch((error) => dispatch(requestFetchError(error)));
 };

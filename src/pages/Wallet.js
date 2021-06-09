@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchOnComponentDidMount } from '../actions';
 import MapCurrencies from '../components/MapCurrencies';
+import popOutUSDT from '../selectors';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -11,7 +12,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, currencies } = this.props;
     return (
       <>
         <header>
@@ -28,7 +29,10 @@ class Wallet extends React.Component {
             Descrição
             <input type="text" id="despesa" name="despesa" />
           </label>
-          <MapCurrencies />
+
+          {(currencies && currencies.length)
+            ? <MapCurrencies currencies={ currencies } /> : 'nao há moedas' }
+
           <label htmlFor="metodo-pagamento">
             Método de pagamento
             <select id="metodo-pagamento" name="metodo-pagamento">
@@ -54,9 +58,11 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { user: { email } } = state;
+  const { user: { email }, wallet: { currencies } } = state;
+  const filteredCurrencies = popOutUSDT(Object.values(currencies));
   return {
     email,
+    currencies: filteredCurrencies,
   };
 };
 
@@ -67,6 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   fetchMapDispatchToProps: PropTypes.func.isRequired,
+  currencies: PropTypes.shape(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
