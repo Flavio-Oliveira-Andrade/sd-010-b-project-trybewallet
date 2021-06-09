@@ -1,7 +1,9 @@
 import { ADD_USER } from '../actions';
 
 const INITIAL_STATE = {
-  email: '',
+  user: {
+    email: '',
+  },
 };
 
 function user(state = INITIAL_STATE, action) {
@@ -9,10 +11,7 @@ function user(state = INITIAL_STATE, action) {
   case ADD_USER:
     return {
       ...state,
-      email: [
-        ...state.email,
-        action.payload,
-      ],
+      user: { email: action.payload },
     };
   default:
     return state;
