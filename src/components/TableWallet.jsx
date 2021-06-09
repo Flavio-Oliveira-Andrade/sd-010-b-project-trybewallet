@@ -6,7 +6,6 @@ import dellExpense from '../actions/dellExpenseAction';
 class TableWallet extends Component {
   render() {
     const { expenses, dell } = this.props;
-    // console.log(expenses);
     return (
       <table width="100%" className="TableWallet">
         <tbody>
@@ -37,7 +36,13 @@ class TableWallet extends Component {
               <td>Real</td>
               <td>
                 <button type="button">Edit</button>
-                <button data-testid="delete-btn" type="button" onClick={ () => dell(id) }>Dell</button>
+                <button
+                  data-testid="delete-btn"
+                  type="button"
+                  onClick={ () => dell(id) }
+                >
+                  Dell
+                </button>
               </td>
             </tr>
           )) }
