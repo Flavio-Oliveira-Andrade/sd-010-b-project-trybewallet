@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { setLogin } from '../actions/index'
 
 class Login extends React.Component {
@@ -9,6 +10,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      redirect: false,
     };
   };
 
@@ -34,9 +36,18 @@ class Login extends React.Component {
     this.setState({ [id]: value });
   }
 
+  // Redirecionar para carteira
+  redirectToWallet = () => {
+    this.setState({ redirect: true });
+  }
+
   render() {
+    const { redirect } = this.state;
     const validateFields = this.validateEmailInput() && this.validatePasswordInput();
     const { dispatchEmail } = this.props;
+
+    if(redirect) return <Redirect to="/carteira" />;
+
     return (
       <section className="loginSection">
         <input id="email" type="text" placeholder="Email" data-testid="email-input" onChange={ ({ target }) => (
@@ -44,7 +55,7 @@ class Login extends React.Component {
           this.handleChange(target)
           ) } />
         <input id="password" type="password" placeholder="Senha" data-testid="password-input" onChange={ ({ target }) => this.handleChange(target) } />
-        <button type="button" disabled={ !validateFields } >Entrar</button>
+        <button type="button" disabled={ !validateFields } onClick={ this.redirectToWallet }>Entrar</button>
       </section>
     );
   }

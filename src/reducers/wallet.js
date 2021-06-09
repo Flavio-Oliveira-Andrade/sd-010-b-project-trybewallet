@@ -1,16 +1,16 @@
 const INITIAL_STATE = {
   wallet: {
     currencies: [],
-    expenses: []
+    expenses: [],
   },
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'TESTE':
-      break;
-    default:
-      return state;
+  case 'TESTE':
+    break;
+  default:
+    return state;
   }
 };
 
