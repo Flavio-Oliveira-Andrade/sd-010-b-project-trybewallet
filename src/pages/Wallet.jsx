@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import ExpenseForms from '../components/ExpenseForms';
 import Header from '../components/Header';
+import ExpenseTable from '../components/ExpenseTable';
 
 const tableHeader = [
   'Descrição',
@@ -45,7 +44,6 @@ class Wallet extends React.Component {
 
   render() {
     const { currencies } = this.state;
-    const { expenses } = this.props;
     return (
       <>
         <Header />
@@ -57,25 +55,7 @@ class Wallet extends React.Component {
               {tableHeader.map((th, idx) => <th key={ idx }>{th}</th>)}
             </tr>
           </thead>
-          <tbody>
-            {expenses.map(({
-              value, description, currency, method, tag, exchangeRates,
-            }, idx) => {
-              const currencyName = exchangeRates[currency].name.split('/');
-              return (
-                <tr key={ idx }>
-                  <td>{description}</td>
-                  <td>{tag}</td>
-                  <td>{method}</td>
-                  <td>{`${currency} ${value}`}</td>
-                  <td>{currencyName[0]}</td>
-                  <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
-                  <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
-                  <td>{currencyName[1]}</td>
-                  <td>Editar/Excluir</td>
-                </tr>);
-            })}
-          </tbody>
+          <ExpenseTable />
         </table>
 
       </>
@@ -83,12 +63,4 @@ class Wallet extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
-});
-
-Wallet.propTypes = {
-  expenses: PropTypes.arrayOf,
-}.isRequired;
-
-export default connect(mapStateToProps)(Wallet);
+export default Wallet;
