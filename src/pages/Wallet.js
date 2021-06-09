@@ -41,12 +41,17 @@ class Wallet extends React.Component {
   }
 
   renderHeader() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
 
+    const total = expenses.reduce(
+      (previous, current) => previous + current.value
+        * current.exchangeRates[current.currency].ask,
+      0,
+    );
     return (
       <header data-testid="email-field">
         <div>{email}</div>
-        <div data-testid="total-field">0</div>
+        <div data-testid="total-field">{total.toFixed(2)}</div>
         <div data-testid="header-currency-field">BRL</div>
       </header>
     );
@@ -129,8 +134,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencyInitials: () => dispatch(fetchCurrencyInitialsThunk()),
-  fetchExchangeRatesAddExpense:
-    (expense) => dispatch(fetchExchangeRatesAddExpenseThunk(expense)),
+  fetchExchangeRatesAddExpense: (expense) => dispatch(fetchExchangeRatesAddExpenseThunk(expense)),
 });
 
 Wallet.propTypes = {
