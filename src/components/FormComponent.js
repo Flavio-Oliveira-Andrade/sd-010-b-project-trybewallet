@@ -17,24 +17,24 @@ class FormComponent extends Component {
         <label htmlFor="moeda-select">
           Moeda
           <select id="moeda-select">
-            <option>BRL</option>
+            <option value="brl">BRL</option>
           </select>
         </label>
         <label htmlFor="metodo-select">
           Método de pagamento
           <select id="metodo-select">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartao-de-credito">Cartão de crédito</option>
+            <option value="cartao-de-debito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag-select">
           Tag
           <select id="tag-select">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Saúde</option>
+            <option value="alimentacao">Alimentação</option>
+            <option value="lazer">Lazer</option>
+            <option value="trabalho">Trabalho</option>
+            <option value="saude">Saúde</option>
           </select>
         </label>
       </form>
