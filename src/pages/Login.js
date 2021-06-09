@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import LoginUser from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -41,11 +42,21 @@ class Login extends React.Component {
   }
 
   redirect() {
-    return <Redirect to="/teste" />;
+    const { redirect } = this.state;
+    const { history } = this.props;
+    if (redirect) {
+      return history.push('/carteira');
+    }
+  }
+
+  teste() {
+    const { userLogin } = this.props;
+    const { email } = this.state;
+    return userLogin(email);
   }
 
   render() {
-    const { buttonState, redirect } = this.state;
+    const { buttonState } = this.state;
     return (
       <div>
         <form>
@@ -74,11 +85,15 @@ class Login extends React.Component {
 
           {buttonState === false
             ? <button type="button" disabled>Entrar</button>
-            : <button type="button" onClick={ redirect && this.redirect }>Entrar</button>}
+            : <button type="button" onClick={ () => { this.teste(); this.redirect(); } }>Entrar</button>}
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (state) => dispatch(LoginUser(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
