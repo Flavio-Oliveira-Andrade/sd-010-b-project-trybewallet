@@ -33,7 +33,9 @@ export const fetchApi = () => (dispatch) => {
     .then((res) => res.json())
     .then(
       (sucesso) => {
-        dispatch(requestApiSuccess(sucesso));
+        const sucessoAux = sucesso;
+        delete sucessoAux.USDT;
+        dispatch(requestApiSuccess(sucessoAux));
       },
     )
     .catch((erro) => {

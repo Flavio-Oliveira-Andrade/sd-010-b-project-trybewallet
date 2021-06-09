@@ -2,21 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchApi, salvarDespesa } from '../actions';
+import RenderDespesas from './RenderDespesas';
+import RenderHeader from './RenderHeader';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      valor: '',
-      descrição: '',
-      moeda: 'USD',
-      metodoDePagamento: 'Dinheiro',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       despesas: false,
 
     };
     this.handleChange = this.handleChange.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
     this.renderValor = this.renderValor.bind(this);
     this.renderDescrição = this.renderDescrição.bind(this);
     this.renderMetodoDePagamento = this.renderMetodoDePagamento.bind(this);
@@ -46,61 +47,33 @@ class Wallet extends React.Component {
     const { dados } = this.props;
     const informacoesDespesa = { ...despesa, exchangeRates: dados };
     enviarDespesa(informacoesDespesa);
-    this.setState({
-      valor: '',
-      descrição: '',
-      moeda: 'USD',
-      metodoDePagamento: 'Dinheiro',
+    this.setState({ value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       despesas: true });
   }
 
-  renderHeader() {
-    const { email, todasDespesasSalvas } = this.props;
-    let totalDespesas = 0;
-    todasDespesasSalvas.forEach((des) => {
-      totalDespesas
-      += (parseFloat(des.valor) * parseFloat(des.exchangeRates[des.moeda].high));
-    });
-    return (
-      <header>
-        <p data-testid="email-field">
-          Boas vindas
-          {' '}
-          {email}
-          {' '}
-        </p>
-        {' '}
-        <br />
-        {' '}
-        <div data-testid="total-field">
-          Despesa Total:
-          { totalDespesas }
-          {' '}
-        </div>
-        <span data-testid="header-currency-field">BRL</span>
-      </header>);
-  }
-
   renderValor() {
     return (
-      <label htmlFor="valor">
+      <label htmlFor="value">
         {' '}
         Valor
-        <input type="text" name="valor" id="valor" onChange={ this.handleChange } />
+        <input type="text" name="value" id="value" onChange={ this.handleChange } />
       </label>
     );
   }
 
   renderDescrição() {
     return (
-      <label htmlFor="descrição">
+      <label htmlFor="description">
         {' '}
         Descrição
         <input
           type="text"
-          name="descrição"
-          id="descrição"
+          name="description"
+          id="description"
           onChange={ this.handleChange }
         />
       </label>
@@ -109,16 +82,16 @@ class Wallet extends React.Component {
 
   renderMoeda() {
     const { moedas } = this.props;
-    const usdtIndex = moedas.findIndex((el) => el === 'USDT');
-    moedas.splice(usdtIndex, 1);
+    const { currency } = this.state;
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         {' '}
         Moeda
         <select
-          name="moeda"
-          id="moeda"
+          name="currency"
+          id="currency"
           onChange={ this.handleChange }
+          value={ currency }
         >
           {moedas.map((moeda, index) => (
             <option key={ index } value={ moeda }>{moeda}</option>
@@ -130,17 +103,17 @@ class Wallet extends React.Component {
 
   renderMetodoDePagamento() {
     return (
-      <label htmlFor="metodoDePagamento">
+      <label htmlFor="method">
         {' '}
         Método de Pagamento
         <select
-          name="metodoDePagamento"
-          id="metodoDePagamento"
+          name="method"
+          id="method"
           onChange={ this.handleChange }
         >
           <option value="dinheiro">Dinheiro</option>
-          <option value="credito">Cartão de Crédito</option>
-          <option value="debito">Cartão de Débito</option>
+          <option value="Cartão de crédito">Cartão de Crédito</option>
+          <option value="Cartão de débito">Cartão de Débito</option>
         </select>
       </label>
     );
@@ -155,11 +128,11 @@ class Wallet extends React.Component {
           id="tag"
           onChange={ this.handleChange }
         >
-          <option value="alimentação">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saúde">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -167,14 +140,14 @@ class Wallet extends React.Component {
 
   renderBotaoAdicionarDespesa() {
     const { todasDespesasSalvas } = this.props;
-    const { valor, descrição, moeda, metodoDePagamento, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     let id = 0;
     if (todasDespesasSalvas.length !== 0) {
       const tamanhoTodasDespesasSalvas = todasDespesasSalvas.length;
       const ultimaId = todasDespesasSalvas[tamanhoTodasDespesasSalvas - 1].id;
       id = ultimaId + 1;
     }
-    const despesa = { id, valor, descrição, moeda, metodoDePagamento, tag };
+    const despesa = { id, value, description, currency, method, tag };
     return (
       <span>
         {' '}
@@ -182,8 +155,7 @@ class Wallet extends React.Component {
           type="button"
           onClick={ () => this.adicionarDespesa(despesa) }
         >
-          Adionar Despesa
-
+          Adicionar Despesa
         </button>
       </span>
     );
@@ -221,13 +193,17 @@ class Wallet extends React.Component {
         <tbody>
           {todasDespesasSalvas.map((des) => (
             <tr key={ des.id }>
-              <td>{des.descrição}</td>
+              <td>{des.description}</td>
               <td>{des.tag}</td>
-              <td>{des.metodoDePagamento}</td>
-              <td>{des.valor}</td>
-              <td>{des.moeda}</td>
-              <td>{des.exchangeRates[des.moeda].high}</td>
-              <td>{(parseFloat(des.valor) * parseFloat(des.exchangeRates[des.moeda].high))}</td>
+              <td>{des.method}</td>
+              <td>{des.value}</td>
+              <td>{des.currency}</td>
+              <td>{des.exchangeRates[des.currency].ask}</td>
+              <td>
+                {(
+                  parseFloat(des.value)
+                  * parseFloat(des.exchangeRates[des.currency].ask))}
+              </td>
               <td>Real Brasileiro</td>
             </tr>))}
         </tbody>
@@ -241,12 +217,10 @@ class Wallet extends React.Component {
     return (
       <div>
         TrybeWallet
-        {this.renderHeader()}
+        <RenderHeader />
         { (moedas === undefined || isFetching)
           ? <h1> Carregando... </h1> : this.renderForm() }
-        <br />
-        <br />
-        { despesas ? this.renderDespesas() : <h2>Não há despesas</h2>}
+        { despesas ? <RenderDespesas /> : <h2>Não há despesas</h2>}
       </div>);
   }
 }
