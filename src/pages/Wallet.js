@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -13,12 +14,16 @@ class Wallet extends React.Component {
     this.renderExpenseCategorySelect = this.renderExpenseCategorySelect.bind(this);
   }
 
+  componentDidMount() {
+    const { fetchAPI } = this.props;
+    fetchAPI();
+  }
+
   renderHeader() {
-    const { email/* , currencies, expenses */ } = this.props;
+    const { email } = this.props;
     return (
       <header>
         <span data-testid="email-field">{ email }</span>
-        {/* <span data-testid="total-field">{ `R$ ${currencies - expenses}` }</span> */}
         <span data-testid="total-field">0</span>
         <span data-testid="header-currency-field">BRL</span>
       </header>
@@ -44,11 +49,12 @@ class Wallet extends React.Component {
   }
 
   renderCurrencySelect() {
+    const { currencies } = this.props;
     return (
       <label htmlFor="moeda">
         Moeda:
         <select id="moeda" name="moeda">
-          <option value=""> </option>
+          { currencies.map((code) => (<option key={ code }>{code}</option>)) }
         </select>
       </label>
     );
@@ -98,14 +104,22 @@ class Wallet extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user: { email }/* ,wallet: { currencies, expenses } */ }) => ({
+const mapStateToProps = (
+  { user: { email }, wallet: { currencies /* , expenses */ } },
+) => ({
   email,
-  /* currencies,
-  expenses, */
+  currencies,
+  // expenses,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  fetchAPI: () => dispatch(fetchCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchAPI: PropTypes.func.isRequired,
 };
