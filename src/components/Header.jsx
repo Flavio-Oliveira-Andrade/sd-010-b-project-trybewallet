@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Proptypes from 'prop-types';
+import { string } from 'prop-types';
 
 class Header extends Component {
   render() {
@@ -16,7 +16,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  email: Proptypes.string,
+  email: string,
 }.isRequired;
 
 export default Header;

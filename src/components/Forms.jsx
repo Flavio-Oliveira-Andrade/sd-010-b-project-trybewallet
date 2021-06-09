@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { arrayOf, string } from 'prop-types';
 
 class Forms extends Component {
   constructor() {
@@ -37,14 +38,22 @@ class Forms extends Component {
     );
   }
 
-  spendingCurrency() {
+  spendingCurrency(currencies) {
     return (
       <label htmlFor="currency">
         Moeda
         <select
           id="currency"
         >
-          null
+          {currencies.map((curr) => (
+            <option
+              data-testid={ curr }
+              key={ curr }
+              value={ curr }
+            >
+              {curr}
+            </option>
+          ))}
         </select>
       </label>
     );
@@ -85,16 +94,21 @@ class Forms extends Component {
   }
 
   render() {
+    const { currencies } = this.props;
     return (
       <>
         { this.spendingValue(0) }
         { this.spendingDescription() }
-        { this.spendingCurrency() }
+        { this.spendingCurrency(currencies) }
         { this.spendingMethod() }
         { this.spendingCategory() }
       </>
     );
   }
 }
+
+Forms.propTypes = {
+  currencies: arrayOf(string),
+}.isRequired;
 
 export default Forms;
