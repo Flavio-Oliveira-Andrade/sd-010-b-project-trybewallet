@@ -22,17 +22,21 @@ class FormWallet extends Component {
           </label>
           <label htmlFor="coin">
             Moeda
-            <select name="coin">
+            <select name="coin" id="coin">
               <option value="brl">BRL</option>
             </select>
           </label>
           <label htmlFor="payment">
             Método de pagamento
-            <select name="payment" id="payment" />
+            <select name="payment" id="payment">
+              <option value="money">Dinheiro</option>
+              <option value="credit-card">Cartão de crédito</option>
+              <option value="debit card">Cartão de débito</option>
+            </select>
           </label>
           <label htmlFor="category">
             Tag
-            <select name="category" id="category">
+            <select name="category">
               <option value="food">Alimentação</option>
               <option value="leisure">Lazer</option>
               <option value="work">Trabalho</option>
