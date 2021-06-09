@@ -22,7 +22,13 @@ class Login extends React.Component {
     validForm(email, password);
   }
 
+  componentDidUpdate() {
+    const { email, password } = this.props;
+    validForm(email, password);
+  }
+
   render() {
+    const { setUserEmail, setUserPassword } = this.props;
     return (
       <div>
         <form>
@@ -31,9 +37,8 @@ class Login extends React.Component {
             <input
               type="email"
               id="email"
-              // onChange={}
+              onChange={ (e) => setUserEmail(e.target.value) }
               data-testid="email-input"
-              onBlur={ validForm }
             />
           </label>
           <label htmlFor="password">
@@ -42,8 +47,7 @@ class Login extends React.Component {
               type="password"
               id="password"
               data-testid="password-input"
-              onBlur={ validForm }
-              // onChange={}
+              onChange={ (e) => setUserPassword(e.target.value) }
             />
           </label>
           <button
@@ -62,11 +66,24 @@ class Login extends React.Component {
 Login.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  setUserEmail: PropTypes.func.isRequired,
+  setUserPassword: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ // LER
-  email: state.user.user.email,
-  password: state.user.user.password,
+  email: state.user.email,
+  password: state.user.password,
 });
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  setUserEmail: (email) => dispatch({
+    type: 'EMAIL',
+    email,
+  }),
+  setUserPassword: (password) => dispatch({
+    type: 'PASSWORD',
+    password,
+  }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
