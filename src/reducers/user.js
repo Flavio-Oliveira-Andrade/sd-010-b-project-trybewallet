@@ -1,4 +1,4 @@
-import SET_LOGIN from '../actions/types';
+import { SET_LOGIN } from '../actions/types';
 
 const INITIAL_STATE = {
   email: '',

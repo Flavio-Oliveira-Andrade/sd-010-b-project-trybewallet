@@ -1,3 +1,5 @@
-const SET_LOGIN = 'SET_LOGIN';
-
-export default SET_LOGIN;
+export const [
+  SET_LOGIN,
+  REQUEST_CURRENCY] = [
+  'SET_LOGIN',
+  'REQUEST_CURRENCY'];

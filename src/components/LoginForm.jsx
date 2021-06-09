@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import setLogin from '../actions/index';
+import { setLogin } from '../actions/index';
 
 class LoginForm extends Component {
   constructor(props) {

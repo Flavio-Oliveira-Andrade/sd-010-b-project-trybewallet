@@ -1,8 +1,20 @@
-import SET_LOGIN from './types';
+import { SET_LOGIN,
+  REQUEST_CURRENCY } from './types';
+import getCurrencies from '../currencyApi';
 
-export default function setLogin(values) {
+export function setLogin(values) {
   return {
     type: SET_LOGIN,
     payload: values,
   };
+}
+
+const requestCurrencies = (data = '') => ({
+  type: REQUEST_CURRENCY,
+  payload: data,
+});
+
+export function fetchCurrencies() {
+  return (dispatch) => getCurrencies()
+    .then((res) => dispatch(requestCurrencies(res)));
 }

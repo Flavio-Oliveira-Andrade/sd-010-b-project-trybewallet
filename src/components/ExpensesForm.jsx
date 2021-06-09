@@ -1,7 +1,14 @@
 import './ExpensesForm.css';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { fetchCurrencies } from '../actions/index';
 
-export default class ExpensesForm extends Component {
+class ExpensesForm extends Component {
+  componentDidMount() {
+    const { startCurrencies } = this.props;
+    startCurrencies();
+  }
+
   render() {
     return (
       <fieldset>
@@ -41,3 +48,8 @@ export default class ExpensesForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  startCurrencies: () => dispatch(fetchCurrencies()),
+});
+export default connect(null, mapDispatchToProps)(ExpensesForm);
