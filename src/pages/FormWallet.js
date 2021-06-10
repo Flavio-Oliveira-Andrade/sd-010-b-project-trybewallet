@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { Component } from 'react';
 
+// const paymentWays = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+// const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
 class FormWallet extends Component {
   render() {
     return (
@@ -20,9 +23,9 @@ class FormWallet extends Component {
               name="description"
             />
           </label>
-          <label htmlFor="coin">
+          <label htmlFor="currencies">
             Moeda
-            <select name="coin" id="coin">
+            <select name="currencies" id="currencies">
               <option value="brl">BRL</option>
             </select>
           </label>
