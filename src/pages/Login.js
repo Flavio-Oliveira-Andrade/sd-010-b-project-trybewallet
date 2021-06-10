@@ -1,8 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './styles/Login.css';
 
 class Login extends React.Component {
   render() {
+    const { userEmail, userPassword } = this.props;
+    console.log(userEmail, userPassword);
     return (
       <div className="Login">
         <h1>Login</h1>
@@ -15,5 +19,15 @@ class Login extends React.Component {
     );
   }
 }
+// state.userReducer.user
+const mapStateToProps = ({ userReducer: { user: { email, password } } }) => ({
+  userEmail: email,
+  userPassword: password,
+});
 
-export default Login;
+Login.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+  userPassword: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps, null)(Login);

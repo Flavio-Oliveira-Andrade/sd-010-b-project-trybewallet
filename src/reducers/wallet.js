@@ -6,7 +6,7 @@ const INITIAL_WALLET = {
   },
 };
 
-function wallet(state = INITIAL_WALLET, action) {
+function walletReducer(state = INITIAL_WALLET, action) {
   switch (action.type) {
   case 'something':
     return state;
@@ -15,4 +15,4 @@ function wallet(state = INITIAL_WALLET, action) {
   }
 }
 
-export default wallet;
+export default walletReducer;
