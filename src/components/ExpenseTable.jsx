@@ -40,7 +40,13 @@ const tableBody = (expenses, deleteFn) => (
         <td>{(exchangeRates[currency].ask * parseFloat(value)).toFixed(2)}</td>
         <td>Real</td>
         <td>
-          <button type="button" data-testid="delete-btn">Excluir</button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => deleteFn(id) }
+          >
+            Excluir
+          </button>
         </td>
       </tr>
     ))}
