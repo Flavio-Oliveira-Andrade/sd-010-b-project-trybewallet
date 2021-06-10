@@ -14,7 +14,6 @@ class Wallet extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      despesas: false,
 
     };
     this.handleChange = this.handleChange.bind(this);
@@ -58,8 +57,7 @@ class Wallet extends React.Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
-      despesas: true });
+      tag: 'Alimentação' });
   }
 
   renderValor() {
@@ -214,13 +212,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { despesas } = this.state;
     return (
       <div>
         TrybeWallet
         <RenderHeader />
         { this.renderForm() }
-        { despesas ? <RenderDespesas /> : <h2>Não há despesas</h2>}
+        <RenderDespesas />
       </div>);
   }
 }
