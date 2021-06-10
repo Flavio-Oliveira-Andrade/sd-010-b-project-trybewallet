@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
-import LOGIN, { ADD_EXPENSE } from './actionTypes';
+import LOGIN, { ADD_EXPENSE, DELETE_EXPENSE } from './actionTypes';
 
 const loginAction = (payload) => ({
   type: LOGIN,
@@ -21,3 +21,8 @@ export const addExpenseThunk = (payload) => (dispatch) => {
       dispatch(addExpenseAction(payload));
     });
 };
+
+export const deleteExpenseAction = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});

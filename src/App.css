@@ -71,3 +71,11 @@ td {
   border-bottom: solid 1px black;
   text-align: center;
 }
+
+.delete-button {
+  background-color: rgb(247, 72, 72);
+}
+
+.edit-button {
+  background-color: rgb(255, 208, 0);
+}

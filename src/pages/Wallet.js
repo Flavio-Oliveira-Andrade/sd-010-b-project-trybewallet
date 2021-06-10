@@ -8,6 +8,7 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
+    this.updateState = this.updateState.bind(this);
     this.getCurrencies = this.getCurrencies.bind(this);
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.onClickHandle = this.onClickHandle.bind(this);
@@ -59,6 +60,16 @@ class Wallet extends React.Component {
       }
       return null;
     });
+  }
+
+  updateState() {
+    const countExpenses = 1;
+    this.setState((prev) => ({
+      expense: {
+        ...prev.expense,
+        id: prev.expense.id - countExpenses,
+      },
+    }));
   }
 
   calculateTotal() {
@@ -160,7 +171,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
-        <TableOfExpenses />
+        <TableOfExpenses updateState={ this.updateState } />
       </div>
     );
   }
