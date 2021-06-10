@@ -14,7 +14,12 @@ class FormsDespesa extends Component {
       payment: 'Dinheiro',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.addDispesa = this.handleChange.bind(this);
+    this.addDispesa = this.addDispesa.bind(this);
+    this.renderValueLabel = this.renderValueLabel.bind(this);
+    this.renderDescriptionLabel = this.renderDescriptionLabel.bind(this);
+    this.renderCurrencyLabel = this.renderCurrencyLabel.bind(this);
+    this.renderPaymentLabel = this.renderPaymentLabel.bind(this);
+    this.renderTagLabel = this.renderTagLabel.bind(this);
   }
 
   componentDidMount() {
@@ -70,7 +75,7 @@ class FormsDespesa extends Component {
         Moeda
         <select
           name="currency"
-          id={ currency }
+          id="currency"
           value={ currency }
           onChange={ (e) => this.handleChange(e) }
         >
@@ -86,10 +91,15 @@ class FormsDespesa extends Component {
     return (
       <label htmlFor="payment">
         Método de pagamento
-        <select name="payment" id={ payment } value={ payment }>
+        <select
+          name="payment"
+          id="payment"
+          value={ payment }
+          onChange={ (e) => this.handleChange(e) }
+        >
           <option value="dinheiro">Dinheiro</option>
-          <option value="debito">Cartão de Debito</option>
-          <option value="credito">Cartão de Credito</option>
+          <option value="debito">Cartão de Débito</option>
+          <option value="credito">Cartão de Crédito</option>
         </select>
       </label>);
   }
@@ -99,8 +109,14 @@ class FormsDespesa extends Component {
     return (
       <label htmlFor="tag">
         Tag
-        <select name="tag" value={ tag }>
-          <option value="alimentacao">Lazer</option>
+        <select
+          name="tag"
+          id="tag"
+          value={ tag }
+          onChange={ (e) => this.handleChange(e) }
+        >
+          <option value="alimentacao">Alimentação</option>
+          <option value="lazer">Lazer</option>
           <option value="trabalho">Trabalho</option>
           <option value="transporte">Transporte</option>
           <option value="saude">Saúde</option>
