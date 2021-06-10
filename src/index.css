@@ -11,3 +11,191 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'PoetsenOne';
+  src: url('./files/fonts/PoetsenOne.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'PoetsenOne';
+}
+
+a {
+  color: black;
+}
+
+/* LOGIN PAGE ------------------------------------------------------*/
+.Login {
+  margin: 100px auto;
+  width: 470px;
+  height: 560px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 50px 8px #d8d5d5e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerLogin {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerLogin img {
+  width: 320px;
+  /* border: 1px solid red; */
+}
+
+.headerLogin .walletLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100px;
+}
+
+.walletLogin {
+  align-self: flex-end;
+  font-size: 1.1em;
+}
+
+.walletLogin .wallet {
+  font-size: 2.2em;
+  align-self: flex-end;
+}
+
+.Login h2 {
+  margin: 25px 25px;
+}
+
+.areaInputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.areaInputs {
+  width: 90%;
+}
+
+.areaInputs .inputEmail {
+  display: flex;
+  justify-content: center;
+}
+
+.areaInputs input {
+  width: 85%;
+  height: 40px;
+  font-size: 1.2em;
+  border: 1px solid #D6D3D3;
+  border-left: none;
+  border-radius: 0 15px 15px 0;
+  padding-left: 5px;
+  margin-bottom: 30px;
+  outline: none;
+}
+
+.areaInputs .iconInput {
+  font-size: 2.5em;
+  width: 12%;
+  background-color: #D6D3D3;
+  color: #827F7F;
+  border: 1px solid #D6D3D3;
+  border-right: none;
+  border-radius: 15px 0  0 15px;
+  padding: 5px;
+}
+
+.areaInputs .inputPwd {
+  display: flex;
+  justify-content: center;
+}
+
+.areaButtonsLogin {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.enterBtnLogin-color {
+  font-size: 1.4em;
+  background-color: #89C280;
+  padding: 5px 15px 5px 15px;
+  margin-left: 5px;
+  width: 200px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  /* box-shadow: 1px 1px 4px 1px gray; */
+  position: relative;
+  z-index: 0;
+}
+
+.enterBtnLogin {
+  color: white;
+  font-size: 1.4em;
+  background-color: #89C280;
+  padding: 5px 15px 5px 15px;
+  margin-left: 5px;
+  width: 200px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 1px 1px 4px 1px gray;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
+
+.enterBtnLogin:before {
+  content: '';
+  position: absolute;
+  border-radius: 15px;
+  background-color: #6d9b67;
+  width: 0;
+  height: 101%;
+  top: 0;
+  left: 0;
+  z-index:-1;
+  transition: all .5s ease;
+}
+
+.enterBtnLogin:hover:before {
+  width: 101%;
+}
+
+.enterBtnLogin:hover {
+  transition: all 0.5s ease;
+}
+
+/* --------------------------------------------------------------------- */
+
+/* WALLET PAGE ------------------------------------------------------*/
+
+.walletPage .walletHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 35px;
+  margin-top: 15px;
+}
+
+.walletPage .walletHeader img {
+  width: 120px;
+}
+
+.walletHeader .email_totalExpenses {
+  display: flex;
+  justify-content: space-between;
+  /* width: 100px; */
+  /* border: 1px solid red; */
+}
+
+.email_totalExpenses p {
+  margin-right: 15px;
+}
+/* --------------------------------------------------------------------- */
