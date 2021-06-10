@@ -17,6 +17,7 @@ export const FETCH_CURRENCIES_LIST_SUCCESS = 'FETCH_CURRENCIES_LIST_SUCCESS';
 export const FETCH_CURRENCIES_LIST_ERROR = 'FETCH_CURRENCIES_LIST_ERROR';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const SUM_EXPENSES = 'SUM_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const addExpenses = (expense) => ({
   type: ADD_EXPENSES,
@@ -27,6 +28,13 @@ export const addExpenses = (expense) => ({
 
 export const sumExpenses = () => ({
   type: SUM_EXPENSES,
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  payload: {
+    id,
+  },
 });
 
 export const saveCurrenciesList = (currencies) => ({

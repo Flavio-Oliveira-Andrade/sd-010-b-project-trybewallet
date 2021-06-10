@@ -1,9 +1,10 @@
-import sumExpenses from '../functions';
+import { sumExpenses, removeExpense } from '../functions';
 
 import {
   SAVE_CURRENCIES_LIST,
   ADD_EXPENSES,
   SUM_EXPENSES,
+  DELETE_EXPENSE,
 } from '../actions';
 
 // -------------------------------------------------------------------------------------------------
@@ -39,6 +40,16 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       totalExpenses,
+    };
+  }
+
+  case DELETE_EXPENSE: {
+    const { payload: { id } } = action;
+    const { expenses } = state;
+    const updatedExpenses = removeExpense(id, expenses);
+    return {
+      ...state,
+      expenses: updatedExpenses,
     };
   }
 

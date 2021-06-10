@@ -1,7 +1,7 @@
 // import React from 'react';
 // ---------------------------------------------------------------------------------------------
 // FormsWallet
-export default function sumExpenses(expenses) {
+export function sumExpenses(expenses) {
   const expenseResume = expenses.map(({ value, currency, exchangeRates }) => {
     const exchangeCoins = Object.values(exchangeRates);
     const valueNumber = parseFloat(value);
@@ -22,4 +22,15 @@ export default function sumExpenses(expenses) {
   // console.log([totalExpenses]);
   return totalExpenses;
 }
+// ---------------------------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------------------------
+// TableWallet
+export function removeExpense(id, expenses) {
+  const listExpenses = [...expenses];
+  const updatedExpenses = listExpenses.filter((item) => item.id !== id);
+  // localStorage.setItem('LScart', JSON.stringify(updatedCart));
+  return updatedExpenses;
+}
+
 // ---------------------------------------------------------------------------------------------

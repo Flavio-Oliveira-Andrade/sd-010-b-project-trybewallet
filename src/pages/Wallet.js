@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import trybeWallet from '../files/images/trybe-wallet.png';
 import FormsWallet from '../components/FormsWallet';
+import TableWallet from '../components/TableWallet';
 
 class Wallet extends React.Component {
   render() {
@@ -24,6 +25,7 @@ class Wallet extends React.Component {
         </div>
         <div className="walletForms">
           <FormsWallet />
+          <TableWallet />
         </div>
       </div>
     );
