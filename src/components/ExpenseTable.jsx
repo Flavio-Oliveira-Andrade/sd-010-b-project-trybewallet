@@ -19,7 +19,7 @@ const tableHead = () => (
   </thead>
 );
 
-const tableBody = (expenses) => (
+const tableBody = (expenses, deleteFn) => (
   <tbody>
     { expenses.map(({
       id,
@@ -47,11 +47,11 @@ const tableBody = (expenses) => (
   </tbody>
 );
 
-function ExpenseTable({ expenses }) {
+function ExpenseTable({ expenses, deleteFn }) {
   return (
     <table>
       {tableHead()}
-      {tableBody(expenses)}
+      {tableBody(expenses, deleteFn)}
     </table>
   );
 }
