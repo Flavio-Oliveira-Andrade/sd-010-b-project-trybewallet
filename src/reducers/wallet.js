@@ -16,10 +16,10 @@ function walletReducer(state = INITIAL_STATE, action) {
     return { ...state };
   case GET_CURRENCIES_SUCCESS:
     return { ...state, currencies: action.currencies };
-    case GET_CURRENCIES_SUCCESS_EXCHANGE:
+  case GET_CURRENCIES_SUCCESS_EXCHANGE:
     return { ...state, currencies2: action.currencies2 };
   case ADD_EXPENSES:
-    return { ...state, expenses: [...state.expenses, { ...action.expenses, exchangeRates: action.currencies2 }] };
+    return { ...state, expenses: [...state.expenses, action.expenses] };
   default:
     return state;
   }

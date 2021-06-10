@@ -12,11 +12,14 @@ export const addEmail = (email) => ({
   email,
 });
 
-export const addExpenses = (expenses, exchange) => ({
+export const addExpenses = (expenses) => ({
   type: ADD_EXPENSES,
   expenses,
-  exchange,
 });
+
+export const batatinha = (expense) => (dispatch) => {
+  fetchCurrency().then((exchangeRates) => dispatch(addExpenses({ ...expense, exchangeRates })));
+};
 
 export const getCurrencies = () => ({
   type: GET_CURRENCIES,
@@ -36,8 +39,9 @@ export const getCurrenciesThunk = () => (dispatch) => {
   dispatch(getCurrencies());
 
   fetchCurrency().then((response) => {
-    const filteredCurrencies = Object.keys(response).filter((data) => (data !== 'USDT'
-    && data !== 'DOGE'));
+    const filteredCurrencies = Object.keys(response).filter(
+      (data) => data !== 'USDT' && data !== 'DOGE',
+    );
     dispatch(getCurrenciesSuccess(filteredCurrencies));
   });
 };
@@ -48,7 +52,3 @@ export const getCurrencyExpenseThunk = () => (dispatch) => {
     dispatch(getCurrenciesSuccessExchange(response));
   });
 };
-
-// const filteredCurrencies = Object.entries(response).filter((data) => (data[0] !== 'USDT'
-// && data[0] !== 'DOGE'));
-//  const exchenge = filteredCurrencies.map((currency) => [currency[1].code, currency[1].name, currency[1].ask]);

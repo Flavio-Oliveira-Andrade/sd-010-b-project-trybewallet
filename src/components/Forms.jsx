@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, getCurrencyExpenseThunk, addExpenses } from '../actions';
+import { getCurrenciesThunk, getCurrencyExpenseThunk, addExpenses, batatinha } from '../actions';
+import fetchCurrency from '../services';
 
 class Forms extends Component {
   constructor(props) {
@@ -20,33 +21,33 @@ class Forms extends Component {
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
+    // currencyExchange();
   }
 
   handleChange(event) {
     this.setState({
-      [event.target.id]: event.target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
-  // handleExpense() { const { addExpense, updatedWallet, currency2: exchangeRates } = this.props; updatedWallet(); this.setState((prev) => ({ ...INITIAL_STATE, id: prev.id + 1 })); addExpense({ ...this.state, exchangeRates }); } 
-
   handleClick() {
-    const { currencyExchange, addExpense } = this.props;
-    currencyExchange();
-    addExpense(this.state);
+    const { addExpense } = this.props;
+    // currencyExchange();
+    // fetchCurrency().then((exchangeRates) => addExpense({ ...this.state, exchangeRates }))
+    addExpense({ ...this.state });
     this.setState((oldState) => ({
       id: oldState.id + 1,
     }));
-    console.log(this.state);
   }
 
   render() {
-    const { currencies } = this.props;    
+    const { currencies } = this.props;
+    const { value, description, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="value">
           Valor:
-          <input type="number" name="value" id="value" onChange={ this.handleChange } />
+          <input type="number" name="value" id="value" onChange={ this.handleChange } value={ value } />
         </label>
         <label htmlFor="description">
           Descrição
@@ -55,6 +56,7 @@ class Forms extends Component {
             name="description"
             id="description"
             onChange={ this.handleChange }
+            value={ description }
           />
         </label>
         <label htmlFor="currency">
@@ -66,7 +68,7 @@ class Forms extends Component {
         </label>
         <label htmlFor="method">
           Método de pagamento
-          <select name="method" id="method" onChange={ this.handleChange }>
+          <select name="method" id="method" onChange={ this.handleChange } value={ method }>
             <option value="dinheiro">Dinheiro</option>
             <option value="credit-card">Cartão de crédito</option>
             <option value="debit">Cartão de débito</option>
@@ -74,7 +76,7 @@ class Forms extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" id="tag" onChange={ this.handleChange }>
+          <select name="tag" id="tag" onChange={ this.handleChange } value={ tag }>
             <option value="alimentação">Alimentação</option>
             <option value="lazer">Lazer</option>
             <option value="trabalho">Trabalho</option>
@@ -84,9 +86,8 @@ class Forms extends Component {
         </label>
         <button
           type="button"
-          onClick={ () => this.handleClick(this.state) }
-        >
-          Adicionar despesa
+          onClick={ () => this.handleClick() }
+        >Adicionar despesa
         </button>
       </form>
     );
@@ -95,12 +96,13 @@ class Forms extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  currencies2: state.wallet.currencies2,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrenciesThunk()),
   currencyExchange: () => dispatch(getCurrencyExpenseThunk()),
-  addExpense: (state) => dispatch(addExpenses(state)),
+  addExpense: (state) => dispatch(batatinha(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
