@@ -30,7 +30,8 @@ class FormDespesa extends React.Component {
   }
 
   onClick() {
-    const { id, updateId, addDespesas, getCurrency, currencies2: exchangeRates } = this.props;
+    const { id, updateId, addDespesas,
+      getCurrency, currencies2: exchangeRates } = this.props;
 
     this.setState({ value: 0, description: '' });
     updateId();
@@ -181,9 +182,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FormDespesa.propTypes = {
+  id: PropTypes.number.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
   currencies2: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrency: PropTypes.func.isRequired,
+  updateId: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   addDespesas: PropTypes.func.isRequired,
 };
