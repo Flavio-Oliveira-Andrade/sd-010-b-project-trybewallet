@@ -24,7 +24,6 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { setEmailAction, setPasswordAction } = this.props;
     return (
       <form className="login-form">
         <label htmlFor="email" className="login-label">
