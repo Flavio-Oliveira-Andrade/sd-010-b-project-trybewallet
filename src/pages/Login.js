@@ -2,9 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles/Login.css';
+import { Link } from 'react-router-dom';
 import { inputEmail, inputPassword } from '../actions';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
   isButtonDisabled(userEmail, userPassword) {
     // Regex from https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -17,6 +24,12 @@ class Login extends React.Component {
 
   handleOnSubmit(event) {
     event.preventDefault();
+  }
+
+  handleOnClick() {
+    const { history } = this.props;
+
+    history.push('/carteira');
   }
 
   render() {
@@ -42,6 +55,7 @@ class Login extends React.Component {
           <button
             type="submit"
             disabled={ this.isButtonDisabled(userEmail, userPassword) }
+            onClick={ this.handleOnClick }
           >
             Entrar
           </button>
