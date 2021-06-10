@@ -31,7 +31,7 @@ const walletReducer = (state = initialState, action) => {
     return {
       ...state,
       loading: false,
-      exchangeRates: action.payload,
+      data: action.payload,
     };
 
   case ADD_EXPENSE:

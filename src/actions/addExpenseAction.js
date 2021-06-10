@@ -1,10 +1,9 @@
 import { ADD_EXPENSE } from './index';
 
-const addExpenseAction = (expense, data) => ({
+const addExpenseAction = (expense) => ({
   type: ADD_EXPENSE,
   payload: {
     expense,
-    exchangeRates: data,
   },
 });
 
