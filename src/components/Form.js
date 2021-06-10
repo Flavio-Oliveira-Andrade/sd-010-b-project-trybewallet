@@ -31,8 +31,7 @@ class Form extends React.Component {
 
   handleClick() {
     const { addExpense, data } = this.props;
-    this.setState({ exchangeRates: data });
-    addExpense(this.state);
+    this.setState({ exchangeRates: data }, () => addExpense(this.state));
     this.setState((previousState) => ({ id: previousState.id + 1, exchangeRates: data }));
   }
 
