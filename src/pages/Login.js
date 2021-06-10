@@ -26,7 +26,6 @@ class Login extends React.Component {
   }
 
   validation() {
-    const { isValid } = this.state;
     const button = document.querySelector('.login-button');
     const login = document.querySelectorAll('input');
     const email = login[0].value;
@@ -36,10 +35,11 @@ class Login extends React.Component {
     // console.log(email);
     const lenghtPassword = 6;
     if (login[0].value.includes('@')
-      && login[0].value.includes('.com')
-      && login[1].value.length >= lenghtPassword) {
+    && login[0].value.includes('.com')
+    && login[1].value.length >= lenghtPassword) {
+      const { state: { isValid: value } } = this;
       button.disabled = false;
-      this.setState({ isValid: true });
+      this.setState({ isValid: value });
     }
   }
 
