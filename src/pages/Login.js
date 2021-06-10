@@ -42,7 +42,7 @@ class Login extends React.Component {
             type="password"
             onChange={ (e) => this.setState({ password: e.target.value }) }
             placeholder="senha"
-            data-testid="input-password"
+            data-testid="password-input"
           />
         </label>
         <button
@@ -65,8 +65,8 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  setEmail: PropTypes.func.isRequired,
-  setPassword: PropTypes.func.isRequired,
+  setEmail: PropTypes.func,
+  setPassword: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
