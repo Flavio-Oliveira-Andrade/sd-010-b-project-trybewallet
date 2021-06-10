@@ -5,6 +5,7 @@ import Header from '../components/componentswallet/Header';
 function Wallet() {
   const [totalDespesas] = useState(0);
   const [cambio] = useState('BRL');
+  const [inputValue, setInputValue] = useState(0);
   const emailUser = useSelector((state) => state.user.email);
 
   return (
