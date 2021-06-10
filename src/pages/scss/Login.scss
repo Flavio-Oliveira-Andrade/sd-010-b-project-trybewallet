@@ -1,0 +1,14 @@
+.Login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      margin-bottom: 5px;
+    }
+  }
+}
