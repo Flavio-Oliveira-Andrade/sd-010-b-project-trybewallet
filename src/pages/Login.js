@@ -94,6 +94,7 @@ class Login extends React.Component {
       pwMessageError,
       invalidEmail,
       invalidPw,
+      loginAllowed,
     } = this.state;
     return (
       <section className="login-form-container">
@@ -130,14 +131,11 @@ class Login extends React.Component {
             Entrar
           </button>
         </form>
+        { loginAllowed && <Redirect to="/carteira" /> }
       </section>
     );
   }
 }
-
-Login.propTypes = {
-  globalStateEmail: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = (dispatch) => ({
   globalStateEmail: (email) => { dispatch(loginUser(email)); },
