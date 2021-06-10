@@ -48,7 +48,23 @@ export const fetchApi = () => (dispatch) => {
 
 // Action Wallet
 
-export const salvarDespesa = (despesa) => ({
-  type: 'SALVAR_DESPESA',
-  payload: despesa,
-});
+export const salvarDespesa = (despesa) => (dispatch) => {
+  console.log('Fetch da API');
+  dispatch(requestApi());
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((res) => res.json())
+    .then(
+      (sucesso) => {
+        const sucessoAux = sucesso;
+        delete sucessoAux.USDT;
+        return dispatch({
+          type: 'SALVAR_DESPESA',
+          payload: { ...despesa, exchangeRates: sucesso } });
+      },
+    );
+};
+
+// export const salvarDespesa = (despesa) => ({
+//   type: 'SALVAR_DESPESA',
+//   payload: despesa,
+// });

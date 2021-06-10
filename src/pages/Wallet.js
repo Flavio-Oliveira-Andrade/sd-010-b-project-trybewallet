@@ -43,23 +43,14 @@ class Wallet extends React.Component {
 
   adicionarDespesa(despesa) {
     const { enviarDespesa } = this.props;
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((res) => res.json())
-      .then(
-        (sucesso) => {
-          const sucessoAux = sucesso;
-          delete sucessoAux.USDT;
-          const informacoesDespesa = { ...despesa, exchangeRates: sucessoAux };
-          enviarDespesa(informacoesDespesa);
-          this.setState({
-            value: '',
-            description: '',
-            currency: 'USD',
-            method: 'Dinheiro',
-            tag: 'Alimentação',
-            despesas: true });
-        },
-      );
+    enviarDespesa(despesa);
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      despesas: true });
   }
 
   renderValor() {
