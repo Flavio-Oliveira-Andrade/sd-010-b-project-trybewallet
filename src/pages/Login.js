@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 // import { Link as button } from 'react-router-dom';
 
 import '../css/loginPage.css';
@@ -11,9 +12,20 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
+      password: '',
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleVerification = this.handleVerify.bind(this);
+  }
+
+  // Regex from :
+  // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+  handleVerify() {
+    const { email } = this.state;
+    const pattern = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    if (email.match(pattern)) return true;
   }
 
   handleChange({ value, name }) {
@@ -23,7 +35,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, redirect } = this.state;
+    if (redirect) return <Redirect to="/carteira" />;
+    const serialLength = 5;
+
     return (
       <form className="login-form">
         <label htmlFor="email" className="login-label">
@@ -50,7 +65,9 @@ class Login extends React.Component {
         <button
           type="submit"
           className="login-btn"
-          // to="/products"
+          disabled={
+            password.length <= serialLength || (!this.handleVerify())
+          }
           onClick={ (e) => {
             if (!email) {
               e.preventDefault();
