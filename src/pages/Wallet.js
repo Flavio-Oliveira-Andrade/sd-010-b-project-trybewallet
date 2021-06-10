@@ -111,11 +111,6 @@ class Wallet extends React.Component {
           </label>
           {this.category()}
         </form>
-        <button
-          onClick={ () => this.updateState(currency) }
-        >
-          testando
-        </button>
       </div>);
   }
 }
