@@ -1,27 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { emailOnChange, passwordOnChange } from '../actions/userAction';
+import { Link } from 'react-router-dom';
+import { emailOnChange } from '../actions/userAction';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      password: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ password: event.target.value });
+  }
+
   render() {
-    const { email, password } = this.props;
+    const SixNumber = 6;
+    const { password } = this.state;
+    const { actionEmail, email } = this.props;
+    const validEmailandPassword = (password.length >= SixNumber)
+    && RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
     return (
       <div>
         <label htmlFor="emailLogin">
-          <input data-testid="email-input" id="emailLogin" type="email" onChange={ ({ target: { value } }) => email(value) } />
+          Email
+          <input
+            data-testid="email-input"
+            id="emailLogin"
+            type="email"
+            onChange={ ({ target: { value } }) => actionEmail(value) }
+          />
         </label>
         <label htmlFor="passwordLogin">
-          <input data-testid="password-input" id="passwordLogin" type="password" onChange={ ({ target: { value } }) => password(value) } />
+          Password
+          <input
+            data-testid="password-input"
+            id="passwordLogin"
+            type="password"
+            onChange={ this.handleChange }
+          />
         </label>
-        <button type="submit">Entrar</button>
+        <Link to="/carteira"><button type="submit" disabled={ !validEmailandPassword }>Entrar</button></Link>
       </div>
     );
   }
 }
-
+// tudo que está dentro do mapDispatchToProps é uma função!!
 const mapDispatchToProps = (dispatch) => ({
-  email: (email) => dispatch(emailOnChange(email)),
-  password: (password) => dispatch(passwordOnChange(password)),
+  actionEmail: (email) => dispatch(emailOnChange(email)),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

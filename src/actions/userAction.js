@@ -3,9 +3,4 @@ function emailOnChange(email) {
     payload: email };
 }
 
-function passwordOnChange(password) {
-  return { type: 'PASSWORD_CHANGE',
-    payload: password };
-}
-
-export { emailOnChange, passwordOnChange };
+export { emailOnChange };
