@@ -24,14 +24,17 @@ class Table extends React.Component {
             <td>{expense.tag}</td>
             <td>{expense.method}</td>
             <td>{expense.value}</td>
-            <td>{expense.currency}</td>
-            <th>{expense.exchangeRates[expense.currency].name.split('/')[0]}</th>
-            <th>{expense.exchangeRates[expense.currency].ask * expense.value}</th>
-            <th>Real</th>
-            <th>
+            <td>{expense.exchangeRates[expense.currency].name.split('/')[0]}</td>
+            <td>{parseFloat(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
+            <td>
+              {parseFloat(expense.exchangeRates[expense.currency].ask * expense.value)
+                .toFixed(2)}
+            </td>
+            <td>Real</td>
+            <td>
               <button data-testid="delete-btn" type="button">x</button>
               <button data-testid="edit-btn" type="button">Editar despesa</button>
-            </th>
+            </td>
           </tr>))}
       </table>
     );
