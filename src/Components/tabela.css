@@ -1,0 +1,15 @@
+
+tr {
+  width: 100%;
+  border: black solid 1px;
+}
+.cabecalho{
+  background-color: dimgray;
+}
+th{
+  padding: 10px;
+  text-align: center;
+  border: black solid 1px;
+  width:120px;
+}
+

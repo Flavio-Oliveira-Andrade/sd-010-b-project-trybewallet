@@ -1,7 +1,7 @@
 function getApi() {
   return fetch('https://economia.awesomeapi.com.br/json/all')
     .then((response) => response.json())
-    .then((response) => response);
+    .then((responseJson) => responseJson);
 }
 
 export default getApi;
