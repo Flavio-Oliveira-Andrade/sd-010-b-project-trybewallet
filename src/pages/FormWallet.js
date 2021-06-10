@@ -14,6 +14,7 @@ class FormWallet extends Component {
             <input
               type="text"
               name="value"
+              id="value"
             />
           </label>
           <label htmlFor="description">
@@ -21,6 +22,7 @@ class FormWallet extends Component {
             <input
               type="text"
               name="description"
+              id="description"
             />
           </label>
           <label htmlFor="currencies">
@@ -39,7 +41,7 @@ class FormWallet extends Component {
           </label>
           <label htmlFor="category">
             Tag
-            <select name="category">
+            <select name="category" id="category">
               <option value="food">Alimentação</option>
               <option value="leisure">Lazer</option>
               <option value="work">Trabalho</option>
