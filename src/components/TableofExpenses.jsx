@@ -7,17 +7,24 @@ class TableOfExpenses extends React.Component {
   constructor() {
     super();
     this.renderExpenses = this.renderExpenses.bind(this);
+    this.onEditMenuClick = this.onEditMenuClick.bind(this);
+  }
+
+  onEditMenuClick({ target }) {
+    const { edit, expenses } = this.props;
+    const expense = expenses
+      .find((expense) => expense.id === parseInt(target.name, 10));
+    edit(expense);
   }
 
   deleteOnClick({ target }) {
-    const { expenses, deleteAction, updateState } = this.props;
+    const { expenses, deleteAction } = this.props;
     const filterState = expenses
       .filter((expense) => expense.id !== parseInt(target.name, 10));
     const newState = filterState.map((expense) => ({
       ...expense,
     }));
     deleteAction(newState);
-    updateState();
   }
 
   renderExpenses() {
@@ -44,6 +51,8 @@ class TableOfExpenses extends React.Component {
               type="button"
               className="edit-button"
               data-testid="edit-btn"
+              onClick={ (e) => this.onEditMenuClick(e) }
+              name={ id }
             >
               &#9998;
             </button>
@@ -96,7 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
 TableOfExpenses.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteAction: PropTypes.func.isRequired,
-  updateState: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableOfExpenses);

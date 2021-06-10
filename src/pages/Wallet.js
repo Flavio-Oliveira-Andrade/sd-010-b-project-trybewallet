@@ -1,28 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpenseThunk } from '../actions';
+import { addExpenseThunk, editExpenseAction } from '../actions';
 import TableOfExpenses from '../components/TableofExpenses';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
-    this.updateState = this.updateState.bind(this);
     this.getCurrencies = this.getCurrencies.bind(this);
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.onClickHandle = this.onClickHandle.bind(this);
     this.calculateTotal = this.calculateTotal.bind(this);
+    this.toEditMenu = this.toEditMenu.bind(this);
+    this.formsValues = this.formsValues.bind(this);
+    this.renderSelectInputs = this.renderSelectInputs.bind(this);
     this.state = {
       currencies: [],
       expense: {
-        id: -1,
+        id: 0,
         value: '',
         description: '',
         currency: 'USD',
         method: 'Dinheiro',
         tag: 'Alimentação',
       },
+      edit: false,
+      editExpense: {},
     };
   }
 
@@ -31,6 +35,15 @@ class Wallet extends React.Component {
   }
 
   onChangeHandle({ target }) {
+    const { edit } = this.state;
+    if (edit) {
+      return this.setState((prev) => ({
+        editExpense: {
+          ...prev.editExpense,
+          [target.id]: target.value,
+        },
+      }));
+    }
     this.setState((prev) => ({
       expense: {
         ...prev.expense,
@@ -40,15 +53,36 @@ class Wallet extends React.Component {
   }
 
   async onClickHandle() {
-    const { addExpense } = this.props;
+    const { edit, editExpense, expense } = this.state;
+    const { addExpense, expenses, editExpenseActionProps } = this.props;
+    if (edit) {
+      const newState = expenses.map((result) => {
+        if (result.id === parseInt(editExpense.id, 10)) {
+          return editExpense;
+        }
+        return result;
+      });
+      this.setState((prev) => ({
+        expense: {
+          ...prev.expense,
+          value: '',
+          description: '',
+          currency: 'USD',
+          method: 'Dinheiro',
+          tag: 'Alimentação',
+        },
+        edit: false,
+      }));
+      return editExpenseActionProps(newState);
+    }
     const countExpenses = 1;
     await this.setState((prev) => ({
       expense: {
         ...prev.expense,
         id: prev.expense.id + countExpenses,
       },
+      edit: false,
     }));
-    const { expense } = this.state;
     return addExpense(expense);
   }
 
@@ -60,16 +94,6 @@ class Wallet extends React.Component {
       }
       return null;
     });
-  }
-
-  updateState() {
-    const countExpenses = 1;
-    this.setState((prev) => ({
-      expense: {
-        ...prev.expense,
-        id: prev.expense.id - countExpenses,
-      },
-    }));
   }
 
   calculateTotal() {
@@ -95,6 +119,38 @@ class Wallet extends React.Component {
       });
   }
 
+  toEditMenu(expense) {
+    this.setState({
+      edit: true,
+      editExpense: expense,
+    });
+  }
+
+  formsValues(name) {
+    const { edit, editExpense, expense } = this.state;
+    if (edit) {
+      return editExpense[name];
+    }
+    return expense[name];
+  }
+
+  renderWalletForms(name, value) {
+    return (
+      <label htmlFor={ name }>
+        { value }
+        <input
+          type="text"
+          id={ name }
+          className={ `input-${name}` }
+          name={ name }
+          onChange={ (e) => this.onChangeHandle(e) }
+          value={ this.formsValues(name) }
+          data-testid={ `${name}-input` }
+        />
+      </label>
+    );
+  }
+
   renderHeadingInputs(name, value, id) {
     return (
       <div>
@@ -111,22 +167,54 @@ class Wallet extends React.Component {
     );
   }
 
-  renderWalletForms(name, value) {
+  renderSelectInputs() {
     return (
-      <label htmlFor={ name }>
-        { value }
-        <input
-          type="text"
-          id={ name }
-          className={ `input-${name}` }
-          name={ name }
-          onChange={ (e) => this.onChangeHandle(e) }
-        />
-      </label>
+      <span>
+        <label htmlFor="currency">
+          Moeda
+          <select
+            id="currency"
+            onChange={ (e) => this.onChangeHandle(e) }
+            value={ this.formsValues('currency') }
+            data-testid="currency-input"
+          >
+            { this.getCurrencies() }
+          </select>
+        </label>
+        <label htmlFor="method">
+          Método de Pagamento
+          <select
+            id="method"
+            onChange={ (e) => this.onChangeHandle(e) }
+            value={ this.formsValues('method') }
+            data-testid="method-input"
+          >
+            <option name="Dinheiro">Dinheiro</option>
+            <option name="Cartão de crédito">Cartão de crédito</option>
+            <option name="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag
+          <select
+            id="tag"
+            onChange={ (e) => this.onChangeHandle(e) }
+            value={ this.formsValues('tag') }
+            data-testid="tag-input"
+          >
+            <option name="Alimentação">Alimentação</option>
+            <option name="Lazer">Lazer</option>
+            <option name="Trabalho">Trabalho</option>
+            <option name="Transporte">Transporte</option>
+            <option name="Saúde">Saúde</option>
+          </select>
+        </label>
+      </span>
     );
   }
 
   render() {
+    const { edit } = this.state;
     const { email } = this.props;
     const total = this.calculateTotal();
     return (
@@ -140,38 +228,15 @@ class Wallet extends React.Component {
         <form className="wallet-form">
           { this.renderWalletForms('value', 'Valor') }
           { this.renderWalletForms('description', 'Descrição') }
-          <label htmlFor="currency">
-            Moeda
-            <select id="currency" onChange={ (e) => this.onChangeHandle(e) }>
-              { this.getCurrencies() }
-            </select>
-          </label>
-          <label htmlFor="method">
-            Método de Pagamento
-            <select id="method" onChange={ (e) => this.onChangeHandle(e) }>
-              <option name="Dinheiro">Dinheiro</option>
-              <option name="Cartão de crédito">Cartão de crédito</option>
-              <option name="Cartão de débito">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            Tag
-            <select id="tag" onChange={ (e) => this.onChangeHandle(e) }>
-              <option name="Alimentação">Alimentação</option>
-              <option name="Lazer">Lazer</option>
-              <option name="Trabalho">Trabalho</option>
-              <option name="Transporte">Transporte</option>
-              <option name="Saúde">Saúde</option>
-            </select>
-          </label>
+          { this.renderSelectInputs() }
           <button
             type="button"
             onClick={ this.onClickHandle }
           >
-            Adicionar despesa
+            {edit ? 'Editar despesa' : 'Adicionar despesa' }
           </button>
         </form>
-        <TableOfExpenses updateState={ this.updateState } />
+        <TableOfExpenses edit={ this.toEditMenu } />
       </div>
     );
   }
@@ -184,12 +249,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (payload) => dispatch(addExpenseThunk(payload)),
+  editExpenseActionProps: (payload) => dispatch(editExpenseAction(payload)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   addExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editExpenseActionProps: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
