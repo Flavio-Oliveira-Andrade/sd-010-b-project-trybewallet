@@ -1,11 +1,12 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 // import { Link as button } from 'react-router-dom';
 
-import '../css/loginPage.css';
+import { addEmail } from '../actions';
 import { setEmailAction, setPasswordAction } from '../actions/userAction';
+import '../css/loginPage.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -40,13 +41,12 @@ class Login extends React.Component {
     const serialLength = 5;
 
     return (
-      <form className="login-form">
+      <form>
         <label htmlFor="email" className="login-label">
           E-mail:
           <input
             type="email"
             name="email"
-            id="email"
             value={ email }
             placeholder="exemplo@exemplo.com"
             data-testid="email-input"
@@ -68,12 +68,12 @@ class Login extends React.Component {
           disabled={
             password.length <= serialLength || (!this.handleVerify())
           }
-          onClick={ (e) => {
-            if (!email) {
-              e.preventDefault();
-            }
+          onClick={ () => {
             setEmailAction(email);
             setPasswordAction(password);
+            const { addEmailUser } = this.props;
+            addEmailUser(email);
+            this.setState({ redirect: true });
           } }
         >
           Entrar
@@ -83,14 +83,18 @@ class Login extends React.Component {
   }
 }
 
-// Login.propTypes = {
-//   setEmailAction: PropTypes.func.isRequired,
-//   setPasswordAction: PropTypes.func.isRequired,
-// };
+Login.propTypes = {
+  addEmailUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  email: state.email,
+});
 
 const mapDispatchToProps = (dispatch) => ({
+  addEmailUser: (email) => dispatch(addEmail(email)),
   setEmailAction: (email) => dispatch(setEmailAction(email)),
   setPasswordAction: (password) => dispatch(setPasswordAction(password)),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

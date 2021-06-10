@@ -1,4 +1,4 @@
-import { SET_EMAIL, SET_PASSWORD } from '.';
+import { SET_EMAIL, SET_PASSWORD } from './types';
 
 export const setEmailAction = (email) => ({
   type: SET_EMAIL,
