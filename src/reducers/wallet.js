@@ -1,14 +1,18 @@
+import { REQUEST_CAMBIO } from '../actions';
+
 const initialState = {
   currencies: [],
   expenses: [],
   outgoing: 0,
 };
 
-export default (state = initialState, { type /* payload */ }) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
-  case '':
-    // return { ...state, ...payload };
-    return state;
+  case REQUEST_CAMBIO:
+    return {
+      ...state,
+      currencies: Object.keys(payload),
+    };
 
   default:
     return state;

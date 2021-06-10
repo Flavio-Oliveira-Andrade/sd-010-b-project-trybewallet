@@ -1,11 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchCambio } from '../actions';
 
 class Form extends React.Component {
+  componentDidMount() {
+    const { coinsAction } = this.props;
+    coinsAction();
+  }
+
   render() {
-    // const { login, total } = this.props;
-    // const { outgoing } = this.state;
+    const { currencies } = this.props;
+
     return (
       <div>
         <form>
@@ -20,7 +26,8 @@ class Form extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              <option>{}</option>
+              {currencies.filter((cur) => cur !== 'USDT')
+                .map((currenc) => <option key={ currenc }>{currenc}</option>)}
             </select>
           </label>
           <label htmlFor="metodoDePagamento">
@@ -48,12 +55,16 @@ class Form extends React.Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   wallet: (email, password) => dispatch(loginAction(email, password)),
-// });
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
 
-// Login.propTypes = {
-//   login: PropTypes.object,
-// }.isRequired;
+const mapDispatchToProps = (dispatch) => ({
+  coinsAction: () => dispatch(fetchCambio()),
+});
 
-export default Form;
+Form.propTypes = {
+  coinsAction: PropTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
