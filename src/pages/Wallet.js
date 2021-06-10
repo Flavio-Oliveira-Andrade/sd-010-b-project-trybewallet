@@ -9,10 +9,15 @@ function Wallet() {
   const [totalDespesas] = useState(0);
   const [cambio] = useState('BRL');
   const [inputValue, setInputValue] = useState(0);
+  const [inputDescription, setInputDescripion] = useState('');
   const emailUser = useSelector((state) => state.user.email);
 
   function handleInputValueChange(newValue) {
     setInputValue(newValue);
+  }
+
+  function handleInputDescriptionChange(newDescription) {
+    setInputDescripion(newDescription);
   }
 
   return (
@@ -27,6 +32,12 @@ function Wallet() {
         labelDescription="Valor"
         inputValue={ inputValue }
         onInputValueChange={ handleInputValueChange }
+      />
+
+      <InputDescriptionExpenses
+        labelDescription="Descrição"
+        inputValue={ inputDescription }
+        onInputDescriptionChange={ handleInputDescriptionChange }
       />
     </>
   );
