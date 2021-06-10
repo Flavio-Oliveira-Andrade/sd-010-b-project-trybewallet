@@ -11,8 +11,8 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 
 ReactDOM.render(
-  <Provider>
-    <BrowserRouter store={ store }>
+  <Provider store={ store }>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,

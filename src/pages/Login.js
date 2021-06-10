@@ -1,38 +1,103 @@
 import React from 'react';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { actionLogin } from '../actions';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      buttonDisabled: true,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const button = document.getElementById('login-button');
+    button.disabled = true;
+  }
+
+  handleChange() {
+    const validation = /\S+@\S+\.\S+/;
+    const MIN_LEN_PASS = 6;
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (validation.test(email) && password.length >= MIN_LEN_PASS) {
+      this.setState({ buttonDisabled: false });
+    } else {
+      this.setState({ buttonDisabled: true });
+    }
+  }
+
+  handleClick() {
+    const { login, history } = this.props;
+    const valueEmail = document.getElementById('email').value;
+
+    login(valueEmail);
+    history.push('/carteira');
+  }
+
   render() {
+    const { buttonDisabled } = this.state;
+
     return (
-      <div>
+      <section>
         <h1>Trybe Login</h1>
 
         <label htmlFor="email-login">
           Email
           <input
-            id="email-login"
+            id="email"
             type="text"
             name="email"
             placeholder="email@email.com"
             data-testid="email-input"
+            onChange={ this.handleChange }
           />
         </label>
 
         <label htmlFor="password-login">
           Senha
           <input
-            id="password-login"
+            id="password"
             type="password"
             name="password"
             placeholder="informe sua senha"
             data-testid="password-input"
+            onChange={ this.handleChange }
           />
         </label>
 
-        <button type="button">Entrar</button>
+        <button
+          id="login-button"
+          type="button"
+          onClick={ this.handleClick }
+          disabled={ buttonDisabled }
+        >
+          Entrar
+        </button>
 
-      </div>
+      </section>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = () => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(actionLogin({ email })),
+});
+
+Login.propTypes = {
+  login: propTypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
