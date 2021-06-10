@@ -1,27 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-// import CURRENCY from '../services/API';
 
 class ExpenseAddForm extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     Moedas: [],
-  //   };
-  // }
-
-  // async componentDidMount() {
-  //   this.renderCurrencySelect(await CURRENCY());
-  // }
-
-  // renderCurrencySelect(currencies) {
-  //   const Moedas = Object.keys(currencies);
-  //   this.setState({
-  //     Moedas,
-  //   });
-  // }
-
   render() {
-    // const { Moedas } = this.state;
+    const { currencies } = this.props;
+    currencies.splice(1, 1);
     return (
       <form method="get">
         <label htmlFor="valueExpense">
@@ -35,13 +18,13 @@ class ExpenseAddForm extends React.Component {
         <label htmlFor="currencies">
           Moeda
           <select id="currencies">
-            {/* {Moedas.map((moeda) => (
+            {currencies.map((moeda) => (
               <option value={ moeda } key={ moeda }>
                 {' '}
                 { moeda }
                 {' '}
               </option>
-            ))} */}
+            ))}
           </select>
         </label>
         <label htmlFor="payment">
@@ -66,5 +49,9 @@ class ExpenseAddForm extends React.Component {
     );
   }
 }
+
+ExpenseAddForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default ExpenseAddForm;

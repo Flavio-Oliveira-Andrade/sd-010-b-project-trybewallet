@@ -26,10 +26,9 @@ class Wallet extends React.Component {
           </p>
           <p data-testid="header-currency-field">
             BRL
-            {` ${currencies} `}
           </p>
         </header>
-        <ExpenseAddForm />
+        <ExpenseAddForm currencies={ currencies } />
       </div>);
   }
 }
