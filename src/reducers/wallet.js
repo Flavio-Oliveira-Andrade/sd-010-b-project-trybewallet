@@ -1,4 +1,7 @@
-import { REQUEST_API, REQUEST_API_SUCCESS, REQUEST_API_ERROR } from '../actions';
+import { REQUEST_API,
+  REQUEST_API_SUCCESS,
+  REQUEST_API_ERROR,
+  REQUEST_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -26,6 +29,12 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       error: action.payload.error,
       loading: action.payload.loading,
+    };
+
+  case REQUEST_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload.expense],
     };
 
   default:

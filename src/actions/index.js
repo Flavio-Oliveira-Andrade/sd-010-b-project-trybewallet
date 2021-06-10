@@ -2,6 +2,7 @@ export const ADD_USER = 'ADD_USER';
 export const REQUEST_API = 'REQUEST_API';
 export const REQUEST_API_SUCCESS = 'REQUEST_API_SUCCESS';
 export const REQUEST_API_ERROR = 'REQUEST_API_ERROR';
+export const REQUEST_EXPENSES = 'REQUEST_EXPENSES';
 
 export const requestAddUser = (email) => ({
   type: ADD_USER,
@@ -31,6 +32,13 @@ export const requestApiError = (error) => ({
   payload: {
     error,
     loading: false,
+  },
+});
+
+export const requestExpenses = (expense) => ({
+  type: REQUEST_EXPENSES,
+  payload: {
+    expense,
   },
 });
 

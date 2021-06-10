@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApi } from '../actions';
+import { fetchApi, requestExpenses } from '../actions';
 
 class FormsDespesa extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class FormsDespesa extends Component {
     this.renderCurrencyLabel = this.renderCurrencyLabel.bind(this);
     this.renderPaymentLabel = this.renderPaymentLabel.bind(this);
     this.renderTagLabel = this.renderTagLabel.bind(this);
+    this.renderButton = this.renderButton.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,9 @@ class FormsDespesa extends Component {
   }
 
   addDispesa() {
+    const { keepForm } = this.props;
+    keepForm({ teste: 'teste' });
+    console.log('oi');
   }
 
   renderValueLabel() {
@@ -124,8 +128,19 @@ class FormsDespesa extends Component {
       </label>);
   }
 
+  renderButton() {
+    return (
+      <button
+        onClick={ () => this.addDispesa() }
+        type="button"
+      >
+        Adicionar Despesa
+      </button>);
+  }
+
   render() {
     return (
+      // <form */onSubmit={ (e) => this.addDispesa(e) }>
       <form>
         {this.renderValueLabel()}
         ;
@@ -136,7 +151,9 @@ class FormsDespesa extends Component {
         {this.renderPaymentLabel()}
         ;
         {this.renderTagLabel()}
-        <button onClick={ () => this.addDispesa } type="submit">Adicionar Despesa</button>
+        ;
+        {this.renderButton()}
+        ;
       </form>
     );
   }
@@ -144,17 +161,18 @@ class FormsDespesa extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  loading: state.wallet.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   Apifetch: () => dispatch(fetchApi()),
+  keepForm: (expense) => dispatch(requestExpenses(expense)),
 });
 
-FormsDespesa.propTypes = {
-  Apifetch: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf.isRequired,
-};
+// FormsDespesa.propTypes = {
+//   Apifetch: PropTypes.func.isRequired,
+//   keepForm: PropTypes.func.isRequired,
+//   currencies: PropTypes.arrayOf.isRequired,
+// };
 
 // export default FormsDespesa;
 export default connect(mapStateToProps, mapDispatchToProps)(FormsDespesa);

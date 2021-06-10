@@ -11,23 +11,19 @@ class Home extends Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
     const { totalGastos } = this.state;
 
+    console.log(expenses);
     return (
       <header>
-        <h3 data-testid="email-field">
-          {email}
-        </h3>
+        <h3 data-testid="email-field">{email}</h3>
         <h3 data-testid="total-field">
           Dispesa Total:
           {totalGastos}
         </h3>
-        <h3
-          data-testid="header-currency-field"
-        >
-          BRL
-        </h3>
+        <h3 data-testid="header-currency-field">BRL</h3>
+        <h3>{expenses}</h3>
       </header>
     );
   }
@@ -35,13 +31,15 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  // currencies: state.wallet.currencies,
 });
 
 // const mapDispatchToProps = () => {
 // };
 Home.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Home);
