@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Header from '../components/componentswallet/Header';
 import InputDescriptionExpenses
   from '../components/componentswallet/InputDescriptionExpenses';
-import InputSelect from '../components/componentswallet/InputSelect';
+import InputSelectMoeda from '../components/componentswallet/InputSelectMoeda';
 import InputValue from '../components/componentswallet/InputValue';
 
 function Wallet() {
@@ -29,21 +29,23 @@ function Wallet() {
         <span data-testid="header-currency-field">{`Moeda: ${cambio}`}</span>
       </Header>
 
-      <InputValue
-        labelDescription="Valor"
-        inputValue={ inputValue }
-        onInputValueChange={ handleInputValueChange }
-      />
+      <form>
+        <InputValue
+          labelDescription="Valor"
+          inputValue={ inputValue }
+          onInputValueChange={ handleInputValueChange }
+        />
 
-      <InputDescriptionExpenses
-        labelDescription="Descrição"
-        inputValue={ inputDescription }
-        onInputDescriptionChange={ handleInputDescriptionChange }
-      />
+        <InputDescriptionExpenses
+          labelDescription="Descrição"
+          inputValue={ inputDescription }
+          onInputDescriptionChange={ handleInputDescriptionChange }
+        />
 
-      <InputSelect
-        labelDescription="Moeda"
-      />
+        <InputSelectMoeda
+          labelDescription="Moeda"
+        />
+      </form>
     </>
   );
 }

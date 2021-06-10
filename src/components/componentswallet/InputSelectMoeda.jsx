@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InputSelect({
+function InputSelectMoeda({
   labelDescription = 'Descrição da label',
 }) {
   return (
@@ -15,4 +15,4 @@ function InputSelect({
   );
 }
 
-export default InputSelect;
+export default InputSelectMoeda;
