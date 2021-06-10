@@ -38,13 +38,6 @@ class Login extends React.Component {
     return (isEmail && isPassword);
   }
 
-  // handleEmail({ target }) {
-  //   const { value } = target;
-  //   this.setState({
-  //     email: value,
-  //   });
-  // }
-
   render() {
     const { loginDispatch } = this.props;
     const { email } = this.state;
