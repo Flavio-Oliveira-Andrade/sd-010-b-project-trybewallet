@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import Header from '../components/componentswallet/Header';
 
 function Wallet() {
-  const [totalDespesas, setTotalDespesas] = useState(0);
-  const [cambio, setCambio] = useState('BRL');
+  const [totalDespesas] = useState(0);
+  const [cambio] = useState('BRL');
   const emailUser = useSelector((state) => state.user.email);
+
   return (
     <Header>
       <p data-testid="email-field">{`Email: ${emailUser}`}</p>

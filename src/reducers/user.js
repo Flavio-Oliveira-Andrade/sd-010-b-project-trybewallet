@@ -1,5 +1,5 @@
 const INTIAL_LOGIN = {
-  email: null,
+  email: '',
 };
 
 function userReducer(state = INTIAL_LOGIN, action) {
