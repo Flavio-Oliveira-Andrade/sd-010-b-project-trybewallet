@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { dispatchFetchedCurrencies } from '../actions/index';
+import selectCurrencies from '../selectors';
+
 import WalletForm from '../components/WalletForm';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { dispatchCurrencies } = this.props;
+    dispatchCurrencies();
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, currencies } = this.props;
 
     return (
       <div>
@@ -21,7 +30,7 @@ class Wallet extends React.Component {
           </span>
         </header>
         <main>
-          <WalletForm />
+          <WalletForm currencies={ currencies } />
         </main>
       </div>
     );
@@ -29,14 +38,22 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { user: { email } } = state;
+  const { user: { email }, wallet: { currencies } } = state;
+  const actualCurrencies = selectCurrencies(currencies);
   return {
     email,
+    currencies: actualCurrencies,
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchCurrencies: () => dispatch(dispatchFetchedCurrencies()),
+});
+
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  dispatchCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

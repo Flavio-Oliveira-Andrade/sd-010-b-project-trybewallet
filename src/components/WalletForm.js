@@ -1,41 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const paymentMethodOptions = (
-  <select id="payment-method">
-    <option>
-      Cartão de crédito
-    </option>
-    <option>
-      Cartão de débito
-    </option>
-    <option>
-      Dinheiro
-    </option>
-  </select>
-);
-
-const tagOptions = (
-  <select id="tag">
-    <option>
-      Alimentação
-    </option>
-    <option>
-      Lazer
-    </option>
-    <option>
-      Saúde
-    </option>
-    <option>
-      Trabalho
-    </option>
-    <option>
-      Transporte
-    </option>
-  </select>
-);
+import PaymentMethodOptions from './PaymentMethodOptions';
+import TagOptions from './TagOptions';
 
 class WalletForm extends React.Component {
   render() {
+    const { currencies } = this.props;
+
+    const currencyOptions = currencies.map((currency, index) => (
+      <option key={ index }>
+        {currency}
+      </option>));
+
     return (
       <form>
         <label htmlFor="value">
@@ -45,7 +22,7 @@ class WalletForm extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            teste
+            { currencies ? currencyOptions : null }
           </select>
         </label>
         <label htmlFor="description">
@@ -54,15 +31,19 @@ class WalletForm extends React.Component {
         </label>
         <label htmlFor="payment-method">
           Método de Pagamento
-          { paymentMethodOptions }
+          { PaymentMethodOptions }
         </label>
         <label htmlFor="tag">
           Tag
-          { tagOptions }
+          { TagOptions }
         </label>
       </form>
     );
   }
 }
+
+WalletForm.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default WalletForm;
