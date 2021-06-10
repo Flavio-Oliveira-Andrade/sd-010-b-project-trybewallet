@@ -70,15 +70,12 @@ class Wallet extends React.Component {
         <td>{ expense.description }</td>
         <td>{ expense.tag }</td>
         <td>{ expense.method }</td>
-        <td>
-          { expense.currency }
-          {' '}
-          { expense.value }
-          {' '}
-        </td>
+        <td>{ expense.value }</td>
         <td>{ expense.exchangeRates[expense.currency].name.split('/')[0] }</td>
-        <td>{ expense.exchangeRates[expense.currency].bid }</td>
-        <td>{ expense.exchangeRates[expense.currency].bid * expense.value }</td>
+        <td>{ parseFloat(expense.exchangeRates[expense.currency].bid).toFixed(2) }</td>
+        <td>
+          { (expense.exchangeRates[expense.currency].bid * expense.value).toFixed(2) }
+        </td>
         <td>{ expense.exchangeRates[expense.currency].name.split('/')[1] }</td>
         <td>
           <button
