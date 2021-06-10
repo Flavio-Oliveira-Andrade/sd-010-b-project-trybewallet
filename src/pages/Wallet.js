@@ -41,7 +41,16 @@ class Wallet extends React.Component {
     }));
   }
 
-  adicionarDespesa(despesa) {
+  adicionarDespesa() {
+    const { todasDespesasSalvas } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+    let id = 0;
+    if (todasDespesasSalvas.length !== 0) {
+      const tamanhoTodasDespesasSalvas = todasDespesasSalvas.length;
+      const ultimaId = todasDespesasSalvas[tamanhoTodasDespesasSalvas - 1].id;
+      id = ultimaId + 1;
+    }
+    const despesa = { id, value, description, currency, method, tag };
     const { enviarDespesa } = this.props;
     enviarDespesa(despesa);
     this.setState({
@@ -141,21 +150,12 @@ class Wallet extends React.Component {
   }
 
   renderBotaoAdicionarDespesa() {
-    const { todasDespesasSalvas } = this.props;
-    const { value, description, currency, method, tag } = this.state;
-    let id = 0;
-    if (todasDespesasSalvas.length !== 0) {
-      const tamanhoTodasDespesasSalvas = todasDespesasSalvas.length;
-      const ultimaId = todasDespesasSalvas[tamanhoTodasDespesasSalvas - 1].id;
-      id = ultimaId + 1;
-    }
-    const despesa = { id, value, description, currency, method, tag };
     return (
       <span>
         {' '}
         <button
           type="button"
-          onClick={ () => this.adicionarDespesa(despesa) }
+          onClick={ () => this.adicionarDespesa() }
         >
           Adicionar Despesa
         </button>
@@ -214,14 +214,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { moedas, isFetching } = this.props;
     const { despesas } = this.state;
     return (
       <div>
         TrybeWallet
         <RenderHeader />
-        { (moedas === undefined || isFetching)
-          ? <h1> Carregando... </h1> : this.renderForm() }
+        { this.renderForm() }
         { despesas ? <RenderDespesas /> : <h2>Não há despesas</h2>}
       </div>);
   }
