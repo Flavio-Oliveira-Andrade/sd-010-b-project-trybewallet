@@ -41,7 +41,7 @@ function Login() {
         onInputPasswordChange={ handlePasswordChange }
       />
       <ButtonEnter
-        enterLogin={ clickEnter }
+        enterLogin={ clickEnterSalveEmail }
         disabledEnter={ validetLogin }
       />
     </>
