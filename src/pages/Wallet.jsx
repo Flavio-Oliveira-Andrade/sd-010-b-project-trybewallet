@@ -1,11 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import fetchCurrency from '../services/fetchCurrency';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.calculateTotal = this.calculateTotal.bind(this);
+    this.setCurrencyOnState = this.setCurrencyOnState.bind(this);
+    this.returnCurrencies = this.returnCurrencies.bind(this);
+    this.state = { currencies: {} };
+  }
+
+  async componentDidMount() {
+    const currencies = await fetchCurrency();
+    this.setCurrencyOnState(currencies);
+  }
+
+  setCurrencyOnState(currencies) {
+    this.setState({ currencies });
+  }
+
+  returnCurrencies(currencies) {
+    console.log(Object.keys(currencies));
+    if (Object.keys(currencies) === 0) return (<option value="loading">Carregando...</option>);
+    return Object.keys(currencies).filter(currency => currency !== 'USDT').map((currency) => (
+      <option key={ currency } value={ currency }>
+        { currency }
+      </option>));
   }
 
   calculateTotal() {
@@ -16,9 +38,14 @@ class Wallet extends React.Component {
     return total;
   }
 
+  rerturnOi() {
+    return <option>Oi</option>;
+  }
+
   render() {
     const { userEmail } = this.props;
     const total = this.calculateTotal();
+    const { currencies } = this.state;
     return (
       <div>
         <header>
@@ -37,7 +64,9 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="expense-currency">
             Moeda
-            <select id="expense-currency">Alo</select>
+            <select id="expense-currency">
+              {this.returnCurrencies(currencies)}
+            </select>
           </label>
           <label htmlFor="expense-payment-method">
             Método de Pagamento
