@@ -64,13 +64,13 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  setEmail: PropTypes.func.isRequired,
-  setPasswordAction: PropTypes.func.isRequired,
-};
+// Login.propTypes = {
+//   setEmailAction: PropTypes.func.isRequired,
+//   setPasswordAction: PropTypes.func.isRequired,
+// };
 
 const mapDispatchToProps = (dispatch) => ({
-  setEmail: (email) => dispatch(setEmailAction(email)),
+  setEmailAction: (email) => dispatch(setEmailAction(email)),
   setPasswordAction: (password) => dispatch(setPasswordAction(password)),
 });
 
