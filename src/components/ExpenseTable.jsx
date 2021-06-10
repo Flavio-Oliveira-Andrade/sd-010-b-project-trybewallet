@@ -47,6 +47,12 @@ const tableBody = (expenses, deleteFn) => (
           >
             Excluir
           </button>
+          <button
+            type="button"
+            data-testid="edit-btn"
+          >
+            Editar
+          </button>
         </td>
       </tr>
     ))}
