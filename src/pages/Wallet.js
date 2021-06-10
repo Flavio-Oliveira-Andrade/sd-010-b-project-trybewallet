@@ -11,6 +11,12 @@ class Wallet extends React.Component {
           <h3 data-testid="total-field">0</h3>
           <h4 data-testid="header-currency-field">BRL</h4>
         </header>
+        <form>
+          <label htmlFor="amount">
+            Valor
+            <input id="amount" />
+          </label>
+        </form>
       </div>
     );
   }
