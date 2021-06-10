@@ -15,12 +15,16 @@ class Login extends React.Component {
     return true;
   }
 
+  handleOnSubmit(event) {
+    event.preventDefault();
+  }
+
   render() {
     const { userEmail, userPassword, changeEmail, changePassword } = this.props;
     return (
       <div className="Login">
         <h1>Login</h1>
-        <form>
+        <form onSubmit={ this.handleOnSubmit }>
           <input
             name="email"
             type="email"
@@ -47,7 +51,7 @@ class Login extends React.Component {
   }
 }
 // state.userReducer.user
-const mapStateToProps = ({ userReducer: { user: { email, password } } }) => ({
+const mapStateToProps = ({ user: { email, password } }) => ({
   userEmail: email,
   userPassword: password,
 });
