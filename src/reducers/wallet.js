@@ -33,6 +33,11 @@ const wallet = (state = INITIAL_WALLET_STATE, action) => {
       ...state,
       expenses: [...state.expenses, action.payload],
     };
+  case 'APAGAR_DESPESA':
+    return {
+      ...state,
+      expenses: action.payload,
+    };
   default:
     return state;
   }

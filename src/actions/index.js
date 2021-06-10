@@ -62,6 +62,11 @@ export const salvarDespesa = (despesa) => (dispatch) => {
     );
 };
 
+export const apagarDespesa = (despesasComItemApagado) => ({
+  type: 'APAGAR_DESPESA',
+  payload: despesasComItemApagado,
+});
+
 // export const salvarDespesa = (despesa) => ({
 //   type: 'SALVAR_DESPESA',
 //   payload: despesa,

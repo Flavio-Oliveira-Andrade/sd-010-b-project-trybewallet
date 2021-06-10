@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApi, salvarDespesa } from '../actions';
+import { fetchApi, salvarDespesa, apagarDespesa } from '../actions';
 import RenderDespesas from './RenderDespesas';
 import RenderHeader from './RenderHeader';
 
@@ -234,6 +234,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   moedasApi: () => dispatch(fetchApi()),
   enviarDespesa: (despesa) => dispatch(salvarDespesa(despesa)),
+  apagarDespesa: (despesa) => dispatch(apagarDespesa(despesa)),
 });
 
 Wallet.propTypes = {
