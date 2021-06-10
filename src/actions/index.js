@@ -30,6 +30,7 @@ export const updateItem = (state) => ({ type: UPDATE_ITEM, state });
 export function fetchAPI() {
   return (dispatch) => {
     dispatch(requestAPI());
+        
     return fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json()
         .then((json) => {

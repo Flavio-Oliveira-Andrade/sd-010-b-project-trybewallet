@@ -57,23 +57,29 @@ class FormDespesa extends React.Component {
     const { currencies, loading } = this.props;
     const { currency } = this.state;
     return (
-      <select
-        data-testid="currency-input"
-        id="moeda"
-        value={ currency }
-        onChange={ (e) => this.setState({ currency: e.target.value }) }
+      <label
+        htmlFor="moeda"
+        className="moeda"
       >
-        { loading ? null : currencies.map((result, index) => (
-          <option
-            key={ index }
-            value={ result }
-            data-testid={ result }
-            className="moeda"
-          >
-            { result }
-          </option>
-        ))}
-      </select>
+        Moeda
+        <select
+          data-testid="currency-input"
+          id="moeda"
+          value={ currency }
+          onChange={ (e) => this.setState({ currency: e.target.value }) }
+        >
+          { loading ? null : currencies.map((result, index) => (
+            <option
+              key={ index }
+              value={ result }
+              data-testid={ result }
+              className="moeda"
+            >
+              { result }
+            </option>
+          ))}
+        </select>
+      </label>
     );
   }
 
@@ -126,13 +132,7 @@ class FormDespesa extends React.Component {
           Valor
           {this.renderizaInput()}
         </label>
-        <label
-          htmlFor="moeda"
-          className="moeda"
-        >
-          Moeda
-          {this.renderizaSelectMoeda()}
-        </label>
+        {this.renderizaSelectMoeda()}
         <label
           htmlFor="pgto"
         >
