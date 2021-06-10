@@ -9,7 +9,7 @@ const userReducer = (state = initialstate, action) => {
   switch (action.type) {
   case PROPER_EMAIL: // é o que tá na action
     return {
-      ...state, email: action.email, // boto o email aqui porque foi o que coloquei logo acima no initialstate.
+      ...state, email: action.payload.email, // boto o email aqui porque foi o que coloquei logo acima no initialstate.
     }; // depois de email: eu tentei usar ...state.email, action.payload.email  mas não deu certo
   default:
     return state;
