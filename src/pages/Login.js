@@ -13,12 +13,12 @@ class Login extends React.Component {
       password: '',
     };
 
-    this.loginBtn = this.loginBtn.bind(this);
+    this.loginBtn = this.loginValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.shouldRedirect = this.shouldRedirect.bind(this);
   }
 
-  loginBtn() {
+  loginValidation() {
     const { email, password } = this.state;
     // fonte: https://www.w3resource.com/javascript/form/email-validation.php
 
@@ -71,7 +71,7 @@ class Login extends React.Component {
             required
           />
           <button
-            disabled={ this.loginBtn() }
+            disabled={ this.loginValidation() }
             type="button"
             to="/carteira"
             onClick={ this.shouldRedirect }
