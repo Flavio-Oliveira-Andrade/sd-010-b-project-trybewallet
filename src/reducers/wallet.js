@@ -7,6 +7,10 @@ const initialState = {
 
 function walletReducer(state = initialState, action) {
   switch (action.type) {
+  case 'EXPENSE':
+    return {
+      ...state, expenses: action.data,
+    };
   default:
     return state;
   }

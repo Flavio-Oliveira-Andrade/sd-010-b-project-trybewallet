@@ -23,11 +23,12 @@ class SelectCurr extends React.Component {
   }
 
   render() {
+    const { handleChange } = this.props;
     const { currencies } = this.state;
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda
-        <select id="moeda" name="moeda">
+        <select id="currency" name="currency" onChange={ handleChange }>
           {currencies.map((cur, key) => (
             <option key={ key }>
               { cur }

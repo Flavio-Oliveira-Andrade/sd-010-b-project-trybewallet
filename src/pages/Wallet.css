@@ -15,7 +15,7 @@ header {
   width: 100%;
 }
 
-.wallet-form {
+.wallet--form {
   background-color: green;
   display: flex;
   height: 100%;

@@ -9,11 +9,12 @@ class PaymentMethod extends React.Component {
   }
 
   render() {
+    const { handleChange } = this.props;
     const { types } = this.state;
     return (
-      <label htmlFor="método de pagamento">
+      <label htmlFor="method">
         Método de Pagamento
-        <select id="método de pagamento" name="método de pagamento">
+        <select id="method" name="method" onChange={ handleChange }>
           {types.map((type, key) => (
             <option key={ key }>
               { type }
