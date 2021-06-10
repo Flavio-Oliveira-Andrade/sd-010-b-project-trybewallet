@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,11 +25,9 @@ class Login extends React.Component {
     return (
       <div className="container-login">
         <div className="wrap-login">
-          <div>
-            <section className="slogan-container">
-              <h1>Sua Cotação </h1>
-              <h3>Em qualquer Moeda</h3>
-            </section>
+          <div className="slogan-container">
+            <h1>Sua Cotação </h1>
+            <h3>Em qualquer Moeda</h3>
             {/* <img alt="img" src={ img } width="270" /> */}
           </div>
           <form>
@@ -54,14 +53,16 @@ class Login extends React.Component {
                 onChange={ this.handleChange }
               />
             </div>
-            <button
-              type="button"
-              className="login-form-btn"
-              onClick={ () => console.log('oi') }
-              disabled={ !emailValido || password.length <= '5' }
-            >
-              Entrar
-            </button>
+            <Link to="/wallet">
+              <button
+                type="button"
+                className="login-form-btn"
+                onClick={ () => console.log('oi') }
+                disabled={ !emailValido || password.length <= '5' }
+              >
+                Entrar
+              </button>
+            </Link>
           </form>
         </div>
       </div>
