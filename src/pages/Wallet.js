@@ -1,36 +1,40 @@
 import React from 'react';
+import './Wallet.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ExpensesForm from '../components/ExpensesForm';
 
 class Wallet extends React.Component {
   render() {
-    const { user } = this.props;
+    const { user, expenses } = this.props;
     return (
-      <>
-        <div data-testid="email-field">
-          Usuário:
-          {' '}
-          {user.email}
-        </div>
-        <div data-testid="total-field">
-          0
-        </div>
-        <div data-testid="header-currency-field">
-          BRL
+
+      <div id="main">
+        <div>
+          <span data-testid="email-field">
+            Usuário:
+            {' '}
+            {user.email}
+          </span>
+          <span data-testid="total-field">
+            {expenses.reduce((acc, cur) => acc
+              + ((+cur.exchangeRates[cur.currency].ask) * (+cur.value)), 0)}
+          </span>
+          <span data-testid="header-currency-field">
+            BRL
+          </span>
         </div>
         <ExpensesForm />
-      </>
+      </div>
+
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-    wallet: state.wallet,
-  };
-}
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+  user: state.user,
+});
 
 export default connect(mapStateToProps)(Wallet);
 

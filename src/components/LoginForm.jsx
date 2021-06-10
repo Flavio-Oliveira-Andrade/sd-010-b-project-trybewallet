@@ -46,7 +46,6 @@ class LoginForm extends Component {
     }
     return (
       <form>
-        <h2>LOGIN</h2>
         <fieldset>
           <label htmlFor="email-input">
             Email:
@@ -55,7 +54,7 @@ class LoginForm extends Component {
               onChange={ this.validateLogin }
               id="email-input"
               data-testid="email-input"
-              // value="teste@email.com"
+              value="teste@email.com"
             />
           </label>
           <br />
