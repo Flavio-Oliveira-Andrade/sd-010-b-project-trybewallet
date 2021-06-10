@@ -9,6 +9,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+
   function handleEmailChange(newEmail) {
     setEmail(newEmail);
   }
