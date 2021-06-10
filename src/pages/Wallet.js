@@ -33,7 +33,15 @@ class Wallet extends React.Component {
           <label htmlFor="wallet-exchange">
             Moeda:
             <select name="exchange" id="wallet-exchange">
-              <option>b</option>
+              <option>CDR</option>
+            </select>
+          </label>
+          <label htmlFor="wallet-payment">
+            Método de pagamento:
+            <select name="payment" id="wallet-payment">
+              <option value="cash">Dinheiro</option>
+              <option value="credit">Cartão de crédito</option>
+              <option value="debit">Cartão de débito</option>
             </select>
           </label>
         </form>
