@@ -15,10 +15,10 @@ const updateTotal = ({ expenses }) => {
   return Number(parseFloat(result.toFixed(2)));
 };
 
-const updateIds = ({ expenses }) => {
-  const reorderngIdsExp = expenses.map((exp, id) => { exp.id = id; return exp; });
-  console.log(reorderngIdsExp);
-};
+// const updateIds = ({ expenses }) => {
+// const reorderngIdsExp = expenses.map((exp, id) => { exp.id = id; return exp; });
+// console.log(reorderngIdsExp);
+// };
 
 function wallerReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -52,8 +52,6 @@ function wallerReducer(state = initialState, { type, payload }) {
     return newState;
   }
   case 'EDIT_EXP': {
-    // console.log(payload);
-    // console.log(state.expenses[payload.exp.id]);
     state.expenses[payload.exp.id].value = payload.exp.value;
     state.expenses[payload.exp.id].description = payload.exp.description;
     state.expenses[payload.exp.id].currency = payload.exp.currency;
