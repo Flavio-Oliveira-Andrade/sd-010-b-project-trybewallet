@@ -1,4 +1,7 @@
 import React from 'react';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { actionNovaDespesa } from '../actions';
 
 class AddExpense extends React.Component {
   constructor() {
@@ -16,9 +19,31 @@ class AddExpense extends React.Component {
   async getCurr() {
     const result = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await result.json();
+
+    console.log(data);
+
     const moedas = Object.keys(data);
     moedas.splice(1, 1);
     this.setState({ moedas });
+  }
+
+  handleClick() {
+    const { novaDespesa, expenses } = this.props;
+    let id = 0;
+    if (expenses.length > 0) {
+      id = expenses[expenses.length - 1].id + 1;
+    }
+
+    const payload = {
+      id,
+      value: document.getElementById('valor').value,
+      description: document.getElementById('descricao').value,
+      currency: document.getElementById('moeda').value,
+      method: document.getElementById('metodo').value,
+      tag: document.getElementById('tag').value,
+    };
+
+    novaDespesa(payload);
   }
 
   render() {
@@ -62,10 +87,23 @@ class AddExpense extends React.Component {
               <option value="saude">Saúde</option>
             </select>
           </label>
+          <input type="button" value="Adicionar" onClick={ () => this.handleClick() } />
         </form>
       </div>
     );
   }
 }
 
-export default AddExpense;
+AddExpense.propTypes = {
+  novaDespesa: propTypes.func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  novaDespesa: (payload) => dispatch(actionNovaDespesa(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);
