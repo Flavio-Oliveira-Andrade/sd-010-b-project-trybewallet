@@ -4,8 +4,16 @@ import { connect } from 'react-redux';
 
 class Wallet extends React.Component {
   render() {
+    const { email } = this.props;
     return (
-      <header />
+      <header>
+        <div>
+          <h2 data-testid="email-field">{ email }</h2>
+          <span data-testid="total-field">0</span>
+          <span> </span>
+          <span data-testid="header-currency-field">BRL</span>
+        </div>
+      </header>
     );
   }
 }
