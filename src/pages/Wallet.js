@@ -23,7 +23,13 @@ class Wallet extends React.Component {
           <label htmlFor="currency">
             Moeda
             <input id="currency" />
+            <select>Vazio</select>
           </label>
+          <label htmlFor="payment">
+            Método de pagamento
+            <input id="payment" />
+          </label>
+
         </form>
       </div>
     );
