@@ -50,7 +50,7 @@ class RenderDespesas extends React.Component {
               </td>
               <td>Real</td>
               <td>
-                <button type="button">Editar</button>
+                <button type="button" data-testid="edit-btn">Editar</button>
                 {' '}
                 <button
                   type="button"
