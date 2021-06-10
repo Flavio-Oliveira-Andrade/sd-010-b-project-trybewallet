@@ -1,7 +1,5 @@
 const USER_INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 function user(state = USER_INITIAL_STATE, action) {
@@ -9,7 +7,7 @@ function user(state = USER_INITIAL_STATE, action) {
   case 'USER_LOGIN':
     return {
       ...state,
-      email: action.payload,
+      email: action.email,
     };
 
   default:
