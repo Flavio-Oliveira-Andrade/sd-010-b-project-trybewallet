@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
 class Forms extends Component {
+  // constructor(){
+  //   super();
+
+  // }
+
+  // componentDidMount() {
+  //   fetch('https://economia.awesomeapi.com.br/json/all')
+
+  // }
+
   render() {
     return (
       <main>
