@@ -1,33 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import InputDescriptionExpenses from './InputDescriptionExpenses';
 import InputValue from './InputValue';
 import InputSelectMoeda from './InputSelectMoeda';
 import InputSelectMethod from './InputSelectMethod';
 import InputSelectExpenses from './InputSelectExpenses';
 
-function FormsExpenses() {
-  const [inputValue, setInputValue] = useState(0);
-  const [inputDescription, setInputDescripion] = useState('');
-
-  function handleInputValueChange(newValue) {
-    setInputValue(newValue);
-  }
-
-  function handleInputDescriptionChange(newDescription) {
-    setInputDescripion(newDescription);
-  }
+function FormsExpenses({
+  onInputValueChange = null,
+  handleInputValueChange = null,
+  onInputDescriptionChange = null,
+  handleInputDescriptionChange = null
+}) {
   return (
     <div>
       <form>
         <InputValue
           labelDescription="Valor"
-          inputValue={ inputValue }
+          inputValue={ onInputValueChange }
           onInputValueChange={ handleInputValueChange }
         />
 
         <InputDescriptionExpenses
           labelDescription="Descrição"
-          inputValue={ inputDescription }
+          inputValue={ onInputDescriptionChange }
           onInputDescriptionChange={ handleInputDescriptionChange }
         />
 
