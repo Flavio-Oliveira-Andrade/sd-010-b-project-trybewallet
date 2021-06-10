@@ -1,6 +1,6 @@
 tr {
-  width: 100%;
   border: black solid 1px;
+  width: 100%;
 }
 
 .cabecalho{
@@ -9,15 +9,15 @@ tr {
 
 th{
   padding: 10px;
-  text-align: center;
   border: black solid 1px;
-  width:120px;
+  text-align: center;
+  width: 120px;
 }
 
 td{
   padding: 10px;
-  text-align: center;
   border: black solid 1px;
-  width:120px;
+  text-align: center;
+  width: 120px;
 }
 
