@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { getDataThunk } from '../actions/apiRequests';
 import addExpenseAction from '../actions/addExpenseAction';
 
 // const intitialState = {
@@ -17,7 +18,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
+      id: -1,
       value: 0,
       description: '',
       currency: 'USD',
@@ -30,6 +31,8 @@ class Form extends React.Component {
   }
 
   handleClick() {
+    const { fetchData } = this.props;
+    fetchData();
     const { addExpense, data } = this.props;
     this.setState({ exchangeRates: data }, () => addExpense(this.state));
     this.setState((previousState) => ({ id: previousState.id + 1, exchangeRates: data }));
@@ -92,6 +95,7 @@ Form.propTypes = {
   currencies: PropTypes.string.isRequired,
   addExpense: PropTypes.func.isRequired,
   data: PropTypes.shape(Object).isRequired,
+  fetchData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -101,6 +105,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (stateData) => dispatch(addExpenseAction(stateData)),
+  fetchData: () => dispatch(getDataThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

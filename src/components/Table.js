@@ -25,7 +25,13 @@ class Table extends React.Component {
             <td>{expense.method}</td>
             <td>{expense.value}</td>
             <td>{expense.currency}</td>
-            {/* <th>{expense.description}</th> */}
+            <th>{expense.exchangeRates[expense.currency].name}</th>
+            <th>{expense.exchangeRates[expense.currency].ask * expense.value}</th>
+            <th>Real</th>
+            <th>
+              <button data-testid="delete-btn" type="button">x</button>
+              <button data-testid="edit-btn" type="button">Editar despesa</button>
+            </th>
           </tr>))}
       </table>
     );
