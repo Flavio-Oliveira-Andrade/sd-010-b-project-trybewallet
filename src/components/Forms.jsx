@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchAPI } from '../actions';
 // import PropTypes from 'prop-types';
 
 class Forms extends Component {
-  // constructor(){
-  //   super();
+  constructor() {
+    super();
+  }
 
-  // }
-
-  // componentDidMount() {
-  //   fetch('https://economia.awesomeapi.com.br/json/all')
-
-  // }
+  componentDidMount() {
+    const { fetchDispatch } = this.props;
+    fetchDispatch();
+  }
 
   render() {
     return (
@@ -30,6 +31,7 @@ class Forms extends Component {
           <label htmlFor="currency">
             Moeda
             <select name="currency" id="currency">
+              {}
               <option value="BRL">BRL</option>
             </select>
           </label>
@@ -60,4 +62,12 @@ class Forms extends Component {
   }
 }
 
-export default Forms;
+const mapDispatchToProps = (dispatch) => ({
+  fetchDispatch: () => (dispatch(fetchAPI())),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
