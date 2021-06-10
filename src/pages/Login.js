@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import actionUser from '../actions';
+import actionStore from '../actions';
 
 // https://cursos.alura.com.br/forum/topico-como-validar-email-e-senha-em-javascript-80469
 // Usado essa fonte para conhecimento em regex
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => ({ // GET
 });
 
 const mapDispatchToProps = (dispatch) => ({ // SET
-  setUser: (value, type) => dispatch(actionUser(value, type)),
+  setUser: (value, type) => dispatch(actionStore(value, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

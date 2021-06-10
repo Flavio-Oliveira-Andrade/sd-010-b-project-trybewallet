@@ -1,12 +1,27 @@
 import React from 'react';
+// import CURRENCY from '../services/API';
 
 class ExpenseAddForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     Moedas: [],
+  //   };
+  // }
+
+  // async componentDidMount() {
+  //   this.renderCurrencySelect(await CURRENCY());
+  // }
+
+  // renderCurrencySelect(currencies) {
+  //   const Moedas = Object.keys(currencies);
+  //   this.setState({
+  //     Moedas,
+  //   });
+  // }
 
   render() {
+    // const { Moedas } = this.state;
     return (
       <form method="get">
         <label htmlFor="valueExpense">
@@ -20,7 +35,13 @@ class ExpenseAddForm extends React.Component {
         <label htmlFor="currencies">
           Moeda
           <select id="currencies">
-            <option value="">API</option>
+            {/* {Moedas.map((moeda) => (
+              <option value={ moeda } key={ moeda }>
+                {' '}
+                { moeda }
+                {' '}
+              </option>
+            ))} */}
           </select>
         </label>
         <label htmlFor="payment">

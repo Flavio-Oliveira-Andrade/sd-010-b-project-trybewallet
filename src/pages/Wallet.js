@@ -2,11 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpenseAddForm from '../components/ExpenseAddForm';
+import CURRENCY from '../services/API';
+import actionStore from '../actions';
 
 class Wallet extends React.Component {
+  async componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies(await CURRENCY(), 'currencies');
+  }
+
   render() {
     const { email, expenses, currencies } = this.props;
-    // const gastos = expenses.reducer((total, value) => total + value, 0);
     return (
       <div>
         <header>
@@ -29,9 +35,10 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ // LER
@@ -40,4 +47,8 @@ const mapStateToProps = (state) => ({ // LER
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: (value, type) => dispatch(actionStore(Object.keys(value), type)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
