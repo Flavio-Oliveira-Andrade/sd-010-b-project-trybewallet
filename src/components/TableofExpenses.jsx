@@ -13,7 +13,7 @@ class TableOfExpenses extends React.Component {
   onEditMenuClick({ target }) {
     const { edit, expenses } = this.props;
     const expense = expenses
-      .find((expense) => expense.id === parseInt(target.name, 10));
+      .find((response) => response.id === parseInt(target.name, 10));
     edit(expense);
   }
 
