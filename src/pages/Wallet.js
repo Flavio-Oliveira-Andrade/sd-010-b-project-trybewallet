@@ -21,7 +21,7 @@ class Wallet extends React.Component {
           <label htmlFor="description">
             <input
               id="description"
-              type="textarea"
+              type="text"
             />
             Descrição
           </label>
