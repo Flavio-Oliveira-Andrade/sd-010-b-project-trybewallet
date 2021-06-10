@@ -4,7 +4,7 @@ import { PROPER_EMAIL } from '../actions/index'; // veio do index.js da actions
 
 const initialstate = {
   email: '',
-};
+}; // aqui é o estado global,
 const userReducer = (state = initialstate, action) => {
   switch (action.type) {
   case PROPER_EMAIL: // é o que tá na action

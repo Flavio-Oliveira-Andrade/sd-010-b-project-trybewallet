@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props; // vou ter que usar pro elemento que exibe o email de quem fez o login.
+    const { email } = this.props; // Nessa props o email tá sendo uma string. Vou ter que usar pro elemento que exibe o email de quem fez o login. Essa props TÁ VINDO DO ESTADO GLOBAL, lá no user do reducers, em initialstate
     return (
       <div>
         <p data-testid="email-field">{ email }</p>
@@ -15,6 +15,6 @@ class Header extends React.Component {
 }
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-}; // aqui o email é uma string.
+};
 
 export default Header;
