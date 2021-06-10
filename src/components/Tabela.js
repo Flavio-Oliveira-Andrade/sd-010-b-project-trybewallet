@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteItem } from '../actions';
+import { deleteItem, editaDespesas } from '../actions';
 
 import './Tabela.css';
 
@@ -15,7 +15,7 @@ class Tabela extends React.Component {
   // E https://edrodrigues.com.br/blog/criando-tabelas-com-filtros-%E2%80%8B%E2%80%8Busando-react/#:~:text=Criando%20Uma%20Tabela%20Com%20O,listando%20uma%20linha%20por%20produto.&text=Aqui%2C%20aceitamos%20uma%20variedade%20de,em%20loop%20em%20nossa%20tabela.
 
   renderTableData() {
-    const { expenses, deletarItem } = this.props;
+    const { expenses, deletarItem, editaDespesa } = this.props;
 
     return expenses.map((expense) => {
       const { id, description, tag,
@@ -46,6 +46,7 @@ class Tabela extends React.Component {
               type="button"
               className="buttonExclui"
               data-testid="edit-btn"
+              onClick={ () => { editaDespesa(expense, true); } }
             >
               Editar
             </button>
@@ -87,11 +88,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deletarItem: (id) => dispatch(deleteItem(id)),
+  editaDespesa: (state, edit) => dispatch(editaDespesas(state, edit)),
 });
 
 Tabela.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deletarItem: PropTypes.func.isRequired,
+  editaDespesa: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tabela);

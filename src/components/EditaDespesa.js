@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI, addDespesa } from '../actions';
-
+import { fetchAPI, editaDespesas, updateItem } from '../actions';
 import './FormDespesa.css';
 
-class FormDespesa extends React.Component {
-  constructor() {
-    super();
+class EditaDespesa extends React.Component {
+  constructor(props) {
+    super(props);
+    const { stateEdit: { id, value, currency, method, tag, description } } = this.props;
 
     this.state = {
-      id: 0,
-      value: 0,
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      description: '',
+      id,
+      value,
+      currency,
+      method,
+      tag,
+      description,
     };
 
     this.renderizaSelectMoeda = this.renderizaSelectMoeda.bind(this);
@@ -31,16 +31,10 @@ class FormDespesa extends React.Component {
   }
 
   onClick() {
-    const { addDespesas, getCurrency } = this.props;
+    const { editaDespesa, updateDespesa } = this.props;
 
-    this.setState((previousState) => ({
-      id: previousState.id + 1,
-      value: 0,
-      description: '',
-    }));
-
-    addDespesas(this.state);
-    getCurrency();
+    editaDespesa(this.state, false);
+    updateDespesa(this.state);
   }
 
   renderizaInput() {
@@ -165,7 +159,7 @@ class FormDespesa extends React.Component {
           className="button"
           onClick={ this.onClick }
         >
-          Adicionar despesa
+          Editar despesa
         </button>
       </div>
     );
@@ -174,22 +168,23 @@ class FormDespesa extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  currencies2: state.wallet.currencies2,
   loading: state.wallet.loading,
+  stateEdit: state.wallet.state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrency: () => dispatch(fetchAPI()),
-  addDespesas: (state) => dispatch(
-    addDespesa(state),
-  ),
+  editaDespesa: (state, edit) => dispatch(editaDespesas(state, edit)),
+  updateDespesa: (state) => dispatch(updateItem(state)),
 });
 
-FormDespesa.propTypes = {
+EditaDespesa.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  stateEdit: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrency: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  addDespesas: PropTypes.func.isRequired,
-};
+  editaDespesa: PropTypes.func.isRequired,
+}.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormDespesa);
+export default connect(mapStateToProps, mapDispatchToProps)(EditaDespesa);

@@ -4,6 +4,13 @@
   float: right;
 }
 
+.figura {
+  display: flex;
+  flex-direction: row;
+  float: left;
+  margin-left: 5%;
+}
+
 .email {
   margin-right: 10px;
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchAPI } from '../actions';
 
 import './Header.css';
+import wallet from '../pages/wallet.jpg';
 
 class Header extends React.Component {
   constructor() {
@@ -28,36 +29,40 @@ class Header extends React.Component {
     const { userLogin } = this.props;
 
     return (
-      <div className="div-wallet">
-        <header className="header-wallet">
-          <p
-            data-testid="email-field"
-            className="email"
-          >
-            E-mail:
-            {' '}
-            { userLogin }
-          </p>
-          <p
-            className="despesa"
-            data-testid="total-field"
-            name="despesa"
-          >
-            Despesa Total:
-            {' '}
-            {' R$ '}
-            { this.somaValores() }
-          </p>
-          <p
-            className="cambio"
-            data-testid="header-currency-field"
-            name="cambio"
-          >
-            BRL
-          </p>
-        </header>
-      </div>
-
+      <>
+        <div className="figura">
+          <img src={ wallet } alt="figura wallet" width="50px" />
+        </div>
+        <div className="div-wallet">
+          <header className="header-wallet">
+            <p
+              data-testid="email-field"
+              className="email"
+            >
+              E-mail:
+              {' '}
+              { userLogin }
+            </p>
+            <p
+              className="despesa"
+              data-testid="total-field"
+              name="despesa"
+            >
+              Despesa Total:
+              {' '}
+              {' R$ '}
+              { this.somaValores() }
+            </p>
+            <p
+              className="cambio"
+              data-testid="header-currency-field"
+              name="cambio"
+            >
+              BRL
+            </p>
+          </header>
+        </div>
+      </>
     );
   }
 }
