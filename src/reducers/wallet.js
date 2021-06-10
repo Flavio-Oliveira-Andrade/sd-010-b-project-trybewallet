@@ -16,10 +16,7 @@ function wallet(state = INITIAL_STATE, { type, currencies, exchangeRates, expens
   case SAVE_CURRENCIES:
     return {
       ...state,
-      currencies: [
-        ...state.currencies,
-        ...currencies,
-      ],
+      currencies: [...state.currencies, ...currencies],
     };
   case UPDATE_EXCHANGE:
     return {
