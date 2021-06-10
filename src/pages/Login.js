@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link as button } from 'react-router-dom';
+// import { Link as button } from 'react-router-dom';
 
 import '../css/loginPage.css';
-import { setNameAction, setPasswordAction } from '../redux/actions/userAction';
+import { setEmailAction, setPasswordAction } from '../redux/actions/userAction';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,19 +23,18 @@ class Login extends React.Component {
   }
 
   render() {
-    const { username, password } = this.state;
-    const { setUsername, setPassword } = this.props;
+    const { email, password } = this.state;
+    const { setEmail, setPassword } = this.props;
     return (
       <form className="login-form">
-        <label htmlFor="username" className="login-label">
-          Insira um nome de usuário:
+        <label htmlFor="email" className="login-label">
+          E-mail
           <input
-            type="text"
-            name="username"
-            id="username"
-            value={ username }
-            placeholder="Username"
-            maxLength="30"
+            type="email"
+            name="email"
+            id="email"
+            value={ email }
+            placeholder="E-mail"
             data-testid="email-input"
             onChange={ (e) => this.handleChange(e.target) }
           />
@@ -48,15 +47,15 @@ class Login extends React.Component {
         </label>
         <button
           type="submit"
-          to="/products"
+          className="login-btn"
+          // to="/products"
           onClick={ (e) => {
-            if (!username) {
+            if (!email) {
               e.preventDefault();
             }
-            setUsername(username);
+            setEmail(email);
             setPassword(password);
           } }
-          className="login-btn"
         >
           Entrar
         </button>
@@ -66,12 +65,12 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  setUsername: PropTypes.func.isRequired,
+  setEmail: PropTypes.func.isRequired,
   setPassword: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setUsername: (username) => dispatch(setNameAction(username)),
+  setEmail: (email) => dispatch(setEmailAction(email)),
   setPasswordAction: (password) => dispatch(setPasswordAction(password)),
 });
 
