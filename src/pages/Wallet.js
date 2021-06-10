@@ -2,8 +2,10 @@ import React from 'react';
 
 class Wallet extends React.Component {
   render() {
-    return <div>DEU CERTO!</div>;
+    return (
+      <header />
+    );
   }
 }
 
-export default Wallet;
+export default connect(mapStateToProps)(Wallet);
