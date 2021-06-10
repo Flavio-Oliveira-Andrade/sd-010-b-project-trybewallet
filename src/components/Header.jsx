@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { GiWallet } from 'react-icons/gi';
 
 class Header extends Component {
   render() {
@@ -8,13 +9,24 @@ class Header extends Component {
 
     return (
       <header>
-        <section className="user-info">
-          <p data-testid="email-field">
-            Email:
+        <section className="main-title">
+          <section className="logo-icon">
             {' '}
-            {userEmail}
-          </p>
+            <GiWallet />
+          </section>
+          <section className="main-title-container">
+
+            <h1>Welcome to your expense wallet</h1>
+            <h4>Your financial independence starts here</h4>
+          </section>
         </section>
+
+        <p data-testid="email-field">
+          Email:
+          {' '}
+          {userEmail}
+        </p>
+
         <section className="expense-info">
           <p data-testid="total-field">
             Despesa: R$

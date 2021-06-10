@@ -3,6 +3,14 @@ body {
   color: whitesmoke;
 }
 
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1em;
+}
+
 table button {
   border: none;
   border-radius: 3px;
@@ -167,3 +175,15 @@ th {
   text-align: center;
 }
 
+.main-title {
+  color: rgb(19, 118, 136);
+  display: flex;
+  flex-flow: row;
+}
+
+.logo-icon {
+  align-items: center;
+  display: flex;
+  font-size: 80px;
+  margin-right: 30px;
+}
