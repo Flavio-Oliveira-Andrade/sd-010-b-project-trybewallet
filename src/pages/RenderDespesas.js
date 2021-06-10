@@ -20,25 +20,24 @@ function RenderDespesas(props) {
         </tr>
       </thead>
       <tbody>
-        {todasDespesasSalvas.map((des) => {
-          console.log(parseFloat(des.exchangeRates[des.currency].ask).toFixed(2));
-          return (
-            <tr key={ des.id }>
-              <td>{des.description}</td>
-              <td>{des.tag}</td>
-              <td>{des.method}</td>
-              <td>{des.value}</td>
-              <td>{(des.exchangeRates[des.currency].name).split('/')[0]}</td>
-              <td>{parseFloat(des.exchangeRates[des.currency].ask).toFixed(2)}</td>
-              <td>
-                {
-                  ((parseFloat(des.value) * parseFloat(des.exchangeRates[des.currency].ask))).toFixed(2)
-                }
+        {todasDespesasSalvas.map((des) => (
+          <tr key={ des.id }>
+            <td>{des.description}</td>
+            <td>{des.tag}</td>
+            <td>{des.method}</td>
+            <td>{des.value}</td>
+            <td>{(des.exchangeRates[des.currency].name).split('/')[0]}</td>
+            <td>{parseFloat(des.exchangeRates[des.currency].ask).toFixed(2)}</td>
+            <td>
+              {
+                ((parseFloat(des.value) * parseFloat(des.exchangeRates[des.currency]
+                  .ask)))
+                  .toFixed(2)
+              }
 
-              </td>
-              <td>Real</td>
-            </tr>);
-        })}
+            </td>
+            <td>Real</td>
+          </tr>))}
       </tbody>
     </table>
   );
