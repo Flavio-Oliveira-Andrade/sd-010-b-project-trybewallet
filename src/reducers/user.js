@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const INITIAL_USUARIO = {
-   email: '' ,
+  email: '',
 };
 
 function reducerUsuario(state = INITIAL_USUARIO, action) {
