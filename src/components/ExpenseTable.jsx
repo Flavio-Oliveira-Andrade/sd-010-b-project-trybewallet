@@ -74,4 +74,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  deleteFn: PropTypes.func.isRequired,
 };
