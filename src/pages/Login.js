@@ -22,12 +22,12 @@ class Login extends React.Component {
   }
 
   handlePassChange(e) {
-    const { pass } = this.state;
     const extensaoSenha = 5;
     this.setState({
       pass: e.target.value,
     },
     () => {
+      const { pass } = this.state;
       if (pass.length > extensaoSenha) {
         this.setState({
           invalidPassword: false,
@@ -50,7 +50,8 @@ class Login extends React.Component {
 
   handleRedirectCarteira() {
     const { input } = this.state;
-    redirectCarteira(input);
+    const {dispatchUserLogin} = this.props;
+    dispatchUserLogin(input);
     this.setState({
       shouldRedirect: true,
     });
@@ -89,4 +90,12 @@ class Login extends React.Component {
   }
 }
 
-export default connect(null, { redirectCarteira })(Login);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUserLogin: (email) => dispatch(redirectCarteira(email)),
+});
+
+// Login.propTypes = {
+//   dispatchUserLogin: PropTypes.func.isRequired,
+// };
+
+export default connect(null, mapDispatchToProps)(Login);
