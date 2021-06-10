@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
-import LOGIN, { ADD_EXPENSE, CHANGE_EXPENSE } from './actionTypes';
+import LOGIN, { ADD_EXPENSE, CHANGE_EXPENSE, FETCH_CURRENCY } from './actionTypes';
 
 const loginAction = (payload) => ({
   type: LOGIN,
@@ -29,5 +29,10 @@ export const deleteExpenseAction = (payload) => ({
 
 export const editExpenseAction = (payload) => ({
   type: CHANGE_EXPENSE,
+  payload,
+});
+
+export const fetchCurrenciesAction = (payload) => ({
+  type: FETCH_CURRENCY,
   payload,
 });

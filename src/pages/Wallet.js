@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpenseThunk, editExpenseAction } from '../actions';
+import { addExpenseThunk, editExpenseAction, fetchCurrenciesAction } from '../actions';
 import TableOfExpenses from '../components/TableofExpenses';
+import renderHeadingInputs from '../components/WalletHeading';
 
 class Wallet extends React.Component {
   constructor() {
@@ -16,7 +17,6 @@ class Wallet extends React.Component {
     this.formsValues = this.formsValues.bind(this);
     this.renderSelectInputs = this.renderSelectInputs.bind(this);
     this.state = {
-      currencies: [],
       expense: {
         id: 0,
         value: '',
@@ -87,7 +87,7 @@ class Wallet extends React.Component {
   }
 
   getCurrencies() {
-    const { currencies } = this.state;
+    const { currencies } = this.props;
     return currencies.map((currency) => {
       if (currency !== 'USDT') {
         return <option key={ currency }>{ currency }</option>;
@@ -109,13 +109,12 @@ class Wallet extends React.Component {
   }
 
   fetchCurrencies() {
+    const { fetchedCurrencies } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((response) => {
         const currencies = Object.keys(response);
-        this.setState({
-          currencies,
-        });
+        fetchedCurrencies(currencies);
       });
   }
 
@@ -148,22 +147,6 @@ class Wallet extends React.Component {
           data-testid={ `${name}-input` }
         />
       </label>
-    );
-  }
-
-  renderHeadingInputs(name, value, id) {
-    return (
-      <div>
-        <span>
-          { name }
-          :
-        </span>
-        <span
-          data-testid={ id }
-        >
-          { value }
-        </span>
-      </div>
     );
   }
 
@@ -220,9 +203,9 @@ class Wallet extends React.Component {
     return (
       <div>
         <header className="wallet-header">
-          { this.renderHeadingInputs('Email', email, 'email-field')}
-          { this.renderHeadingInputs('Total', `R$ ${total}`, 'total-field')}
-          { this.renderHeadingInputs('Câmbio', 'BRL', 'header-currency-field')}
+          { renderHeadingInputs('Email', email, 'email-field')}
+          { renderHeadingInputs('Total', `R$ ${total}`, 'total-field')}
+          { renderHeadingInputs('Câmbio', 'BRL', 'header-currency-field')}
         </header>
         <h1 className="wallet-title">TrybeWallet</h1>
         <form className="wallet-form">
@@ -245,9 +228,11 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  fetchedCurrencies: (payload) => dispatch(fetchCurrenciesAction(payload)),
   addExpense: (payload) => dispatch(addExpenseThunk(payload)),
   editExpenseActionProps: (payload) => dispatch(editExpenseAction(payload)),
 });
@@ -257,6 +242,8 @@ Wallet.propTypes = {
   addExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   editExpenseActionProps: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchedCurrencies: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
