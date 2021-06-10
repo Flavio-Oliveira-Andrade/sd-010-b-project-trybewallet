@@ -3,20 +3,20 @@ tr {
   width: 100%;
 }
 
-.cabecalho{
+.cabecalho {
   background-color: dimgray;
 }
 
-th{
-  padding: 10px;
+th {
   border: black solid 1px;
+  padding: 10px;
   text-align: center;
   width: 120px;
 }
 
-td{
-  padding: 10px;
+td {
   border: black solid 1px;
+  padding: 10px;
   text-align: center;
   width: 120px;
 }
