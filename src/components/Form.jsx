@@ -12,6 +12,7 @@ class Form extends React.Component {
       currency: 'USD',
       payment: 'Dinheiro',
       tag: 'Alimentação',
+      exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -22,20 +23,7 @@ class Form extends React.Component {
   }
 
   handleChange(event) {
-    switch (event.target.id) {
-    case 'value':
-      return this.setState({ value: event.target.value });
-    case 'description':
-      return this.setState({ description: event.target.value });
-    case 'currency':
-      return this.setState({ currency: event.target.value });
-    case 'payment':
-      return this.setState({ payment: event.target.value });
-    case 'tag':
-      return this.setState({ tag: event.target.value });
-    default:
-      break;
-    }
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
@@ -81,7 +69,7 @@ class Form extends React.Component {
 
         <button
           type="button"
-          onClick={ () => saveExpense(this.state) }
+          onClick={ () => saveExpense((this.state)) }
         >
           Adicionar despesa
         </button>
