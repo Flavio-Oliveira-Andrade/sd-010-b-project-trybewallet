@@ -1,4 +1,4 @@
-export async function getCurrencies() {
+export default async function getCurrencies() {
   const data = await fetch('https://economia.awesomeapi.com.br/json/all');
   const result = await data.json();
   return result;
@@ -13,5 +13,3 @@ export async function getCurrencies() {
 //     return Error(error);
 //   }
 // };
-
-export default getCurrencies;
