@@ -26,23 +26,23 @@ class Wallet extends React.Component {
             />
             Descrição
           </label>
-          <label htmlFor="currency">
-            <select id="currency">Moeda</select>
+          <label htmlFor="combobox">
+            <select id="combobox">Moeda</select>
           </label>
-          <option id="payment">
-            <select id="payment">Dinheiro</select>
-            <select id="payment">Cartão de crédito</select>
-            <select id="payment">Cartão de débito</select>
+          <select id="optionPayment">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
             Método de pagamento
-          </option>
-          <option id="option">
-            <select id="option">Alimentação</select>
-            <select id="option">Lazer</select>
-            <select id="option">Trabalho</select>
-            <select id="option">Transporte</select>
-            <select id="option">Saúde</select>
+          </select>
+          <select id="option">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Trabalho">Transporte</option>
+            <option value="Saúde">Saúde</option>
             Tag
-          </option>
+          </select>
         </form>
       </div>
 
@@ -61,3 +61,4 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 export default connect(mapStateToProps, null)(Wallet);
+// https://stackoverflow.com/questions/21733847/react-jsx-selecting-selected-on-selected-select-option
