@@ -8,6 +8,8 @@ class Wallet extends Component {
     super();
 
     this.expensesTotal = this.expensesTotal.bind(this);
+    this.reduceTotal = this.reduceTotal.bind(this);
+    this.calculeValue = this.calculeValue.bind(this);
 
     this.state = {
       current: 'BRL',
@@ -34,7 +36,7 @@ class Wallet extends Component {
       if (value === '' || value === undefined) {
         return 0;
       }
-      const finalValue = this.findProp(exchangeRates, currency, value);
+      const finalValue = this.calculeValue(exchangeRates, currency, value);
       return acc + finalValue;
     }, 0);
     return result;
@@ -42,10 +44,7 @@ class Wallet extends Component {
 
   expensesTotal() {
     const { objCurrency } = this.props;
-    if (objCurrency) {
-      this.reduceTotal(objCurrency);
-    }
-    return 0;
+    return this.reduceTotal(objCurrency);
   }
 
   render() {
