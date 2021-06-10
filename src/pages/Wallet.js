@@ -2,32 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Input } from '../components/Input';
-import { fetchCurrency as fetchCurrencyThunk } from '../actions';
+import { fetchCurrency as fetchCurrencyThunk, addExpense } from '../actions';
 import { SelectPagamento } from '../components/SelectPagamento';
+import { SelectTag } from '../components/SelectTag';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     currency: [],
-  //   };
-  //   this.attState = this.attState.bind(this);
-  // }
+  constructor() {
+    super();
+    this.state = {
+      valor: '',
+      descrição: '',
+      moeda: '',
+      pagamento: '',
+      tag: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
   componentDidMount() {
     const { fetchCurrency } = this.props;
     fetchCurrency();
   }
 
-  // attState(arg) {
-  //   this.setState({
-  //     currency: arg,
-  //   });
-  // }
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
 
   render() {
     const { emailUser, currencyM } = this.props;
-    console.log(currencyM);
+    const { addExpenses } = this.props;
     return (
       <>
         <header>
@@ -42,11 +49,11 @@ class Wallet extends React.Component {
           </p>
         </header>
         <form>
-          <Input type="text" name="valor" />
-          <Input type="text" name="descrição" />
+          <Input type="text" name="valor" onChange={ this.handleChange } />
+          <Input type="text" name="descrição" onChange={ this.handleChange } />
           <label htmlFor="moeda">
             Moeda:
-            <select name="moeda" id="moeda">
+            <select name="moeda" id="moeda" onChange={ this.handleChange }>
               {Object.keys(currencyM)
                 .map((element, index) => (
                   <option
@@ -57,18 +64,16 @@ class Wallet extends React.Component {
                 ))}
             </select>
           </label>
-          <SelectPagamento />
-          <label htmlFor="tag">
-            Tag:
-            <select name="tag" id="tag">
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+          <SelectPagamento onChange={ this.handleChange } />
+          <SelectTag onChange={ this.handleChange } />
+          <button
+            type="button"
+            onClick={ () => { addExpenses(this.state); } }
+          >
+            Adicionar Despesa
+          </button>
         </form>
+        <Table />
       </>
     );
   }
@@ -76,8 +81,9 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   emailUser: PropTypes.string.isRequired,
-  currencyM: PropTypes.objectOf(PropTypes.string).isRequired,
+  currencyM: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurrency: PropTypes.func.isRequired,
+  addExpenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -87,6 +93,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrency: () => dispatch(fetchCurrencyThunk()),
+  addExpenses: (state) => dispatch(addExpense(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

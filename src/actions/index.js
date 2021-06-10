@@ -3,7 +3,10 @@
 // Coloque aqui suas actions
 export const login = (email) => ({ type: 'LOGIN', email });
 
-// export const requestAPI = () => ({ type: 'REQUEST_API' });
+export const addExpense = (value) => ({
+  type: 'ADD_EXPENSE',
+  value,
+});
 
 export const receiveAPI = (currency) => ({
   type: 'RECEIVE_API',
