@@ -23,20 +23,17 @@ const updateTotal = ({ expenses }) => {
 function wallerReducer(state = initialState, { type, payload }) {
   switch (type) {
   case 'CURRENCY':
-    return {
-      ...state,
-      currencies: payload.filtredsCurrs,
-    };
+    return { ...state, currencies: payload.filtredsCurrs };
+
   case 'FAILED_REQUEST':
-    return {
-      ...state,
-      currencies: ['FAILED_REQUEST'],
-    };
+    return { ...state, currencies: ['FAILED_REQUEST'] };
+
   case 'EXPENSES': {
     const newState = {
       ...state,
       expenses: [...state.expenses, {
-        id: state.expenses.length,
+        id: state.expenses.length === 0 ? 0
+          : state.expenses[state.expenses.length - 1].id + 1,
         ...payload,
       }],
     };
@@ -52,14 +49,18 @@ function wallerReducer(state = initialState, { type, payload }) {
     return newState;
   }
   case 'EDIT_EXP': {
-    state.expenses[payload.exp.id].value = payload.exp.value;
-    state.expenses[payload.exp.id].description = payload.exp.description;
-    state.expenses[payload.exp.id].currency = payload.exp.currency;
-    state.expenses[payload.exp.id].method = payload.exp.method;
-    state.expenses[payload.exp.id].tag = payload.exp.tag;
+    console.log(payload);
+    state.expenses.forEach((exp) => {
+      if (exp.id === payload.exp.id) {
+        exp.value = payload.exp.value;
+        exp.description = payload.exp.description;
+        exp.currency = payload.exp.currency;
+        exp.method = payload.exp.method;
+        exp.tag = payload.exp.tag;
+      }
+    });
     return { ...state, expenses: [...state.expenses] };
   }
-
   default:
     return state;
   }
