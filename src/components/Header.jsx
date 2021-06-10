@@ -5,11 +5,10 @@ import { connect } from 'react-redux';
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { };
   }
 
   render() {
-    const { email } = this.props;
+    const { email, total } = this.props;
     return (
       <div>
         <p data-testid="email-field">{email}</p>
