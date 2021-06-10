@@ -1,5 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import '../App.css';
+import { loginUser } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -10,9 +14,11 @@ class Login extends React.Component {
       pwMessageError: '',
       invalidEmail: true,
       invalidPw: true,
+      loginAllowed: false,
     };
     this.handleValidateEmail = this.handleValidateEmail.bind(this);
     this.handleValidatePassword = this.handleValidatePassword.bind(this);
+    this.handleClickLoginAllowed = this.handleClickLoginAllowed.bind(this);
     this.emailMessageError = this.emailMessageError.bind(this);
     this.pwMessageError = this.pwMessageError.bind(this);
   }
@@ -49,6 +55,17 @@ class Login extends React.Component {
     }
   }
 
+  handleClickLoginAllowed() {
+    const { userEmail, invalidEmail, invalidPw } = this.state;
+    const { globalStateEmail } = this.props;
+    globalStateEmail(userEmail);
+    if (!invalidEmail || !invalidPw) {
+      this.setState({
+        loginAllowed: true,
+      });
+    }
+  }
+
   emailMessageError(value) {
     this.setState({
       emailMessageError: '* Invalid e-mail!',
@@ -72,7 +89,12 @@ class Login extends React.Component {
   }
 
   render() {
-    const { emailMessageError, pwMessageError, invalidEmail, invalidPw } = this.state;
+    const {
+      emailMessageError,
+      pwMessageError,
+      invalidEmail,
+      invalidPw,
+    } = this.state;
     return (
       <section className="login-form-container">
         <form className="login-form">
@@ -100,11 +122,25 @@ class Login extends React.Component {
             />
             <p className="validateError">{ pwMessageError }</p>
           </label>
-          <button type="button" disabled={ invalidEmail || invalidPw }>Entrar</button>
+          <button
+            type="button"
+            disabled={ invalidEmail || invalidPw }
+            onClick={ this.handleClickLoginAllowed }
+          >
+            Entrar
+          </button>
         </form>
       </section>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  globalStateEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  globalStateEmail: (email) => { dispatch(loginUser(email)); },
+});
+
+export default connect(null, mapDispatchToProps)(Login);
