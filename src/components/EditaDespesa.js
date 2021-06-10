@@ -47,7 +47,7 @@ class EditaDespesa extends React.Component {
   }
 
   renderizaSelectMoeda() {
-    const { currencies, loading } = this.props;
+    const { currencies } = this.props;
     const { currency } = this.state;
     return (
       <select
@@ -56,7 +56,7 @@ class EditaDespesa extends React.Component {
         value={ currency }
         onChange={ (e) => this.setState({ currency: e.target.value }) }
       >
-        { loading ? null : currencies.map((result, index) => (
+        { currencies.map((result, index) => (
           <option
             key={ index }
             value={ result }
@@ -114,49 +114,51 @@ class EditaDespesa extends React.Component {
   render() {
     const { description } = this.state;
     return (
-      <div className="geral">
-        <label htmlFor="valor">
-          Valor
-          {this.renderizaInput()}
-        </label>
-        <label
-          htmlFor="moeda"
-          className="moeda"
-        >
-          Moeda
-          {this.renderizaSelectMoeda()}
-        </label>
-        <label
-          htmlFor="pgto"
-        >
-          Método de pagamento
-          {this.renderizaSelectPgto()}
-        </label>
-        <label
-          htmlFor="tag"
-        >
-          Tag
-          {this.renderizaSelectTag()}
-        </label>
-        <label htmlFor="descricao">
-          Descrição
-          <input
-            type="text"
-            id="descricao"
-            data-testid="description-input"
-            className="descricao"
-            value={ description }
-            onChange={ (e) => this.setState({ description: e.target.value }) }
-          />
-        </label>
-        <button
-          type="button"
-          className="button"
-          onClick={ this.onClick }
-        >
-          Editar despesa
-        </button>
-      </div>
+      <form>
+        <div className="geral">
+          <label htmlFor="valor">
+            Valor
+            {this.renderizaInput()}
+          </label>
+          <label
+            htmlFor="moeda"
+            className="moeda"
+          >
+            Moeda
+            {this.renderizaSelectMoeda()}
+          </label>
+          <label
+            htmlFor="pgto"
+          >
+            Método de pagamento
+            {this.renderizaSelectPgto()}
+          </label>
+          <label
+            htmlFor="tag"
+          >
+            Tag
+            {this.renderizaSelectTag()}
+          </label>
+          <label htmlFor="descricao">
+            Descrição
+            <input
+              type="text"
+              id="descricao"
+              data-testid="description-input"
+              className="descricao"
+              value={ description }
+              onChange={ (e) => this.setState({ description: e.target.value }) }
+            />
+          </label>
+          <button
+            type="button"
+            className="button"
+            onClick={ this.onClick }
+          >
+            Editar despesa
+          </button>
+        </div>
+      </form>
     );
   }
 }

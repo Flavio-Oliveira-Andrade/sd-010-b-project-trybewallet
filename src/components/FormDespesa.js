@@ -127,43 +127,45 @@ class FormDespesa extends React.Component {
   render() {
     const { description } = this.state;
     return (
-      <div className="geral">
-        <label htmlFor="valor">
-          Valor
-          {this.renderizaInput()}
-        </label>
-        {this.renderizaSelectMoeda()}
-        <label
-          htmlFor="pgto"
-        >
-          Método de pagamento
-          {this.renderizaSelectPgto()}
-        </label>
-        <label
-          htmlFor="tag"
-        >
-          Tag
-          {this.renderizaSelectTag()}
-        </label>
-        <label htmlFor="descricao">
-          Descrição
-          <input
-            type="text"
-            id="descricao"
-            data-testid="description-input"
-            className="descricao"
-            value={ description }
-            onChange={ (e) => this.setState({ description: e.target.value }) }
-          />
-        </label>
-        <button
-          type="button"
-          className="button"
-          onClick={ this.onClick }
-        >
-          Adicionar despesa
-        </button>
-      </div>
+      <form>
+        <div className="geral">
+          <label htmlFor="valor">
+            Valor
+            {this.renderizaInput()}
+          </label>
+          {this.renderizaSelectMoeda()}
+          <label
+            htmlFor="pgto"
+          >
+            Método de pagamento
+            {this.renderizaSelectPgto()}
+          </label>
+          <label
+            htmlFor="tag"
+          >
+            Tag
+            {this.renderizaSelectTag()}
+          </label>
+          <label htmlFor="descricao">
+            Descrição
+            <input
+              type="text"
+              id="descricao"
+              data-testid="description-input"
+              className="descricao"
+              value={ description }
+              onChange={ (e) => this.setState({ description: e.target.value }) }
+            />
+          </label>
+          <button
+            type="button"
+            className="button"
+            onClick={ this.onClick }
+          >
+            Adicionar despesa
+          </button>
+        </div>
+      </form>
     );
   }
 }
