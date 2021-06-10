@@ -19,8 +19,8 @@ function Login() {
     setPassword(newPassword);
   }
 
-  function clickEnter() {
-    console.log('clicou');
+  function clickEnterSalveEmail() {
+    dispatch(saveEmailLogin(email));
   }
 
   const minPassword = 6;
