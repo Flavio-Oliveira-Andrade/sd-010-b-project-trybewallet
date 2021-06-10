@@ -11,6 +11,11 @@ function wallet(state = INITIAL_SATE, action) {
       ...state,
       expenses: [...state.expenses, action.state],
     };
+  case 'RECEIVE_CURRENCIES':
+    return {
+      ...state,
+      currencies: action.state,
+    };
   default:
     return state;
   }

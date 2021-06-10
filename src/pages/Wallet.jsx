@@ -22,7 +22,6 @@ class Wallet extends React.Component {
   }
 
   returnCurrencies(currencies) {
-    console.log(Object.keys(currencies));
     if (Object.keys(currencies) === 0) {
       return (<option value="loading">Carregando...</option>);
     }
