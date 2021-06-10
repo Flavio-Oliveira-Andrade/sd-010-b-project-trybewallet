@@ -68,7 +68,7 @@ class Login extends React.Component {
     const { email, password, btnLock } = this.state;
     const { login } = this.props;
     return (
-      <div className="media">
+      <div className="media ">
         <form className="box">
           <div className="field">
             <label className="label" htmlFor="email-input">
