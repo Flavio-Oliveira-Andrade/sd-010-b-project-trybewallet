@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAPI, submitExpense } from '../actions';
+import ExpenseTable from '../components/ExpenseTable';
 
 class Wallet extends React.Component {
   constructor() {
@@ -175,6 +176,7 @@ class Wallet extends React.Component {
           {this.renderExpenseCategorySelect()}
           <button type="submit">Adicionar despesa</button>
         </form>
+        <ExpenseTable />
       </>
     );
   }
