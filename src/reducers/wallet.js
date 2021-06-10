@@ -12,32 +12,33 @@ const INITIAL_STATE = {
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
-  const expenses = state.expenses;
+  const { expenses } = state;
 
   switch (action.type) {
   case 'ADD_EXPENSE':
-    const id = state.expenses.length;
-    action.payload.id = id;
+    action.payload.id = state.expenses.length;
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
     };
-  
-  case 'DELETE_EXPENSE':
+
+  case 'DELETE_EXPENSE': {
     const filteredExpenses = expenses.filter((expense) => expense.id !== action.payload);
 
     return {
       ...state,
       expenses: filteredExpenses,
     };
+  }
 
-  case 'EDIT_EXPENSE':
+  case 'EDIT_EXPENSE': {
     const filteredExpense = expenses.filter((expense) => expense.id === action.payload);
 
     return {
       ...state,
       expenseToEdit: filteredExpense,
     };
+  }
 
   case 'REQUEST_API':
     return {
