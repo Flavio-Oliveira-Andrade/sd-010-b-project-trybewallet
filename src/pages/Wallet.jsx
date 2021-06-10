@@ -23,11 +23,14 @@ class Wallet extends React.Component {
 
   returnCurrencies(currencies) {
     console.log(Object.keys(currencies));
-    if (Object.keys(currencies) === 0) return (<option value="loading">Carregando...</option>);
-    return Object.keys(currencies).filter(currency => currency !== 'USDT').map((currency) => (
-      <option key={ currency } value={ currency }>
-        { currency }
-      </option>));
+    if (Object.keys(currencies) === 0) {
+      return (<option value="loading">Carregando...</option>);
+    }
+    return Object.keys(currencies).filter((currency) => currency !== 'USDT')
+      .map((currency) => (
+        <option key={ currency } value={ currency }>
+          { currency }
+        </option>));
   }
 
   calculateTotal() {
