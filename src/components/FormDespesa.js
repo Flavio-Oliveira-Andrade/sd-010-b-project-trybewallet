@@ -6,11 +6,10 @@ import { fetchAPI, addDespesa } from '../actions';
 import './FormDespesa.css';
 
 class FormDespesa extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      id: 0,
       value: 0,
       currency: 'USD',
       method: 'Dinheiro',
@@ -31,15 +30,11 @@ class FormDespesa extends React.Component {
   }
 
   onClick() {
-    const { addDespesas, getCurrency, currencies2: exchangeRates } = this.props;
+    const { id, updateId, addDespesas, getCurrency, currencies2: exchangeRates } = this.props;
 
-    this.setState((previousState) => ({
-      id: previousState.id + 1,
-      value: 0,
-      description: '',
-    }));
-
-    addDespesas({...this.state, exchangeRates });
+    this.setState({ value: 0, description: '' });
+    updateId();
+    addDespesas({ ...this.state, exchangeRates, id });
     getCurrency();
   }
 

@@ -8,8 +8,21 @@ import Tabela from '../components/Tabela';
 import EditaDespesa from '../components/EditaDespesa';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      id: 0,
+    };
+    this.updateId = this.updateId.bind(this);
+  }
+
+  updateId() {
+    this.setState((prev) => ({ id: prev.id + 1 }));
+  }
+
   render() {
     const { editing } = this.props;
+    const { id } = this.state;
 
     return (
       <div className="wallet">
@@ -17,7 +30,11 @@ class Wallet extends React.Component {
           <Header />
         </div>
         <div className="form-despesa">
-          { !editing ? <FormDespesa /> : <EditaDespesa /> }
+          { !editing ? <FormDespesa
+            id={ id }
+            updateId={ this.updateId }
+          />
+            : <EditaDespesa /> }
         </div>
         <Tabela />
       </div>
