@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+
+    this.funtionCalc = this.funtionCalc.bind(this);
+  }
+
+  funtionCalc(acc, curr) {
+    return acc + parseFloat(curr.exchangeRates[curr.currency].ask * curr.value);
+  }
+
   render() {
     const { email, expenses } = this.props;
     return (
@@ -14,7 +25,8 @@ class Header extends React.Component {
           {!expenses
             ? 0
             : expenses
-              .reduce((acc, curr) => acc + parseInt(curr.value, 10), 0).toFixed(2)}
+              .reduce((acc, curr) => this.funtionCalc(acc, curr), 0)
+              .toFixed(2)}
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </section>

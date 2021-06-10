@@ -25,7 +25,7 @@ class Table extends React.Component {
             <td>{expense.method}</td>
             <td>{expense.value}</td>
             <td>{expense.currency}</td>
-            <th>{expense.exchangeRates[expense.currency].name}</th>
+            <th>{expense.exchangeRates[expense.currency].name.split('/')[0]}</th>
             <th>{expense.exchangeRates[expense.currency].ask * expense.value}</th>
             <th>Real</th>
             <th>
