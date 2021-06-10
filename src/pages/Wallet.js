@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getApi } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -11,6 +12,11 @@ class Wallet extends React.Component {
     this.inputPaymente = this.inputPaymente.bind(this);
     this.inputCategory = this.inputCategory.bind(this);
     this.inputHeader = this.inputHeader.bind(this);
+  }
+
+  componentDidMount() {
+    const { currenciesApi } = this.props;
+    currenciesApi();
   }
 
   inputValor() {
@@ -30,12 +36,16 @@ class Wallet extends React.Component {
   }
 
   inputMoeda() {
+    const { currencies } = this.props;
+    const newCurrenci = currencies.filter((element) => element !== 'USDT');
+
     return (
 
       <label htmlFor="idMoeda">
         Moeda
         <select name="moeda" id="idMoeda">
-          <option>nada</option>
+          {newCurrenci.map((currency, index) => (
+            <option key={ index }>{currency}</option>))}
         </select>
       </label>);
   }
@@ -96,6 +106,7 @@ class Wallet extends React.Component {
           {this.inputMoeda()}
           {this.inputPaymente()}
           {this.inputCategory()}
+
         </forms>
       </>
     );
@@ -104,9 +115,17 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  currencies: state.wallet.currencies,
+  loading: state.wallet.loading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currenciesApi: () => dispatch(getApi()),
 });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currenciesApi: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
