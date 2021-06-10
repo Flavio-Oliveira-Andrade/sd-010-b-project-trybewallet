@@ -46,7 +46,7 @@ class Login extends React.Component {
             </div>
             <div className="wrap-input">
               <input
-                testid="password-input"
+                data-testid="email-input"
                 type="password"
                 id="password"
                 placeholder="Password"
@@ -54,7 +54,7 @@ class Login extends React.Component {
                 onChange={ this.handleChange }
               />
             </div>
-            <Link to="wallet">
+            <Link to="carteira">
               <button
                 type="button"
                 className="login-form-btn"
