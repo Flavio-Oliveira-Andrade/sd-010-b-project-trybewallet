@@ -1,11 +1,12 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const initialState = {
-  email: '',
-  password: '',
-  disableButton: true,
+  user: {
+    email: '',
+    password: '',
+  },
 };
 
-function loginReducer(state = initialState, action) {
+function userReducer(state = initialState, action) {
   switch (action.type) {
   case 'LOGIN':
     return action.value;
@@ -14,4 +15,4 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-export default loginReducer;
+export default userReducer;

@@ -42,7 +42,7 @@ a {
   flex-direction: column;
 }
 
-button {
+.button {
   background: var(--Color);
   background-color: transparent;
   border: 5px;

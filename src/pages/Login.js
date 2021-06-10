@@ -1,37 +1,51 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { login as loginAction } from '../actions';
 
 class Login extends React.Component {
-  handleOnclick() {
-    return <Redirect to="/carteira" />;
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
   }
 
   render() {
+    const { email, password } = this.state;
+    const { login } = this.props;
     return (
       <div className="Login">
         <section className="login-inputs">
           <input
             type="text"
-            // onChange={ onChange }
+            onChange={ ({ target }) => this.setState({ email: target.value }) }
             placeholder="email"
             data-testid="email-input"
-            // onChange={ this.handleOnChange }
           />
           <input
             type="password"
-            // onChange={ onChange }
+            onChange={ ({ target }) => this.setState({ email: target.value }) }
             placeholder="senha"
             data-testid="password-input"
           />
         </section>
-        <input
-          type="button"
-          value="Entrar"
-          onClick={ this.handleOnclick }
-        />
+        <section className="link">
+          <Link
+            to="/carteira"
+            onClick={ () => login({ email, password }) }
+          >
+            Entrar
+          </Link>
+        </section>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (event) => dispatch(loginAction(event)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

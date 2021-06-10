@@ -1,7 +1,12 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const initialState = [];
+const initialState = {
+  wallet: {
+    currencies: [],
+    expenses: [],
+  },
+};
 
-function registerReducer(state = initialState, action) {
+function walletReducer(state = initialState, action) {
   switch (action.type) {
   case 'ADD_REGISTER':
     return [...state, action.data];
@@ -12,4 +17,4 @@ function registerReducer(state = initialState, action) {
   }
 }
 
-export default registerReducer;
+export default walletReducer;
