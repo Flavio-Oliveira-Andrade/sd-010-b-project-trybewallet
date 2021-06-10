@@ -1,5 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginAction } from '../actions';
@@ -68,41 +68,37 @@ class Login extends React.Component {
     const { email, password, btnLock } = this.state;
     const { login } = this.props;
     return (
-      <div className="media ">
+      <div className="media">
         <form className="box">
-          <div className="field">
-            <label className="label" htmlFor="email-input">
-              Email:
-              <input
-                className="input control"
-                data-testid="email-input"
-                type="email"
-                name="email"
-                value={ email }
-                onChange={ (event) => {
-                  this.handleChange(event);
-                } }
-              />
-            </label>
-          </div>
-          <div className="field">
-            <label className="label" htmlFor="password-input">
-              Senha:
-              <input
-                className="input control"
-                data-testid="password-input"
-                name="password"
-                value={ password }
-                type="password"
-                onChange={ (event) => {
-                  this.handleChange(event);
-                } }
-              />
-            </label>
-          </div>
+          <label className="label" htmlFor="email-input">
+            Email:
+            <input
+              className="input control"
+              data-testid="email-input"
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ (event) => {
+                this.handleChange(event);
+              } }
+            />
+          </label>
+          <label className="label" htmlFor="password-input">
+            Senha:
+            <input
+              className="input control"
+              data-testid="password-input"
+              name="password"
+              value={ password }
+              type="password"
+              onChange={ (event) => {
+                this.handleChange(event);
+              } }
+            />
+          </label>
           <Link to="/carteira">
             <button
-              className="button is-primary"
+              // className="button is-primary"
               disabled={ btnLock }
               onClick={ () => { login(email); } }
               type="button"
@@ -121,7 +117,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Login.propTypes = {
-  login: propTypes.func,
+  login: PropTypes.func,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
