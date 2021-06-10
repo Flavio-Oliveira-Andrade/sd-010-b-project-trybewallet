@@ -14,6 +14,7 @@ class InputWallet extends React.Component {
           onChange={ handle }
           className={ name }
           value={ value }
+          data-testid={ `${name}-input` }
         />
       </label>
     );

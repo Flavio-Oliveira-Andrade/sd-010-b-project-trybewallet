@@ -3,12 +3,22 @@ import PropTypes from 'prop-types';
 
 class SelectWallet extends React.Component {
   render() {
-    const { text, name, options, handle } = this.props;
+    const { tx, name, ops, handle, slc } = this.props;
     return (
       <label htmlFor={ name }>
-        { `${text}: ` }
-        <select name={ name } id={ name } className={ name } onChange={ handle }>
-          { options.map((op) => <option key={ op } value={ op }>{ op }</option>) }
+        { `${tx}: ` }
+        <select
+          name={ name }
+          id={ name }
+          className={ name }
+          onChange={ handle }
+          data-testid={ `${name}-input` }
+        >
+          { ops.map((op) => (
+            <option key={ op } value={ op } selected={ slc === op }>
+              { op }
+            </option>
+          )) }
         </select>
       </label>
     );
@@ -16,14 +26,15 @@ class SelectWallet extends React.Component {
 }
 
 SelectWallet.propTypes = {
-  text: PropTypes.string.isRequired,
+  tx: PropTypes.string.isRequired,
+  slc: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string),
+  ops: PropTypes.arrayOf(PropTypes.string),
   handle: PropTypes.func,
 };
 
 SelectWallet.defaultProps = {
-  options: ['vazio'],
+  ops: ['vazio'],
   handle: undefined,
 };
 
