@@ -5,16 +5,14 @@ function InputSelectMethod({
 }) {
   return (
     <div>
-      <div>
-        <label htmlFor="select-id">
-          {labelDescription}
-          <select name="moeda" id="select-id">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-      </div>
+      <label htmlFor="select-id">
+        {labelDescription}
+        <select name="moeda" id="select-id">
+          <option>Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
+        </select>
+      </label>
     </div>
   );
 }
