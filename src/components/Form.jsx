@@ -40,3 +40,22 @@ export default class Form extends Component {
     );
   }
 }
+
+Form.defaultProps = {
+  currencies: {},
+};
+
+Form.propTypes = {
+  requestDales: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.string),
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  requestDales: () => dispatch(requestApi()),
+});
+
+const mapStateToProps = ({ wallet: currencies }) => ({
+  currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
