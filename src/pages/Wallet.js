@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { dispenseAction, excludeAction } from '../actions/index';
+import { dispenseAction, excludeEditAction } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -9,7 +9,6 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.saveCurrencies = this.saveCurrencies.bind(this);
     this.saveDispense = this.saveDispense.bind(this);
-
     this.state = {
       currencyField: 'BRL',
       allCurrencies: [],
@@ -34,17 +33,14 @@ class Wallet extends React.Component {
     const jsonResponse = await request.json();
     const data = Object.values(jsonResponse);
     const currencies = data.filter((item) => !(item.name.includes('Turismo')));
-    this.setState({
-      allCurrencies: currencies,
-    });
+    this.setState({ allCurrencies: currencies });
   }
 
   makeOptions() {
     const { allCurrencies } = this.state;
-    const currenciesMap = allCurrencies.map(
+    return allCurrencies.map(
       ({ code }, index) => <option value={ code } key={ index }>{ code }</option>,
     );
-    return (currenciesMap);
   }
 
   saveDispense() {
@@ -52,21 +48,14 @@ class Wallet extends React.Component {
     const { dispenseCurrentInfo } = this.state;
     sendDispense(dispenseCurrentInfo, dispenseCurrentInfo.id);
     this.setState({
-      dispenseCurrentInfo: {
-        ...dispenseCurrentInfo,
-        id: dispenseCurrentInfo.id + 1,
-      },
+      dispenseCurrentInfo: { ...dispenseCurrentInfo, id: dispenseCurrentInfo.id + 1 },
     });
   }
 
   handleChange({ target }) {
     const { value, name } = target;
     const { dispenseCurrentInfo } = this.state;
-    this.setState({
-      dispenseCurrentInfo: {
-        ...dispenseCurrentInfo,
-        [name]: value,
-      },
+    this.setState({ dispenseCurrentInfo: { ...dispenseCurrentInfo, [name]: value },
     });
   }
 
@@ -87,18 +76,14 @@ class Wallet extends React.Component {
   }
 
   otherInfos(item) {
-    // finds our exchange name and value
     const choosenCurrency = item.currency;
     const onlyValues = Object.values(item.exchangeRates);
     const withoutBRLT = onlyValues.filter((el) => el.codein !== 'BRLT');
     const exchangeUsed = withoutBRLT.filter((el) => choosenCurrency === el.code)[0];
     const exchangeName = exchangeUsed.name.split('/')[0];
     const valueCurrency = Number(exchangeUsed.ask).toFixed(2);
-
-    // finds our converted to BRL value
     const { value } = item;
     const convertedValue = Number(value) * exchangeUsed.ask;
-
     return ([exchangeName, valueCurrency, convertedValue.toFixed(2)]);
   }
 
@@ -252,7 +237,7 @@ Wallet.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   sendDispense: (dispenseInfo, id) => dispatch(dispenseAction(dispenseInfo, id)),
-  excludeDispense: (expensesNotExcluded) => dispatch(excludeAction(expensesNotExcluded)),
+  excludeDispense: (newExpenses) => dispatch(excludeEditAction(newExpenses)),
 });
 
 const mapStateToProps = (state) => ({

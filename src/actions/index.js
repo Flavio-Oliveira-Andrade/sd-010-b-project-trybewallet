@@ -23,7 +23,7 @@ export const dispenseAction = (dispenseInfo, id) => (dispatch) => {
     .then((data) => dispatch(dispenseToReducer(dispenseInfo, data, id)));
 };
 
-export const excludeAction = (expenses) => ({
+export const excludeEditAction = (expenses) => ({
   type: EXCLUDE_ACTION,
   expenses,
 });
