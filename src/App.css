@@ -36,9 +36,10 @@ body {
   background-color: seagreen;
   border: none;
   border-radius: 3px;
+  box-shadow: 0 8px 24px black;
   opacity: 80%;
   padding: 5px 15px;
-  transition: transform 0.5s;
+  transition: transform 0.3s;
 }
 
 .expense-input button {
@@ -71,7 +72,8 @@ body {
 
 header {
   align-items: center;
-  background-color: rgb(19, 118, 136);
+  background-color: rgb(27, 27, 27);
+  color: whitesmoke;
   display: flex;
   justify-content: space-around;
   margin: 0;
@@ -80,7 +82,7 @@ header {
 }
 
 .expense-info {
-  background-color: whitesmoke;
+  background-color: rgb(214, 214, 214);
   border-radius: 10px;
   color: black;
   display: flex;
@@ -90,7 +92,8 @@ header {
 
 .expense-input {
   align-items: center;
-  background-color: rgb(59, 58, 58);
+  background-color: rgb(27, 27, 27);
+  border-radius: 10px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -105,6 +108,38 @@ header {
 }
 
 .expense-input input , .expense-input select {
+  border: none;
+  border-radius: 3px;
+  color: rgb(22, 22, 22);
   margin: 10px 0;
+  padding: 5px;
 }
 
+table {
+  background-color: rgb(226, 224, 224);
+  border-collapse: collapse;
+  border-radius: 5px;
+  color: rgb(34, 33, 33);
+  text-align: center;
+  width: 100%;
+}
+
+table tr:nth-child( even ) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+th , td {
+  padding: 8px;
+}
+
+th {
+  background-color: rgb(19, 118, 136);
+  color: white;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: center;
+}
