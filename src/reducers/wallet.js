@@ -4,17 +4,10 @@ const INITIAL_STATE = {
   expenses: [],
   isFetching: false,
   total: 0,
-  moedaAtual: [],
-
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'ADD__CURRENCIE':
-    return {
-      ...state,
-      moedaAtual: [action.payload.currencies[0].ask],
-    };
   case 'ERROR_CURRENCIE':
     return state;
   case 'REQUEST':
@@ -35,8 +28,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     };
   case 'CALC_TOTAL': {
     let totalCalculado = 0;
-    state.expenses.forEach(({ valor }) => {
-      totalCalculado += parseInt(valor, 10);
+    state.expenses.forEach(({ totalExpense }) => {
+      totalCalculado += parseInt(totalExpense, 10);
     });
     return {
       ...state,

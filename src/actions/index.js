@@ -8,12 +8,26 @@ export const actionAddEmailUser = (email) => ({
   },
 });
 
-export const actionAddExpenive = (expense) => ({
-  type: 'ADD_EXPENSE',
-  payload: {
-    expense,
-  },
-});
+// export const actionAddExpenive = (expense) => ({
+//   type: 'ADD_EXPENSE',
+//   payload: {
+//     expense,
+//   },
+// });
+
+export const actionAddExpenive = (expense) => (dispatch) => {
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => (response.json()))
+    .then((json) => {
+      console.log(expense, json);
+      dispatch({
+        type: 'ADD_EXPENSE',
+        payload: {
+          expense: { ...expense, exchangeRates: json },
+        },
+      });
+    });
+};
 
 export const actionCalcTotal = () => ({
   type: 'CALC_TOTAL',

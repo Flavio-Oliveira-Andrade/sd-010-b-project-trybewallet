@@ -35,3 +35,7 @@ header {
   display: flex;
   justify-content: space-around;
 }
+
+.form-input-expense {
+  background-color: rgb(109, 109, 109);
+}

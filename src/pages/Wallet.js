@@ -5,13 +5,12 @@ import logo from '../images/logo-trybe.png';
 import { fetchCurrencie,
   fetchCurrencies,
   actionAddExpenive,
-  actionCalcTotal } from '../actions';
+} from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cambioAtual: 0,
       valor: 0,
       descricao: '',
       moeda: '',
@@ -35,13 +34,6 @@ class Wallet extends React.Component {
     const { value, name } = target;
     this.setState({
       [name]: value,
-    },
-    () => {
-      if (name === 'moeda') {
-        const { fetchMoedaAtual } = this.props;
-        const { moeda } = this.state;
-        fetchMoedaAtual(moeda);
-      }
     });
   }
 
@@ -101,27 +93,28 @@ class Wallet extends React.Component {
   geraPagamento() {
     const { pagamento } = this.state;
     return (
-      <label htmlFor="metodoPagamento">
-        Método de pagamento
+      <label htmlFor="pagamento">
+        Método de pagamento:
         <select
           name="pagamento"
+          id="pagamento"
           value={ pagamento }
           onChange={ (event) => {
             this.handleChange(event);
           } }
         >
-          <option name="metodoPagamento" value="dinheiro">Dinheiro</option>
-          <option name="metodoPagamento" value="credito">Cartão de crédito</option>
-          <option name="metodoPagamento" value="debito">Cartão de débito</option>
+          <option name="pagamento" value="dinheiro">Dinheiro</option>
+          <option name="pagamento" value="credito">Cartão de crédito</option>
+          <option name="pagamento" value="debito">Cartão de débito</option>
         </select>
       </label>);
   }
 
   geraForm() {
-    const { addExpense, calcTotal, moedaAtual } = this.props;
+    const { addExpense, moedaAtual, expensesList } = this.props;
     const { valor, descricao, moeda, pagamento, tag } = this.state;
     return (
-      <form>
+      <form className="form-input-expense">
         {this.geraValor()}
         {this.geraDescricao()}
         {this.geraMoeda()}
@@ -146,8 +139,16 @@ class Wallet extends React.Component {
         <button
           type="button"
           onClick={ () => {
-            addExpense({ valor, descricao, moeda, pagamento, tag, moedaAtual });
-            calcTotal();
+            const totalExpense = valor * moedaAtual;
+            addExpense({
+              id: expensesList.length,
+              valor,
+              descricao,
+              moeda,
+              pagamento,
+              tag,
+              moedaAtual,
+              totalExpense });
           } }
         >
           Adicionar despesa
@@ -156,8 +157,8 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, isFetching, currencies, total, expensesList } = this.props;
-    const { cambioAtual } = this.state;
+    const { email, isFetching, currencies, expensesList } = this.props;
+    const to = expensesList.reduce((a, c) => parseInt(a, 10) + parseInt(c.valor, 10), 0);
     return (
       <main>
         <header>
@@ -172,13 +173,12 @@ class Wallet extends React.Component {
             { email }
           </h3>
           <h3 data-testid="total-field">
+            {' '}
             Total Despesas:
-            {total}
+            { to }
           </h3>
           <h3 data-testid="header-currency-field">
-            {' '}
-            Câmbio Atual BRL:
-            {cambioAtual}
+            Câmbio Atual BRL
           </h3>
         </header>
 
@@ -186,20 +186,18 @@ class Wallet extends React.Component {
           ? <h2>Carregando</h2> : this.geraForm()}
         <div className="grid">
           <h3>Descrição</h3>
-          <h3>Valor</h3>
-          <h3>Moeda</h3>
-          <h3>Moeda R$</h3>
-          <h3>Pagamento</h3>
           <h3>Tag</h3>
+          <h3>Valor BRL</h3>
+          <h3>Moeda</h3>
+          <h3>Pagamento</h3>
         </div>
         {expensesList.map((expense) => (
           <div className="grid" key={ expense.descricao }>
             <span>{expense.descricao}</span>
-            <span>{expense.valor}</span>
-            <span>{expense.moeda}</span>
-            <span>{expense.moedaAtual}</span>
-            <span>{expense.pagamento}</span>
             <span>{expense.tag}</span>
+            <span>{expense.totalExpense}</span>
+            <span>{expense.moeda}</span>
+            <span>{expense.pagamento}</span>
           </div>
         ))}
       </main>);
@@ -209,25 +207,20 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
   isFetching: state.wallet.isFetching,
-  total: state.wallet.total,
   expensesList: state.wallet.expenses,
   moedaAtual: state.wallet.moedaAtual,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchMoedasThunk: () => dispatch(fetchCurrencies()),
   addExpense: (expense) => dispatch(actionAddExpenive(expense)),
-  calcTotal: () => dispatch(actionCalcTotal()),
   fetchMoedaAtual: (moeda) => dispatch(fetchCurrencie(moeda)),
 
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
   fetchMoedasThunk: PropTypes.func.isRequired,
-  fetchMoedaAtual: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
-  calcTotal: PropTypes.func.isRequired,
   currencies: PropTypes.shape().isRequired,
   moedaAtual: PropTypes.shape().isRequired,
   isFetching: PropTypes.bool.isRequired,
