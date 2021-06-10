@@ -13,7 +13,8 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { login, total } = this.props;
+    const { login, total/* , expenses */ } = this.props;
+    // console.log(expenses.reduce((acc, { valor, ask }) => acc + parseFloat(curr.valor), 0));
     // const { outgoing } = this.state;
     return (
       <div>
@@ -31,6 +32,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   login: state.user.email,
   total: state.wallet.outgoing,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {

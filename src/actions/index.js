@@ -1,6 +1,7 @@
 import fetchCambioApi from '../services/fetchCambioApi';
 
 export const LOGIN = 'LOGIN';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const REQUEST_CAMBIO = 'REQUEST_CAMBIO';
 
 export function login(email, password) {
@@ -9,6 +10,15 @@ export function login(email, password) {
     payload: {
       email,
       password,
+    },
+  };
+}
+
+export function expensesAction(expense) {
+  return {
+    type: ADD_EXPENSE,
+    payload: {
+      expense,
     },
   };
 }
