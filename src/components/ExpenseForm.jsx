@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import InputElement from './InputElement';
 import SelectElement from './SelectElement';
 
@@ -41,6 +42,7 @@ class ExpenseForm extends Component {
 
   render() {
     const { expense, description, currency, paymentMethod, tag } = this.state;
+    const { currencyOptions } = this.props;
 
     return (
       <form>
@@ -62,7 +64,7 @@ class ExpenseForm extends Component {
           label="Moeda"
           name="currency"
           value={ currency }
-          options={ ([{ value: 'BRL', optionLabel: 'Real' }]) }
+          options={ currencyOptions }
           handleChange={ this.handleChange }
         />
 
@@ -97,5 +99,5 @@ const mapDispatchToProps = {
 export default connect(null, mapDispatchToProps)(ExpenseForm);
 
 ExpenseForm.propTypes = {
-  // userData: PropTypes.string.isRequired,
+  currencyOptions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
