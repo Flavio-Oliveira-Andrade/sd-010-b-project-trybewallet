@@ -69,7 +69,7 @@ const mapStateToProps = (state) => ({
 });
 
 Forms.propTypes = {
-  currencies: PropTypes.objectOf(Proptypes.object.isRequired).isRequired,
+  currencies: PropTypes.objectOf.isRequired,
   fetchDispatch: PropTypes.func.isRequired,
 };
 
