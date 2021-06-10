@@ -68,7 +68,7 @@ class Login extends React.Component {
               />
             </label>
           </div>
-          <Link to="/carteira" onClick={ () => login(this.state) }>
+          <Link to="/carteira" onClick={ () => login({ email }) }>
             <button
               type="submit"
               disabled={
@@ -86,7 +86,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (loginData) => dispatch(userLogin(loginData)),
+  login: (email) => dispatch(userLogin(email)),
 });
 
 Login.propTypes = {

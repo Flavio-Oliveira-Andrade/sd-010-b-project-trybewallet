@@ -16,11 +16,10 @@ export function userExpenses({ value, description, currency, method, tag }) {
   };
 }
 
-export function userLogin(email, password) {
+export function userLogin({ email }) {
   return {
     type: USER_DATA,
     email,
-    password,
   };
 }
 

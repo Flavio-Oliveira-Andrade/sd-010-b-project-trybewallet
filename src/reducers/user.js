@@ -1,9 +1,6 @@
 import { USER_DATA } from '../actions/index';
 
-const INITIAL_STATE = {
-  email: '',
-  password: '',
-};
+const INITIAL_STATE = {};
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -11,7 +8,6 @@ function user(state = INITIAL_STATE, action) {
     return {
       ...state,
       email: action.email,
-      password: action.password,
     };
   default:
     return state;
