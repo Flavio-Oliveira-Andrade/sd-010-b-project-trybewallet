@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import { Link as button } from 'react-router-dom';
 
 import '../css/loginPage.css';
-import { setEmailAction, setPasswordAction } from '../redux/actions/userAction';
+import { setEmailAction, setPasswordAction } from '../actions/userAction';
 
 class Login extends React.Component {
   constructor(props) {
@@ -27,16 +27,19 @@ class Login extends React.Component {
     return (
       <form className="login-form">
         <label htmlFor="email" className="login-label">
-          E-mail
+          E-mail:
           <input
             type="email"
             name="email"
             id="email"
             value={ email }
-            placeholder="E-mail"
+            placeholder="exemplo@exemplo.com"
             data-testid="email-input"
             onChange={ (e) => this.handleChange(e.target) }
           />
+        </label>
+        <label htmlFor="password">
+          Senha:
           <input
             type="password"
             onChange={ (e) => this.setState({ password: e.target.value }) }
