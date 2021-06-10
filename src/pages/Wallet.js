@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Header from '../components/componentswallet/Header';
 import InputDescriptionExpenses
   from '../components/componentswallet/InputDescriptionExpenses';
+import InputSelect from '../components/componentswallet/InputSelect';
 import InputValue from '../components/componentswallet/InputValue';
 
 function Wallet() {
@@ -38,6 +39,10 @@ function Wallet() {
         labelDescription="Descrição"
         inputValue={ inputDescription }
         onInputDescriptionChange={ handleInputDescriptionChange }
+      />
+
+      <InputSelect
+        labelDescription="Moeda"
       />
     </>
   );
