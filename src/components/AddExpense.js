@@ -41,7 +41,7 @@ class AddExpense extends React.Component {
   spend(handleClick, valueState) {
     return (
       <label htmlFor="spent">
-        valor:
+        Valor:
         <input type="number" id="spent" value={ valueState } onChange={ handleClick } />
       </label>
     );
@@ -50,7 +50,7 @@ class AddExpense extends React.Component {
   coin(handleClick, valueState, arrayObjCoin) {
     return (
       <label htmlFor="coin">
-        moeda:
+        Moeda:
         <select type="text" id="coin" onChange={ handleClick } value={ valueState }>
           {arrayObjCoin.map(({ code }, i) => (
             <option key={ i } value={ code }>{code}</option>
@@ -63,7 +63,7 @@ class AddExpense extends React.Component {
   paymentMethod(handleClick, valueState) {
     return (
       <label htmlFor="paymentMethod">
-        método de pagamento:
+        Método de pagamento:
         <select
           type="text"
           id="paymentMethod"
@@ -81,7 +81,7 @@ class AddExpense extends React.Component {
   tag(handleClick, valueState) {
     return (
       <label htmlFor="tag">
-        tag:
+        Tag:
         <select type="text" id="tag" onChange={ handleClick } value={ valueState }>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
@@ -96,7 +96,7 @@ class AddExpense extends React.Component {
   description(handleClick, valueState) {
     return (
       <label htmlFor="description">
-        descrição:
+        Descrição:
         <input type="" id="description" onChange={ handleClick } value={ valueState } />
       </label>
     );
