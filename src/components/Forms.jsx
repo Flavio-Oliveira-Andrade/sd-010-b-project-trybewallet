@@ -9,16 +9,6 @@ class Forms extends Component {
     fetchDispatch();
   }
 
-  // filterCurrency() {
-  //   const { currencies } = this.props;
-  //   return (Object.keys(currencies).filter((currency) => currency !== 'USDT')
-  //     .map((currmap) => (<option key={ currmap } value={ currmap }>
-  //       { currmap }
-  //       {' '}
-  //       {' '}
-  //                        </option>)));
-  // }
-
   render() {
     const { currencies } = this.props;
     return (
@@ -79,7 +69,8 @@ const mapStateToProps = (state) => ({
 });
 
 Forms.propTypes = {
-  currencies: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf(Proptypes.object.isRequired).isRequired,
+  fetchDispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
