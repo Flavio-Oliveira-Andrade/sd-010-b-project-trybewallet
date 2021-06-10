@@ -1,0 +1,20 @@
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 5%;
+}
+
+.currency {
+  display: flex;
+  padding-left: 20px;
+}
+
+.logo {
+  height: 8%;
+  width: 8%;
+}
+
+.infos-field {
+  display: flex;
+}

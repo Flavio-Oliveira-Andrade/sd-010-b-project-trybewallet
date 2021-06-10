@@ -1,0 +1,8 @@
+.expense-form {
+  align-items: center;
+  background: black;
+  color: white;
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+}

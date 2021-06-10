@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 import { loginAction } from '../actions';
+import '../styles/login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -21,10 +22,12 @@ class Login extends React.Component {
     const { validEmail, validPswd, email, shouldRedirect } = this.state;
     const { saveEmail } = this.props;
     return (
-      <div>
-        <form>
+      <div className="container">
+        <img src="https://static.wixstatic.com/media/4c2984_e8ba75672946447b9c0718f98d806496~mv2.png/v1/fill/w_562,h_142,al_c,lg_1,q_90/4c2984_e8ba75672946447b9c0718f98d806496~mv2.webp" alt="logo-trybe" className="logo" />
+        <form className="form-field">
           <label htmlFor="email">
             Email:
+            <br />
             <input
               type="text"
               name="email"
@@ -38,6 +41,7 @@ class Login extends React.Component {
           </label>
           <label htmlFor="senha">
             Senha:
+            <br />
             <input
               type="password"
               name="senha"

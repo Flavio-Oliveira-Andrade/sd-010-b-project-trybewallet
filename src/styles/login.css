@@ -1,0 +1,23 @@
+.container {
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: space-around;
+  margin: auto;
+  margin-top: 100px;
+  padding: auto;
+  width: 30%;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  height: 30%;
+  width: 30%;
+}
