@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { delExpense } from '../actions';
+import { delExpense, startEditing } from '../actions';
 
 class Table extends React.Component {
   getCurrentExpanseValues(expense) {
@@ -25,6 +25,12 @@ class Table extends React.Component {
     const { expenses, deleteExpense } = this.props;
     const indexOfElement = expenses.findIndex(({ id }) => id === idToDelete);
     deleteExpense(indexOfElement);
+  }
+
+  handleEdit(idToEdit) {
+    const { expenses, startExpenseEditing } = this.props;
+    const indexOfElement = expenses.findIndex(({ id }) => id === idToEdit);
+    startExpenseEditing(indexOfElement);
   }
 
   renderTableBody() {
@@ -53,6 +59,13 @@ class Table extends React.Component {
               onClick={ () => this.handleDelete(id) }
             >
               Deletar
+            </button>
+            <button
+              type="button"
+              data-testid="edit-btn"
+              onClick={ () => this.handleEdit(id) }
+            >
+              Editar
             </button>
           </td>
         </tr>
@@ -99,6 +112,7 @@ Table.propTypes = {
     }),
   })),
   deleteExpense: PropTypes.func.isRequired,
+  startExpenseEditing: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {
@@ -126,6 +140,7 @@ const mapStateToProps = ({ user, wallet }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (id) => dispatch(delExpense(id)),
+  startExpenseEditing: (id) => dispatch(startEditing(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

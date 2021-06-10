@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import getCurrency from '../services/api/currencyApi';
-import { fetchExpense } from '../actions';
+import { fetchExpense, finishEditing, stopEditing } from '../actions';
 import Header from '../components/Header';
 import Table from '../components/Table';
 
@@ -27,6 +27,7 @@ class Wallet extends React.Component {
     this.state = {
       currencies: [],
       ...INITIAL_INPUT_VALUE,
+      editingState: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -38,19 +39,49 @@ class Wallet extends React.Component {
     this.updateCurrency(filteredCurrencies);
   }
 
+  componentDidUpdate() {
+    const { edit: { editing } } = this.props;
+    if (editing) {
+      this.updateStateToEdit();
+    }
+  }
+
   handleChange(name, value) {
     this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { addExpense } = this.props;
-    addExpense(this.state);
-    this.setState((prevState) => ({ ...prevState, ...INITIAL_INPUT_VALUE }));
+    const { editingState } = this.state;
+    const { addExpense, editExpense } = this.props;
+    if (!editingState) {
+      addExpense(this.state);
+      this.setState((prevState) => ({ ...prevState, ...INITIAL_INPUT_VALUE }));
+    } else {
+      const expense = this.findExpense();
+      const { value, description, currency, method, tag } = this.state;
+      const newExpense = { ...expense, value, description, currency, method, tag };
+      editExpense(newExpense);
+      this.setState((prevState) => ({ ...prevState,
+        ...INITIAL_INPUT_VALUE,
+        editingState: false }));
+    }
+  }
+
+  findExpense() {
+    const { edit: { id: idToEdit }, expenses } = this.props;
+    return expenses.find(({ id }) => id === idToEdit);
   }
 
   updateCurrency(currencies) {
     this.setState({ currencies });
+  }
+
+  updateStateToEdit() {
+    const { stopEdit } = this.props;
+    const { value, description, currency, method, tag } = this.findExpense();
+    const newValues = { value, description, currency, method, tag, editingState: true };
+    this.setState((prevState) => ({ ...prevState, ...newValues }), () => stopEdit());
   }
 
   renderCurrenciesAsOption() {
@@ -114,7 +145,6 @@ class Wallet extends React.Component {
 
   render() {
     const { value: priceValue, description } = this.state;
-
     return (
       <>
         <Header />
@@ -150,18 +180,42 @@ class Wallet extends React.Component {
       </>);
   }
 }
-
 Wallet.propTypes = {
   addExpense: PropTypes.func.isRequired,
+  stopEdit: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+  })),
+  edit: PropTypes.shape({
+    editing: PropTypes.bool,
+    id: PropTypes.number,
+  }),
 };
-
+Wallet.defaultProps = {
+  expenses: {
+    id: 1,
+    value: '555',
+    description: 'faltou',
+    currency: 'faltou',
+    method: 'faltou',
+    tag: 'faltou',
+  },
+  edit: { editing: false, id: null },
+};
 const mapStateToProps = ({ user, wallet }) => ({
   expenses: wallet.expenses,
+  edit: wallet.edit,
   email: user.email,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (state) => dispatch(fetchExpense(state)),
+  stopEdit: () => dispatch(stopEditing()),
+  editExpense: (expense) => dispatch(finishEditing(expense)),
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
