@@ -6,7 +6,7 @@ export default class Form extends Component {
       <form className="form">
         <label htmlFor="valor">
           Valor:
-          <input type="text" name="valor" />
+          <input type="number" name="valor" />
         </label>
         <label htmlFor="description">
           Descrição:
