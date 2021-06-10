@@ -3,4 +3,4 @@ function emailOnChange(email) {
     payload: email };
 }
 
-export { emailOnChange };
+export default emailOnChange;

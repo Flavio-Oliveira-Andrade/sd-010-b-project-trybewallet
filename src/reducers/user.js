@@ -2,7 +2,7 @@
 import { EMAIL_CHANGE } from '../actions/index';
 
 const initialState = {
-  email: '',
+  email: 0,
 };
 
 function userReducer(state = initialState, action) {
