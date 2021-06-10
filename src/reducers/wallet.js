@@ -9,11 +9,11 @@ const INITIAL_USER_STATE = {
 
 const wallet = (state = INITIAL_USER_STATE, action) => {
   switch (action.type) {
-  case 'SWITCH':
-    return {
-      ...state,
-      valor: 'valor',
-    };
+  // case 'SWITCH':
+  //   return {
+  //     ...state,
+  //     valor: 'valor',
+  //   };
   default:
     return state;
   }
