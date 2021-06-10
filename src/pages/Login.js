@@ -24,7 +24,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { setEmail, setPassword } = this.props;
+    const { setEmailAction, setPasswordAction } = this.props;
     return (
       <form className="login-form">
         <label htmlFor="email" className="login-label">
@@ -53,8 +53,8 @@ class Login extends React.Component {
             if (!email) {
               e.preventDefault();
             }
-            setEmail(email);
-            setPassword(password);
+            setEmailAction(email);
+            setPasswordAction(password);
           } }
         >
           Entrar
@@ -64,10 +64,10 @@ class Login extends React.Component {
   }
 }
 
-// Login.propTypes = {
-//   setEmailAction: PropTypes.func.isRequired,
-//   setPasswordAction: PropTypes.func.isRequired,
-// };
+Login.propTypes = {
+  setEmailAction: PropTypes.func.isRequired,
+  setPasswordAction: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   setEmailAction: (email) => dispatch(setEmailAction(email)),
