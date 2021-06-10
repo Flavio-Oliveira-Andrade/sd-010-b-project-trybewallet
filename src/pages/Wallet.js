@@ -1,11 +1,11 @@
 import React from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
-    const { currencies, email, expenses } = this.props;
+    // const { currencies, email, expenses } = this.props;
 
     return (
       <div>
@@ -49,11 +49,11 @@ class Wallet extends React.Component {
     );
   }
 }
-Wallet.propTypes = {
-  currencies: propTypes.arrayOf().isRequired,
-  expenses: propTypes.number.isRequired,
-  email: propTypes.string.isRequired,
-};
+// Wallet.propTypes = {
+//   currencies: propTypes.arrayOf().isRequired,
+//   expenses: propTypes.number.isRequired,
+//   email: propTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
