@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link as button } from 'react-router-dom';
 
 import '../css/loginPage.css';
 import { setNameAction, setPasswordAction } from '../redux/actions/userAction';
@@ -46,7 +46,8 @@ class Login extends React.Component {
             data-testid="input-password"
           />
         </label>
-        <Link
+        <button
+          type="submit"
           to="/products"
           onClick={ (e) => {
             if (!username) {
@@ -58,7 +59,7 @@ class Login extends React.Component {
           className="login-btn"
         >
           Entrar
-        </Link>
+        </button>
       </form>
     );
   }
