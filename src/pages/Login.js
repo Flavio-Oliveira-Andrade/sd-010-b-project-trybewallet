@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Link as button } from 'react-router-dom';
 
@@ -63,10 +63,10 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  setEmailAction: PropTypes.func.isRequired,
-  setPasswordAction: PropTypes.func.isRequired,
-};
+// Login.propTypes = {
+//   setEmailAction: PropTypes.func.isRequired,
+//   setPasswordAction: PropTypes.func.isRequired,
+// };
 
 const mapDispatchToProps = (dispatch) => ({
   setEmailAction: (email) => dispatch(setEmailAction(email)),
