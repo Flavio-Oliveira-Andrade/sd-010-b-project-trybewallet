@@ -5,7 +5,7 @@ import { PROPER_EMAIL } from '../actions/index'; // veio do index.js da actions
 const initialstate = {
   email: '',
 };
-const userReducer = (state = initialstate, action) => {
+function userReducer(state = initialstate, action) { // testar mudando pra function
   switch (action.type) {
   case PROPER_EMAIL: // é o que tá na action
     return {
@@ -14,5 +14,5 @@ const userReducer = (state = initialstate, action) => {
   default:
     return state;
   }
-};
+}
 export default userReducer;
