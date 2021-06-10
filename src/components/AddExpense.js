@@ -19,9 +19,6 @@ class AddExpense extends React.Component {
   async getCurr() {
     const result = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await result.json();
-
-    console.log(data);
-
     const moedas = Object.keys(data);
     moedas.splice(1, 1);
     this.setState({ moedas });
