@@ -8,8 +8,15 @@ const INITIAL_STATE = {
 
 function user(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case '':
-    return {};
+  case 'LOGIN':
+    return {
+      ...state,
+      user: [
+        {
+          email: action.payload.usuario.email,
+        },
+      ],
+    };
   default:
     return state;
   }
