@@ -36,7 +36,6 @@ export const getApi = () => (dispatch) => {
 
 export const actionSave = (saveState) => ({
   type: 'SAVE_STATE',
-  payload: {
-    saveState,
-  },
+  saveState,
+
 });

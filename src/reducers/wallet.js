@@ -24,19 +24,24 @@ const reducerFetch = (state = initialState, action) => {
       error: action.payload.error,
       loading: action.payload.loading,
     };
-  default:
-    return state;
-  }
-};
-export const reducerExpenses = (state = initialState, action) => {
-  switch (action.type) {
   case 'SAVE_STATE':
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
+      expenses: [...state.expenses, action.saveState],
     };
   default:
     return state;
   }
 };
+// const reducerExpenses = (state = initialState, action) => {
+//   switch (action.type) {
+//   case 'SAVE_STATE':
+//     return {
+//       ...state,
+//       expenses: [...state.expenses, action.saveState],
+//     };
+//   default:
+//     return state;
+//   }
+// };
 export default reducerFetch;
