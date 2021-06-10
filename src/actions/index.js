@@ -12,45 +12,46 @@ export const addLogin = (email, password) => ({
 // -------------------------------------------------------------------------------------------------
 
 // WALLET -------------------------------------------------------------------
-export const FETCH_CURRENCIES_LIST = 'FETCH_CURRENCIES_LIST';
+export const SAVE_CURRENCIES_LIST = 'SAVE_CURRENCIES_LIST';
 export const FETCH_CURRENCIES_LIST_SUCCESS = 'FETCH_CURRENCIES_LIST_SUCCESS';
 export const FETCH_CURRENCIES_LIST_ERROR = 'FETCH_CURRENCIES_LIST_ERROR';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const SUM_EXPENSES = 'SUM_EXPENSES';
 
-export const fetchCurrenciesList = () => ({
-  type: FETCH_CURRENCIES_LIST,
+export const addExpenses = (expense) => ({
+  type: ADD_EXPENSES,
+  payload: {
+    expense,
+  },
 });
 
-export const requestCurrenciesListSuccess = (currencies) => ({
-  type: FETCH_CURRENCIES_LIST_SUCCESS,
+export const sumExpenses = () => ({
+  type: SUM_EXPENSES,
+});
+
+export const saveCurrenciesList = (currencies) => ({
+  type: SAVE_CURRENCIES_LIST,
   payload: {
     currencies,
   },
 });
 
-export const requestCurrenciesListError = (error) => ({
-  type: FETCH_CURRENCIES_LIST_ERROR,
-  payload: {
-    error,
-  },
-});
-
 // Fetch Thunk
-export const fetchCurrencies = () => (dispatch) => {
-  dispatch(fetchCurrenciesList());
-  getCurrencies()
-    .then((currenciesListSuccess) => dispatch(
-      requestCurrenciesListSuccess(currenciesListSuccess),
-    ))
-    .catch((currenciesListError) => dispatch(
-      requestCurrenciesListError(currenciesListError),
-    ));
-};
 
-// export function fetchCurrencies() {
-//   return async (dispatch) => {
-//     const currencies = await getCurrencies();
-//     return dispatch(requestCurrenciesListSuccess(currencies));
-//   };
-// }
+// Thunk com Async / Await
+export function fetchCurrencies() {
+  return async (dispatch) => {
+    const currencies = await getCurrencies();
+    return dispatch(saveCurrenciesList(currencies));
+  };
+}
+
+// Thunk com Then
+// export const fetchCurrencies = () => (dispatch) => {
+//   getCurrencies()
+//     .then((currenciesListSuccess) => dispatch(
+//       saveCurrenciesList(currenciesListSuccess),
+//     ));
+// };
 
 // -------------------------------------------------------------------------------------------------

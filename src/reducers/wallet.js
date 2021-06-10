@@ -1,6 +1,9 @@
+import sumExpenses from '../functions';
+
 import {
-  FETCH_CURRENCIES_LIST_SUCCESS,
-  FETCH_CURRENCIES_LIST_ERROR,
+  SAVE_CURRENCIES_LIST,
+  ADD_EXPENSES,
+  SUM_EXPENSES,
 } from '../actions';
 
 // -------------------------------------------------------------------------------------------------
@@ -8,26 +11,37 @@ const INITIAL_STATE = {
   expenses: [],
   currencies: {},
   totalExpenses: 0,
-  updateSum: true,
 };
 // -------------------------------------------------------------------------------------------------
 
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case FETCH_CURRENCIES_LIST_SUCCESS: {
+  case SAVE_CURRENCIES_LIST: {
     const { payload: { currencies } } = action;
     return {
       ...state,
       currencies,
     };
   }
-  case FETCH_CURRENCIES_LIST_ERROR: {
-    const { payload: { error } } = action;
+
+  case ADD_EXPENSES: {
+    const { payload: { expense } } = action;
+    const { expenses } = state;
     return {
       ...state,
-      error,
+      expenses: [...expenses, expense],
     };
   }
+
+  case SUM_EXPENSES: {
+    const { expenses } = state;
+    const totalExpenses = sumExpenses(expenses);
+    return {
+      ...state,
+      totalExpenses,
+    };
+  }
+
   default:
     return state;
   }
