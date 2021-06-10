@@ -8,6 +8,7 @@ class Forms extends React.Component {
     super();
 
     this.state = {
+      id: 0,
       expenses: '',
       describe: '',
       coin: '',
