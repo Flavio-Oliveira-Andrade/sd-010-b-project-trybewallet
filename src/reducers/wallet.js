@@ -1,21 +1,18 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const defaultState = {
-  user: {
-    email: '',
-  },
+const INITIAL_STATE = {
   wallet: {
     currencies: [],
     expenses: [],
   },
 };
 
-function walletReducer(state = defaultState, action) {
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'User':
-    return state;
+  case '':
+    return {};
   default:
     return state;
   }
 }
 
-export default walletReducer;
+export default wallet;

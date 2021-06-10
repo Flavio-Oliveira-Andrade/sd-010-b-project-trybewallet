@@ -4,28 +4,36 @@ import { Link } from 'react-router-dom';
 class Login extends React.Component {
   render() {
     return (
-      <div>
-        <input
-          data-testid="email-input"
-          type="email"
-          placeholder="E-mail"
-          // required
-          // disabled
-          // onChange="muda o estado global"
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          placeholder="Senha"
-          // required
-          // disabled
-          // onChange="muda o estado global"
-          minLength="6"
-        />
+      <form>
+        <label htmlFor="email">
+          <input
+            name="email"
+            id="email"
+            data-testid="email-input"
+            type="email"
+            placeholder="E-mail"
+            // required
+            // disabled
+            // onChange="muda o estado global"
+          />
+        </label>
+        <label htmlFor="password">
+          <input
+            name="password"
+            id="password"
+            data-testid="password-input"
+            type="password"
+            placeholder="Senha"
+            // required
+            // disabled
+            // onChange="muda o estado global"
+            minLength="6"
+          />
+        </label>
         <Link to="/carteira">
-          <button type="submit">Entrar</button>
+          <button type="button">Entrar</button>
         </Link>
-      </div>
+      </form>
     );
   }
 }
