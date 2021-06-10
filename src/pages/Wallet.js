@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { fetchApi, salvarDespesa } from '../actions';
 import RenderDespesas from './RenderDespesas';
 import RenderHeader from './RenderHeader';
-import fetchApiSemAction from '../resources/fetchApiSemAction';
 
 class Wallet extends React.Component {
   constructor() {
@@ -43,15 +42,13 @@ class Wallet extends React.Component {
   }
 
   adicionarDespesa(despesa) {
-    const { enviarDespesa, moedasApi } = this.props;
-    // moedasApi();
+    const { enviarDespesa } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((res) => res.json())
       .then(
         (sucesso) => {
           const sucessoAux = sucesso;
           delete sucessoAux.USDT;
-          console.log('sus', sucessoAux);
           const informacoesDespesa = { ...despesa, exchangeRates: sucessoAux };
           enviarDespesa(informacoesDespesa);
           this.setState({
