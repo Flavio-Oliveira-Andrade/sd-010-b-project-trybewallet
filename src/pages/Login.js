@@ -25,10 +25,11 @@ class Login extends React.Component {
     return (
       <div className="container-login">
         <div className="wrap-login">
-          <div className="slogan-container">
-            <h1>Sua Cotação </h1>
-            <h3>Em qualquer Moeda</h3>
-            {/* <img alt="img" src={ img } width="270" /> */}
+          <div>
+            <section className="slogan-container">
+              <h1>Sua Cotação </h1>
+              <h3>Em qualquer Moeda</h3>
+            </section>
           </div>
           <form>
             <span className="login-form-title">
@@ -36,7 +37,7 @@ class Login extends React.Component {
             </span>
             <div className="wrap-input">
               <input
-                className="input"
+                data-testid="email-input"
                 type="email"
                 id="email"
                 placeholder="Email"
@@ -45,7 +46,7 @@ class Login extends React.Component {
             </div>
             <div className="wrap-input">
               <input
-                className="input"
+                testid="password-input"
                 type="password"
                 id="password"
                 placeholder="Password"
@@ -53,7 +54,7 @@ class Login extends React.Component {
                 onChange={ this.handleChange }
               />
             </div>
-            <Link to="/wallet">
+            <Link to="wallet">
               <button
                 type="button"
                 className="login-form-btn"
