@@ -7,11 +7,10 @@ class Login extends React.Component {
     this.state = {
       productInfo: {},
       isLoading: true,
-      quantity: props.itemObj.quantidade,
     };
   }
-  
-  decreaseItem = () => {
+
+  isDisable() {
     const { quantity } = this.state;
     if (quantity > 1) {
       this.setState({ quantity: quantity - 1 });
