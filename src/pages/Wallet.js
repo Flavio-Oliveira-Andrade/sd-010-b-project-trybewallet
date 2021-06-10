@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import Header from '../components/componentswallet/Header';
 import InputDescriptionExpenses
   from '../components/componentswallet/InputDescriptionExpenses';
+import InputSelectMethod from '../components/componentswallet/InputSelectMethod';
 import InputSelectMoeda from '../components/componentswallet/InputSelectMoeda';
 import InputValue from '../components/componentswallet/InputValue';
 
@@ -44,6 +45,10 @@ function Wallet() {
 
         <InputSelectMoeda
           labelDescription="Moeda"
+        />
+
+        <InputSelectMethod
+          labelDescription="Método de pagamento"
         />
       </form>
     </>
