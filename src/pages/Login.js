@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Redirect } from 'react-router-dom';
-import saveEmailAction from '../actions';
+import { saveEmailAction } from '../actions/index';
 
 import '../App.css';
 

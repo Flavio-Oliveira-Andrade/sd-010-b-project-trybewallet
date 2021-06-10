@@ -4,9 +4,15 @@ import { Switch, Route } from 'react-router-dom';
 import Loguin from './pages/Login';
 import Wallet from './pages/Wallet';
 
+import { requisitionThunk } from './actions/index';
+
 import './App.css';
 
 class App extends React.Component {
+  componentDidMount() {
+    requisitionThunk();
+  }
+
   render() {
     return (
       <main>
