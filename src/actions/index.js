@@ -1,6 +1,10 @@
 // Coloque aqui suas actions
 const EMAIL_CHANGE = 'EMAIL_CHANGE';
 const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
+const EXPENSES_CHANGE = 'EXPENSES_CHANGE';
+const COIN_CHANGE = 'COIN_CHANGE';
 
 export { EMAIL_CHANGE };
 export { PASSWORD_CHANGE };
+export { EXPENSES_CHANGE };
+export { COIN_CHANGE };
