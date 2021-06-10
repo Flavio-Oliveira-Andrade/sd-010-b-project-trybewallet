@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './styles/Login.css';
-import { Link } from 'react-router-dom';
 import { inputEmail, inputPassword } from '../actions';
 
 class Login extends React.Component {
@@ -80,6 +79,9 @@ Login.propTypes = {
   userPassword: PropTypes.string.isRequired,
   changeEmail: PropTypes.func.isRequired,
   changePassword: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
