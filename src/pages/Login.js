@@ -14,7 +14,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { login } = this.props;
+    // const { login } = this.props;
     return (
       <div className="Login">
         <section className="login-inputs">
