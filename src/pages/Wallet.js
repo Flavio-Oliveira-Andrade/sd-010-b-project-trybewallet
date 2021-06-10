@@ -8,6 +8,17 @@ function Wallet() {
   const [cambio] = useState('BRL');
   const emailUser = useSelector((state) => state.user.email);
 
+  const [inputValue, setInputValue] = useState(0);
+  const [inputDescription, setInputDescripion] = useState('');
+
+  function handleInputValueChange(newValue) {
+    setInputValue(newValue);
+  }
+
+  function handleInputDescriptionChange(newDescription) {
+    setInputDescripion(newDescription);
+  }
+
   return (
     <>
       <Header>
@@ -16,7 +27,12 @@ function Wallet() {
         <span data-testid="header-currency-field">{`Moeda: ${cambio}`}</span>
       </Header>
 
-      <FormsExpenses />
+      <FormsExpenses
+        onInputValueChange={ inputValue }
+        onInputDescriptionChange={ inputDescription }
+        handleInputValueChange={ handleInputValueChange }
+        handleInputDescriptionChange={ handleInputDescriptionChange }
+      />
     </>
   );
 }
