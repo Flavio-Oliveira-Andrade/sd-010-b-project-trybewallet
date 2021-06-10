@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import trybeWallet from '../files/images/trybe-wallet.png';
-// import FormsWallet from '../components/FormsWallet';
+import FormsWallet from '../components/FormsWallet';
 
 class Wallet extends React.Component {
   render() {
     const { email, totalExpenses } = this.props;
-    console.log(email);
     return (
       <div className="walletPage">
         <div className="walletHeader">
@@ -16,15 +15,15 @@ class Wallet extends React.Component {
           <div className="email_totalExpenses">
             <p data-testid="email-field">{`E-mail: ${email}` }</p>
             <p data-testid="total-field">
-              {`Despesa Total: R$ ${totalExpenses}`}
+              {`Despesa Total: R$ ${totalExpenses || '0'}`}
             </p>
             <p data-testid="header-currency-field">
               BRL
             </p>
           </div>
-          <div className="walletForms">
-            {/* <FormsWallet /> */}
-          </div>
+        </div>
+        <div className="walletForms">
+          <FormsWallet />
         </div>
       </div>
     );

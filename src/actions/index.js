@@ -35,22 +35,22 @@ export const requestCurrenciesListError = (error) => ({
 });
 
 // Fetch Thunk
-// export const fetchCurrencies = () => (dispatch) => {
-//   dispatch(fetchCurrenciesList());
-//   getCurrencies()
-//     .then((currenciesListSuccess) => dispatch(
-//       requestCurrenciesListSuccess(currenciesListSuccess),
-//     ))
-//     .catch((currenciesListError) => dispatch(
-//       requestCurrenciesListError(currenciesListError),
-//     ));
-// };
+export const fetchCurrencies = () => (dispatch) => {
+  dispatch(fetchCurrenciesList());
+  getCurrencies()
+    .then((currenciesListSuccess) => dispatch(
+      requestCurrenciesListSuccess(currenciesListSuccess),
+    ))
+    .catch((currenciesListError) => dispatch(
+      requestCurrenciesListError(currenciesListError),
+    ));
+};
 
-export function fetchCurrencies() {
-  return async (dispatch) => {
-    const currencies = await getCurrencies();
-    return dispatch(requestCurrenciesListSuccess(currencies));
-  };
-}
+// export function fetchCurrencies() {
+//   return async (dispatch) => {
+//     const currencies = await getCurrencies();
+//     return dispatch(requestCurrenciesListSuccess(currencies));
+//   };
+// }
 
 // -------------------------------------------------------------------------------------------------

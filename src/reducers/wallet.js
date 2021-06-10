@@ -6,7 +6,7 @@ import {
 // -------------------------------------------------------------------------------------------------
 const INITIAL_STATE = {
   expenses: [],
-  currencies: [],
+  currencies: {},
   totalExpenses: 0,
   updateSum: true,
 };
