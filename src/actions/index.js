@@ -12,7 +12,9 @@ const fetchLoading = () => ({
 export const fetchSuccess = (data) => ({
   type: 'FETCH_SUCCESS',
   payload: {
-    currency: Object.keys(data) },
+    currency: Object.keys(data),
+    data },
+
   loading: false,
 }
 );
@@ -31,3 +33,10 @@ export const getApi = () => (dispatch) => {
     .then((data) => dispatch(fetchSuccess(data)))
     .catch((error) => dispatch(fetchError(error)));
 };
+
+export const actionSave = (saveState) => ({
+  type: 'SAVE_STATE',
+  payload: {
+    saveState,
+  },
+});

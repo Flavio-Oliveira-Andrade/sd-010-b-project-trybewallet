@@ -17,6 +17,7 @@ const reducerFetch = (state = initialState, action) => {
       ...state,
       currencies: action.payload.currency,
       loading: action.payload.loading,
+      data: action.payload.data,
     };
   case 'FETCH_ERROR':
     return {
@@ -27,5 +28,15 @@ const reducerFetch = (state = initialState, action) => {
     return state;
   }
 };
-
+export const reducerExpenses = (state = initialState, action) => {
+  switch (action.type) {
+  case 'SAVE_STATE':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  default:
+    return state;
+  }
+};
 export default reducerFetch;
