@@ -3,7 +3,7 @@ import { GET_COINS, REQUEST_API } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
-  isFetching: false,
+  // isFetching: false,
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -11,12 +11,12 @@ function wallet(state = INITIAL_STATE, action) {
   case REQUEST_API:
     return {
       ...state,
-      isFetching: true,
+      // isFetching: true,
     };
   case GET_COINS:
     return {
       ...state,
-      isFetching: false,
+      // isFetching: false,
       currencies: action.currencies,
     };
   default:

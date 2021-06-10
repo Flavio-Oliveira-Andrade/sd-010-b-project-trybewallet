@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchAPI } from '../actions';
 
 class Header extends React.Component {
   constructor() {
@@ -25,7 +26,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { emailLogin } = this.props;
+    const { emailLogin, fetchCoin, coins } = this.props;
     const { expenses, describe, coin, payment, categorie } = this.state;
     return (
       <header>
@@ -48,8 +49,13 @@ class Header extends React.Component {
           </label>
           <label htmlFor="coin">
             Moeda
-            <select id="coin" value={ coin } onChange={ this.handleChange }>
-              <option value="a">{}</option>
+            <select
+              id="coin"
+              value={ coin }
+              onChange={ this.handleChange }
+              onClick={ () => fetchCoin() }
+            >
+              <option value={ coins }>{ coins }</option>
             </select>
           </label>
           <label htmlFor="payment">
@@ -78,11 +84,17 @@ class Header extends React.Component {
 
 Header.propTypes = {
   emailLogin: PropTypes.string.isRequired,
+  fetchCoin: PropTypes.func.isRequired,
+  coins: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = (state) => ({
   emailLogin: state.user.email,
-  // coins: state.wallet.currencies,
+  coins: state.wallet.currencies.code,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCoin: () => dispatch(fetchAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
