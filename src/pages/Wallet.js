@@ -15,18 +15,7 @@ class Wallet extends React.Component {
             <span data-testid="header-currency-field">BRL</span>
           </div>
         </header>
-        <section>
-          <form>
-            <label htmlFor="valor">
-              Valor
-              <input name="valor" type="text" />
-            </label>
-            <label htmlFor="descrição">
-              Descrição
-              <input name="descrição" type="text" />
-            </label>
-          </form>
-        </section>
+        <section />
       </>
     );
   }
