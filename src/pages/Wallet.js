@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   fetchCurrencyInitials as fetchCurrencyInitialsThunk,
   fetchExchangeRatesAddExpense as fetchExchangeRatesAddExpenseThunk,
+  removeExpense,
 } from '../actions';
 
 class Wallet extends React.Component {
@@ -79,7 +80,7 @@ class Wallet extends React.Component {
   }
 
   renderExpensesTable() {
-    const { expenses } = this.props;
+    const { expenses, deleteExpense } = this.props;
 
     return (
       <table>
@@ -97,21 +98,33 @@ class Wallet extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((
-            { id, description, tag, method, value, currency, exchangeRates },
-          ) => (
-            <tr key={ id }>
-              <td>{description}</td>
-              <td>{tag}</td>
-              <td>{method}</td>
-              <td>{value}</td>
-              <td>{exchangeRates[currency].name}</td>
-              <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
-              <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
-              <td>Real</td>
-
-            </tr>
-          ))}
+          {expenses.map(
+            ({
+              id, description, tag, method, value, currency, exchangeRates,
+            }) => (
+              <tr id={ id } key={ id }>
+                <td>{description}</td>
+                <td>{tag}</td>
+                <td>{method}</td>
+                <td>{value}</td>
+                <td>{exchangeRates[currency].name}</td>
+                <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>Real</td>
+                <td>
+                  <button type="button" data-testid="edit-btn">EDIT</button>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ ({ target }) => deleteExpense(
+                      target.parentNode.parentNode.id,
+                    ) }
+                  >
+                    X
+                  </button>
+                </td>
+              </tr>),
+          )}
         </tbody>
       </table>
     );
@@ -176,6 +189,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencyInitials: () => dispatch(fetchCurrencyInitialsThunk()),
   fetchExchangeRatesAddExpense:
     (expense) => dispatch(fetchExchangeRatesAddExpenseThunk(expense)),
+  deleteExpense: (expenseId) => dispatch(removeExpense(expenseId)),
 });
 
 Wallet.propTypes = {
@@ -184,6 +198,7 @@ Wallet.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurrencyInitials: PropTypes.func.isRequired,
   fetchExchangeRatesAddExpense: PropTypes.func.isRequired,
+  deleteExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

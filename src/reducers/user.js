@@ -2,7 +2,7 @@
 import { LOGIN } from '../actions';
 
 const initialState = {
-  email: 'gustavo@trybe.com',
+  email: '',
 };
 
 const user = (state = initialState, { type, payload }) => {

@@ -3,6 +3,7 @@ import {
   REQUEST_CURRENCY_INITIAL_SUCCESS,
   REQUEST_EXCHANGE_RATES_SUCCESS,
   ADD_EXPENSE,
+  REMOVE_EXPENSE,
 } from '../actions';
 
 const initialState = {
@@ -40,6 +41,14 @@ const wallet = (state = initialState, action) => {
 
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
+
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses].filter(
+        ({ id }) => id !== parseInt(action.payload, 10),
+      ),
+    };
 
   default:
     return state;

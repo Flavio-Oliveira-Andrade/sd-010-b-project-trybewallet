@@ -15,6 +15,7 @@ export const REQUEST_EXCHANGE_RATES_SUCCESS = 'REQUEST_EXCHANGE_RATES_SUCCESS';
 export const REQUEST_EXCHANGE_RATES_ERROR = 'REQUEST_EXCHANGE_RATES_ERROR';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const userLogin = (userEmail) => ({
   type: LOGIN,
@@ -70,6 +71,11 @@ export const requestExchangeRatesApiError = (error) => ({
 export const addExpense = (expense, exchangeRates) => ({
   type: ADD_EXPENSE,
   payload: { ...expense, exchangeRates },
+});
+
+export const removeExpense = (expenseId) => ({
+  type: REMOVE_EXPENSE,
+  payload: expenseId,
 });
 
 export const fetchCurrencyInitials = () => (dispatch) => {
