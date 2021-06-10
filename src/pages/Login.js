@@ -19,7 +19,7 @@ function Login() {
     setPassword(newPassword);
   }
 
-  function clickEnterSalveEmail() {
+  function clickEnterSaveEmail() {
     dispatch(saveEmailLogin(email));
   }
 
@@ -41,7 +41,7 @@ function Login() {
         onInputPasswordChange={ handlePasswordChange }
       />
       <ButtonEnter
-        enterLogin={ clickEnterSalveEmail }
+        enterLogin={ clickEnterSaveEmail }
         disabledEnter={ validetLogin }
       />
     </>
