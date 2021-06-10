@@ -1,0 +1,40 @@
+.login-form, .login-form > label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-form {
+    flex-grow: 1;
+  }
+  
+  .login-label {
+    font-weight: 700;
+    color: rgb(70, 70, 70);
+    font-size: 1.5rem;
+  }
+  
+  .login-label > input {
+    box-sizing: border-box;
+    border-width: 0;
+    border-bottom: 1px solid #32a791;
+    border-radius: .6rem;
+    padding: .75rem 1rem;
+    font-size: 1rem;
+    margin-top: 30px;
+    width: 100%;
+  }
+  
+  .login-label > input:focus {
+    outline: none;
+  }
+
+  .login-btn:hover {
+    background-color: #0033cc;
+  }
+  
+  .login-btn:active {
+    background-color: #002baa;
+  }
+  
