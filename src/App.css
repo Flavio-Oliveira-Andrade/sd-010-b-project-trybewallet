@@ -4,7 +4,7 @@ body {
 }
 
 .login-container {
-  background-color: rgb(78, 111, 121);
+  background-color: rgb(19, 118, 136);
   border: none;
   border-radius: 7px;
   box-shadow: 0 8px 24px black;
@@ -32,7 +32,7 @@ body {
   padding: 5px;
 }
 
-.login-container button {
+.login-container button , .expense-input button {
   background-color: seagreen;
   border: none;
   border-radius: 3px;
@@ -41,7 +41,12 @@ body {
   transition: transform 0.5s;
 }
 
-.login-container button:hover {
+.expense-input button {
+  background-color: rgb(19, 118, 136);
+  height: 30px;
+}
+
+.login-container button:hover , .expense-input button:hover {
   opacity: 100%;
   transform: scale(1.1);
 }
@@ -66,11 +71,11 @@ body {
 
 header {
   align-items: center;
-  background-color: rgb(78, 111, 121);
+  background-color: rgb(19, 118, 136);
   display: flex;
   justify-content: space-around;
   margin: 0;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
 }
 
@@ -82,3 +87,24 @@ header {
   justify-content: space-around;
   width: 200px;
 }
+
+.expense-input {
+  align-items: center;
+  background-color: rgb(59, 58, 58);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  padding: 7px;
+  width: 100%;
+}
+
+.expense-input label {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.expense-input input , .expense-input select {
+  margin: 10px 0;
+}
+

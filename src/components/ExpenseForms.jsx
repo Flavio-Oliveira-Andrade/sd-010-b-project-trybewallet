@@ -35,7 +35,7 @@ class ExpenseForms extends Component {
   render() {
     const { currencies } = this.props;
     return (
-      <form>
+      <form className="expense-input">
         <InputElement
           type="text"
           name="value"
@@ -70,6 +70,7 @@ class ExpenseForms extends Component {
         />
 
         <button type="button" onClick={ this.callAction }>Adicionar Despesa</button>
+
       </form>
     );
   }
