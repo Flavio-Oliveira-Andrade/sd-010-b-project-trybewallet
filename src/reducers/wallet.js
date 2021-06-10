@@ -1,4 +1,4 @@
-import { NOVA_DESPESA } from '../actions/index';
+import { EXCLUIR, NOVA_DESPESA } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -10,11 +10,16 @@ function walletReducer(state = INITIAL_STATE, action) {
   case NOVA_DESPESA:
     return {
       ...state,
-      expenses: [
-        ...state.expenses,
-        action.payload,
-      ],
+      expenses: [...state.expenses, action.payload],
     };
+  case EXCLUIR: {
+    // const { expenses } = state;
+    // expenses.splice(action.payload.index, 1);
+    return {
+      ...state,
+      expenses: state.expenses.filter((elem, index) => index !== action.payload.index),
+    };
+  }
   default:
     return state;
   }

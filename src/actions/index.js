@@ -1,5 +1,6 @@
 export const LOGAR = 'LOGAR';
 export const NOVA_DESPESA = 'NOVA_DESPESA';
+export const EXCLUIR = 'EXCLUIR';
 
 export const actionLogar = (payload) => ({
   type: LOGAR,
@@ -8,6 +9,11 @@ export const actionLogar = (payload) => ({
 
 export const actionNovaDespesaSuccess = (payload) => ({
   type: NOVA_DESPESA,
+  payload,
+});
+
+export const actionExcluir = (payload) => ({
+  type: EXCLUIR,
   payload,
 });
 
