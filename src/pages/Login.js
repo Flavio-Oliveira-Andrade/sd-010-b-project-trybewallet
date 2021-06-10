@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-/* import verifyLogin from '../actions/index'; */
+import verifyLogin from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -68,13 +69,15 @@ class Login extends React.Component {
             value={ password }
           />
         </label>
-        <button
-          type="button"
-          onClick={ () => verifyLogin({ email, password }) }
-          disabled={ isDisabled }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            onClick={ () => verifyLogin({ email, password }) }
+            disabled={ isDisabled }
+          >
+            Entrar
+          </button>
+        </Link>
       </>
     );
   }
