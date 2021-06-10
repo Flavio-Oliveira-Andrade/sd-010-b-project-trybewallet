@@ -1,13 +1,15 @@
-import { WALLET } from '.';
+import { EXPENSES, CURRENCIES } from '.';
 
-const expenseOnChange = () => ({
-  type: WALLET,
+export const expenseOnChange = (expenses) => ({
+  type: EXPENSES,
   payload: {
-    wallet: {
-      currencies: [],
-      expenses: [],
-    },
+    expenses: [expenses],
   },
 });
 
-export default expenseOnChange;
+export const currenciesOnChange = (currencies) => ({
+  type: CURRENCIES,
+  payload: {
+    currencies,
+  },
+});
