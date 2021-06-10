@@ -1,6 +1,7 @@
 const initialState = {
   currencies: [],
   expenses: [],
+  total: '0',
 };
 
 export default function (state = initialState, action) {
@@ -13,10 +14,16 @@ export default function (state = initialState, action) {
     };
   }
   case ('ADD_EXPENSE'): {
-    const expenses = action.payload;
+    const expense = action.payload;
+    const prevTotal = parseFloat(state.total);
+    const thisTotal = parseFloat(
+      expense.value * expense.exchangeRates[expense.currency].ask,
+    );
+    const actualTotal = Math.round((prevTotal + thisTotal) * 100) / 100;
     return {
       ...state,
-      expenses,
+      expenses: [...state.expenses, expense],
+      total: actualTotal.toString(),
     };
   }
   default:
