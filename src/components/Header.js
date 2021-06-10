@@ -49,7 +49,7 @@ class Header extends React.Component {
           <label htmlFor="coin">
             Moeda
             <select id="coin" value={ coin } onChange={ this.handleChange }>
-              <option value="a">a</option>
+              <option value="a">{}</option>
             </select>
           </label>
           <label htmlFor="payment">
@@ -82,6 +82,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   emailLogin: state.user.email,
+  // coins: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(Header);
