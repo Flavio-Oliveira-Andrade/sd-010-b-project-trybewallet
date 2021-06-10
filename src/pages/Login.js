@@ -15,8 +15,9 @@ class Login extends React.Component {
     this.passChecker = this.passChecker.bind(this);
     this.test = this.test.bind(this);
   }
+
   // https://www.w3schools.com/jsref/jsref_regexp_test.asp
-  // ajuda do Zambs pra entender Regex
+  // ajuda do Zambs pra entender Regex e criar o Regex
 
   emailChecker({ target: { value } }) {
     const emailFormat = RegExp(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]{2,3}(\.[a-z0-9]+)?$/);
