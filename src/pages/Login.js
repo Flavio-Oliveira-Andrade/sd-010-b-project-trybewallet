@@ -1,6 +1,7 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-import { Link } from 'react-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import actionUser from '../actions/actionUser';
 
 class Login extends React.Component {
   constructor() {
@@ -16,31 +17,22 @@ class Login extends React.Component {
   }
 
   handleChangeEmail({ target: { value } }) {
-    // this.setState = {
-    //   email: value,
-    // };
-
     this.setState({
       email: value,
     });
-    // if (value.match(/[a-z]+@[a-z]+.com/g)) {
-    //   this.setState({ isValidEmail:  });
-    // }
     this.setState({ validEmail: value.match(/[a-z]+@[a-z]+.com/g) });
   }
 
   handleChangePassword({ target: { value } }) {
     const min = 6;
-    // this.setState = {
-    //   senha: value,
-    // };
 
     // atribui valor diretamente do estado
     this.setState({ validPass: value.length >= min });
   }
 
   render() {
-    const { validEmail, validPass } = this.state;
+    const { keyEmail } = this.props;
+    const { validEmail, validPass, email } = this.state;
     const enable = validEmail && validPass;
     return (
       <div>
@@ -67,11 +59,21 @@ class Login extends React.Component {
             onChange={ this.handleChangePassword }
           />
         </label>
-        {/* <Link to="/carteira"> */}
-        <button type="button" disabled={ !enable }>Entrar</button>
-        {/* </Link> */}
+        <Link to="/carteira">
+          <button
+            type="button"
+            disabled={ !enable }
+            onClick={ () => keyEmail(email) }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>);
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  keyEmail: (email) => dispatch(actionUser(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
