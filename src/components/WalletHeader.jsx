@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function updateTotalExpenses(expenses) {
-  return expenses.reduce((acc, expense) => {
+  const totalExpenses = expenses.reduce((acc, expense) => {
     const { value, currency, exchangeRates } = expense;
     const parseValue = parseFloat(value);
     const { ask } = exchangeRates[currency];
     const total = parseValue * ask;
     return acc + total;
   }, 0);
+  return totalExpenses;
 }
 
 function WalletHeader({ email, expenses }) {
