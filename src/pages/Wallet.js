@@ -10,7 +10,6 @@ class Wallet extends React.Component {
     return (
       <div>
         <Header />
-
         <form>
           <label htmlFor="value">
             <input
@@ -26,26 +25,33 @@ class Wallet extends React.Component {
             />
             Descrição
           </label>
-          <label htmlFor="combobox">
-            <select id="combobox">Moeda</select>
+          <label htmlFor="currency">
+            <select id="currency">
+              <option value="Moeda">Moeda</option>
+            </select>
+            Moeda
           </label>
-          <select id="optionPayment">
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
+          <label htmlFor="optionPayment">
+            <select id="optionPayment">
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
             Método de pagamento
-          </select>
-          <select id="option">
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Trabalho">Transporte</option>
-            <option value="Saúde">Saúde</option>
+          </label>
+          <label htmlFor="option">
+            <select id="option">
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Trabalho">Transporte</option>
+              <option value="Saúde">Saúde</option>
+            </select>
             Tag
-          </select>
+          </label>
+          <button type="button">Adicionar Despesas</button>
         </form>
       </div>
-
     );
   }
 }
