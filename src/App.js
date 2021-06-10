@@ -7,10 +7,10 @@ function App() {
   return (
     <>
       <Switch>
+        <Route exact path="/carteira" component={ Wallet } />
         <Route exact path="/" component={ Login } />
-        <Route exact path="/cateira" component={ Wallet } />
       </Switch>
-      <div>Hello, TrybeWallet!</div>
+      {/* <div>Hello, TrybeWallet!</div> */}
     </>
   );
 }

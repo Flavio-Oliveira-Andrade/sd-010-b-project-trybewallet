@@ -69,15 +69,13 @@ class Login extends React.Component {
             value={ password }
           />
         </label>
-        <Link to="/carteira">
-          <button
-            type="button"
-            onClick={ () => verifyLogin({ email, password }) }
-            disabled={ isDisabled }
-          >
-            Entrar
-          </button>
-        </Link>
+        <button
+          type="button"
+          onClick={ () => verifyLogin({ email, password }) }
+          disabled={ isDisabled }
+        >
+          <Link to="/carteira">Entrar</Link>
+        </button>
       </>
     );
   }
