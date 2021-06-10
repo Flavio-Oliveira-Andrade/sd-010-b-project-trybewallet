@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchApi, salvarDespesa } from '../actions';
 import RenderDespesas from './RenderDespesas';
 import RenderHeader from './RenderHeader';
+import fetchApiSemAction from '../resources/fetchApiSemAction';
 
 class Wallet extends React.Component {
   constructor() {
@@ -43,16 +44,25 @@ class Wallet extends React.Component {
 
   adicionarDespesa(despesa) {
     const { enviarDespesa, moedasApi } = this.props;
-    moedasApi();
-    const { dados } = this.props;
-    const informacoesDespesa = { ...despesa, exchangeRates: dados };
-    enviarDespesa(informacoesDespesa);
-    this.setState({ value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      despesas: true });
+    // moedasApi();
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((res) => res.json())
+      .then(
+        (sucesso) => {
+          const sucessoAux = sucesso;
+          delete sucessoAux.USDT;
+          console.log('sus', sucessoAux);
+          const informacoesDespesa = { ...despesa, exchangeRates: sucessoAux };
+          enviarDespesa(informacoesDespesa);
+          this.setState({
+            value: '',
+            description: '',
+            currency: 'USD',
+            method: 'Dinheiro',
+            tag: 'Alimentação',
+            despesas: true });
+        },
+      );
   }
 
   renderValor() {
@@ -102,6 +112,7 @@ class Wallet extends React.Component {
   }
 
   renderMetodoDePagamento() {
+    const { method } = this.state;
     return (
       <label htmlFor="method">
         {' '}
@@ -110,6 +121,7 @@ class Wallet extends React.Component {
           name="method"
           id="method"
           onChange={ this.handleChange }
+          value={ method }
         >
           <option value="dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de Crédito</option>
@@ -120,6 +132,7 @@ class Wallet extends React.Component {
   }
 
   renderCategoria() {
+    const { tag } = this.state;
     return (
       <label htmlFor="tag">
         Tag
@@ -127,6 +140,7 @@ class Wallet extends React.Component {
           name="tag"
           id="tag"
           onChange={ this.handleChange }
+          value={ tag }
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>

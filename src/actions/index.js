@@ -28,6 +28,7 @@ export const requestApiError = (error) => ({
 });
 
 export const fetchApi = () => (dispatch) => {
+  console.log('Fetch da API');
   dispatch(requestApi());
   fetch('https://economia.awesomeapi.com.br/json/all')
     .then((res) => res.json())
