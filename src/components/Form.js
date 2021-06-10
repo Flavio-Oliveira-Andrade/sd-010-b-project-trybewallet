@@ -47,39 +47,43 @@ class Form extends React.Component {
       <form>
         <label htmlFor="value">
           Valor:
-          <input name="value" onChange={ this.handleChange } type="text" />
+          <input name="value" onChange={ this.handleChange } type="text" id="value" />
         </label>
         <label htmlFor="description">
           Descrição:
-          <input name="description" onChange={ this.handleChange } type="text" />
+          <textarea
+            name="description"
+            onChange={ this.handleChange }
+            type="text"
+            id="description"
+          />
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select onChange={ this.handleChange } name="currency">
+          <select onChange={ this.handleChange } name="currency" id="currency">
             {currencies
               .map((moeda) => (moeda !== 'USDT' ? <option>{moeda}</option> : null))}
           </select>
         </label>
-        Método de pagamento:
-        <select onChange={ this.handleChange } name="method">
-          <option name="method">Dinheiro</option>
-          <option name="method">Cartão de crédito</option>
-          <option name="method">Cartão de débito</option>
-        </select>
-        Tag:
-        <select onChange={ this.handleChange } name="tag">
-          <option name="tag">Alimentação</option>
-          <option name="tag">Lazer</option>
-          <option name="tag">Trabalho</option>
-          <option name="tag">Transporte</option>
-          <option name="tag">Saúde</option>
-        </select>
-        <button
-          type="button"
-          onClick={ this.handleClick }
-        >
-          Adicionar despesa
-        </button>
+        <label htmlFor="method">
+          Método de pagamento:
+          <select onChange={ this.handleChange } name="method" id="method">
+            <option name="method">Dinheiro</option>
+            <option name="method">Cartão de crédito</option>
+            <option name="method">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag
+          <select onChange={ this.handleChange } name="tag" id="tag">
+            <option name="tag">Alimentação</option>
+            <option name="tag">Lazer</option>
+            <option name="tag">Trabalho</option>
+            <option name="tag">Transporte</option>
+            <option name="tag">Saúde</option>
+          </select>
+        </label>
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
     );
   }
