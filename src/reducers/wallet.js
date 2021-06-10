@@ -1,7 +1,8 @@
-import { RECEIVE_COINS } from '../actions';
+import { RECEIVE_COINS, RECEIVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
-  coins: [],
+  currencies: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -9,7 +10,12 @@ const wallet = (state = INITIAL_STATE, action) => {
   case RECEIVE_COINS:
     return {
       ...state,
-      coins: action.payload.coin,
+      currencies: action.payload.coin,
+    };
+  case RECEIVE_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload.expenses],
     };
   default:
     return state;

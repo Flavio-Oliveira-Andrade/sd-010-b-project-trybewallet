@@ -1,5 +1,6 @@
 export const SAVE_USER_INFO = 'SAVE_USER_INFO';
 export const RECEIVE_COINS = 'RECEIVE_COINS';
+export const RECEIVE_EXPENSE = 'RECEIVE_EXPENSE';
 
 export const saveUserInfo = (email) => ({
   type: SAVE_USER_INFO,
@@ -12,6 +13,13 @@ const receiveCoins = (coin) => ({
   type: RECEIVE_COINS,
   payload: {
     coin,
+  },
+});
+
+export const receiveExpense = (expense) => ({
+  type: RECEIVE_EXPENSE,
+  payload: {
+    expense,
   },
 });
 
