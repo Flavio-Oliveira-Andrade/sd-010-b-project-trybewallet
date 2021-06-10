@@ -1,9 +1,9 @@
-#main {
+.main {
   display: flex;
   flex-direction: column;
 }
 
-#main div {
+.main div {
   display: flex;
   justify-content: space-around;
 }

@@ -54,7 +54,6 @@ class LoginForm extends Component {
               onChange={ this.validateLogin }
               id="email-input"
               data-testid="email-input"
-              value="teste@email.com"
             />
           </label>
           <br />

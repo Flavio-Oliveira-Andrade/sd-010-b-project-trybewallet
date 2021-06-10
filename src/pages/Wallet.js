@@ -9,7 +9,7 @@ class Wallet extends React.Component {
     const { user, expenses } = this.props;
     return (
 
-      <div id="main">
+      <div className="main">
         <div>
           <span data-testid="email-field">
             Usuário:
