@@ -30,3 +30,25 @@ code {
   justify-content: center;
   margin: auto;
 }
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header h3{
+  margin: 2vw;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+
+.form label{
+  margin: 1vw;
+}
+
+.form input, select{
+  margin: 0.5vw;
+}
