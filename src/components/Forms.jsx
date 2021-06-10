@@ -4,23 +4,26 @@ import React, { Component } from 'react';
 class Forms extends Component {
   render() {
     return (
-      <div>
+      <main>
         <form>
+
           <label htmlFor="amount">
             Valor
             <input type="number" name="amount" id="amount" />
           </label>
+
           <label htmlFor="description">
             Descrição
             <input type="text" name="description" id="description" />
           </label>
+
           <label htmlFor="currency">
             Moeda
-            <input name="currency" id="currency" />
-            <select>
+            <select name="currency" id="currency">
               <option value="BRL">BRL</option>
             </select>
           </label>
+
           <label htmlFor="payment">
             Método de pagamento
             <select name="payment" id="payment">
@@ -29,6 +32,7 @@ class Forms extends Component {
               <option value="debit card">Cartão de débito</option>
             </select>
           </label>
+
           <label htmlFor="tag">
             Tag
             <select name="tag" id="tag">
@@ -39,8 +43,9 @@ class Forms extends Component {
               <option value="health">Saúde</option>
             </select>
           </label>
+
         </form>
-      </div>
+      </main>
     );
   }
 }
