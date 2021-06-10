@@ -1,11 +1,29 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchAPI as fetchApi } from '../actions/index';
 
 // const paymentWays = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 // const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class FormWallet extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
+  componentDidMount() {
+    const { fetchAPI } = this.props;
+    fetchAPI();
+  }
+
+  // this.setState({
+  //   currencies: wallet,
+  // });
+
   render() {
+    const { currencies } = this.props;
+    // console.log(currencies);
     return (
       <div>
         <form>
@@ -28,7 +46,7 @@ class FormWallet extends Component {
           <label htmlFor="currencies">
             Moeda
             <select name="currencies" id="currencies">
-              <option value="brl">BRL</option>
+              {currencies.map((c) => <option value={ c } key={ c }>{c}</option>)}
             </select>
           </label>
           <label htmlFor="payment">
@@ -55,4 +73,17 @@ class FormWallet extends Component {
   }
 }
 
-export default FormWallet;
+const mapDispatchToProps = (dispatch) => ({
+  fetchAPI: () => dispatch(fetchApi()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+FormWallet.propTypes = {
+  currencies: PropTypes.arrayOf.isRequired,
+  fetchAPI: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
