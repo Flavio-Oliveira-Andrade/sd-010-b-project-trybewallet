@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { setLogin } from '../actions/index'
 
 class Login extends React.Component {
@@ -51,7 +51,7 @@ class Login extends React.Component {
     return (
       <section className="loginSection">
         <input id="email" type="text" placeholder="Email" data-testid="email-input" onChange={ ({ target }) => (
-          dispatchEmail(target),
+          dispatchEmail(target) &&
           this.handleChange(target)
           ) } />
         <input id="password" type="password" placeholder="Senha" data-testid="password-input" onChange={ ({ target }) => this.handleChange(target) } />
