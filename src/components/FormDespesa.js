@@ -31,7 +31,7 @@ class FormDespesa extends React.Component {
   }
 
   onClick() {
-    const { addDespesas, getCurrency } = this.props;
+    const { addDespesas, getCurrency, currencies2: exchangeRates } = this.props;
 
     this.setState((previousState) => ({
       id: previousState.id + 1,
@@ -39,7 +39,7 @@ class FormDespesa extends React.Component {
       description: '',
     }));
 
-    addDespesas(this.state);
+    addDespesas({...this.state, exchangeRates });
     getCurrency();
   }
 
@@ -187,6 +187,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 FormDespesa.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies2: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrency: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   addDespesas: PropTypes.func.isRequired,

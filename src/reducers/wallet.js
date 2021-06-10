@@ -34,7 +34,6 @@ function walletReducer(state = INITIAL_STATE, action) {
         ...state.expenses,
         {
           ...action.state,
-          exchangeRates: state.currencies2,
         },
       ],
     };
@@ -48,7 +47,7 @@ function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: state.expenses.map((item) => (item.id === action.state.id
-        ? { ...item, ...action.state } : item)),
+        ? { ...item, ...action.state, id: item.id } : item)),
     };
   case DEL_ITEM:
     return {

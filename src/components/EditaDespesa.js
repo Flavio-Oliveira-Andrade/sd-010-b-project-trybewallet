@@ -25,11 +25,6 @@ class EditaDespesa extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  componentDidMount() {
-    const { getCurrency } = this.props;
-    getCurrency();
-  }
-
   onClick() {
     const { editaDespesa, updateDespesa } = this.props;
 
@@ -168,6 +163,7 @@ class EditaDespesa extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  currencies2: state.wallet.currencies2,
   loading: state.wallet.loading,
   stateEdit: state.wallet.state,
 });
