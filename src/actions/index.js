@@ -1,3 +1,8 @@
-// Coloque aqui suas actions
+function actionUpdate(value, tipo) {
+  return {
+    type: tipo,
+    value,
+  };
+}
 
-// export const newAction = (state) => ({ type: 'NEW_ACTION', state });
+export default actionUpdate;
