@@ -11,10 +11,10 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: 0,
-      descricao: '',
-      moeda: '',
-      pagamento: '',
+      value: 0,
+      description: '',
+      currency: '',
+      method: '',
       tag: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -38,14 +38,14 @@ class Wallet extends React.Component {
   }
 
   geraValor() {
-    const { valor } = this.state;
+    const { value } = this.state;
     return (
 
       <label htmlFor="valorDespesa">
         Valor
         <input
-          name="valor"
-          value={ valor }
+          name="value"
+          value={ value }
           id="valorDespesa"
           onChange={ (event) => {
             this.handleChange(event);
@@ -55,14 +55,14 @@ class Wallet extends React.Component {
   }
 
   geraDescricao() {
-    const { descricao } = this.state;
+    const { description } = this.state;
     return (
-      <label htmlFor="descricao">
+      <label htmlFor="description">
         Descrição
         <input
-          name="descricao"
-          value={ descricao }
-          id="descricao"
+          name="description"
+          value={ description }
+          id="description"
           onChange={ (event) => {
             this.handleChange(event);
           } }
@@ -71,16 +71,16 @@ class Wallet extends React.Component {
   }
 
   geraMoeda() {
-    const { moeda } = this.state;
+    const { currency } = this.state;
     const { currencies } = this.props;
-    const moedas = Object.keys(currencies[0]).filter((currency) => currency !== 'USDT');
+    const moedas = Object.keys(currencies[0]).filter((cur) => cur !== 'USDT');
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda
         <select
-          name="moeda"
-          id="moeda"
-          value={ moeda }
+          name="currency"
+          id="currency"
+          value={ currency }
           onChange={ (event) => {
             this.handleChange(event);
           } }
@@ -91,28 +91,28 @@ class Wallet extends React.Component {
   }
 
   geraPagamento() {
-    const { pagamento } = this.state;
+    const { method } = this.state;
     return (
-      <label htmlFor="pagamento">
+      <label htmlFor="method">
         Método de pagamento:
         <select
-          name="pagamento"
-          id="pagamento"
-          value={ pagamento }
+          name="method"
+          id="method"
+          value={ method }
           onChange={ (event) => {
             this.handleChange(event);
           } }
         >
-          <option name="pagamento" value="dinheiro">Dinheiro</option>
-          <option name="pagamento" value="credito">Cartão de crédito</option>
-          <option name="pagamento" value="debito">Cartão de débito</option>
+          <option name="pagamento" value="Dinheiro">Dinheiro</option>
+          <option name="pagamento" value="Cartão de crédito">Cartão de crédito</option>
+          <option name="pagamento" value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>);
   }
 
   geraForm() {
-    const { addExpense, moedaAtual, expensesList } = this.props;
-    const { valor, descricao, moeda, pagamento, tag } = this.state;
+    const { addExpense, expensesList } = this.props;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form className="form-input-expense">
         {this.geraValor()}
@@ -129,26 +129,24 @@ class Wallet extends React.Component {
               this.handleChange(event);
             } }
           >
-            <option name="tag" value="alimentacao">Alimentação</option>
-            <option name="tag" value="lazer">Lazer</option>
-            <option name="tag" value="trabalho">Trabalho</option>
-            <option name="tag" value="transporte">Transporte</option>
-            <option name="tag" value="saude">Saúde</option>
+            <option name="tag" value="Alimentação">Alimentação</option>
+            <option name="tag" value="Lazer">Lazer</option>
+            <option name="tag" value="Trabalho">Trabalho</option>
+            <option name="tag" value="Transporte">Transporte</option>
+            <option name="tag" value="Saúde">Saúde</option>
           </select>
         </label>
         <button
           type="button"
           onClick={ () => {
-            const totalExpense = valor * moedaAtual;
             addExpense({
               id: expensesList.length,
-              valor,
-              descricao,
-              moeda,
-              pagamento,
+              value,
+              currency,
+              method,
               tag,
-              moedaAtual,
-              totalExpense });
+              description,
+            });
           } }
         >
           Adicionar despesa
@@ -156,9 +154,13 @@ class Wallet extends React.Component {
       </form>);
   }
 
+  // expensesList.reduce((a, c) => parseInt(a, 10) + parseInt(c.valor, 10), 0);
   render() {
     const { email, isFetching, currencies, expensesList } = this.props;
-    const to = expensesList.reduce((a, c) => parseInt(a, 10) + parseInt(c.valor, 10), 0);
+    let to = 0;
+    expensesList.forEach((expense) => {
+      to += ((expense.value) * (expense.exchangeRates[expense.currency].ask));
+    });
     return (
       <main>
         <header>
@@ -193,11 +195,11 @@ class Wallet extends React.Component {
         </div>
         {expensesList.map((expense) => (
           <div className="grid" key={ expense.descricao }>
-            <span>{expense.descricao}</span>
+            <span>{expense.description}</span>
             <span>{expense.tag}</span>
             <span>{expense.totalExpense}</span>
-            <span>{expense.moeda}</span>
-            <span>{expense.pagamento}</span>
+            <span>{expense.currency}</span>
+            <span>{expense.method}</span>
           </div>
         ))}
       </main>);
@@ -222,7 +224,6 @@ Wallet.propTypes = {
   fetchMoedasThunk: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
   currencies: PropTypes.shape().isRequired,
-  moedaAtual: PropTypes.shape().isRequired,
   isFetching: PropTypes.bool.isRequired,
   expensesList: PropTypes.shape().isRequired,
 };
