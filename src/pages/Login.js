@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { validateEmail } from '../services';
@@ -50,7 +51,7 @@ class Login extends React.Component {
 
   handleRedirectCarteira() {
     const { input } = this.state;
-    const {dispatchUserLogin} = this.props;
+    const { dispatchUserLogin } = this.props;
     dispatchUserLogin(input);
     this.setState({
       shouldRedirect: true,
@@ -94,8 +95,8 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchUserLogin: (email) => dispatch(redirectCarteira(email)),
 });
 
-// Login.propTypes = {
-//   dispatchUserLogin: PropTypes.func.isRequired,
-// };
+Login.propTypes = {
+  dispatchUserLogin: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
