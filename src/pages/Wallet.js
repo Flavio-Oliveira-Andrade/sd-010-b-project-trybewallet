@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { getApi, actionSave } from '../actions';
 
 const INITIAL_STATE = {
-  id: 0,
+  id: -1,
   value: '',
   description: '',
-  currency: '',
+  currency: 'USD',
   method: '',
   tag: '',
   exchangeRates: '',
@@ -33,10 +33,16 @@ class Wallet extends React.Component {
   }
 
   handleClick() {
+    const { currenciesApi } = this.props;
+    currenciesApi();
     const { data, saveState } = this.props;
+    const { id } = this.state;
 
     this.setState({ exchangeRates: data }, () => saveState(this.state));
-    this.setState(INITIAL_STATE);
+
+    this.setState({
+      id: id + 1,
+    });
   }
 
   handleChange({ target: { name, value } }) {
@@ -84,9 +90,9 @@ class Wallet extends React.Component {
       <label htmlFor="idMethod">
         Método de Pagamento
         <select name="method" id="idMethod" onChange={ this.handleChange }>
-          <option value="dinheiro">Dinheiro</option>
-          <option value="credito">Cartão de crédito</option>
-          <option value="debito">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -97,25 +103,28 @@ class Wallet extends React.Component {
       <label htmlFor="idCategory">
         Tag
         <select name="tag" id="idCategory" onChange={ this.handleChange }>
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
   }
 
   inputHeader() {
-    const { userEmail } = this.props;
+    const { userEmail, expenses } = this.props;
     return (
       <>
         <h4 data-testid="email-field">{userEmail}</h4>
         <span data-testid="total-field">
           Despesa Total:
           {' '}
-          {0}
+          {expenses.reduce((acc, elem) => acc + (
+            elem.exchangeRates[elem.currency].ask * elem.value), 0).toFixed(2)}
+          {' '}
+          {/* ajuda do Alan Tanaka e Lucas Martins */}
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </>
@@ -148,6 +157,7 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   loading: state.wallet.loading,
   data: state.wallet.data,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -156,6 +166,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
+  saveState: PropTypes.func.isRequired,
+  data: PropTypes.shape(PropTypes.string).isRequired,
+  expenses: PropTypes.shape(PropTypes.string).isRequired,
   userEmail: PropTypes.string.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   currenciesApi: PropTypes.func.isRequired,
