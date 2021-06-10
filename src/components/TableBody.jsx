@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
 class TableBody extends Component {
   render() {
@@ -24,7 +25,12 @@ class TableBody extends Component {
               <td>{parseFloat(value * exchangeRates[currency].ask).toFixed(2)}</td>
               <td>Real</td>
               <td>
-                <button type="submit">Editar</button>
+                <button
+                  type="submit"
+                  data-testid="edit-btn"
+                >
+                  <AiFillEdit />
+                </button>
                 <button
                   type="submit"
                   onClick={ () => {
@@ -32,7 +38,7 @@ class TableBody extends Component {
                   } }
                   data-testid="delete-btn"
                 >
-                  Excluir
+                  <AiFillDelete />
                 </button>
               </td>
             </tr>);
