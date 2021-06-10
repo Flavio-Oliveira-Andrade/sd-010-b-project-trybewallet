@@ -8,8 +8,20 @@ const INITIAL_USER = {
 
 function userReducer(state = INITIAL_USER, action) {
   switch (action.type) {
-  case 'something':
-    return state;
+  case 'INPUT_EMAIL':
+    return {
+      ...state,
+      user: {
+        email: action.payload.email,
+      },
+    };
+  case 'INPUT_PASSWORD':
+    return {
+      ...state,
+      user: {
+        password: action.payload.password,
+      },
+    };
   default:
     return state;
   }
