@@ -8,6 +8,8 @@ export const UPDATE_EXCHANGE = 'UPDATE_EXCHANGE';
 
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
 export const submitEmail = (email) => ({ type: SUBMIT_EMAIL, email });
 
 // export const requestCurrencies = () => ({ type: REQUEST_API });
@@ -20,6 +22,8 @@ export const updateExchangeRates = (exchangeRates) => ({
 });
 
 export const submitExpense = (expense) => ({ type: SAVE_EXPENSES, expense });
+
+export const deleteExpense = (id) => ({ type: DELETE_EXPENSE, id });
 
 export function fetchAPI(requirement) {
   // dispatch(requestCurrencies());
