@@ -12,6 +12,7 @@ function userReducer(state = INITIAL_USER, action) {
     return {
       ...state,
       user: {
+        ...state.user,
         email: action.payload.email,
       },
     };
@@ -19,6 +20,7 @@ function userReducer(state = INITIAL_USER, action) {
     return {
       ...state,
       user: {
+        ...state.user,
         password: action.payload.password,
       },
     };

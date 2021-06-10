@@ -1,8 +1,8 @@
 // Coloque aqui suas actions
 
-export const changeEmail = (state) => (
+export const inputEmail = (state) => (
   { type: 'INPUT_EMAIL', payload: { email: state } }
 );
-export const changePassword = (state) => (
+export const inputPassword = (state) => (
   { type: 'INPUT_PASSWORD', payload: { password: state } }
 );
