@@ -38,7 +38,9 @@ const tableBody = (expenses) => (
         <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
         <td>{(exchangeRates[currency].ask * parseFloat(value)).toFixed(2)}</td>
         <td>Real</td>
-        {/* <td>Editar/Excluir</td> */}
+        <td>
+          <button type="button" data-testid="delete-btn">Excluir</button>
+        </td>
       </tr>
     ))}
   </tbody>
