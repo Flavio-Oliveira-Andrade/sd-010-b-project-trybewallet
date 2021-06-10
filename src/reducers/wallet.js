@@ -26,6 +26,11 @@ function wallet(state = INITIAL_STATE, { type, currencies, exchangeRates, expens
       ...state,
       expenses: [...state.expenses, { ...expense, exchangeRates: state.exchangeRates }],
     };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((element) => element.id !== id),
+    };
   default:
     return state;
   }
