@@ -8,7 +8,6 @@ class Login extends React.Component {
     super();
     this.state = {
       email: '',
-      senha: '',
       validEmail: false,
       validPass: false,
     };
@@ -31,6 +30,7 @@ class Login extends React.Component {
   }
 
   render() {
+    // eslint-disable-next-line react/prop-types
     const { keyEmail } = this.props;
     const { validEmail, validPass, email } = this.state;
     const enable = validEmail && validPass;
