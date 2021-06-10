@@ -1,1 +1,6 @@
-// Coloque aqui suas actions
+const saveEmailLogin = (email) => ({
+  type: 'EMAIL_LOGIN',
+  email,
+});
+
+export default saveEmailLogin;
