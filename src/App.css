@@ -43,9 +43,9 @@
 .loginSection {
   border: solid black 1px;
   border-radius: 4px;
-  height: 150px; 
+  height: 150px;
   left: 50%;
-  position: absolute; 
+  position: absolute;
   top: 50%;
   width: 200px;
 }
