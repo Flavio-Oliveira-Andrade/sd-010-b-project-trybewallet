@@ -3,7 +3,37 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.getCoinsName = this.getCoinsName.bind(this);
+    this.coinsToState = this.coinsToState.bind(this);
+
+    this.state = {
+      coinType: [],
+    };
+  }
+
+  componentDidMount() {
+    this.coinsToState();
+  }
+
+  async getCoinsName() {
+    const coins = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const coinsJson = await coins.json();
+    delete coinsJson.USDT;
+
+    return coinsJson;
+  }
+
+  async coinsToState() {
+    const coins = await this.getCoinsName();
+    this.setState({ coinType: Object.keys(coins) });
+  }
+
   form() {
+    const { coinType } = this.state;
+
     return (
       <form>
         <label htmlFor="valor">
@@ -19,7 +49,13 @@ class Wallet extends React.Component {
         <label htmlFor="moeda">
           Moeda
           <select id="moeda">
-            ola
+            {coinType.map((coin) => (
+              <option
+                key={ coin }
+                value={ coin }
+              >
+                {coin}
+              </option>))}
           </select>
         </label>
 
@@ -48,6 +84,7 @@ class Wallet extends React.Component {
 
   render() {
     const { userEmailState } = this.props;
+
     return (
       <main>
         <header>
@@ -61,6 +98,7 @@ class Wallet extends React.Component {
           <p data-testid="total-field">Despesa Total: 0</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
+
         {this.form()}
       </main>
     );
