@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import PaymentMethod from '../components/PaymentMethod';
 import SelectCurr from '../components/SelectCurr';
@@ -25,7 +26,7 @@ class Wallet extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <>
+      <div>
         <header data-testid="email-field">
           {email}
           <div className="info--currencie">
@@ -33,14 +34,14 @@ class Wallet extends React.Component {
             <span data-testid="header-currency-field">R$BRL</span>
           </div>
         </header>
-        <form>
+        <form className="wallet-form">
           {this.renderInputs('valor', 'Valor:', 'text', 'valor')}
           {this.renderInputs('descrição', 'Descrição', 'text', 'descrição')}
           <SelectCurr />
           <Tag />
           <PaymentMethod />
         </form>
-      </>
+      </div>
     );
   }
 }
@@ -48,5 +49,13 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
+
+Wallet.propTypes = {
+  email: PropTypes.string,
+};
+
+Wallet.defaultProps = {
+  email: undefined,
+};
 
 export default connect(mapStateToProps)(Wallet);
