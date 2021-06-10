@@ -11,7 +11,7 @@ class Home extends Component {
   }
 
   render() {
-    const { email, currencies } = this.props;
+    const { email } = this.props;
     const { totalGastos } = this.state;
 
     return (
@@ -26,7 +26,7 @@ class Home extends Component {
         <h3
           data-testid="header-currency-field"
         >
-          {currencies}
+          BRL
         </h3>
       </header>
     );
@@ -34,7 +34,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.payload.email,
+  email: state.user.email,
   currencies: state.wallet.currencies,
 });
 
@@ -42,7 +42,6 @@ const mapStateToProps = (state) => ({
 // };
 Home.propTypes = {
   email: PropTypes.string.isRequired,
-  currencies: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Home);
