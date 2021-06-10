@@ -5,6 +5,7 @@ import reducer from '../reducers';
 
 const store = createStore(
   reducer,
+  // forma mais atual de utilizar os DevTools
   composeWithDevTools(
     applyMiddleware(thunk),
   ),

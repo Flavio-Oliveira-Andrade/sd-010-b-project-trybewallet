@@ -5,16 +5,17 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productInfo: {},
-      isLoading: true,
+      // email: [],
+      // senha: [],
     };
   }
 
   isDisable() {
-    const { quantity } = this.state;
-    if (quantity > 1) {
-      this.setState({ quantity: quantity - 1 });
-    }
+
+  }
+
+  validate() {
+
   }
 
   render() {
