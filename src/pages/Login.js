@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import '../css/login.css';
 import { connect } from 'react-redux';
-import action from '../actions';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor(state) {
@@ -80,7 +80,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  emailDispatch: (state) => dispatch(action(state)) });
+  emailDispatch: (state) => dispatch(login(state)) });
 
 Login.propTypes = {
   emailDispatch: PropTypes.func.isRequired,

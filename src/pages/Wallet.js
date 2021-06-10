@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { add, allAmount } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = { cotation: undefined, currencies: [] };
+    this.state = { cotation: 0, currencies: [] };
     this.loadPrices = this.loadPrices.bind(this);
+    this.totalAmount = this.totalAmount.bind(this);
   }
 
   componentDidMount() {
@@ -24,15 +26,38 @@ class Wallet extends React.Component {
     });
   }
 
+  totalAmount() {
+    this.loadPrices();
+    const { cotation } = this.state;
+    const { addAmount, calculateTotal, id } = this.props;
+    const value = document.querySelector('#value');
+    const description = document.querySelector('#description').value;
+    const method = document.querySelector('#payament').value;
+    const tag = document.querySelector('#tag').value;
+    const currency = document.querySelector('#currency').value;
+    const brlEquivalent = cotation[currency].bid * value.value;
+    const cot = cotation;
+    delete cotation.USDT;
+    addAmount({
+      id,
+      value: value.value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: cot });
+      console.log(brlEquivalent);
+    calculateTotal(brlEquivalent);
+  }
+
   render() {
-    const { cotation, currencies } = this.state;
-    // if (cotation === undefined) return <h1>Loading...</h1>;
+    const { currencies } = this.state;
     const { emailLog } = this.props;
     return (
       <div>
         <header id="header">
           <h5 data-testid="email-field">{ emailLog }</h5>
-          <h6 data-testid="total-field">0</h6>
+          <h6 data-testid="total-field">{this.props.total}</h6>
           <h6 data-testid="header-currency-field">BRL</h6>
         </header>
         <form>
@@ -68,6 +93,7 @@ class Wallet extends React.Component {
               <option>Saúde</option>
             </select>
           </label>
+          <button type="button" onClick={ this.totalAmount }>Adicionar despesa</button>
         </form>
       </div>
     );
@@ -75,9 +101,17 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  emailLog: state.user.email });
+  emailLog: state.user.email,
+  id: state.wallet.id,
+  total: state.wallet.total,
+});
 
-Wallet.propTypes = {
-  emailLog: PropTypes.string.isRequired,
-};
-export default connect(mapStateToProps)(Wallet);
+// Wallet.propTypes = {
+//   emailLog: PropTypes.string.isRequired,
+// };
+
+const mapDispatchToProps = (dispatch) => ({
+  addAmount: (state) => dispatch(add(state)),
+  calculateTotal: (state) => dispatch(allAmount(state)) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
