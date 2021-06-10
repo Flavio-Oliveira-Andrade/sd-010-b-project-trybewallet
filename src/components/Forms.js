@@ -50,10 +50,10 @@ class Forms extends React.Component {
         <label htmlFor="coin">
           Moeda
           <select id="coin" value={ coin } onChange={ this.handleChange }>
-            {Object.keys(coins).map(
-              (current) => current !== 'USDT'
+            {Object.keys(coins)
+              .map((current) => (current !== 'USDT'
                 ? <option>{ current }</option>
-                : null)}
+                : null))}
           </select>
         </label>
         <label htmlFor="payment">
