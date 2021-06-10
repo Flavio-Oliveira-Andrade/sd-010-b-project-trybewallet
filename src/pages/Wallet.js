@@ -7,14 +7,30 @@ class Wallet extends Component {
   constructor() {
     super();
 
+    this.expensesTotal = this.expensesTotal.bind(this);
+
     this.state = {
-      custo: 0,
       currency: 'BRL',
     };
   }
 
+  expensesTotal() {
+    const { objCurrency } = this.props;
+
+    if (objCurrency.length >= 1) {
+      const result = objCurrency.reduce((acc, { value, currency, exchangeRates }) => {
+        const findCurrency = Object.values(exchangeRates)
+          .find(({ code }) => currency === code);
+        const finalValue = parseFloat(findCurrency.ask) * parseFloat(value);
+        return acc + finalValue;
+      }, 0);
+      return result;
+    }
+    return 0;
+  }
+
   render() {
-    const { custo, currency } = this.state;
+    const { currency } = this.state;
     const { login } = this.props;
     return (
       <div>
@@ -22,7 +38,7 @@ class Wallet extends Component {
           { login }
         </p>
         <span data-testid="total-field">
-          { custo }
+          { this.expensesTotal() }
         </span>
         <span data-testid="header-currency-field">
           { currency }
@@ -35,10 +51,12 @@ class Wallet extends Component {
 
 const mapStateToProps = (state) => ({
   login: state.user.email,
+  objCurrency: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Wallet);
 
 Wallet.propTypes = {
   login: PropTypes.string.isRequired,
+  objCurrency: PropTypes.string.isRequired,
 };

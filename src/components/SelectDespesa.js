@@ -13,11 +13,11 @@ export default class SelectDespesa extends React.Component {
           value={ despesas }
           onChange={ (e) => handleChange(e) }
         >
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
+          <option value="Alimentacao" selected>Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );

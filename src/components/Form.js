@@ -1,39 +1,66 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SelectDespesa from './SelectDespesa';
 import SelectPay from './SelectPay';
 
-export default class Form extends React.Component {
+import { actionAsk, actionCurrency } from '../actions/walletaction';
+
+class Form extends React.Component {
   constructor() {
     super();
 
-    this.api = this.api.bind(this);
+    this.reduceArray = this.reduceArray.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       request: [],
       valor: '',
       descricao: '',
-      moeda: '',
-      metodo: '',
-      despesas: '',
+      moeda: 'USD',
+      metodo: 'Dinheiro',
+      despesas: 'Alimentacao',
     };
   }
 
   componentDidMount() {
-    this.api().then((resolve) => resolve);
-  }
-
-  async api() {
-    const obj = await fetch('https://economia.awesomeapi.com.br/json/all').then((resolve) => resolve.json());
-    const array = Object.values(obj);
-    array.splice(1, 1);
-    this.setState({ request: array });
+    const { request } = this.props;
+    request().then((resolve) => {
+      const array = Object.values(resolve);
+      this.setState({ request: array });
+    });
   }
 
   handleChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'select' ? target.checked : target.value;
-    console.log(target.type);
+    const { name, value } = target;
     this.setState({ [name]: value });
+  }
+
+  reduceArray() {
+    const { request } = this.state;
+    const array = [...request];
+    array.splice(1, 1);
+    return array.map((element, index) => (
+      <option key={ index } value={ element.code }>{ element.code }</option>));
+  }
+
+  handleClick() {
+    const { valor, descricao, moeda, metodo, despesas } = this.state;
+    const { add, request, expenses } = this.props;
+    let obj = {};
+    return request().then((resolve) => {
+      obj = {
+        id: expenses.length,
+        value: valor,
+        description: descricao,
+        currency: moeda,
+        method: metodo,
+        tag: despesas,
+        exchangeRates: { ...resolve },
+      };
+      return obj;
+    }).then((result) => add(result));
   }
 
   render() {
@@ -69,13 +96,32 @@ export default class Form extends React.Component {
             value={ moeda }
             onChange={ (e) => handleChange(e) }
           >
-            { request && request.map((element, index) => (
-              <option key={ index }>{ element.code }</option>)) }
+            { request && this.reduceArray() }
           </select>
         </label>
         <SelectPay metodo={ metodo } handleChange={ handleChange } />
         <SelectDespesa despesas={ despesas } handleChange={ handleChange } />
+        <button type="button" onClick={ this.handleClick }>
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  add: (obj) => dispatch(actionCurrency(obj)),
+  request: () => dispatch(actionAsk()),
+});
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
+
+Form.propTypes = {
+  add: PropTypes.func.isRequired,
+  request: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

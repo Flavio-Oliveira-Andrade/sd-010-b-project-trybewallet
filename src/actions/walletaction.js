@@ -1,15 +1,18 @@
-export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
+export const ADD = 'ADD';
+export const REQUEST = 'REQUEST';
 
 export const actionCurrency = (obj) => ({
-  type: REQUEST_CURRENCY,
+  type: ADD,
   currency: obj,
 });
 
-const actionRequest = () => async (dispatch) => {
-  const obj = await fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((resolve) => resolve.json()).then((result) => Object.values(result));
-  obj.splice(1, 1);
-  dispatch(actionCurrency(obj));
-};
+export const requestCurrency = (obj) => ({
+  type: REQUEST,
+  currency: obj,
+});
 
-export default actionRequest;
+export const actionAsk = () => async (dispatch) => {
+  const obj = await fetch('https://economia.awesomeapi.com.br/json/all').then((resolve) => resolve.json());
+  dispatch(requestCurrency(obj));
+  return obj;
+};

@@ -3,9 +3,7 @@
 import { LOGIN_SUCCESS } from '../actions/index';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
