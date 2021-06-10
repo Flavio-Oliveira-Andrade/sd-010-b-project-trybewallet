@@ -22,7 +22,8 @@ class Login extends React.Component {
   }
 
   handleChange() {
-    const validation = /\S+@\S+\.\S+/;
+    // Ref- https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+    const validation = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const MIN_LEN_PASS = 6;
 
     const email = document.getElementById('email').value;
