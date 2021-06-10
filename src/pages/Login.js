@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import actionUser from '../actions';
 
 // https://cursos.alura.com.br/forum/topico-como-validar-email-e-senha-em-javascript-80469
 // Usado essa fonte para conhecimento em regex
@@ -26,7 +27,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { setUserEmail, setUserPassword } = this.props;
+    const { setUser } = this.props;
     return (
       <div>
         <form>
@@ -35,7 +36,7 @@ class Login extends React.Component {
             <input
               type="email"
               id="email"
-              onChange={ (e) => setUserEmail(e.target.value) }
+              onChange={ (e) => setUser(e.target.value, e.target.id) }
               data-testid="email-input"
             />
           </label>
@@ -45,14 +46,11 @@ class Login extends React.Component {
               type="password"
               id="password"
               data-testid="password-input"
-              onChange={ (e) => setUserPassword(e.target.value) }
+              onChange={ (e) => setUser(e.target.value, e.target.id) }
             />
           </label>
           <Link to="/carteira">
-            <button
-              type="submit"
-              data-testid="my-action"
-            >
+            <button type="submit" data-testid="my-action">
               Entrar
             </button>
           </Link>
@@ -65,24 +63,16 @@ class Login extends React.Component {
 Login.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  setUserEmail: PropTypes.func.isRequired,
-  setUserPassword: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({ // LER
+const mapStateToProps = (state) => ({ // GET
   email: state.user.email,
   password: state.user.password,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setUserEmail: (email) => dispatch({
-    type: 'EMAIL',
-    email,
-  }),
-  setUserPassword: (password) => dispatch({
-    type: 'PASSWORD',
-    password,
-  }),
+const mapDispatchToProps = (dispatch) => ({ // SET
+  setUser: (value, type) => dispatch(actionUser(value, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
