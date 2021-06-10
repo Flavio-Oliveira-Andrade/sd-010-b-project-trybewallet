@@ -68,7 +68,7 @@ class Login extends React.Component {
               />
             </label>
           </div>
-          <Link to="/carteira" onClick={ () => login({ email }) }>
+          <Link to="/carteira" onClick={ () => login(this.state) }>
             <button
               type="submit"
               disabled={
