@@ -1,4 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { requestApi } from '../actions/wallet';
+
+class Form extends Component {
+  constructor(props) {
+    super(props);
+
+    this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
+  }
+
+  componentDidMount() {
+    const { requestDales } = this.props;
+    return requestDales();
+  }
+
+  renderCurrencysOptions() {
+    const { currencies } = this.props;
+    currencies.map((dale, key) => {
+      console.log(dale.code);
+      return (
+        <option
+          key={ key }
+          value={ dale.code }
+        >
+          { console.log(dale.name) }
+        </option>
+      );
+    });
+    console.log(currencies);
+  }
 
 export default class Form extends Component {
   render() {
