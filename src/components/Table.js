@@ -8,8 +8,9 @@ class Table extends React.Component {
 
     this.state = {};
   }
-// componente pego do repositório do Thiago Marchini
-// https://github.com/tryber/sd-010-b-project-trybewallet/pull/1/commits/10b4ba74b098312c0cb053a29ecac8ae785fd4f1
+  // componente pego do repositório do Thiago Marchini
+  // https://github.com/tryber/sd-010-b-project-trybewallet/pull/1/commits/10b4ba74b098312c0cb053a29ecac8ae785fd4f1
+  
   render() {
     const { expenses } = this.props;
     console.log(expenses);
