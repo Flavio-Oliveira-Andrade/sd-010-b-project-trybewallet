@@ -9,7 +9,7 @@ function FormsExpenses({
   onInputValueChange = null,
   handleInputValueChange = null,
   onInputDescriptionChange = null,
-  handleInputDescriptionChange = null
+  handleInputDescriptionChange = null,
 }) {
   return (
     <div>
