@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import getCurrency from '../services/api/currencyApi';
 import { fetchExpense } from '../actions';
+import Header from '../components/Header';
+import Table from '../components/Table';
 
 const currencyArr = [
   'USD', 'CAD', 'EUR',
@@ -34,11 +36,6 @@ class Wallet extends React.Component {
     const filteredCurrencies = Object.keys(allCurrencies)
       .filter((currency) => currencyArr.includes(currency));
     this.updateCurrency(filteredCurrencies);
-  }
-
-  getCurrentExpanseValue(expense) {
-    const { value, currency, exchangeRates } = expense;
-    return value * exchangeRates[currency].ask;
   }
 
   handleChange(name, value) {
@@ -115,34 +112,12 @@ class Wallet extends React.Component {
     );
   }
 
-  renderTotal() {
-    const { expenses } = this.props;
-    return expenses.reduce((acc, expense) => {
-      acc += parseFloat(this.getCurrentExpanseValue(expense));
-      return acc;
-    }, 0);
-  }
-
-  renderHeader() {
-    const { email } = this.props;
-
-    return (
-      <header>
-        <p data-testid="email-field">{email}</p>
-        <select data-testid="header-currency-field">
-          <option defaultValue>BRL</option>
-        </select>
-        <p data-testid="total-field">{this.renderTotal()}</p>
-      </header>
-    );
-  }
-
   render() {
     const { value: priceValue, description } = this.state;
 
     return (
       <>
-        {this.renderHeader()}
+        <Header />
         <form>
           <label htmlFor="value">
             Valor:
@@ -171,9 +146,14 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <Table />
       </>);
   }
 }
+
+Wallet.propTypes = {
+  addExpense: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = ({ user, wallet }) => ({
   expenses: wallet.expenses,
@@ -183,42 +163,5 @@ const mapStateToProps = ({ user, wallet }) => ({
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (state) => dispatch(fetchExpense(state)),
 });
-
-Wallet.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    value: PropTypes.string,
-    description: PropTypes.string,
-    currency: PropTypes.string,
-    method: PropTypes.string,
-    tag: PropTypes.string,
-    exchangeRates: PropTypes.shape({
-      code: PropTypes.string,
-      name: PropTypes.string,
-      ask: PropTypes.string,
-    }),
-  })),
-  email: PropTypes.string,
-  addExpense: PropTypes.func.isRequired,
-};
-
-Wallet.defaultProps = {
-  email: 'hello@ola.com',
-  expenses: {
-    id: 1,
-    value: '555',
-    description: 'faltou',
-    currency: 'faltou',
-    method: 'faltou',
-    tag: 'faltou',
-    exchangeRates:
-      {
-        code: 'USD',
-        name: 'Dólar Comercial',
-        ask: '5.6208',
-      },
-
-  },
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

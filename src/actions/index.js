@@ -4,6 +4,7 @@ export const STORE_EMAIL = 'STORE_EMAIL';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_EXCHANGE_START = 'GET_EXCHANGE_START';
 export const GET_EXCHANGE_FAIL = 'GET_EXCHANGE_FAIL';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const appLogin = (email) => ({
   type: STORE_EMAIL,
@@ -13,6 +14,7 @@ export const appLogin = (email) => ({
 });
 let currentId = 0;
 
+// Api Logic
 const getExchangeStart = () => ({
   type: GET_EXCHANGE_START,
 });
@@ -50,3 +52,9 @@ export const fetchExpense = (state) => async (dispatch) => {
     dispatch(getExchangefail(error));
   }
 };
+
+// Delete
+export const delExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  payload: id,
+});
