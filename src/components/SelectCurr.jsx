@@ -9,7 +9,7 @@ class SelectCurr extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.fetchCurrencies());
+    this.fetchCurrencies();
   }
 
   async fetchCurrencies() {
@@ -20,13 +20,13 @@ class SelectCurr extends React.Component {
     this.setState({
       currencies: currenciesUsed,
     });
-    console.log(currenciesUsed);
   }
 
   render() {
     const { currencies } = this.state;
     return (
       <label htmlFor="moeda">
+        Moeda
         <select id="moeda" name="moeda">
           {currencies.map((cur, key) => (
             <option key={ key }>

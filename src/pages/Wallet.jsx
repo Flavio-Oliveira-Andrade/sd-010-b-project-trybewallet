@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PaymentMethod from '../components/PaymentMethod';
 import SelectCurr from '../components/SelectCurr';
+import Tag from '../components/Tag';
 
 import './Wallet.css';
 
@@ -26,7 +28,7 @@ class Wallet extends React.Component {
       <>
         <header data-testid="email-field">
           {email}
-          <div className="info--currency">
+          <div className="info--currencie">
             <span data-testid="total-field">Total de gastos: 0</span>
             <span data-testid="header-currency-field">R$BRL</span>
           </div>
@@ -35,6 +37,8 @@ class Wallet extends React.Component {
           {this.renderInputs('valor', 'Valor:', 'text', 'valor')}
           {this.renderInputs('descrição', 'Descrição', 'text', 'descrição')}
           <SelectCurr />
+          <Tag />
+          <PaymentMethod />
         </form>
       </>
     );
