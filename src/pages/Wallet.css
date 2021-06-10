@@ -13,3 +13,9 @@ header {
   justify-content: flex-end;
   padding-right: 10px;
 }
+
+.info--currency {
+  display: flex;
+  justify-content: space-evenly;
+  width: 30%;
+}
