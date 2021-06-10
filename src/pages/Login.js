@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
@@ -16,6 +18,9 @@ class Login extends React.Component {
   }
 
   botao() {
+    const { updateEmail } = this.props;
+    const { Email } = this.state;
+    updateEmail(Email);
     this.setState({ page: true });
   }
 
@@ -38,7 +43,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { page, EmailBol, Senha, Email } = this.state;
+    const { page, EmailBol, Senha } = this.state;
 
     if (page === true) {
       return <Redirect to="/carteira" />;
@@ -46,7 +51,6 @@ class Login extends React.Component {
 
     return (
       <form>
-        {console.log(Email)}
         <label htmlFor="Login">
           Login
           <input
@@ -60,7 +64,7 @@ class Login extends React.Component {
         <label htmlFor="Senha">
           Senha
           <input
-            type="text"
+            type="password"
             data-testid="password-input"
             name="Senha"
             placeholder="Digite sua senha"
@@ -79,4 +83,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispachToProps = (dispatch) => ({
+  updateEmail: (value) => dispatch({
+    type: 'EMAIL',
+    value,
+  }),
+});
+
+Login.propTypes = {
+  updateEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispachToProps)(Login);
