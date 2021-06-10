@@ -3,6 +3,13 @@ body {
   color: whitesmoke;
 }
 
+table button {
+  border: none;
+  border-radius: 3px;
+  margin: 2px;
+  padding: 5px;
+}
+
 .login-container {
   background-color: rgb(19, 118, 136);
   border: none;
@@ -47,6 +54,16 @@ body {
   height: 30px;
 }
 
+table button:nth-child( 1 ) , table button:nth-child( 2 ) {
+  background-color: orange;
+  opacity: 80%;
+  transition: transform 0.3s;
+}
+
+table button:nth-child( 2 ) {
+  background-color: rgb(211, 81, 81);
+}
+
 .login-container button:hover , .expense-input button:hover {
   opacity: 100%;
   transform: scale(1.1);
@@ -56,11 +73,17 @@ body {
   background-color: grey;
 }
 
+table button:nth-child( 1 ):hover , table button:nth-child( 2 ):hover {
+  opacity: 100%;
+  transform: scale(1.1);
+}
+
 .login-container a {
   display: flex;
   justify-content: center;
   text-decoration: none;
 }
+
 
 /*  ---- style for the wallet page ---- */
 .app {
@@ -143,3 +166,4 @@ th {
   padding-top: 12px;
   text-align: center;
 }
+
