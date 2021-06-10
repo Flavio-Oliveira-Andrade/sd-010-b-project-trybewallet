@@ -63,7 +63,7 @@ class TableWallet extends Component {
                 <button
                   data-testid="edit-btn"
                   type="button"
-                  onClick={ (e) => { edit(e); dell(id); } }
+                  onClick={ () => { edit(exp); } }
                 >
                   Edit
                 </button>
