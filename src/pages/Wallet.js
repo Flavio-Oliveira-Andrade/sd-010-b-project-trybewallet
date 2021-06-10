@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../components/componentswallet/Header';
+import InputDescriptionExpenses
+  from '../components/componentswallet/InputDescriptionExpenses';
 import InputValue from '../components/componentswallet/InputValue';
 
 function Wallet() {
