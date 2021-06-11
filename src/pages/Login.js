@@ -37,8 +37,16 @@ class Login extends React.Component {
     return false;
   } // estrutura para verificaçao do email valido
 
+  validPassword(password) { // estrutura para verificaçao do senha valido
+    const tamanho = 6;
+    if (password.length >= tamanho) {
+      return true;
+    }
+    return false;
+  } // estrutura para verificaçao do senha valido
+
   render() {
-    const { email, btnEnable } = this.state;
+    const { email, password, btnEnable } = this.state;
     const { changeEmail, history } = this.props;
     return (
       <form>
