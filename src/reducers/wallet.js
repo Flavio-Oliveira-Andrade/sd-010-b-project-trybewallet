@@ -1,12 +1,15 @@
+import { TODAS_MOEDAS } from '../actions/index';
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const initialstate = {
+const initialstate = { // aqui é o estado global(pra parte do wallet).
   currencies: [],
   expenses: [],
 };
 const walletReducer = (state = initialstate, action) => {
   switch (action.type) {
-  case '':
-    return {};
+  case TODAS_MOEDAS:
+    return {
+      ...state, currencies: action.payload.moeda, // req 7 pede sobre moedas, e não sobre gastos(ainda). Por isso vou usar o currencies. LEMBRANDO: o nome moeda foi o que botei no estado global.
+    };
   default:
     return state;
   }
