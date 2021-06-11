@@ -9,13 +9,14 @@ class ExpenseForm extends Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.cleanForm = this.cleanForm.bind(this);
 
     this.state = {
-      value: [],
-      description: [],
-      currency: [],
-      method: [],
-      tag: [],
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
     };
   }
 
@@ -31,10 +32,14 @@ class ExpenseForm extends Component {
     });
   }
 
+  cleanForm() {
+    document.getElementById('form1').reset();
+  }
+
   render() {
     const { src, userExpense } = this.props;
     return (
-      <form className="form">
+      <form className="form" id="form1">
         <label htmlFor="value">
           Valor
           <input type="number" name="value" onChange={ this.handleChange } id="value" />
@@ -74,7 +79,7 @@ class ExpenseForm extends Component {
         </label>
         <button
           type="button"
-          onClick={ () => userExpense(this.state) }
+          onClick={ () => { userExpense(this.state); this.cleanForm(); } }
         >
           Adicionar despesa
         </button>
