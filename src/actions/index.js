@@ -1,10 +1,5 @@
 // Coloque aqui suas actions
-// **src/actions/index.js**
-const loginAction = (email) => ({
-  type: 'LOGIN',
-  payload: {
-    email,
-  },
-});
 
-export default loginAction;
+export const LOGIN = 'LOGIN';
+export const SAVE = 'SAVE';
+export const ADD = 'ADD';

@@ -4,40 +4,60 @@ import PropTypes from 'prop-types';
 import Forms from '../components/Forms';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+
+    this.expensesTotal = this.expensesTotal.bind(this);
+  }
+
+  expensesTotal() {
+    const { expenses } = this.props;
+
+    if (expenses.length >= 1) {
+      const result = expenses.reduce((acc, { value, currency, exchangeRates }) => {
+        const findCurrency = Object.values(exchangeRates)
+          .find(({ code }) => currency === code);
+        const finalValue = parseFloat(findCurrency.ask) * parseFloat(value);
+        return acc + finalValue;
+      }, 0);
+      return result;
+    }
+    return 0;
+  }
+
   render() {
-    const { email } = this.props;
+    const { emailUser } = this.props;
     return (
       <div>
-        TrybeWallet
         <header>
           <span data-testid="email-field">
-            Olá, esse é o seu e-mail:
-            {' '}
-            {email}
-            {' - '}
+            User:&nbsp;
+            {/* O código acima é para adicionar um espaço "forçado"
+            entre a primeira linha e a segunda */}
+            { emailUser }
           </span>
-          <div>
-            <span data-testid="total-field">
-              Valor gasto:
-              {' '}
-              {0}
-              {' '}
-            </span>
-            <span data-testid="header-currency-field">BRL</span>
-          </div>
+          <span data-testid="total-field">
+            Total expenses:&nbsp;
+            { this.expensesTotal() }
+          </span>
+          <span data-testid="header-currency-field">
+            &nbsp;BRL
+          </span>
         </header>
         <Forms />
-
       </div>
     );
   }
 }
-const mapToStateToProps = (state) => ({
-  email: state.user.email,
+
+const mapStateToProps = (state) => ({
+  emailUser: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string,
-}.isRequired;
+  emailUser: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
-export default connect(mapToStateToProps, null)(Wallet);
+export default connect(mapStateToProps, null)(Wallet);
