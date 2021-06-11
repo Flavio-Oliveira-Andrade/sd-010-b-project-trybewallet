@@ -9,7 +9,7 @@ function walletReducer(state = initialState, action) {
   switch (action.type) {
   case 'EXPENSE':
     return {
-      ...state, expenses: action.data,
+      ...state, expenses: [...state.expenses, action.data],
     };
   default:
     return state;

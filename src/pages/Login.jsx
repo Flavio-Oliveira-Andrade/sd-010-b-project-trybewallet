@@ -57,6 +57,7 @@ class Login extends React.Component {
       redirect: true,
     });
     login(email);
+    console.log(loginAction);
   }
 
   render() {

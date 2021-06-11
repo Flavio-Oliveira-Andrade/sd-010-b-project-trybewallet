@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import PaymentMethod from '../components/PaymentMethod';
 import SelectCurr from '../components/SelectCurr';
-import { addExpense } from '../actions/index';
+import { addExpense } from '../actions';
 import Tag from '../components/Tag';
 
 import './Wallet.css';
@@ -11,17 +11,25 @@ import './Wallet.css';
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-        id: '',
-        value: '',
-        description: '',
-        currency: 'USD',
-        method: 'Dinheiro',
-        tag: 'Alimentação',
-        exchangeRates: {},
-    };
+    this.state = this.getInitialstate();
     this.handleChange = this.handleChange.bind(this);
     this.renderInputs = this.renderInputs.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.getInitialstate = this.getInitialstate.bind(this);
+    this.resetState = this.resetState.bind(this);
+  }
+
+  getInitialstate() {
+    const initialState = {
+      id: '',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: {},
+    };
+    return initialState;
   }
 
   handleChange({ target }) {
@@ -30,6 +38,26 @@ class Wallet extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { addExpense } = this.props;
+    const { id, value, description, currency, method, tag, exchangeRates } = this.state;
+    addExpense({
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    });
+    console.log(addExpense);
+    this.resetState();
+  }
+
+  resetState() {
+    this.setState(this.getInitialstate());
   }
 
   renderInputs(labelid, text, type, name) {
@@ -66,7 +94,7 @@ class Wallet extends React.Component {
           <button
             type="button"
             className="button--expense"
-            // onClick={  }
+            onClick={ this.handleClick }
           >
             Adicionar despesa
           </button>
@@ -80,8 +108,13 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
+// const mapDispatchToProps = (dispatch) => ({
+//   valor: () => dispatch(addExpense),
+// });
+
 const mapDispatchToProps = (dispatch) => ({
-  valor: () => dispatch(addExpense(1)),
+
+  addExpense: (email) => dispatch(addExpense(email)),
 });
 
 Wallet.propTypes = {
