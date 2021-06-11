@@ -9,11 +9,11 @@ class Forms extends React.Component {
 
     this.state = {
       infoDispense: {
-        describe: '',
-        expenses: '',
         coin: 'USD',
-        categorie: 'food',
+        describe: '',
         payment: 'money',
+        categorie: 'food',
+        expenses: '',
       },
     };
     this.handleChange = this.handleChange.bind(this);
