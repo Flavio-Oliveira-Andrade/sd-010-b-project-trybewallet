@@ -1,10 +1,12 @@
+// Tive ajuda do Lucas Martins para arredondamentos dos valores de cambio e calor convertido!
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import removeExpenseAction from '../actions/removeExpenseAction';
 
 class Table extends React.Component {
   render() {
-    const { expensesInfo } = this.props;
+    const { expensesInfo, removeExpense } = this.props;
     return (
       <table>
         <tr>
@@ -32,7 +34,14 @@ class Table extends React.Component {
             </td>
             <td>Real</td>
             <td>
-              <button data-testid="delete-btn" type="button">x</button>
+              <button
+                data-testid="delete-btn"
+                onClick={ () => removeExpense(expense) }
+                type="button"
+              >
+                x
+
+              </button>
               <button data-testid="edit-btn" type="button">Editar despesa</button>
             </td>
           </tr>))}
@@ -43,14 +52,15 @@ class Table extends React.Component {
 
 Table.propTypes = {
   expensesInfo: PropTypes.arrayOf(Object).isRequired,
+  removeExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expensesInfo: state.wallet.expenses,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   addExpense: (stateData) => dispatch(addExpenseAction(stateData)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  removeExpense: (tableRow) => dispatch(removeExpenseAction(tableRow)),
+});
 
-export default connect(mapStateToProps, null)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
