@@ -16,17 +16,20 @@ export const getCoins = (currencies) => ({
   currencies,
 });
 
-export const addExpense = (expense) => ({
+export const addExpense = (expense, coins) => ({
   type: ADD_EXPENSE,
-  expense,
+  expense: {
+    ...expense,
+    exchangeRates: coins,
+  },
 });
 
-export function fetchCotation() {
+export function fetchCotation(expense) {
   return async (dispatch) => {
     try {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data = await response.json();
-      dispatch(addExpense(data));
+      dispatch(addExpense(expense, data));
     } catch (error) {
       console.log(error);
     }

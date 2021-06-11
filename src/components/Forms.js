@@ -8,27 +8,40 @@ class Forms extends React.Component {
     super();
 
     this.state = {
-      id: 0,
-      describe: '',
-      expenses: '',
-      coin: '',
-      categorie: 'food',
-      payment: 'money',
+      infoDispense: {
+        describe: '',
+        expenses: '',
+        coin: '',
+        categorie: 'food',
+        payment: 'money',
+      },
     };
     this.handleChange = this.handleChange.bind(this);
+    this.saveExpenses = this.saveExpenses.bind(this);
   }
 
   componentDidMount() {
-    const { fetchCoin, cotation } = this.props;
+    const { fetchCoin } = this.props;
     fetchCoin();
-    cotation();
   }
 
   handleChange(event) {
     const { target: { value, id } } = event;
+    const { infoDispense } = this.state;
+    const { idExpense } = this.props;
     this.setState({
-      [id]: value,
+      infoDispense: {
+        ...infoDispense,
+        [id]: value,
+        idExpense,
+      },
     });
+  }
+
+  saveExpenses() {
+    const { infoDispense } = this.state;
+    const { cotation } = this.props;
+    cotation(infoDispense);
   }
 
   render() {
@@ -76,7 +89,7 @@ class Forms extends React.Component {
             <option value="hearth">Saúde</option>
           </select>
         </label>
-        <button type="button">Adicionar despesa</button>
+        <button type="button" onClick={ this.saveExpenses }>Adicionar despesa</button>
       </form>
     );
   }
@@ -86,15 +99,19 @@ Forms.propTypes = {
   fetchCoin: PropTypes.func.isRequired,
   cotation: PropTypes.func.isRequired,
   coins: PropTypes.shape().isRequired,
+  idExpense: PropTypes.number.isRequired,
+  // dispense: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCoin: () => dispatch(fetchAPI()),
-  cotation: () => dispatch(fetchCotation()),
+  cotation: (expense) => dispatch(fetchCotation(expense)),
 });
 
 const mapStateToProps = (state) => ({
   coins: state.wallet.currencies,
+  idExpense: state.wallet.expenses.length,
+  // dispense: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
