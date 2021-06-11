@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import requestApi from '../../services/api';
-import getNewId from '../../services/idServices';
+import { getNewId } from '../../services/idServices';
 
 function InputSelectMoeda({
   labelDescription = 'Descrição da label',
 }) {
   const [moedas, setMoedas] = useState([]);
-  // console.log(moedas);
 
   useEffect(() => {
     async function getMoedas() {
