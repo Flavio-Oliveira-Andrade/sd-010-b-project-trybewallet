@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrencies } from '../actions';
+import { fetchCurrencies as fetchCurrenciesThunk } from '../actions';
 import getCurrency from '../services/requirements';
 
 class Forms extends Component {
@@ -12,8 +12,8 @@ class Forms extends Component {
   }
 
   componentDidMount() {
-    const { fetchMoedasThunk } = this.props;
-    fetchMoedasThunk();
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   renderForms() {
@@ -28,14 +28,7 @@ class Forms extends Component {
           Descrição
           <input type="text" name="desc" />
         </label>
-        {console.log(currencies)}
-        {/* { this.renderCurrency() } */}
-        {/* <label htmlFor="moeda">
-          Moeda
-          <select name="moeda">
-            <option value="lint">lint</option>
-          </select>
-        </label> */}
+        { this.renderCurrencies(currencies) }
         <label htmlFor="pay">
           Método de pagamento
           <select name="pay">
@@ -58,11 +51,33 @@ class Forms extends Component {
     );
   }
 
+  renderCurrencies(currencies) {
+    return (
+      <label htmlFor="moeda">
+        Moeda
+        <select name="moeda">
+          { Object.keys(currencies).map((curr) => {
+            if (curr !== 'USDT') {
+            return (<option key={ curr } value={ curr }>{curr}</option>)
+            }
+          }) }
+        </select>
+      </label>
+    );
+  }
+
+  renderLoading() {
+    return (
+      <p>Carregando...</p>
+    );
+  }
+
   render() {
     const { currencies, isFetching } = this.props;
-    return (
-      <p>loading...</p>
-    );
+    console.log(isFetching);
+    if (isFetching === true) return this.renderLoading();
+    console.log(this.renderForms());
+    return this.renderForms();
   }
 }
 
@@ -72,7 +87,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMoedasThunk: () => dispatch(fetchCurrencies()),
+  fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

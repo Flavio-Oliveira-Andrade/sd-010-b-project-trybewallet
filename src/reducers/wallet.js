@@ -22,7 +22,7 @@ const wallet = (state = INITIAL_WALLET_STATE, action) => {
   case RECEIVE_CURRENCIES:
     return {
       ...state,
-      currencies: [action.payload.currencies],
+      currencies: action.payload.currencies,
       isFetching: action.payload.isFetching };
   case ERROR_CURRENCIES:
     return {
