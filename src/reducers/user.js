@@ -1,9 +1,7 @@
 import SUBMIT_EMAIL from '../actions/index';
 
 const USER_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 function userReducer(state = USER_STATE, action) {

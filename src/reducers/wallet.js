@@ -1,8 +1,6 @@
 const WALLET_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 function walletReducer(state = WALLET_STATE, action) {
