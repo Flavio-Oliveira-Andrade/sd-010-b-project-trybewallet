@@ -16,3 +16,5 @@ function App() {
 }
 
 export default App;
+
+// Projeto realizado em parceria com Wellington Passonpm,
