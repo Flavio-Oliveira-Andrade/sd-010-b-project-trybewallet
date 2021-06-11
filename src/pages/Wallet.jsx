@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 // import PropTypes from 'prop-types';
 
 function Wallet() {
-  const email = useSelector((state) => state.user.user.email);
+  const email = useSelector((state) => state.user.email);
   const dispenses = useSelector((state) => state.wallet.wallet.expenses);
   const currency = useSelector((state) => state.wallet.wallet.currencies);
 
