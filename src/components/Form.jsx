@@ -20,7 +20,7 @@ class Form extends Component {
     const { currencies } = this.props;
     console.log('merda so');
     return currencies.currencies.map((dale, key) => (
-      <option key={ key }>{ dale.name }</option>
+      <option key={ key }>{ dale.code }</option>
     ));
   }
 
@@ -28,23 +28,23 @@ class Form extends Component {
     return (
       <form className="form">
         <label htmlFor="valor">
-          Valor:
-          <input type="number" name="valor" />
+          Valor
+          <input type="number" id="valor" />
         </label>
         <label htmlFor="description">
           Descrição:
-          <input type="text" name="description" />
+          <input type="text" id="description" />
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select name="currency">
-            { console.log('ola rapazes') }
+          <select id="currency" name="moeda">
+            {/* { console.log('ola rapazes') } */}
             { this.renderCurrencysOptions() }
           </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento:
-          <select name="payment">
+          <select id="payment">
             <option value="money">Dinheiro</option>
             <option value="credit">Cartão de crédito</option>
             <option value="debit">Cartão de débito</option>
@@ -52,7 +52,7 @@ class Form extends Component {
         </label>
         <label htmlFor="tag">
           Tag:
-          <select name="tag">
+          <select id="tag">
             <option value="food">Alimentação</option>
             <option value="joy">Lazer</option>
             <option value="work">Trabalho</option>
