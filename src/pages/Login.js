@@ -32,6 +32,10 @@ class Login extends React.Component {
     this.setState({ isValidSenha: value.length >= minLength });
   }
 
+  // handleClick() {
+
+  // }
+
   render() {
     const { email, isValidEmail, isValidSenha } = this.state;
     const enable = isValidEmail && isValidSenha;
