@@ -3,6 +3,7 @@ import getAPICurrency from '../services/currencyAPI';
 
 export const USERLOGIN = 'user_Login';
 export const CURRENCIES = 'currencies';
+export const EXPENSES = 'expenses';
 
 export default function userLogin(values) {
   return {
@@ -15,6 +16,13 @@ export function currencyFind(currency) {
   return {
     type: CURRENCIES,
     payload: currency,
+  };
+}
+
+export function expensesExport(expense) {
+  return {
+    type: EXPENSES,
+    payload: expense,
   };
 }
 
@@ -31,6 +39,7 @@ export function currencyFind(currency) {
 export const fetchCurrency = () => async (dispatch) => {
   const resultAPI = await getAPICurrency();
   delete resultAPI.USDT;
-  const result = Object.values(resultAPI);
-  return dispatch(currencyFind(result));
+  return dispatch(currencyFind(resultAPI));
+  // const result = Object.values(resultAPI);
+  // return dispatch(currencyFind(result));
 };
