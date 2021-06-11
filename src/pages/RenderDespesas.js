@@ -10,10 +10,10 @@ class RenderDespesas extends React.Component {
   }
 
   excluir(index) {
-    const { todasDespesasSalvas } = this.props;
-    const aux = todasDespesasSalvas;
+    const { todasDespesasSalvas, apagarDespesa: apagar } = this.props;
+    const aux = [...todasDespesasSalvas];
     aux.splice(index, 1);
-    apagarDespesa(aux);
+    apagar(aux);
   }
 
   render() {

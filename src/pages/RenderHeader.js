@@ -7,7 +7,7 @@ function RenderHeader(props) {
   let totalDespesas = 0;
   todasDespesasSalvas.forEach((des) => {
     totalDespesas
-    += (parseFloat(des.value) * parseFloat(des.exchangeRates[des.currency].ask));
+    += parseFloat(((parseFloat(des.value) * parseFloat(des.exchangeRates[des.currency].ask))).toFixed(2));
   });
   return (
     <header>
