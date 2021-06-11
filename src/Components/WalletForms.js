@@ -8,7 +8,7 @@ class WalletForms extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
+      id: -1,
       value: '',
       description: '',
       currency: 'USD',
@@ -32,8 +32,10 @@ class WalletForms extends Component {
 
   handleClick() {
     const { addExpenses, expenses } = this.props;
+    const { id } = this.state;
+    const cont = id;
     getApi().then((result) => {
-      this.setState({ id: expenses.length, exchangeRates: result });
+      this.setState({ id: cont + 1, exchangeRates: result });
       addExpenses(this.state);
     });
   }

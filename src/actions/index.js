@@ -15,3 +15,7 @@ export function requestMoedasApi(dataApi) {
 export function addNewExpense(expense) {
   return { type: 'ADD_EXPENSE', expense };
 }
+
+export function deleteExpenseAction(newExpense) {
+  return { type: 'DELETE_EXPENSE', newExpense };
+}
