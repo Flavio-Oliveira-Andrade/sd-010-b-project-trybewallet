@@ -1,19 +1,22 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { USER_INFO } from '../actions';
+import { VALID_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
+  senha: '',
 };
 
-const ingredientsReducer = (state = INITIAL_STATE, action) => {
+function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case USER_INFO:
-    return { ingredients: action.ingredients };
+  case VALID_EMAIL:
+    return {
+      ...state,
+      email: action.payload.email,
+      senha: action.payload.senha,
+    };
   default:
     return state;
   }
-};
+}
 
-export default ingredientsReducer;
+export default userReducer;
