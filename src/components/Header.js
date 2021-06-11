@@ -14,8 +14,6 @@ class Header extends React.Component {
           { login }
         </h4>
         <span data-testid="total-field">
-          Total:
-          { ' ' }
           { total }
           { ' ' }
         </span>
