@@ -62,7 +62,7 @@ class Form extends React.Component {
           data-testid="currency-input"
         >
           {currencies
-            .map((moeda) => (moeda !== 'USDT' ? <option>{moeda}</option> : null))}
+            .map((bit) => (bit !== 'USDT' ? <option key={ bit }>{bit}</option> : null))}
         </select>
       </label>
     );
@@ -132,7 +132,7 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  currencies: PropTypes.string.isRequired,
+  currencies: PropTypes.arrayOf(String).isRequired,
   addExpense: PropTypes.func.isRequired,
   data: PropTypes.shape(Object).isRequired,
   fetchData: PropTypes.func.isRequired,

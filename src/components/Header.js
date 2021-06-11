@@ -3,13 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-
-    this.funtionCalc = this.funtionCalc.bind(this);
-  }
-
   funtionCalc(acc, curr) {
     return acc + parseFloat(curr.exchangeRates[curr.currency].ask * curr.value);
   }
@@ -36,7 +29,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
