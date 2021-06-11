@@ -1,7 +1,11 @@
 import { v4 as uuid } from 'uuid';
 
-function getNewId() {
+export function getNewId() {
   return uuid();
 }
 
-export default getNewId;
+const id = 0;
+
+export function getId() {
+  return id + 1;
+}
