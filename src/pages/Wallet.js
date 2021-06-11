@@ -9,7 +9,7 @@ class Wallet extends React.Component {
 
     this.state = {
       dispenses: 0,
-      currency: 0,
+      currency: 'BRL',
     };
   }
 
