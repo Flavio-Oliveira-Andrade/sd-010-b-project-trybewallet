@@ -20,22 +20,22 @@ class Form extends Component {
         <form>
           <label htmlFor="valor-despesa">
             Valor:
-            <input type="number" name="valor-despesa" />
+            <input type="number" name="valor-despesa" id="valor-despesa" />
           </label>
           <label htmlFor="descricao-despesa">
             Descrição:
-            <input type="text" name="descricao-despesa" />
+            <input type="text" name="descricao-despesa" id="descricao-despesa" />
           </label>
           <label htmlFor="select-moeda">
             Moeda:
-            <select name="select-moeda" className=".select-moeda">
+            <select name="select-moeda" id="select-moeda">
               {Object.keys(currencies).filter((cur) => cur !== 'USDT')
                 .map((cur) => <option key={ cur } value={ cur }>{cur}</option>)}
             </select>
           </label>
           <label htmlFor="metodo-pagamento-despesa">
             Método de pagamento:
-            <select type="text" name="metodo-pagamento-despesa">
+            <select type="text" name="metodo-pagamento-despesa" id="metodo-pagamento-despesa">
               <option value="dinheiro">Dinheiro</option>
               <option value="cartao-de-credito">Cartão de crédito</option>
               <option value="cartao-de-debito">Cartão de débito</option>
@@ -43,7 +43,7 @@ class Form extends Component {
           </label>
           <label htmlFor="tag-despesa">
             Tag:
-            <select type="text" name="tag-despesa">
+            <select type="text" name="tag-despesa" id="tag-despesa">
               <option value="alimentacao">Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
