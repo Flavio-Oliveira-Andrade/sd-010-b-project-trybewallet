@@ -16,7 +16,7 @@ export default (state = initialState, { type, payload }) => {
   case ADD_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, payload.expense],
+      expenses: [...state.expenses, payload.expenses],
     };
 
   default:

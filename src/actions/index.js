@@ -14,11 +14,11 @@ export function login(email, password) {
   };
 }
 
-export function expensesAction(expense) {
+export function expensesAction(expenses) {
   return {
     type: ADD_EXPENSE,
     payload: {
-      expense,
+      expenses,
     },
   };
 }

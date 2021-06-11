@@ -9,7 +9,7 @@ class Form extends React.Component {
     super();
 
     this.hChange = this.hChange.bind(this);
-    this.idMoreOne = this.idMoreOne.bind(this);
+    this.valorAndDescrit = this.valorAndDescrit.bind(this);
     this.tag = this.tag.bind(this);
     this.funcExchangeRates = this.funcExchangeRates.bind(this);
     this.resetForm = this.resetForm.bind(this);
@@ -17,12 +17,12 @@ class Form extends React.Component {
     this.state = {
       spending: {
         id: 0,
-        exchangeRates: [],
-        valor: '',
-        descrit: '',
-        moeda: 'USD',
-        metPag: '',
+        value: '',
+        description: '',
+        currency: 'USD',
+        method: '',
         tag: '',
+        exchangeRates: [],
       },
     };
   }
@@ -49,7 +49,7 @@ class Form extends React.Component {
     const resp = await fetchCambioApi();
     const stateAuxiliar = {
       ...spending,
-      exchangeRates: [resp],
+      exchangeRates: resp,
     };
     spendAc(stateAuxiliar);
     this.resetForm();
@@ -58,24 +58,43 @@ class Form extends React.Component {
   resetForm() {
     this.setState({
       spending: {
-        id: 0,
-        valor: '',
-        descrit: '',
-        moeda: 'USD',
-        metPag: '',
+        id: +1,
+        value: '',
+        description: '',
+        currency: 'USD',
+        method: '',
         tag: '',
         exchangeRates: [],
       },
     });
   }
 
-  idMoreOne() {
-    this.setState((old) => ({
-      spending: {
-        id: old.spending.id + 1,
-      },
-
-    }));
+  valorAndDescrit() {
+    const { spending: { value, description } } = this.state;
+    return (
+      <>
+        <label htmlFor="value">
+          Valor:
+          <input
+            onChange={ this.hChange }
+            value={ value }
+            id="value"
+            type="number"
+            name="value"
+          />
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input
+            onChange={ this.hChange }
+            value={ description }
+            id="description"
+            type="text"
+            name="description"
+          />
+        </label>
+      </>
+    );
   }
 
   tag() {
@@ -85,11 +104,11 @@ class Form extends React.Component {
         Tag
         <select onChange={ this.hChange } value={ tag } id="tag" name="tag">
           <option>{}</option>
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -97,29 +116,27 @@ class Form extends React.Component {
 
   render() {
     const { currencies } = this.props;
-    const { spending: { valor, descrit, metPag, moeda } } = this.state;
+    const { spending: { method, currency } } = this.state;
 
     return (
       <div>
         <form>
-          <label htmlFor="valor">
-            Valor:
-            <input onChange={ this.hChange } value={ valor } id="valor" type="number" name="valor" />
-          </label>
-          <label htmlFor="descrit">
-            Descrição:
-            <input onChange={ this.hChange } value={ descrit } id="descrit" type="text" name="descrit" />
-          </label>
-          <label htmlFor="moeda">
+          { this.valorAndDescrit() }
+          <label htmlFor="currency">
             Moeda
-            <select onChange={ this.hChange } value={ moeda } id="moeda" name="moeda">
+            <select
+              onChange={ this.hChange }
+              value={ currency }
+              id="currency"
+              name="currency"
+            >
               {currencies.filter((cur) => cur !== 'USDT')
                 .map((currenc) => <option key={ currenc }>{currenc}</option>)}
             </select>
           </label>
-          <label htmlFor="metPag">
+          <label htmlFor="method">
             Método de pagamento:
-            <select onChange={ this.hChange } value={ metPag } id="metPag" name="metPag">
+            <select onChange={ this.hChange } value={ method } id="method" name="method">
               <option>{}</option>
               <option>Dinheiro</option>
               <option>Cartão de crédito</option>
@@ -130,7 +147,7 @@ class Form extends React.Component {
           <button
             onClick={ () => {
               this.funcExchangeRates();
-              this.idMoreOne();
+              // this.idMoreOne();
             } }
             type="button"
           >
@@ -144,6 +161,7 @@ class Form extends React.Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

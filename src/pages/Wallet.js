@@ -7,21 +7,31 @@ class Wallet extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      // outgoing: 0,
-    };
+    this.funcTotal = this.funcTotal.bind(this);
+  }
+
+  componentDidMount() {
+    this.funcTotal();
+  }
+
+  funcTotal() {
+    const { expenses } = this.props;
+
+    const calcTotal = expenses.reduce(
+      (acc, curr) => acc + parseFloat(curr.value * curr.exchangeRates[curr.currency]
+        .ask), 0,
+    );
+    return calcTotal.toFixed(2);
   }
 
   render() {
-    const { login, total/* , expenses */ } = this.props;
-    // console.log(expenses.reduce((acc, { valor, ask }) => acc + parseFloat(curr.valor), 0));
-    // const { outgoing } = this.state;
+    const { login } = this.props;
     return (
       <div>
         <h2>Usuario: </h2>
         <h2 data-testid="email-field">{login}</h2>
         <h3>Despesa Total: </h3>
-        <h3 data-testid="total-field">{total}</h3>
+        <h3 data-testid="total-field">{ this.funcTotal() }</h3>
         <h3 data-testid="header-currency-field">BRL</h3>
         <Form />
       </div>
@@ -31,7 +41,6 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   login: state.user.email,
-  total: state.wallet.outgoing,
   expenses: state.wallet.expenses,
 });
 
