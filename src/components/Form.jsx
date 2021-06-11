@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class Form extends Component {
 
@@ -16,7 +16,9 @@ class Form extends Component {
           </label>
           <label htmlFor="select-moeda">
             Moeda:
-            <select type="text" name="select-moeda" />
+            <select type="text" name="select-moeda">
+              <option value="exemplo">exemplo</option>
+            </select>
           </label>
           <label htmlFor="metodo-pagamento-despesa">
             Método de pagamento:
@@ -38,7 +40,7 @@ class Form extends Component {
           </label>
         </form>
       </div>
-    )
+    );
   }
 }
 
