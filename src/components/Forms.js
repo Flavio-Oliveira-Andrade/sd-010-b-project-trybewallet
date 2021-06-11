@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAPI } from '../actions';
+import { fetchAPI, fetchCotation } from '../actions';
 
 class Forms extends React.Component {
   constructor() {
@@ -9,18 +9,19 @@ class Forms extends React.Component {
 
     this.state = {
       id: 0,
-      expenses: '',
       describe: '',
+      expenses: '',
       coin: '',
-      payment: 'money',
       categorie: 'food',
+      payment: 'money',
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const { fetchCoin } = this.props;
+    const { fetchCoin, cotation } = this.props;
     fetchCoin();
+    cotation();
   }
 
   handleChange(event) {
@@ -83,11 +84,13 @@ class Forms extends React.Component {
 
 Forms.propTypes = {
   fetchCoin: PropTypes.func.isRequired,
+  cotation: PropTypes.func.isRequired,
   coins: PropTypes.shape().isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCoin: () => dispatch(fetchAPI()),
+  cotation: () => dispatch(fetchCotation()),
 });
 
 const mapStateToProps = (state) => ({
