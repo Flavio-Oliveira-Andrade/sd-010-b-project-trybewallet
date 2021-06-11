@@ -16,6 +16,7 @@ export const REQUEST_EXCHANGE_RATES_ERROR = 'REQUEST_EXCHANGE_RATES_ERROR';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const MODIFY_EXPENSE = 'MODIFY_EXPENSE';
 
 export const userLogin = (userEmail) => ({
   type: LOGIN,
@@ -75,6 +76,11 @@ export const addExpense = (expense, exchangeRates) => ({
 
 export const removeExpense = (expenseId) => ({
   type: REMOVE_EXPENSE,
+  payload: expenseId,
+});
+
+export const modifyExpense = (expenseId) => ({
+  type: MODIFY_EXPENSE,
   payload: expenseId,
 });
 

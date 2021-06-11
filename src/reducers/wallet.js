@@ -4,6 +4,7 @@ import {
   REQUEST_EXCHANGE_RATES_SUCCESS,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  MODIFY_EXPENSE,
 } from '../actions';
 
 const initialState = {
@@ -29,6 +30,14 @@ const initialState = {
     // },
   ],
   exchangeRates: {},
+  defaultValues: {
+    currency: 'USD',
+    description: '',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
+    value: '0',
+  },
+  toModify: {},
 };
 
 const wallet = (state = initialState, action) => {
@@ -47,6 +56,14 @@ const wallet = (state = initialState, action) => {
       ...state,
       expenses: [...state.expenses].filter(
         ({ id }) => id !== parseInt(action.payload, 10),
+      ),
+    };
+
+  case MODIFY_EXPENSE:
+    return {
+      ...state,
+      toModify: state.expenses.find(
+        ({ id }) => id === parseInt(action.payload, 10),
       ),
     };
 
