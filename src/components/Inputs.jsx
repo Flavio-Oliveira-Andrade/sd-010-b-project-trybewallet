@@ -19,10 +19,14 @@ class Input extends React.Component {
 
 Input.propTypes = {
   place: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   test: PropTypes.string.isRequired,
   handle: PropTypes.func.isRequired,
+};
+// referencia de uso do defaulProps ====> https://frontarm.com/james-k-nelson/conditionally-set-default-props/
+Input.defaultProps = {
+  type: 'text',
 };
 
 export default Input;
