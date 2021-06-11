@@ -63,6 +63,7 @@ class Forms extends Component {
             if (curr !== 'USDT') {
               return (<option key={ curr } value={ curr }>{curr}</option>);
             }
+            return console.log('Aqui está o return, Sr. Lint.');
           }) }
         </select>
       </label>
