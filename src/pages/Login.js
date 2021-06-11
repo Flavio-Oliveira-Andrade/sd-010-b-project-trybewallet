@@ -7,34 +7,26 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      sendBtn: false,
+      sendBtn: true,
     };
-
-    this.handleChange = this.handleChange.bind(this);
+    this.validateBtn = this.validateBtn.bind(this);
   }
 
-  validateRejex() {
+  validateBtn() {
     const passwordLength = 5;
     const { email, password } = this.state;
-    const regex = /\S+@\S+\.\S+/;
+    const validateArroba = email.includes('@');
+    const validateDomain = email.includes('.com');
 
-    if (email.match(regex) && password.length > passwordLength) {
-      this.setState({
-        sendBtn: true,
-      });
+    if (password.length > passwordLength && validateArroba && validateDomain) {
+      this.setState({ sendBtn: false });
+    } else {
+      this.setState({ sendBtn: true });
     }
-  }
-  // Aprendendo a usar regex em: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
-
-  handleChange({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
-    },
-    this.validateRejex());
   }
 
   render() {
-    const { sendBtn } = this.state;
+    const { sendBtn, email, password } = this.state;
 
     return (
       <form>
@@ -42,19 +34,26 @@ class Login extends React.Component {
           type="email"
           data-testid="email-input"
           placeholder="Email"
-          handleChange={ this.handleChange }
+          onChange={ (e) => {
+            this.setState({ email: e.target.value });
+            this.validateBtn();
+          } }
         />
         <br />
         <input
           type="password"
           data-testid="password-input"
           placeholder="Senha"
-          handleChange={ this.handleChange }
+          onChange={ (e) => {
+            this.setState({ password: e.target.value });
+            this.validateBtn();
+          } }
         />
         <br />
         <button
           type="submit"
-          disabled={ !sendBtn }
+          onClick={ () => [email, password] }
+          disabled={ sendBtn }
         >
           Entrar
         </button>
@@ -63,6 +62,6 @@ class Login extends React.Component {
   }
 }
 
-// Requisito 2 feito com a ajuda do meu colega Fábio Marturano, link de sua PR: https://github.com/tryber/sd-010-b-project-trybewallet/pull/14
+// Requisito 2 feito com a ajuda do meu colega Leandro Reis, link de sua PR: https://github.com/tryber/sd-010-b-project-trybewallet/pull/37
 
 export default Login;
