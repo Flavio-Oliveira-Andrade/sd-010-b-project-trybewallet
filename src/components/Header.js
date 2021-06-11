@@ -13,11 +13,10 @@ class Header extends React.Component {
           { ' ' }
           { login }
         </h4>
-        <span data-testid="total-field">
+        <p data-testid="total-field">
           { total }
-          { ' ' }
-        </span>
-        <span data-testid="header-currency-field">{ currency }</span>
+        </p>
+        <p data-testid="header-currency-field">{ currency }</p>
       </>
     );
   }
