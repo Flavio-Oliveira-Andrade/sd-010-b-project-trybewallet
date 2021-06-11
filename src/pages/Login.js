@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import ButtonEnter from '../components/componentslogin/ButtonEnter';
 import InputEmail from '../components/componentslogin/InputEmail';
 import InputPassword from '../components/componentslogin/InputPassword';
-import { saveEmailLogin } from '../actions/index';
+import saveEmailLogin from '../actions/index';
 
 function Login() {
   const [email, setEmail] = useState('');
