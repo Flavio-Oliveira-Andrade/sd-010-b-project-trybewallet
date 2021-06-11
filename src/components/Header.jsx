@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   render() {
     const { userEmail } = this.props;
+    console.log();
     return (
       <header>
         <span data-testid="email-field">
@@ -29,6 +30,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  total: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

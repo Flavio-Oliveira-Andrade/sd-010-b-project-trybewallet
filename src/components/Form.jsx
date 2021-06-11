@@ -7,10 +7,11 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: 0,
       value: 0,
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       exchangeRates: {},
     };
@@ -22,12 +23,24 @@ class Form extends React.Component {
     saveCoin();
   }
 
+  superFunction() {
+    const { saveExpense } = this.props;
+    saveExpense(this.state);
+    this.setState((oldState) => ({ id: oldState.id + 1 }));
+  }
+
+  async requestInfo() {
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((i) => this.setState({ exchangeRates: i }, () => this.superFunction()));
+  }
+
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
-    const { coinName, saveExpense } = this.props;
+    const { coinName } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -47,9 +60,9 @@ class Form extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="payment" onChange={ this.handleChange }>
+          <select id="method" onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -69,7 +82,7 @@ class Form extends React.Component {
 
         <button
           type="button"
-          onClick={ () => saveExpense((this.state)) }
+          onClick={ () => { this.requestInfo(); } }
         >
           Adicionar despesa
         </button>

@@ -2,7 +2,6 @@ import { RECEIVE_COINS, RECEIVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
-  currenciesInfos: [],
   expenses: [],
 };
 
@@ -12,7 +11,6 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: Object.keys(action.payload.coin),
-      currenciesInfos: [...state.currenciesInfos, action.payload.coin],
     };
   case RECEIVE_EXPENSE:
     return {
