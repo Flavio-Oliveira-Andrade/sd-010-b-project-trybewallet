@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { currencyAPI } from '../actions';
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     const { dispatchAPI } = this.props;
@@ -29,11 +29,9 @@ class Form extends Component {
           <label htmlFor="select-moeda">
             Moeda:
             <select name="select-moeda" className=".select-moeda">
-            {Object.keys(currencies).filter((currency) => currency !== 'USDT').map((currency) =>
-              <option
-                key={ currency }
-                value={ currency }
-              >
+            {Object.keys(currencies).filter((currency) => currency !== 'USDT')
+                .map((currency) =>
+              <option key={ currency } value={ currency }>
                 {currency}
               </option>
             )}
