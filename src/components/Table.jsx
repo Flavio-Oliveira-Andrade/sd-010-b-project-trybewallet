@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, object } from 'prop-types';
 import { delExpense, toEdit } from '../actions';
+import '../pages/CSS/wallet.css';
 
 class Table extends Component {
   constructor() {
@@ -43,6 +44,7 @@ class Table extends Component {
               <td>
                 <button
                   type="button"
+                  className="YButton"
                   data-testid="edit-btn"
                   onClick={ () => propToEdit(true, expenses[index]) }
                 >
@@ -50,6 +52,7 @@ class Table extends Component {
                 </button>
                 <button
                   type="button"
+                  className="RButton"
                   data-testid="delete-btn"
                   onClick={ () => propDelExpense(id) }
                 >

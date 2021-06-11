@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { arrayOf, string } from 'prop-types';
 import { addExpense, toEdit, editExpense } from '../actions';
 import fetchCoins from '../services/apiCoins';
+import '../pages/CSS/wallet.css';
 
 const initialState = {
   id: 0,
@@ -34,8 +35,8 @@ class Forms extends Component {
   }
 
   resetState(add) {
-    const { id } = this.state;
-    this.setState({ ...initialState, id: Number(id) + add });
+    // const { id } = this.state;
+    this.setState((prev) => ({ ...initialState, id: Number(prev.id) + add }));
   }
 
   editMode(editingData) {
@@ -161,6 +162,7 @@ class Forms extends Component {
       <button
         data-testid={ status ? 'edit-btn' : '' }
         type="button"
+        className={ status ? 'YButton' : 'GButton' }
         onClick={ () => this.submit(status) }
       >
         {status ? 'Editar despesa' : 'Adicionar despesa'}
@@ -172,14 +174,14 @@ class Forms extends Component {
     const { currencies, status } = this.props;
     const { value, description, method, tag, currency } = this.state;
     return (
-      <>
+      <form className={ status ? 'edit-table' : 'form-table' }>
         { this.spendingValue(value) }
         { this.spendingDescription(description) }
         { this.spendingCurrency(currency, currencies) }
         { this.spendingMethod(method) }
         { this.spendingTag(tag) }
         { this.addOrEdit(status) }
-      </>
+      </form>
     );
   }
 }

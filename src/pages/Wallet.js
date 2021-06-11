@@ -5,6 +5,7 @@ import { updateCurrencies } from '../actions';
 import { Header, Forms } from '../components';
 import coins from '../services/apiCoins';
 import Table from '../components/Table';
+import './CSS/wallet.css';
 
 class Wallet extends React.Component {
   constructor() {
@@ -25,7 +26,7 @@ class Wallet extends React.Component {
     const { email, expenses } = this.props;
     return (
       <>
-        <Header email={ email } expenses={ expenses } />
+        <Header className="app-header" email={ email } expenses={ expenses } />
         <Forms />
         <Table expenses={ expenses } />
       </>

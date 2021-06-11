@@ -1,0 +1,89 @@
+html {
+  background-color: #6c7a89;
+}
+
+.app-header {
+  align-items: center;
+  background-color: #6c7a89;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  font-size: calc(10px + 2vmin);
+  justify-content: space-around;
+  min-height: 50px;
+}
+
+.form-table {
+  align-items: center;
+  background-color: #282c34;
+  color: #20db99;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px 5px;
+}
+
+.edit-table {
+  align-items: center;
+  background-color: #20db99;
+  color: #282c34;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px 5px;
+}
+
+label {
+  text-align: center;
+}
+
+input {
+  width: 120px;
+}
+
+.form-table input , select , button {
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+.edit-table input , select , button {
+  background-color: whitesmoke;
+  border-radius: 5px;
+}
+
+.expenses-table {
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.expenses-table table , th , td {
+  align-self: stretch;
+  background-color: whitesmoke;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 0 5px;
+  text-align: center;
+  transition: 0.5s;
+}
+
+.button-box {
+  display: flex;
+}
+
+.GButton {
+  background-color: #20db99;
+}
+
+.YButton {
+  background-color: orange;
+}
+
+.RButton {
+  background-color: crimson;
+}
+
+table td:hover {
+  background-color: #282c34;
+  color: #20db99;
+  opacity: 0.8;
+}
