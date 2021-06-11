@@ -35,7 +35,11 @@ class Form extends Component {
           </label>
           <label htmlFor="metodo-pagamento-despesa">
             Método de pagamento:
-            <select type="text" name="metodo-pagamento-despesa" id="metodo-pagamento-despesa">
+            <select
+              type="text"
+              name="metodo-pagamento-despesa"
+              id="metodo-pagamento-despesa"
+            >
               <option value="dinheiro">Dinheiro</option>
               <option value="cartao-de-credito">Cartão de crédito</option>
               <option value="cartao-de-debito">Cartão de débito</option>
