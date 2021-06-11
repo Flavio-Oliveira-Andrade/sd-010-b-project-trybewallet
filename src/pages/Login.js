@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import submitEmail from '../actions/userActions';
 
 class Login extends React.Component {
@@ -54,13 +55,15 @@ class Login extends React.Component {
           } }
         />
         <br />
-        <button
-          type="button"
-          onClick={ () => submitEmailBtn(email) }
-          disabled={ sendBtn }
-        >
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            onClick={ () => submitEmailBtn(email) }
+            disabled={ sendBtn }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
