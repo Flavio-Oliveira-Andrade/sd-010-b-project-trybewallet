@@ -72,11 +72,11 @@ class Wallet extends React.Component {
         <td>{ expense.method }</td>
         <td>{ expense.value }</td>
         <td>{ expense.exchangeRates[expense.currency].name.split('/')[0] }</td>
-        <td>{ parseFloat(expense.exchangeRates[expense.currency].bid).toFixed(2) }</td>
+        <td>{ parseFloat(expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
         <td>
-          { (expense.exchangeRates[expense.currency].bid * expense.value).toFixed(2) }
+          { (expense.exchangeRates[expense.currency].ask * expense.value).toFixed(2) }
         </td>
-        <td>{ expense.exchangeRates[expense.currency].name.split('/')[1] }</td>
+        <td>Real</td>
         <td>
           <button
             data-testid="edit-btn"
