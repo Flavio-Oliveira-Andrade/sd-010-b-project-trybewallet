@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import FormsExpenses from '../components/componentswallet/FormsExpenses';
 import Header from '../components/componentswallet/Header';
+import ButtonAddExpenses from '../components/componentswallet/ButtonAddExpenses';
+import { saveExpenses } from '../actions/index';
 
 function Wallet() {
+  const emailUser = useSelector((state) => state.user.email);
   const [totalDespesas] = useState(0);
   const [cambio] = useState('BRL');
-  const emailUser = useSelector((state) => state.user.email);
-
   const [inputValue, setInputValue] = useState(0);
   const [inputDescription, setInputDescripion] = useState('');
 
+  const dispatch = useDispatch();
   function handleInputValueChange(newValue) {
     setInputValue(newValue);
   }
-
   function handleInputDescriptionChange(newDescription) {
     setInputDescripion(newDescription);
   }
+
+  const getRequest = useCallback(async () => {
+    dispatch(saveExpenses());
+  }, [dispatch]);
+
+  useEffect(() => {
+    getRequest();
+  }, [getRequest]);
 
   return (
     <>
@@ -33,6 +42,7 @@ function Wallet() {
         handleInputValueChange={ handleInputValueChange }
         handleInputDescriptionChange={ handleInputDescriptionChange }
       />
+      <ButtonAddExpenses handleOnClick={ getRequest } />
     </>
   );
 }
