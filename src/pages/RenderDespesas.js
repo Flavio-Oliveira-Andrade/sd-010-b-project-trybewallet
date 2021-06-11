@@ -6,7 +6,12 @@ import { apagarDespesa } from '../actions';
 class RenderDespesas extends React.Component {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   auxiliar: [],
+    // };
     this.excluir = this.excluir.bind(this);
+    this.valorConvertido = this.valorConvertido.bind(this);
+    this.editar = this.editar.bind(this);
   }
 
   excluir(index) {
@@ -14,6 +19,41 @@ class RenderDespesas extends React.Component {
     const aux = [...todasDespesasSalvas];
     aux.splice(index, 1);
     apagar(aux);
+  }
+
+  editar(index) {
+    const { todasDespesasSalvas } = this.props;
+    const aux = [...todasDespesasSalvas];
+    // this.setState({ auxiliar: aux });
+    console.log(aux[index]);
+    const valueInput = document.getElementById('value');
+    const descriptionInput = document.getElementById('description');
+    const currencyInput = document.getElementById('currency');
+    const methodInput = document.getElementById('method');
+    const tagInput = document.getElementById('tag');
+    valueInput.value = aux[index].value;
+    descriptionInput.value = aux[index].description;
+    currencyInput.value = aux[index].currency;
+    methodInput.value = aux[index].method;
+    tagInput.value = aux[index].tag;
+  }
+
+  valorConvertido(des) {
+    return (((parseFloat(des.value) * parseFloat(des.exchangeRates[des.currency]
+      .ask))).toFixed(2));
+  }
+
+  renderBotaoEditar(index) {
+    return (
+      <button
+        type="button"
+        data-testid="edit-btn"
+        onClick={ () => this.editar(index) }
+      >
+        Editar
+
+      </button>
+    );
   }
 
   render() {
@@ -43,14 +83,11 @@ class RenderDespesas extends React.Component {
               <td>{(des.exchangeRates[des.currency].name).split('/')[0]}</td>
               <td>{parseFloat(des.exchangeRates[des.currency].ask).toFixed(2)}</td>
               <td>
-                {
-                  ((parseFloat(des.value) * parseFloat(des.exchangeRates[des.currency]
-                    .ask))).toFixed(2)
-                }
+                {this.valorConvertido(des) }
               </td>
               <td>Real</td>
               <td>
-                <button type="button" data-testid="edit-btn">Editar</button>
+                { this.renderBotaoEditar(index) }
                 {' '}
                 <button
                   type="button"
