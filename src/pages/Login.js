@@ -8,10 +8,9 @@ class Login extends React.Component {
     };
   } */
 
-  /* validarEmail = (e) => {
+  validarEmail(e) {
     e.preventDefault();
-
-  } */
+  }
 
   render() {
     /* const { valido } = this.state; */
@@ -20,6 +19,7 @@ class Login extends React.Component {
         <div>Login</div>
         <input data-testid="email-input" />
         <input data-testid="password-input" />
+        <button type="button" onClick={ this.validarEmail }>Entrar</button>
       </>
     );
   }
