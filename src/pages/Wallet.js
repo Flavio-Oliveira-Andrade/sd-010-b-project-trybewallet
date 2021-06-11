@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from '../components/Form';
+import Table from '../components/Table';
 
 class Wallet extends Component {
   constructor() {
@@ -63,20 +64,7 @@ class Wallet extends Component {
         </span>
         <Form />
         <table>
-          <thead>
-            <tr>
-              <td>Descrição</td>
-              <td>Tag</td>
-              <td>Método de pagamento</td>
-              <td>Valor</td>
-              <td>Moeda</td>
-              <td>Câmbio utilizado</td>
-              <td>Valor convertido</td>
-              <td>Moeda de conversão</td>
-              <td>Editar</td>
-              <td>Excluir</td>
-            </tr>
-          </thead>
+          <Table />
           <tbody>
             { objCurrency && objCurrency.map((
               { id, description, value, currency, method, tag, exchangeRates },
@@ -87,7 +75,12 @@ class Wallet extends Component {
                 <td>{ method }</td>
                 <td>{ !value ? 0 : value }</td>
                 <td>{ (this.findProp(exchangeRates, currency).name).split('/')[0] }</td>
-                <td>{ this.findProp(exchangeRates, currency).ask }</td>
+                <td>
+                  {
+                    Math.round(parseFloat(this
+                      .findProp(exchangeRates, currency).ask) * 100) / 100
+                  }
+                </td>
                 <td>{ this.calculeValue(exchangeRates, currency, value) }</td>
                 <td>Real</td>
               </tr>

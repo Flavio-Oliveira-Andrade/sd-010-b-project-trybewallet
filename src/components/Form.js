@@ -17,7 +17,7 @@ class Form extends React.Component {
     this.state = {
       request: [],
       valor: '',
-      descricao: '',
+      description: '',
       moeda: 'USD',
       metodo: 'Dinheiro',
       despesas: 'Alimentacao',
@@ -46,14 +46,14 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { valor, descricao, moeda, metodo, despesas } = this.state;
+    const { valor, description, moeda, metodo, despesas } = this.state;
     const { add, request, expenses } = this.props;
     let obj = {};
     return request().then((resolve) => {
       obj = {
         id: expenses.length,
         value: valor,
-        description: descricao,
+        description,
         currency: moeda,
         method: metodo,
         tag: despesas,
@@ -64,7 +64,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { request, valor, descricao, moeda, metodo, despesas } = this.state;
+    const { request, valor, description, moeda, metodo, despesas } = this.state;
     const { handleChange } = this;
     return (
       <form>
@@ -83,8 +83,8 @@ class Form extends React.Component {
           <input
             type="text"
             id="descricao"
-            name="descricao"
-            value={ descricao }
+            name="description"
+            value={ description }
             onChange={ (e) => handleChange(e) }
           />
         </label>
