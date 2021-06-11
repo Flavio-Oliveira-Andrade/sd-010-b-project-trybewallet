@@ -13,6 +13,7 @@ class Wallet extends React.Component {
     this.formCurrency = this.formCurrency.bind(this);
     this.formMethod = this.formMethod.bind(this);
     this.formTag = this.formTag.bind(this);
+    this.currencyRequisition = this.currencyRequisition.bind(this);
 
     this.state = {
       value: '',
@@ -20,11 +21,27 @@ class Wallet extends React.Component {
       currency: '',
       method: '',
       tag: '',
+      coinRequisition: [],
     };
+  }
+
+  componentDidMount() {
+    this.currencyRequisition();
   }
 
   formControl({ target: { name, value } }) {
     this.setState({ [name]: value });
+  }
+
+  async currencyRequisition() {
+    const three = 3;
+    const partialResult = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((apiResponse) => apiResponse.json())
+      .then((response) => Object.keys(response))
+      // .map((item) => delete (item === 'USDT' || item === 'DOGE'))
+      .catch((error) => error);
+    const result = partialResult.filter((item) => item.length === three);
+    this.setState({ coinRequisition: result });
   }
 
   header() {
@@ -77,6 +94,7 @@ class Wallet extends React.Component {
 
   formCurrency() {
     const { currency } = this.state;
+    const { coinRequisition } = this.state;
     return (
       <label htmlFor="coin">
         Moeda
@@ -85,7 +103,14 @@ class Wallet extends React.Component {
           value={ currency }
           onChange={ this.formControl }
         >
-          <option value="teste">teste</option>
+          { coinRequisition.map((coin) => (
+            <option
+              key={ coin }
+              value={ coin }
+            >
+              { coin }
+            </option>
+          ))}
         </select>
       </label>
     );
