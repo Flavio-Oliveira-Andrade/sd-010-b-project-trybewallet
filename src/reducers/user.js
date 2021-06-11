@@ -7,8 +7,11 @@ const initialState = {
 
 function userReducer(state = initialState, action) {
   switch (action.type) {
-  // case value:
-  //   break;
+  case 'addUser':
+    return {
+      ...state.user,
+      email: action.payload.email,
+    };
   default:
     return state;
   }

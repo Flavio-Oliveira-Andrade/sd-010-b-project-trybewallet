@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import addUser from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -45,7 +49,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabled } = this.state;
+    const { disabled, email } = this.state;
+    const { addUserState } = this.props;
     return (
       <section>
         <div>Login</div>
@@ -56,6 +61,7 @@ class Login extends React.Component {
               type="email"
               name="email"
               onChange={ this.handleChange }
+              data-testid="email-input"
               required
             />
           </label>
@@ -66,17 +72,34 @@ class Login extends React.Component {
               name="password"
               minLength="6"
               onChange={ this.handleChange }
+              data-testid="password-input"
               required
             />
           </label>
         </form>
-        <button type="button" disabled={ disabled }>
-          Entrar
-        </button>
+        <Link to="/carteira">
+          <button
+            type="button"
+            // https://stackoverflow.com/questions/30187781/how-to-disable-a-button-when-an-input-is-empty
+            disabled={ disabled }
+            onClick={ () => addUserState(email) }
+          >
+            Entrar
+          </button>
+
+        </Link>
 
       </section>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  addUserState: (email) => dispatch(addUser(email)),
+});
+
+Login.propTypes = {
+  addUserState: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
