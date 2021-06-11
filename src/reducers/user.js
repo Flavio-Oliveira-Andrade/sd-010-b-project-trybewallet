@@ -10,6 +10,7 @@ function userReducer(state = USER_STATE, action) {
   switch (action.type) {
   case SUBMIT_EMAIL:
     return {
+      ...state,
       email: action.payload.email,
     };
   default:

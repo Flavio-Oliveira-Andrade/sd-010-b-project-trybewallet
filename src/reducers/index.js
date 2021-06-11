@@ -2,17 +2,9 @@ import { combineReducers } from 'redux';
 import userReducer from './user';
 import walletReducer from './wallet';
 
-export const GLOBAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
-};
-
-export default combineReducers({
+const rootReducer = combineReducers({
   user: userReducer,
   wallet: walletReducer,
 });
+
+export default rootReducer;

@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
+import submitEmail from '../actions/userActions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -26,7 +29,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { sendBtn, email, password } = this.state;
+    const { sendBtn, email } = this.state;
+    const { submitEmailBtn } = this.props;
 
     return (
       <form>
@@ -51,8 +55,8 @@ class Login extends React.Component {
         />
         <br />
         <button
-          type="submit"
-          onClick={ () => [email, password] }
+          type="button"
+          onClick={ () => submitEmailBtn(email) }
           disabled={ sendBtn }
         >
           Entrar
@@ -62,6 +66,14 @@ class Login extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  submitEmailBtn: (email) => dispatch(submitEmail(email)),
+});
+
+Login.propTypes = {
+  submitEmail: Proptypes.func,
+}.isRequired;
+
 // Requisito 2 feito com a ajuda do meu colega Leandro Reis, link de sua PR: https://github.com/tryber/sd-010-b-project-trybewallet/pull/37
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
