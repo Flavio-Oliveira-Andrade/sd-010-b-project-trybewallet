@@ -1,10 +1,10 @@
 // Coloque aqui suas actions
-function loginAction(email, password) {
+
+function loginAction(email) {
   return {
     type: 'LOGIN_ACTION',
     payload: {
       email,
-      password,
     },
   };
 }

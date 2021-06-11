@@ -1,12 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
 function Wallet() {
   const email = useSelector((state) => state.user.user.email);
   const dispenses = useSelector((state) => state.wallet.wallet.expenses);
   const currency = useSelector((state) => state.wallet.wallet.currencies);
+
   return (
     <div>
       <header>
