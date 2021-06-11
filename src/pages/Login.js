@@ -13,7 +13,7 @@ class Login extends React.Component {
   }
 
   validateBtn() {
-    const passwordLength = 5;
+    const passwordLength = 4;
     const { email, password } = this.state;
     const validateArroba = email.includes('@');
     const validateDomain = email.includes('.com');
