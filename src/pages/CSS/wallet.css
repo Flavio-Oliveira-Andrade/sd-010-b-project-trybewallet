@@ -8,7 +8,7 @@ html {
   color: whitesmoke;
   display: flex;
   flex-direction: row;
-  font-size: calc(10px + 2vmin);
+  font-size: 30px;
   justify-content: space-around;
   min-height: 50px;
 }

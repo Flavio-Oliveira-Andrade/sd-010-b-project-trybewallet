@@ -1,4 +1,4 @@
-const INITIAL_STATE = { email: '' };
+const INITIAL_STATE = { email: 'GUEST' };
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {

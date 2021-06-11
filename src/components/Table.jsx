@@ -67,7 +67,7 @@ class Table extends Component {
 
   render() {
     return (
-      <table>
+      <table className="expenses-table">
         { this.tableHead() }
         { this.tableBody() }
       </table>
@@ -77,7 +77,7 @@ class Table extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   propDelExpense: (data) => dispatch(delExpense(data)),
-  propToEdit: (status, editingData) => dispatch(toEdit(status, editingData)),
+  propToEdit: (status, editData) => dispatch(toEdit(status, editData)),
 });
 
 Table.propTypes = {

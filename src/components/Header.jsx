@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { objectOf, object, string } from 'prop-types';
+import '../pages/CSS/wallet.css';
 
 class Header extends Component {
   render() {
@@ -7,7 +8,7 @@ class Header extends Component {
     const totalSpending = expenses.reduce((acc, curr) => (
       acc + ((curr.value) * (curr.exchangeRates[curr.currency].ask))), 0).toFixed(2);
     return (
-      <header>
+      <header className="app-header">
         <span data-testid="email-field">{`User: ${email}`}</span>
         <span data-testid="total-field">{`Gastos: $ ${totalSpending}`}</span>
         <span data-testid="header-currency-field">Moeda: BRL</span>

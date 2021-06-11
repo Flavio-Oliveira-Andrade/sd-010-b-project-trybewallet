@@ -26,21 +26,27 @@ class Forms extends Component {
     this.submitButton = this.submit.bind(this);
     this.editMode = this.editMode.bind(this);
     this.addOrEdit = this.addOrEdit.bind(this);
-    this.state = initialState;
+    this.state = { expense: initialState, prevId: 0 };
   }
 
   componentDidUpdate(prev) {
-    const { status, editingData } = this.props;
-    if (status && prev.status === false) this.editMode(editingData);
+    const { status, editData } = this.props;
+    if (status && prev.status === false) this.editMode(editData);
   }
 
   resetState(add) {
-    // const { id } = this.state;
-    this.setState((prev) => ({ ...initialState, id: Number(prev.id) + add }));
+    const { prevId } = this.state;
+    if (add) {
+      this.setState((prev) => ({
+        prevId: prev.prevId + add,
+        expense: { ...initialState, id: prevId + add } }));
+    } else {
+      this.setState({ expense: { ...initialState, id: prevId } });
+    }
   }
 
-  editMode(editingData) {
-    this.setState(editingData);
+  editMode(editData) {
+    this.setState({ expense: editData });
   }
 
   spendingValue(value) {
@@ -54,7 +60,8 @@ class Forms extends Component {
           step="1.00"
           min="0"
           onChange={ ({ target }) => {
-            this.setState({ value: target.value });
+            this.setState((prev) => ({
+              expense: { ...prev.expense, value: target.value } }));
           } }
         />
       </label>
@@ -70,7 +77,8 @@ class Forms extends Component {
           type="text"
           value={ description }
           onChange={ ({ target: { value } }) => {
-            this.setState({ description: value });
+            this.setState((prev) => ({
+              expense: { ...prev.expense, description: value } }));
           } }
         />
       </label>
@@ -85,7 +93,8 @@ class Forms extends Component {
           id="currency"
           value={ currency }
           onChange={ ({ target: { value } }) => {
-            this.setState({ currency: value });
+            this.setState((prev) => ({
+              expense: { ...prev.expense, currency: value } }));
           } }
         >
           {currencies.map((curr) => (
@@ -110,7 +119,8 @@ class Forms extends Component {
           id="method"
           value={ method }
           onChange={ ({ target: { value } }) => {
-            this.setState({ method: value });
+            this.setState((prev) => ({
+              expense: { ...prev.expense, method: value } }));
           } }
         >
           <option defaultValue hidden>Escolha</option>
@@ -130,7 +140,8 @@ class Forms extends Component {
           id="tag"
           value={ tag }
           onChange={ ({ target: { value } }) => {
-            this.setState({ tag: value });
+            this.setState((prev) => ({
+              expense: { ...prev.expense, tag: value } }));
           } }
         >
           <option defaultValue hidden>Escolha</option>
@@ -145,14 +156,15 @@ class Forms extends Component {
   }
 
   async submit(status) {
+    const { expense } = this.state;
     const {
       propAddExpense, propEditExpense, propToEdit } = this.props;
     if (status) {
-      propEditExpense(this.state);
+      propEditExpense(expense);
       propToEdit(false, {});
-      this.resetState(0);
+      this.resetState();
     } else {
-      propAddExpense({ ...this.state, exchangeRates: await fetchCoins() });
+      propAddExpense({ ...expense, exchangeRates: await fetchCoins() });
       this.resetState(1);
     }
   }
@@ -172,7 +184,7 @@ class Forms extends Component {
 
   render() {
     const { currencies, status } = this.props;
-    const { value, description, method, tag, currency } = this.state;
+    const { expense: { value, description, method, tag, currency } } = this.state;
     return (
       <form className={ status ? 'edit-table' : 'form-table' }>
         { this.spendingValue(value) }
@@ -187,12 +199,12 @@ class Forms extends Component {
 }
 
 const mapStateToProps = ({
-  wallet: { currencies, expenses, edit: { status, editingData } = {} } }) => ({
-  currencies, expenses, status, editingData });
+  wallet: { currencies, expenses, edit: { status, editData } = {} } }) => ({
+  currencies, expenses, status, editData });
 
 const mapDispatchToProps = (dispatch) => ({
   propAddExpense: (data) => dispatch(addExpense(data)),
-  propToEdit: (status, editingData) => dispatch(toEdit(status, editingData)),
+  propToEdit: (status, editData) => dispatch(toEdit(status, editData)),
   propEditExpense: (data) => dispatch(editExpense(data)),
 });
 
