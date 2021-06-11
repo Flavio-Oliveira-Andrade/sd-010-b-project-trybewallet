@@ -31,17 +31,16 @@ class Wallet extends React.Component {
       <div>
         <header>
           <span data-testid="email-field">
-            User:&nbsp;
-            {/* O código acima é para adicionar um espaço "forçado"
-            entre a primeira linha e a segunda */}
+            User:
+
             { emailUser }
           </span>
           <span data-testid="total-field">
-            Total expenses:&nbsp;
+            Total expenses:
             { this.expensesTotal() }
           </span>
           <span data-testid="header-currency-field">
-            &nbsp;BRL
+            BRL
           </span>
         </header>
         <Forms />

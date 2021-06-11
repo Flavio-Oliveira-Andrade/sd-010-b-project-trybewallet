@@ -70,21 +70,21 @@ class Forms extends React.Component {
   render() {
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
           <input
             type="text"
             name="name"
-            id="valor"
+            id="value"
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <label htmlFor="Description">
+        <label htmlFor="description">
           Descrição
           <input
             type="text"
             name="name"
-            id="Description"
+            id="description"
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
