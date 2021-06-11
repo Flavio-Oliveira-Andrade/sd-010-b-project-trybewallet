@@ -12,26 +12,18 @@ class Form extends Component {
 
   componentDidMount() {
     const { requestDales } = this.props;
+    console.log('mount');
     return requestDales();
   }
 
   renderCurrencysOptions() {
     const { currencies } = this.props;
-    currencies.map((dale, key) => {
-      console.log(dale.code);
-      return (
-        <option
-          key={ key }
-          value={ dale.code }
-        >
-          { console.log(dale.name) }
-        </option>
-      );
-    });
-    console.log(currencies);
+    console.log('merda so');
+    return currencies.currencies.map((dale, key) => (
+      <option key={ key }>{ dale.name }</option>
+    ));
   }
 
-export default class Form extends Component {
   render() {
     return (
       <form className="form">
@@ -46,7 +38,8 @@ export default class Form extends Component {
         <label htmlFor="currency">
           Moeda:
           <select name="currency">
-            <option value="dale">dale</option>
+            { console.log('ola rapazes') }
+            { this.renderCurrencysOptions() }
           </select>
         </label>
         <label htmlFor="payment">

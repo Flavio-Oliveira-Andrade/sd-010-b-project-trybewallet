@@ -11,8 +11,8 @@ class Wallet extends React.Component {
   }
 
   totalExpenses() {
-    const { currencies } = this.props;
-    return currencies.reduce((a, b) => a + b, 0);
+    const { expenses } = this.props;
+    return expenses.reduce((a, b) => a + b, 0);
   }
 
   render() {
@@ -39,21 +39,22 @@ class Wallet extends React.Component {
   }
 }
 
+Wallet.defaultProps = {
+  expenses: [],
+};
+
 Wallet.propTypes = {
-  email: PropTypes.func.isRequired,
-  // expenses: PropTypes.func.isRequired,
-  currencies: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.string),
 };
 
 const mapDispathToProps = (dispatch) => ({
   totalExpenses: (total) => dispatch(actionTotal(total)),
-  // cambio: (cambio) => dispatch(currencies(cambio)),
 });
 
-const mapStateToProps = ({ user: { email }, wallet: { expenses, currencies } }) => ({
+const mapStateToProps = ({ user: { email }, wallet: { expenses } }) => ({
   email,
   expenses,
-  currencies,
 });
 
 export default connect(mapStateToProps, mapDispathToProps)(Wallet);
