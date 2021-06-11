@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
+import getCurrency from '../services/requirements';
 
 class Forms extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currencies: [],
+    };
+  }
+
+  componentDidMount() {
+    const { fetchMoedasThunk } = this.props;
+    fetchMoedasThunk();
+  }
+
+  renderForms() {
+    const { currencies, isFetching } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -12,12 +28,14 @@ class Forms extends Component {
           Descrição
           <input type="text" name="desc" />
         </label>
-        <label htmlFor="moeda">
+        {console.log(currencies)}
+        {/* { this.renderCurrency() } */}
+        {/* <label htmlFor="moeda">
           Moeda
           <select name="moeda">
             <option value="lint">lint</option>
           </select>
-        </label>
+        </label> */}
         <label htmlFor="pay">
           Método de pagamento
           <select name="pay">
@@ -39,6 +57,22 @@ class Forms extends Component {
       </form>
     );
   }
+
+  render() {
+    const { currencies, isFetching } = this.props;
+    return (
+      <p>loading...</p>
+    );
+  }
 }
 
-export default Forms;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchMoedasThunk: () => dispatch(fetchCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
