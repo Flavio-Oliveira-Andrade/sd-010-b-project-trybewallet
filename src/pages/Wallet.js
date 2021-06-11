@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {
   fetchCurrencyInitials as fetchCurrencyInitialsThunk,
   fetchExchangeRatesAddExpense as fetchExchangeRatesAddExpenseThunk,
-  removeExpense,
 } from '../actions';
+import ExpenseTable from '../components/ExpenseTable';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -23,7 +23,6 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
-    this.renderExpensesTable = this.renderExpensesTable.bind(this);
   }
 
   componentDidMount() {
@@ -79,64 +78,12 @@ class Wallet extends React.Component {
     );
   }
 
-  renderExpensesTable() {
-    const { expenses, deleteExpense } = this.props;
-
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map(
-            ({
-              id, description, tag, method, value, currency, exchangeRates,
-            }) => (
-              <tr id={ id } key={ id }>
-                <td>{description}</td>
-                <td>{tag}</td>
-                <td>{method}</td>
-                <td>{value}</td>
-                <td>{exchangeRates[currency].name}</td>
-                <td>{parseFloat(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>Real</td>
-                <td>
-                  <button type="button" data-testid="edit-btn">EDIT</button>
-                  <button
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={ ({ target }) => deleteExpense(
-                      target.parentNode.parentNode.id,
-                    ) }
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>),
-          )}
-        </tbody>
-      </table>
-    );
-  }
-
   render() {
     const {
       renderHeader,
       renderCurrency,
       saveExpenses,
       handleChange,
-      renderExpensesTable,
     } = this;
     return (
       <>
@@ -173,7 +120,7 @@ class Wallet extends React.Component {
           </label>
           <button type="submit">Adicionar despesa</button>
         </form>
-        {renderExpensesTable()}
+        <ExpenseTable />
       </>
     );
   }
@@ -189,7 +136,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencyInitials: () => dispatch(fetchCurrencyInitialsThunk()),
   fetchExchangeRatesAddExpense:
     (expense) => dispatch(fetchExchangeRatesAddExpenseThunk(expense)),
-  deleteExpense: (expenseId) => dispatch(removeExpense(expenseId)),
 });
 
 Wallet.propTypes = {
@@ -198,7 +144,6 @@ Wallet.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurrencyInitials: PropTypes.func.isRequired,
   fetchExchangeRatesAddExpense: PropTypes.func.isRequired,
-  deleteExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
