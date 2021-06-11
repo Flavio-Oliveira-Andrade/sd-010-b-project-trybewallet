@@ -5,7 +5,7 @@ import { getDataThunk } from '../actions/apiRequests';
 import addExpenseAction from '../actions/addExpenseAction';
 
 const intitialState = {
-  id: 0,
+  id: -1,
   value: 0,
   description: '',
   currency: 'USD',
