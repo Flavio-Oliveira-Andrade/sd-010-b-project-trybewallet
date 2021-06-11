@@ -29,7 +29,7 @@ class Header extends Component {
         </label>
         <Form />
       </header>
-    )
+    );
   }
 }
 
