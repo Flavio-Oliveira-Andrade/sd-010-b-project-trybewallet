@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchCoins, addExpense } from '../actions/walletActions';
 import Payments from './Payments';
+import TagSelect from './TagSelect';
 
 class Forms extends React.Component {
   constructor() {
@@ -82,6 +83,7 @@ class Forms extends React.Component {
           Descrição
           <input
             type="text"
+            name="name"
             id="Description"
             onChange={ (e) => this.handleChange(e) }
           />
@@ -93,20 +95,7 @@ class Forms extends React.Component {
           </select>
         </label>
         <Payments handleChange={ this.handleChange } />
-        <label htmlFor="tag">
-          Tag
-          <select
-            id="tag"
-            onChange={ (e) => this.handleChange(e) }
-          >
-            <option key="Alimentação" value="Alimentação">Alimentação</option>
-            <option key="Lazer" value="Lazer">Lazer</option>
-            <option key="Trabalho" value="Trabalho">Trabalho</option>
-            <option key="Transporte" value="Transporte">Transporte</option>
-            <option key="Saúde" value="Saúde">Saúde</option>
-            <option key="Outros" value="Outros">Outros</option>
-          </select>
-        </label>
+        <TagSelect handleChange={ this.handleChange } />
         <button
           type="button"
           onClick={ () => this.mountExpense() }
