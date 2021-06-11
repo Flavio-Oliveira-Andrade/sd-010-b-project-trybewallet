@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionNewExpense } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -31,6 +32,26 @@ class Wallet extends React.Component {
     this.setState({ coinType: Object.keys(coins) });
   }
 
+  // Função que tem como "inspiração" o projeto do estudante limapaulobsb
+  handleClick() {
+    const { newExpense, expenses } = this.props;
+    let id = 0;
+    if (expenses.length > 0) {
+      id = expenses.length - 1 + 1;
+    }
+
+    const payload = {
+      id,
+      value: document.getElementById('valor').value,
+      description: document.getElementById('descricao').value,
+      currency: document.getElementById('moeda').value,
+      method: document.getElementById('metodo').value,
+      tag: document.getElementById('tag').value,
+    };
+
+    newExpense(payload);
+  }
+
   form() {
     const { coinType } = this.state;
 
@@ -59,31 +80,39 @@ class Wallet extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="pagamento">
+        <label htmlFor="metodo">
           Método de pagamento
-          <select id="pagamento">
-            <option value="money">Dinheiro</option>
-            <option value="creditCard">Cartão de crédito</option>
-            <option value="debitCard">Cartão de débito</option>
+          <select id="metodo">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
 
-        <label htmlFor="categoria">
+        <label htmlFor="tag">
           Tag
-          <select id="categoria">
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+          <select id="tag">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
       </form>
     );
   }
 
+  calcTotal(expenses) {
+    const total = expenses.reduce((acc, curr) => {
+      const rate = curr.exchangeRates[curr.currency].ask;
+      return acc + curr.value * rate;
+    }, 0);
+    return total;
+  }
+
   render() {
-    const { userEmailState } = this.props;
+    const { userEmailState, expenses } = this.props;
 
     return (
       <main>
@@ -95,11 +124,18 @@ class Wallet extends React.Component {
             {' '}
             {userEmailState}
           </p>
-          <p data-testid="total-field">Despesa Total: 0</p>
+          <p data-testid="total-field">{this.calcTotal(expenses)}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
 
         {this.form()}
+
+        <button
+          type="button"
+          onClick={ () => this.handleClick() }
+        >
+          Adicionar despesa
+        </button>
       </main>
     );
   }
@@ -107,10 +143,17 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   userEmailState: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newExpense: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  newExpense: (item) => dispatch(actionNewExpense(item)),
+});
 
 const mapStateToProps = (state) => ({
   userEmailState: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
