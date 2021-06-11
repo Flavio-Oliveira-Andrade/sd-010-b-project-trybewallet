@@ -16,10 +16,10 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   const { expenses } = state;
   switch (action.type) {
   case 'ADD_EXPENSE':
+    if (action.payload.value === '') return ({ ...state });
     action.payload.id = state.expenses.length;
     return {
-      ...state,
-      expenses: [...state.expenses, action.payload],
+      ...state, expenses: [...state.expenses, action.payload],
     };
   case 'DELETE_EXPENSE': {
     const filteredExpenses = expenses.filter((expense) => expense.id !== action.payload);
