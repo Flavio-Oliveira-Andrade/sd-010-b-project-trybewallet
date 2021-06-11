@@ -159,19 +159,22 @@ class Wallet extends React.Component {
 
     return (
       <>
-        <header>
-          <span data-testid="email-field">{`Email: ${email} `}</span>
-          <span data-testid="total-field">
-            { `Total: ${this.loadTotalWalletExpenses()} `}
-          </span>
-          <span data-testid="header-currency-field">BRL</span>
+        <header className="wallet-header">
+          <div>
+            <span data-testid="email-field">{`Email: ${email} `}</span>
+            <br />
+            <span data-testid="total-field">
+              { `Total: ${this.loadTotalWalletExpenses()} `}
+            </span>
+            <span data-testid="header-currency-field">BRL</span>
+          </div>
         </header>
 
-        <main>
+        <main className="wallet-main">
           { this.generateExpenseForm() }
-          { this.generateButton() }
         </main>
-        <footer>
+        <footer className="wallet-footer">
+          { this.generateButton() }
           <table>
             <tbody>
               { this.generateTableHeader() }

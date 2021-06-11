@@ -40,13 +40,23 @@
   }
 }
 
+* {
+  font-size: 11px;
+}
+
+input, select, button {
+  border-radius: 4px;
+  margin: 6px;
+  padding: 2px;
+}
+
 .loginSection {
   border: solid black 1px;
   border-radius: 4px;
   height: 150px;
-  left: 50%;
+  left: 40%;
   position: absolute;
-  top: 50%;
+  top: 30%;
   width: 200px;
 }
 
@@ -55,7 +65,7 @@
   border-radius: 4px;
   height: 20px;
   margin: 8px;
-  width: 90%;
+  width: 87%;
 }
 
 .loginSection button {
@@ -64,4 +74,22 @@
   height: 20px;
   margin: 8px;
   width: 90%;
+}
+
+.wallet-header {
+  display: flex;
+  flex-flow: column;
+  margin: 8px;
+}
+
+.wallet-main {
+  display: flex;
+  flex-flow: column;
+  margin: 8px;
+}
+
+.wallet-footer {
+  display: flex;
+  flex-flow: column;
+  margin: 2px;
 }
