@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { deleteExpense } from '../actions';
 
 const tableHead = () => (
@@ -47,12 +48,7 @@ const tableBody = (expenses, deleteFn) => (
           >
             Excluir
           </button>
-          <button
-            type="button"
-            data-testid="edit-btn"
-          >
-            Editar
-          </button>
+          <Link to={ `/carteira/${id}/edit` }>Editar</Link>
         </td>
       </tr>
     ))}
