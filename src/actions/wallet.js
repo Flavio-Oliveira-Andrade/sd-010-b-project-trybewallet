@@ -1,4 +1,5 @@
-import { GET_TOTAL } from './index';
+import { GET_API, GET_TOTAL } from './index';
+import getAPI from '../services/API';
 
 export const actionTotal = (total = 0) => ({
   type: GET_TOTAL,
