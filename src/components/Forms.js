@@ -88,9 +88,9 @@ class Forms extends React.Component {
             onChange={ (e) => this.handleChange(e) }
           />
         </label>
-        <label htmlFor="currencies">
+        <label htmlFor="currency">
           Moeda
-          <select id="currencies" onChange={ (e) => this.handleChange(e) }>
+          <select id="currency" onChange={ (e) => this.handleChange(e) }>
             { this.currenciesName() }
           </select>
         </label>
