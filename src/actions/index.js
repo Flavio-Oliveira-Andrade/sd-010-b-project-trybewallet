@@ -23,10 +23,24 @@ export function deleteExpense(id) {
   };
 }
 
-export function editExpense(id) {
+export function setEditState(expenseId) {
+  return {
+    type: 'SET_EDIT_STATE',
+    payload: expenseId,
+  };
+}
+
+export function saveEditedExpense(expense) {
+  return {
+    type: 'SAVE_EDITED_EXPENSE',
+    payload: expense,
+  };
+}
+
+export function saveEditExpense(expense) {
   return {
     type: 'EDIT_EXPENSE',
-    payload: id,
+    payload: expense,
   };
 }
 

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import ExpenseForm from '../components/ExpenseForm';
-import { addExpense, deleteExpense, editExpense, fetchApi } from '../actions/index';
+import {
+  addExpense, deleteExpense, setEditState, saveEditedExpense, fetchApi,
+} from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -16,7 +18,6 @@ class Wallet extends React.Component {
     this.generateExpenseForm = this.generateExpenseForm.bind(this);
 
     this.state = {
-      isEditing: false,
       expense: {
         value: '',
         description: '',
@@ -52,18 +53,20 @@ class Wallet extends React.Component {
     const { expenses } = this.props;
     let total = 0;
 
-    expenses.forEach((expense) => {
-      total += Number(expense.value) * Number(
-        expense.exchangeRates[expense.currency].ask,
-      );
-    });
+    if (expenses.length > 0) {
+      expenses.forEach((expense) => {
+        total += Number(expense.value) * Number(
+          expense.exchangeRates[expense.currency].ask,
+        );
+      });
+    }
 
     return total;
   }
 
   // Popular a tabela de despesas
   populateTableExpenses() {
-    const { expenses, dispatchDeleteExpense, dispatchEditExpense } = this.props;
+    const { expenses, dispatchDeleteExpense, startSetEditState } = this.props;
 
     return expenses.map((expense) => (
       <tr key={ expense.id }>
@@ -81,7 +84,7 @@ class Wallet extends React.Component {
           <button
             data-testid="edit-btn"
             type="button"
-            onClick={ () => dispatchEditExpense(expense.id) }
+            onClick={ () => startSetEditState(expense.id) }
           >
             Editar
           </button>
@@ -96,9 +99,48 @@ class Wallet extends React.Component {
       </tr>));
   }
 
+  //  Gerar cabeçalho da tabela de deespeas
+  generateTableHeader() {
+    return (
+      <tr>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
+      </tr>
+    );
+  }
+
+  //  Gerar botão de ação
+  generateButton() {
+    const { expense } = this.state;
+    const { dispatchAddExpense, dispatchEditedExpense, isEditing } = this.props;
+
+    if (!isEditing) {
+      return (
+        <button type="button" onClick={ () => dispatchAddExpense(expense) }>
+          Adicionar Despesa
+        </button>
+      );
+    }
+
+    if (isEditing) {
+      return (
+        <button type="button" onClick={ () => dispatchEditedExpense(expense) }>
+          Editar Despesa
+        </button>
+      );
+    }
+  }
+
+  //  Gerar Formulário de despesas
   generateExpenseForm() {
-    const { isEditing } = this.state;
-    const { expenseToEdit } = this.props;
+    const { isEditing } = this.props;
 
     if (!isEditing) {
       return (<ExpenseForm
@@ -107,15 +149,13 @@ class Wallet extends React.Component {
       />);
     }
     return (<ExpenseForm
-      expenseToEdit={ expenseToEdit }
       generateCurrencySelect={ this.generateCurrencySelect }
       handleChangeExpense={ this.handleChangeExpense }
     />);
   }
 
   render() {
-    const { expense } = this.state;
-    const { email, dispatchAddExpense } = this.props;
+    const { email } = this.props;
 
     return (
       <>
@@ -129,28 +169,15 @@ class Wallet extends React.Component {
 
         <main>
           { this.generateExpenseForm() }
+          { this.generateButton() }
         </main>
-        <main>
-          <table>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
-            </tr>
-            { this.populateTableExpenses() }
-          </table>
-        </main>
-
         <footer>
-          <button type="button" onClick={ () => dispatchAddExpense(expense) }>
-            Adicionar Despesa
-          </button>
+          <table>
+            <tbody>
+              { this.generateTableHeader() }
+              { this.populateTableExpenses() }
+            </tbody>
+          </table>
         </footer>
       </>
     );
@@ -162,6 +189,7 @@ const mapStateToProps = ({ user, wallet }) => ({
   expenses: wallet.expenses,
   currencies: wallet.currencies,
   loadedPage: wallet.currencies.length !== 0,
+  isEditing: wallet.isEditing,
   expenseToEdit: wallet.expenseToEdit,
 });
 
@@ -169,12 +197,14 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchApi()),
   dispatchAddExpense: (expense) => dispatch(addExpense(expense)),
   dispatchDeleteExpense: (id) => dispatch(deleteExpense(id)),
-  dispatchEditExpense: (id) => dispatch(editExpense(id)),
+  startSetEditState: (id) => dispatch(setEditState(id)),
+  dispatchEditedExpense: (expense) => dispatch(saveEditedExpense(expense)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string,
   loadedPage: PropTypes.bool,
+  isEditing: PropTypes.bool,
   currencies: PropTypes.array,
   expenseToEdit: PropTypes.object,
   fetchCurrencies: PropTypes.array,
