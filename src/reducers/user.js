@@ -2,7 +2,9 @@
 import { USER_INFO } from '../actions';
 
 const INITIAL_STATE = {
-  ingredients: [],
+  user: {
+    email: '',
+  },
 };
 
 const ingredientsReducer = (state = INITIAL_STATE, action) => {
