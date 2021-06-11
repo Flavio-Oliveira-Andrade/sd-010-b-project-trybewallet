@@ -3,24 +3,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import removeExpenseAction from '../actions/removeExpenseAction';
+import editAction from '../actions/editAction';
 
 class Table extends React.Component {
+  generateTableHeaders() {
+    return (
+      <tr>
+        <th>Descrição</th>
+        <th>Tag</th>
+        <th>Método de pagamento</th>
+        <th>Valor</th>
+        <th>Moeda</th>
+        <th>Câmbio utilizado</th>
+        <th>Valor convertido</th>
+        <th>Moeda de conversão</th>
+        <th>Editar/Excluir</th>
+      </tr>);
+  }
+
   render() {
-    const { expensesInfo, removeExpense } = this.props;
+    const { expensesInfo, removeExpense, editExpense } = this.props;
     return (
       <table>
         <tbody>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          {this.generateTableHeaders()}
           {expensesInfo.map((expense) => (
             <tr key={ expense.id }>
               <td>{expense.description}</td>
@@ -43,9 +49,14 @@ class Table extends React.Component {
                   type="button"
                 >
                   x
-
                 </button>
-                <button data-testid="edit-btn" type="button">Editar despesa</button>
+                <button
+                  data-testid="edit-btn"
+                  onClick={ () => editExpense(expense) }
+                  type="button"
+                >
+                  Editar despesa
+                </button>
               </td>
             </tr>))}
         </tbody>
@@ -57,6 +68,7 @@ class Table extends React.Component {
 Table.propTypes = {
   expensesInfo: PropTypes.arrayOf(Object).isRequired,
   removeExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -65,6 +77,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (tableRow) => dispatch(removeExpenseAction(tableRow)),
+  editExpense: (tableRow) => dispatch(editAction(tableRow)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

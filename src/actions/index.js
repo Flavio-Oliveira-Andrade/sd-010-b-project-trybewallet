@@ -6,3 +6,4 @@ export const FETCH_URL_SUCCESS = 'FETCH_URL_SUCCESS';
 export const FETCH_URL_ERROR = 'FETCH_URL_ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';

@@ -23,6 +23,7 @@ class Form extends React.Component {
   }
 
   handleValueInput() {
+    const { value } = this.state;
     return (
       <label htmlFor="value">
         Valor:
@@ -32,11 +33,13 @@ class Form extends React.Component {
           type="text"
           id="value"
           data-testid="value-input"
+          value={ value }
         />
       </label>);
   }
 
   handleDescriptionTextarea() {
+    const { description } = this.state;
     return (
       <label htmlFor="description">
         Descrição:
@@ -46,12 +49,14 @@ class Form extends React.Component {
           type="text"
           id="description"
           data-testid="description-input"
+          value={ description }
         />
       </label>);
   }
 
   handleCurrencyInput() {
     const { currencies } = this.props;
+    const { currency } = this.state;
     return (
       <label htmlFor="currency">
         Moeda:
@@ -60,6 +65,7 @@ class Form extends React.Component {
           name="currency"
           id="currency"
           data-testid="currency-input"
+          value={ currency }
         >
           {currencies
             .map((bit) => (bit !== 'USDT' ? <option key={ bit }>{bit}</option> : null))}
@@ -69,6 +75,7 @@ class Form extends React.Component {
   }
 
   handlePaymentMethod() {
+    const { method } = this.state;
     return (
       <label htmlFor="method">
         Método de pagamento:
@@ -77,6 +84,7 @@ class Form extends React.Component {
           name="method"
           id="method"
           data-testid="method-input"
+          value={ method }
         >
           <option name="method">Dinheiro</option>
           <option name="method">Cartão de crédito</option>
@@ -86,6 +94,7 @@ class Form extends React.Component {
   }
 
   handleTagInput() {
+    const { tag } = this.state;
     return (
       <label htmlFor="tag">
         Tag
@@ -94,6 +103,7 @@ class Form extends React.Component {
           name="tag"
           id="tag"
           data-testid="tag-input"
+          value={ tag }
         >
           <option name="tag">Alimentação</option>
           <option name="tag">Lazer</option>
@@ -141,6 +151,7 @@ Form.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   data: state.wallet.data,
+  editvalues: state.wallet.editionKey,
 });
 
 const mapDispatchToProps = (dispatch) => ({
