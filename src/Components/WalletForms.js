@@ -31,7 +31,7 @@ class WalletForms extends Component {
   }
 
   handleClick() {
-    const { addExpenses, expenses } = this.props;
+    const { addExpenses } = this.props;
     const { id } = this.state;
     const cont = id;
     getApi().then((result) => {
@@ -152,7 +152,6 @@ WalletForms.propTypes = {
   updateMoedas: PropTypes.func.isRequired,
   addExpenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.object),
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 WalletForms.defaultProps = {
   currencies: [],
