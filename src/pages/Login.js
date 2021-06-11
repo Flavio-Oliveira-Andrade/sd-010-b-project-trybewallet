@@ -21,8 +21,8 @@ class Login extends React.Component {
 
   handleChange({ target }) {
     const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-
+    // const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { value } = target;
     this.setState({
       [name]: value,
     });
@@ -63,6 +63,7 @@ class Login extends React.Component {
           <input
             type="text"
             id="email"
+            name="email"
             data-testid="email-input"
             value={ email }
             onChange={ this.handleChange }
@@ -72,6 +73,7 @@ class Login extends React.Component {
           <input
             type="text"
             id="password"
+            name="password"
             data-testid="password-input"
             value={ password }
             onChange={ this.handleChange }
