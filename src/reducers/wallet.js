@@ -1,19 +1,26 @@
 // // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-// const WALLET_INITIAL_STATE = {
-//   wallet: {
-//     currencies: [],
-//     expenses: [],
-//   },
-// };
+import { FETCH_API, FETCH_CURRENCY } from '../actions';
 
-// // function wallet(state = WALLET_INITIAL_STATE, action) {
-// //   // switch (action.type) {
-// //   // case 'USER_WALLET':
-// //   //   return { state: action.state };
+const WALLET_INITIAL_STATE = {
+  currencies: [],
+  // expenses: [],
+};
 
-// //   // default:
-// //   //   return state;
-// //   }
-// // }
+function wallet(state = WALLET_INITIAL_STATE, action) {
+  switch (action.type) {
+  case FETCH_API:
+    return {
+      ...state,
+    };
 
-// // export default wallet;
+  case FETCH_CURRENCY:
+    return {
+      ...state,
+      currencies: action.data,
+    };
+  default:
+    return state;
+  }
+}
+
+export default wallet;
