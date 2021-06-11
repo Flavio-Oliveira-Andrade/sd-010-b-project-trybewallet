@@ -22,11 +22,11 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, currencies, expenses } = this.props;
+    const { email, expenses } = this.props;
     return (
       <>
         <Header email={ email } expenses={ expenses } />
-        <Forms currencies={ currencies } />
+        <Forms />
         <Table expenses={ expenses } />
       </>
     );

@@ -28,7 +28,9 @@ class Table extends Component {
     return (
       <tbody>
         { expenses
-          .map(({ id, description, tag, method, value, currency, exchangeRates }) => (
+          .map(({
+            id, description, tag, method, value, currency, exchangeRates,
+          }, index) => (
             <tr key={ id }>
               <td>{description}</td>
               <td>{tag}</td>
@@ -42,8 +44,7 @@ class Table extends Component {
                 <button
                   type="button"
                   data-testid="edit-btn"
-                  onClick={ () => propToEdit(true, id) }
-
+                  onClick={ () => propToEdit(true, expenses[index]) }
                 >
                   Editar
                 </button>
@@ -73,7 +74,7 @@ class Table extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   propDelExpense: (data) => dispatch(delExpense(data)),
-  propToEdit: (status, id) => dispatch(toEdit(status, id)),
+  propToEdit: (status, editingData) => dispatch(toEdit(status, editingData)),
 });
 
 Table.propTypes = {

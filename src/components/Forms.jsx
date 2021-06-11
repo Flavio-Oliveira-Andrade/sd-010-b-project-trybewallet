@@ -1,32 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, string } from 'prop-types';
-import { addExpense } from '../actions';
+import { addExpense, toEdit, editExpense } from '../actions';
 import fetchCoins from '../services/apiCoins';
 
+const initialState = {
+  id: 0,
+  value: 0,
+  description: '',
+  method: '',
+  tag: '',
+  currency: 'USD',
+  exchangeRates: {},
+};
 class Forms extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.resetState = this.resetState.bind(this);
     this.spendingValue = this.spendingValue.bind(this);
     this.spendingDescription = this.spendingDescription.bind(this);
     this.spendingCurrency = this.spendingCurrency.bind(this);
     this.spendingMethod = this.spendingMethod.bind(this);
     this.spendingTag = this.spendingTag.bind(this);
-    this.submitButton = this.submitButton.bind(this);
+    this.submitButton = this.submit.bind(this);
+    this.editMode = this.editMode.bind(this);
+    this.addOrEdit = this.addOrEdit.bind(this);
+    this.state = initialState;
+  }
 
-    this.state = {
-      id: 0,
-      value: 0,
-      description: '',
-      method: '',
-      tag: '',
-      currency: 'USD',
-    };
+  componentDidUpdate(prev) {
+    const { status, editingData } = this.props;
+    if (status && prev.status === false) this.editMode(editingData);
+  }
+
+  resetState(add) {
+    const { id } = this.state;
+    this.setState({ ...initialState, id: Number(id) + add });
+  }
+
+  editMode(editingData) {
+    this.setState(editingData);
   }
 
   spendingValue(value) {
     return (
-      <label htmlFor="value">
+      <label htmlFor="value" data-testid="value-input">
         Valor
         <input
           id="value"
@@ -44,7 +62,7 @@ class Forms extends Component {
 
   spendingDescription(description) {
     return (
-      <label htmlFor="description">
+      <label htmlFor="description" data-testid="description-input">
         Descrição
         <input
           id="description"
@@ -60,7 +78,7 @@ class Forms extends Component {
 
   spendingCurrency(currency, currencies) {
     return (
-      <label htmlFor="currency">
+      <label htmlFor="currency" data-testid="currency-input">
         Moeda
         <select
           id="currency"
@@ -85,7 +103,7 @@ class Forms extends Component {
 
   spendingMethod(method) {
     return (
-      <label htmlFor="method">
+      <label htmlFor="method" data-testid="method-input">
         Método de pagamento
         <select
           id="method"
@@ -105,7 +123,7 @@ class Forms extends Component {
 
   spendingTag(tag) {
     return (
-      <label htmlFor="tag">
+      <label htmlFor="tag" data-testid="tag-input">
         Tag
         <select
           id="tag"
@@ -125,28 +143,33 @@ class Forms extends Component {
     );
   }
 
-  submitButton() {
-    const submit = async () => {
-      const { propAddExpense } = this.props;
+  async submit(status) {
+    const {
+      propAddExpense, propEditExpense, propToEdit } = this.props;
+    if (status) {
+      propEditExpense(this.state);
+      propToEdit(false, {});
+      this.resetState(0);
+    } else {
       propAddExpense({ ...this.state, exchangeRates: await fetchCoins() });
-      this.setState((prev) => ({
-        id: prev.id + 1,
-        value: 0,
-        description: '',
-        method: '',
-        tag: '',
-        currency: 'USD' }));
-    };
+      this.resetState(1);
+    }
+  }
 
+  addOrEdit(status) {
     return (
-      <button type="button" onClick={ submit }>
-        Adicionar despesa
+      <button
+        data-testid={ status ? 'edit-btn' : '' }
+        type="button"
+        onClick={ () => this.submit(status) }
+      >
+        {status ? 'Editar despesa' : 'Adicionar despesa'}
       </button>
     );
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, status } = this.props;
     const { value, description, method, tag, currency } = this.state;
     return (
       <>
@@ -155,18 +178,24 @@ class Forms extends Component {
         { this.spendingCurrency(currency, currencies) }
         { this.spendingMethod(method) }
         { this.spendingTag(tag) }
-        { this.submitButton() }
+        { this.addOrEdit(status) }
       </>
     );
   }
 }
 
+const mapStateToProps = ({
+  wallet: { currencies, expenses, edit: { status, editingData } = {} } }) => ({
+  currencies, expenses, status, editingData });
+
 const mapDispatchToProps = (dispatch) => ({
   propAddExpense: (data) => dispatch(addExpense(data)),
+  propToEdit: (status, editingData) => dispatch(toEdit(status, editingData)),
+  propEditExpense: (data) => dispatch(editExpense(data)),
 });
 
 Forms.propTypes = {
   currencies: arrayOf(string),
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(Forms);
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
