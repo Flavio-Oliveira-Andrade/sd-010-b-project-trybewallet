@@ -30,8 +30,12 @@ class Form extends Component {
             Moeda:
             <select name="select-moeda" className=".select-moeda">
               {Object.keys(currencies).filter((currency) => currency !== 'USDT')
-                .map((currency) =>
-                  <option key={ currency } value={ currency }>{currency}</option>)};
+                .map((currency) => <option
+                  key={ currency }
+                  value={ currency }
+                >
+                  {currency}
+                </option>)};
             </select>
           </label>
           <label htmlFor="metodo-pagamento-despesa">
