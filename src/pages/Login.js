@@ -62,7 +62,7 @@ class Login extends React.Component {
         <label htmlFor="email">
           <input
             type="text"
-            name="email"
+            id="email"
             data-testid="email-input"
             value={ email }
             onChange={ this.handleChange }
@@ -71,7 +71,7 @@ class Login extends React.Component {
         <label htmlFor="password">
           <input
             type="text"
-            name="password"
+            id="password"
             data-testid="password-input"
             value={ password }
             onChange={ this.handleChange }
