@@ -11,7 +11,23 @@ class Wallet extends React.Component {
       dispenses: 0,
       currency: 'BRL',
       description: '',
+      currenciesArray: [],
     };
+  }
+
+  componentDidMount() {
+    this.fetchApiFunction();
+  }
+
+  fetchApiFunction() {
+    const url = 'https://economia.awesomeapi.com.br/json/all';
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((response) => {
+        const currencies = Object.keys(response);
+        this.setState({ currenciesArray: currencies });
+      });
   }
 
   createValue() {
@@ -45,11 +61,18 @@ class Wallet extends React.Component {
   }
 
   createCurrency() {
+    const { currenciesArray } = this.state;
+    const usdt = 'USDT';
+
     return (
       <label htmlFor="currency">
         Moeda
         <select id="currency" role="combobox" name="currency">
-          <option>Allo</option>
+          {
+            currenciesArray
+              .filter((param) => param !== usdt)
+              .map((curr) => <option key={ curr }>{curr}</option>)
+          }
         </select>
       </label>
     );
@@ -86,6 +109,7 @@ class Wallet extends React.Component {
   render() {
     const { email } = this.props;
     const { dispenses, currency } = this.state;
+
     return (
       <>
         <header>
@@ -106,7 +130,6 @@ class Wallet extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     email: state.user.email,
   };
