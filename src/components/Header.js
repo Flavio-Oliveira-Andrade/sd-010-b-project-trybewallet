@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { login, total, currency } = this.props;
+    const { login } = this.props;
+    const total = 0;
+    const currency = 'BRL';
 
     return (
       <>
