@@ -5,7 +5,15 @@ const INITIAL_STATE = {
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
-
+  switch (action) {
+  case SELECT_CURRENCIES:
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
+  default:
+    return state;
+  }
 };
 
 export default wallet;
