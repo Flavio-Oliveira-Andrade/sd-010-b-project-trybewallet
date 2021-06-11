@@ -11,7 +11,7 @@ class Forms extends React.Component {
       infoDispense: {
         describe: '',
         expenses: '',
-        coin: '',
+        coin: 'USD',
         categorie: 'food',
         payment: 'money',
       },
@@ -100,7 +100,6 @@ Forms.propTypes = {
   cotation: PropTypes.func.isRequired,
   coins: PropTypes.shape().isRequired,
   idExpense: PropTypes.number.isRequired,
-  // dispense: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -111,7 +110,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   coins: state.wallet.currencies,
   idExpense: state.wallet.expenses.length,
-  // dispense: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
