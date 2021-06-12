@@ -81,15 +81,16 @@ class FormsWallet extends Component {
     addSumExpenses();
   }
 
-  handleInputs(labelName, inputName, inputValue, inputType) {
+  handleInputs(labelName, inputName, inputValue) {
     return (
       <label htmlFor={ inputName }>
         { labelName }
         <input
-          type={ inputType }
+          type="text"
           name={ inputName }
           id={ inputName }
           value={ inputValue }
+          data-testid={ `${inputName}-input` }
           onChange={ this.handleChange }
         />
       </label>
@@ -106,6 +107,7 @@ class FormsWallet extends Component {
             name={ selectName }
             id={ selectName }
             value={ selectValue }
+            data-testid={ `${selectName}-input` }
             onChange={ this.handleChange }
           >
             {listCurrency.filter((coin) => coin !== 'USDT')
@@ -122,6 +124,7 @@ class FormsWallet extends Component {
           name={ selectName }
           id={ selectName }
           value={ selectValue }
+          data-testid={ `${selectName}-input` }
           onChange={ this.handleChange }
         >
           <option>Selecione</option>
@@ -155,14 +158,13 @@ class FormsWallet extends Component {
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <>
-        {this.handleInputs('Valor:', 'value', value, 'number')}
+        {this.handleInputs('Valor:', 'value', value)}
         {this.handleSelects('Moeda:', 'currency', undefined, currencies)}
         {this.handleSelects('Método de pagamento:', 'method', method, methods)}
         {this.handleSelects('Tag:', 'tag', tag, tags)}
-        {this.handleInputs('Descrição:', 'description', description, 'text')}
+        {this.handleInputs('Descrição:', 'description', description)}
         <button
           type="button"
-          data-testid="edit-btn"
           onClick={ this.handleClickAdd }
         >
           {(!showBtnEdit) ? 'Adicionar despesa' : 'Editar despesa'}
