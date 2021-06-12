@@ -32,7 +32,7 @@ class Form extends React.Component {
 
   async handleClick(event) {
     event.preventDefault();
-    const { entradas, cotacoes, myDispatch, fetchFiltered } = this.props;
+    const { entradas, exchangeRate, myDispatch, fetchFiltered } = this.props;
     await fetchFiltered();
     const { valor, descricao, 'método de pagamento': pagamento, moeda, tag } = this.state;
     let newId = 0;
@@ -48,7 +48,7 @@ class Form extends React.Component {
         method: pagamento,
         tag,
         description: descricao,
-        exchangeRates: cotacoes,
+        exchangeRates: exchangeRate,
       },
     });
   }
@@ -57,7 +57,7 @@ class Form extends React.Component {
     const { moeda, 'método de pagamento': pagamento, tag } = this.state;
     const { moedas } = this.props;
     return (
-      <form onSubmit={ this.handleClick }>
+      <form onSubmit={ this.handleSubmit }>
         <label htmlFor="valor">
           Valor
           <input id="valor" name="valor" type="number" onChange={ this.handleChange } />
@@ -82,24 +82,24 @@ class Form extends React.Component {
             value={ pagamento }
             onChange={ this.handleChange }
           >
-            <option hidden={ Boolean }>-</option>
-            <option key="dinheiro" value="dinheiro">Dinheiro</option>
-            <option key="credito" value="credito">Cartão de crédito</option>
-            <option key="debito" value="debito">Cartão de débito</option>
+            <option hidden={ false }>-</option>
+            <option key="dinheiro" value="Dinheiro">Dinheiro</option>
+            <option key="credito" value="Cartão de crédito">Cartão de crédito</option>
+            <option key="debito" value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag
           <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
-            <option hidden={ Boolean }>-</option>
-            <option value="alimentação">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saúde">Saúde</option>
+            <option hidden={ false }>-</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="button">Adicionar Despesa</button>
+        <button type="submit">Adicionar Despesa</button>
       </form>
     );
   }
@@ -107,17 +107,17 @@ class Form extends React.Component {
 
 const mapStateToProps = (state) => ({
   moedas: state.wallet.currencies[0],
-  cotacoes: state.wallet.currencies[1],
+  exchangeRate: state.wallet.currencies[1],
   entradas: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  myDispatch: (state) => dispatch(loginAction(state)),
+  myDispatch: () => dispatch(loginAction()),
   fetchFiltered: () => dispatch(getInApi()),
 });
 
 Form.propTypes = {
-  cotacoes: PropTypes.objectOf(PropTypes.any),
+  exchangeRate: PropTypes.objectOf(PropTypes.any),
   entradas: PropTypes.arrayOf(PropTypes.any),
   moedas: PropTypes.arrayOf(PropTypes.any),
   myDispatch: PropTypes.func.isRequired,
@@ -125,9 +125,9 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  cotacoes: {},
-  moedas: [],
+  exchangeRate: {},
   entradas: [],
+  moedas: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

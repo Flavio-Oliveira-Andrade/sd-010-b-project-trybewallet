@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-class Wallet extends React.Component {
+class Header extends React.Component {
   render() {
     const { emailUser: { email } } = this.props;
     return (
@@ -27,13 +27,11 @@ const mapStateToProps = (state) => ({
   emailUser: state.user,
 });
 
-Wallet.propTypes = {
-  emailUser: PropTypes.objectOf({
-    email: PropTypes.string,
-  }).isRequired,
+Header.propTypes = {
+  emailUser: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, null)(Header);
 // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
 // https://qastack.com.br/programming/11665884/how-can-i-parse-a-string-with-a-comma-thousand-separator-to-a-number
 // https://www.w3schools.com/jsref/jsref_tofixed.asp
