@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, string } from 'prop-types';
-import { addExpense, toEdit, editExpense } from '../actions';
-import fetchCoins from '../services/apiCoins';
+import { expenseData, toEdit, editExpense } from '../actions';
 import '../pages/CSS/wallet.css';
 
 const initialState = {
@@ -30,23 +29,17 @@ class Forms extends Component {
   }
 
   componentDidUpdate(prev) {
-    const { status, editData } = this.props;
-    if (status && prev.status === false) this.editMode(editData);
+    const { editing, editData } = this.props;
+    if (editing && prev.editing === false) this.editMode(editData);
   }
 
   resetState(add) {
-    const { prevId } = this.state;
-    if (add) {
-      this.setState((prev) => ({
-        prevId: prev.prevId + add,
-        expense: { ...initialState, id: prevId + add } }));
-    } else {
-      this.setState({ expense: { ...initialState, id: prevId } });
-    }
+    this.setState((prev) => ({ prevId: prev.prevId + add,
+      expense: { ...initialState, id: prev.prevId + add } }));
   }
 
-  editMode(editData) {
-    this.setState({ expense: editData });
+  editMode(expense) {
+    this.setState({ expense });
   }
 
   spendingValue(value) {
@@ -155,56 +148,55 @@ class Forms extends Component {
     );
   }
 
-  async submit(status) {
+  submit(editing) {
     const { expense } = this.state;
-    const {
-      propAddExpense, propEditExpense, propToEdit } = this.props;
-    if (status) {
+    const { propExpenseData, propEditExpense, propToEdit } = this.props;
+    if (editing) {
       propEditExpense(expense);
       propToEdit(false, {});
-      this.resetState();
+      this.resetState(0);
     } else {
-      propAddExpense({ ...expense, exchangeRates: await fetchCoins() });
+      propExpenseData(expense);
       this.resetState(1);
     }
   }
 
-  addOrEdit(status) {
+  addOrEdit(editing) {
     return (
       <button
-        data-testid={ status ? 'edit-btn' : '' }
+        data-testid={ editing ? 'edit-btn' : '' }
         type="button"
-        className={ status ? 'YButton' : 'GButton' }
-        onClick={ () => this.submit(status) }
+        className={ editing ? 'YButton' : 'GButton' }
+        onClick={ () => this.submit(editing) }
       >
-        {status ? 'Editar despesa' : 'Adicionar despesa'}
+        {editing ? 'Editar despesa' : 'Adicionar despesa'}
       </button>
     );
   }
 
   render() {
-    const { currencies, status } = this.props;
+    const { currencies, editing } = this.props;
     const { expense: { value, description, method, tag, currency } } = this.state;
     return (
-      <form className={ status ? 'edit-table' : 'form-table' }>
+      <form className={ editing ? 'edit-table' : 'form-table' }>
         { this.spendingValue(value) }
         { this.spendingDescription(description) }
         { this.spendingCurrency(currency, currencies) }
         { this.spendingMethod(method) }
         { this.spendingTag(tag) }
-        { this.addOrEdit(status) }
+        { this.addOrEdit(editing) }
       </form>
     );
   }
 }
 
 const mapStateToProps = ({
-  wallet: { currencies, expenses, edit: { status, editData } = {} } }) => ({
-  currencies, expenses, status, editData });
+  wallet: { currencies, expenses, edit: { editing, editData } = {} } }) => ({
+  currencies, expenses, editing, editData });
 
 const mapDispatchToProps = (dispatch) => ({
-  propAddExpense: (data) => dispatch(addExpense(data)),
-  propToEdit: (status, editData) => dispatch(toEdit(status, editData)),
+  propExpenseData: (data) => dispatch(expenseData(data)),
+  propToEdit: (editing, editData) => dispatch(toEdit(editing, editData)),
   propEditExpense: (data) => dispatch(editExpense(data)),
 });
 

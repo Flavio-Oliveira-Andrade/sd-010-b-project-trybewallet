@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  currencies: [], expenses: [], edit: { status: false, editData: '' } };
+  currencies: [], expenses: [], edit: { editing: false, editData: '' } };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -12,7 +12,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state,
       expenses: [...state.expenses.filter((expense) => action.data !== expense.id)] };
   case 'TO_EDIT':
-    return { ...state, edit: { status: action.status, editData: action.editData } };
+    return { ...state, edit: { editing: action.editing, editData: action.editData } };
   case 'EDIT_EXPENSE':
     return { ...state,
       expenses: [...state.expenses.map((expense) => (expense.id === action.data.id

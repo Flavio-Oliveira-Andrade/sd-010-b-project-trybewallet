@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { objectOf, object, string } from 'prop-types';
 import '../pages/CSS/wallet.css';
+import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
@@ -17,9 +18,12 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = ({ user: { email }, wallet: { expenses } }) => ({
+  email, expenses });
+
 Header.propTypes = {
   expenses: objectOf(object),
   email: string,
 }.isRequired;
 
-export default Header;
+export default connect(mapStateToProps)(Header);

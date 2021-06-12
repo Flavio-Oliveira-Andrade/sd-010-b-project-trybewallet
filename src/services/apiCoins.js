@@ -1,4 +1,4 @@
-export default async function fetchCurrencies() {
+export default async function fetchCoins() {
   const endPoint = 'https://economia.awesomeapi.com.br/json/all';
   const response = await fetch(endPoint);
   const coinsObj = await response.json();
