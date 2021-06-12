@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { tagItems, payMethod } from './WalletArrays';
+import HeaderWallet from './HeaderWallet';
 
 class Wallet extends React.Component {
   constructor() {
@@ -8,8 +10,20 @@ class Wallet extends React.Component {
 
     this.state = {
       value: 0,
+      coins: [],
     };
     this.handleChange = this.handleChange.bind(this);
+    this.getApi = this.getApi.bind(this);
+  }
+
+  componentDidMount() {
+    this.getApi();
+  }
+
+  async getApi() {
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const resolve = await api.json();
+    this.setState({ coins: resolve });
   }
 
   handleChange({ target: { value } }) {
@@ -18,36 +32,29 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
-    const { value } = this.state;
-    const tagItems = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const payMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const { value, coins } = this.state;
+    const coinsArr = Object.keys(coins);
+    // const { currencies } = initialStateHeader.wallet;
     return (
       <header>
-        <p data-testid="email-field">
-          Olá
-          {' '}
-          {email}
-        </p>
+        <HeaderWallet value={ value } email={ email } onChange={ this.handleChange } />
         <form>
-          <label htmlFor="total-spent">
-            Total de gastos
-            <input
-              data-testid="total-field"
-              onChange={ this.handleChange }
-              id="total-spent"
-              type="number"
-              value={ value }
-            />
-          </label>
-          <select><option data-testid="header-currency-field">BRL</option></select>
           <label htmlFor="value-spent">
             Valor
             <input type="text" name="value-spent" id="value-spent" />
           </label>
+          <label htmlFor="description-spent">
+            Descrição
+            <input id="description-spent" />
+          </label>
           <label htmlFor="coint-countrie">
             Moeda
             <select id="coint-countrie">
-              <option>1</option>
+              {
+                coinsArr
+                  .filter((item) => item !== 'USDT')
+                  .map((item, index) => <option key={ index }>{item}</option>)
+              }
             </select>
           </label>
           <label htmlFor="payment-method">
@@ -57,6 +64,7 @@ class Wallet extends React.Component {
             </select>
           </label>
           <label htmlFor="tag-selection">
+            Tag
             <select id="tag-selection">
               {tagItems.map((item, index) => <option key={ index }>{item}</option>)}
             </select>
