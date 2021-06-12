@@ -1,7 +1,15 @@
-.flex, header {
+.flex{
   display: flex;
 }
 
-p, label {
+header {
+  display: flex;
+}
+
+p {
+  margin: 5px;
+}
+
+label {
   margin: 5px;
 }
