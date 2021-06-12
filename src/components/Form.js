@@ -6,9 +6,11 @@ class Form extends React.Component {
     this.state = {
       // valor: '0',
       // descricao: '',
-      moeda: '',
+      // moeda: '',
       pagamento: 'dinheiro',
       tag: 'alimentacao',
+      moedas: [],
+      moeda: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,6 +19,20 @@ class Form extends React.Component {
     this.renderCoin = this.renderCoin.bind(this);
     this.renderPayment = this.renderPayment.bind(this);
     this.renderTag = this.renderTag.bind(this);
+    this.fetchCoin = this.fetchCoin.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCoin();
+  }
+
+  async fetchCoin() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const jsonResponse = await response.json();
+    const finalCoins = Object.keys(jsonResponse).filter((coin) => (
+      coin !== 'USDT' && coin !== 'DOGE'
+    ));
+    this.setState({ moedas: finalCoins });
   }
 
   handleChange({ target }) {
@@ -51,17 +67,19 @@ class Form extends React.Component {
     );
   }
 
-  renderCoin(moeda, handleChange) {
+  renderCoin(moedas, moeda, handleChange) {
     return (
       <label htmlFor="moeda">
         Moeda
         <select
           name="moeda"
-          value={ moeda }
           id="moeda"
+          value={ moeda }
           onChange={ handleChange }
         >
-          <option value="thriller">Suspense</option>
+          { moedas.map((coin) => (
+            <option key={ coin } value={ coin }>{ coin }</option>
+          ))}
         </select>
       </label>
     );
@@ -106,14 +124,14 @@ class Form extends React.Component {
   }
 
   render() {
-    const { moeda, pagamento, tag } = this.state;
+    const { pagamento, tag, moedas, moeda } = this.state;
     return (
       <form>
         { this.renderValue(this.handleChange) }
         <br />
         { this.renderDescription(this.handleChange) }
         <br />
-        { this.renderCoin(moeda, this.handleChange) }
+        { this.renderCoin(moedas, moeda, this.handleChange) }
         <br />
         { this.renderPayment(pagamento, this.handleChange) }
         <br />
