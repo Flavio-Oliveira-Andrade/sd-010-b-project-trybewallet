@@ -181,8 +181,8 @@ FormsWallet.propTypes = {
   handleShownExpense: PropTypes.func.isRequired,
   editedExpense: PropTypes.bool.isRequired,
   currencies: PropTypes.objectOf(Object).isRequired,
-  expenses: PropTypes.objectOf(Object).isRequired,
-  editingExpense: PropTypes.objectOf(Object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  editingExpense: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = ({

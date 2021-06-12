@@ -11,7 +11,7 @@ import {
 const INITIAL_STATE = {
   expenses: [],
   currencies: {},
-  totalExpenses: 0,
+  totalExpenses: '0',
   editingExpense: [],
   editedExpense: false,
 };

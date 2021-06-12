@@ -24,30 +24,38 @@ class TableWallet extends Component {
       expenses.map(({ id, description, tag, method, value, currency, exchangeRates }) => {
         const coin = exchangeRates[currency];
         return (
-          <tr key={ id }>
-            <td>{description}</td>
-            <td>{tag}</td>
-            <td>{method}</td>
-            <td>{value}</td>
-            <td>{coin.name}</td>
-            <td>{parseFloat(coin.ask).toFixed(2)}</td>
-            <td>{(coin.ask * value).toFixed(2)}</td>
-            <td>Real</td>
-            <button
-              type="button"
-              data-testid="delete-btn"
-              onClick={ () => this.handleClickRemove(id) }
-            >
-              Deletar
-            </button>
-            <button
-              type="button"
-              data-testid="edit-btn"
-              onClick={ () => handleClickEdit(id) }
-            >
-              Editar
-            </button>
-          </tr>
+          <div key={ id }>
+            <table>
+              <tbody>
+                <tr>
+                  <td>{description}</td>
+                  <td>{tag}</td>
+                  <td>{method}</td>
+                  <td>{value}</td>
+                  <td>{coin.name}</td>
+                  <td>{parseFloat(coin.ask).toFixed(2)}</td>
+                  <td>{(coin.ask * value).toFixed(2)}</td>
+                  <td>Real</td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                onClick={ () => this.handleClickRemove(id) }
+              >
+                Deletar
+              </button>
+              <button
+                type="button"
+                data-testid="edit-btn"
+                onClick={ () => handleClickEdit(id) }
+              >
+                Editar
+              </button>
+            </div>
+          </div>
         );
       })
     );
@@ -55,24 +63,26 @@ class TableWallet extends Component {
 
   render() {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+        </table>
+        <div>
           { this.TableExpenses() }
-        </tbody>
-      </table>
+        </div>
+      </div>
     );
   }
 }
@@ -81,7 +91,7 @@ TableWallet.propTypes = {
   removeExpense: PropTypes.func.isRequired,
   addSumExpenses: PropTypes.func.isRequired,
   handleClickEdit: PropTypes.func.isRequired,
-  expenses: PropTypes.objectOf(Object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = ({ wallet: { expenses } }) => ({
