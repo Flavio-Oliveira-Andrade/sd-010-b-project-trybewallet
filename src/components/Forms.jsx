@@ -53,6 +53,13 @@ class Forms extends Component {
               <option value="health">Saúde</option>
             </select>
           </label>
+          <button
+            className="add-expense"
+            type="button"
+            onClick={ () }
+          >
+            Adicionar despesa
+          </button>
 
         </form>
       </main>
