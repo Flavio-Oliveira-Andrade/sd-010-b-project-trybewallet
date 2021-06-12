@@ -47,4 +47,13 @@ class ExpenseForm extends React.Component {
   }
 }
 
-export default ExpenseForm;
+const mapDispatchToProps = (dispatch) => ({
+  getApiToCurrencies: () => dispatch(fetchApi()),
+});
+
+ExpenseForm.propTypes = {
+  getApiToCurrencies: PropTypes.func.isRequired,
+  getCurrencies: PropTypes.objectOf.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
