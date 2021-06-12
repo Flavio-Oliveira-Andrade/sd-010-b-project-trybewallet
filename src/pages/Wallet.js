@@ -9,19 +9,20 @@ class Wallet extends React.Component {
     const { lerEmail } = this.props;
     return (
       <header>
-        <div>TrybeWallet</div>
-        <div className="flex">
-          <p>Email : </p>
-          <p data-testid="email-field">{lerEmail}</p>
-        </div>
-        <div className="flex">
-          <p>Total : </p>
+        {/* <div>TrybeWallet</div> */}
+        {/* <div className="flex">
+          <p>Email : </p> */}
+          <p data-testid="email-field">Email:
+          { ' ' }{lerEmail}</p>
+        {/* </div> */}
+        {/* <div className="flex"> */}
+          {/* <p>Total : </p> */}
           <p data-testid="total-field">0</p>
-        </div>
-        <div className="flex">
-          <p>Moeda : </p>
+        {/* </div> */}
+        {/* <div className="flex"> */}
+          {/* <p>Moeda : </p> */}
           <p data-testid="header-currency-field">BRL</p>
-        </div>
+        {/* </div> */}
       </header>
 
     );
@@ -33,7 +34,7 @@ Wallet.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-  lerEmail: state.email,
+  lerEmail: state.user.email,
 });
 
 export default connect(mapStateToProps, null)(Wallet);
