@@ -17,6 +17,7 @@ class Login extends React.Component {
 
   validarCampos() {
     // Função criada com ajuda do colega Miguel Albuquerque
+    // Rejex copiado de https://regexr.com/3e48o
     const { email, password } = this.state;
     const validEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const validPassword = /\d{5,}/;

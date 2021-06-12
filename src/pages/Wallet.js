@@ -4,8 +4,13 @@ import PropTypes from 'prop-types';
 import ExpenseForm from './ExpenseForm';
 
 class Wallet extends React.Component {
+  // Função criada com o auxilio da colega Fernanda Porto.
+  totalCalc(acc, curr) {
+    return acc + parseFloat(curr.exchangeRates[curr.currency].ask * curr.value);
+  }
+
   render() {
-    const { email } = this.props;
+    const { email, expense } = this.props;
     return (
       <header>
         <div data-testid="email-field">
@@ -13,7 +18,7 @@ class Wallet extends React.Component {
           { email }
         </div>
         <span data-testid="total-field">
-          0
+          { !expense ? 0 : expense.reduce((acc, curr) => this.totalCalc(acc, curr), 0) }
         </span>
         <div data-testid="header-currency-field">
           BRL
@@ -26,11 +31,16 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
 };
+
+/* Wallet.defaultProps = {
+  total: 0,
+}; */
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  total: state.wallet.totalExpense,
+  expense: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Wallet);
