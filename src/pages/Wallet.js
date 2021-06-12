@@ -40,7 +40,7 @@ class Wallet extends React.Component {
               />
             </label>
             <select>
-              <option>BRL</option>
+              <option data-testid="header-currency-field">BRL</option>
             </select>
           </form>
         </header>
