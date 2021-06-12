@@ -17,8 +17,10 @@ export const addExpenses = (expenses) => ({
   expenses,
 });
 
-export const batatinha = (expense) => (dispatch) => {
-  fetchCurrency().then((exchangeRates) => dispatch(addExpenses({ ...expense, exchangeRates })));
+export const expenseThunk = (expense) => (dispatch) => {
+  fetchCurrency().then((exchangeRates) => (
+    dispatch(addExpenses({ ...expense, exchangeRates }))
+  ));
 };
 
 export const getCurrencies = () => ({

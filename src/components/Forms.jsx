@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesThunk, getCurrencyExpenseThunk, addExpenses, batatinha } from '../actions';
-import fetchCurrency from '../services';
+import { getCurrenciesThunk, getCurrencyExpenseThunk, expenseThunk } from '../actions';
+// import fetchCurrency from '../services';
 
 class Forms extends Component {
   constructor(props) {
@@ -16,6 +16,8 @@ class Forms extends Component {
       tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.optionTag = this.optionTag.bind(this);
+    this.optionMethod = this.optionMethod.bind(this);
   }
 
   componentDidMount() {
@@ -40,14 +42,30 @@ class Forms extends Component {
     }));
   }
 
+  optionTag() {
+    const optionTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    return (
+      optionTag.map((option) => <option key={ option } value={ option }>{option}</option>)
+    );
+  }
+
+  optionMethod() {
+    const optionMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    return (
+      optionMethod.map((option) => (
+        <option key={ option } value={ option }>{option}</option>
+      ))
+    );
+  }
+
   render() {
     const { currencies } = this.props;
-    const { value, description, method, tag } = this.state;
+    // const { value, description, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="value">
           Valor:
-          <input type="number" name="value" id="value" onChange={ this.handleChange } value={ value } />
+          <input type="number" name="value" id="value" onChange={ this.handleChange } />
         </label>
         <label htmlFor="description">
           Descrição
@@ -56,7 +74,6 @@ class Forms extends Component {
             name="description"
             id="description"
             onChange={ this.handleChange }
-            value={ description }
           />
         </label>
         <label htmlFor="currency">
@@ -68,26 +85,21 @@ class Forms extends Component {
         </label>
         <label htmlFor="method">
           Método de pagamento
-          <select name="method" id="method" onChange={ this.handleChange } value={ method }>
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credit-card">Cartão de crédito</option>
-            <option value="debit">Cartão de débito</option>
+          <select name="method" id="method" onChange={ this.handleChange }>
+            {this.optionMethod()}
           </select>
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" id="tag" onChange={ this.handleChange } value={ tag }>
-            <option value="alimentação">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saúde">Saúde</option>
+          <select name="tag" id="tag" onChange={ this.handleChange }>
+            {this.optionTag()}
           </select>
         </label>
         <button
           type="button"
           onClick={ () => this.handleClick() }
-        >Adicionar despesa
+        >
+          Adicionar despesa
         </button>
       </form>
     );
@@ -102,12 +114,15 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(getCurrenciesThunk()),
   currencyExchange: () => dispatch(getCurrencyExpenseThunk()),
-  addExpense: (state) => dispatch(batatinha(state)),
+  addExpense: (state) => dispatch(expenseThunk(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
 
 Forms.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
+  addExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
+
+// Feito em parceria com Paulo Xavier
