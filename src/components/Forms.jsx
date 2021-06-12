@@ -10,6 +10,7 @@ class Forms extends Component {
     this.state = {};
 
     this.getCurrency = this.getCurrency.bind(this);
+    this.handleClick = this.handleClickgu.bind(this);
   }
 
   componentDidMount() {
