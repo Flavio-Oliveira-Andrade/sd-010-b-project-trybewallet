@@ -9,7 +9,7 @@ class AddExpense extends React.Component {
     this.state = {
       arrayObjCoin: [],
       spent: 0,
-      coin: 'USD',
+      coin: '',
       paymentMethod: '',
       tag: '',
       description: '',
@@ -52,6 +52,7 @@ class AddExpense extends React.Component {
       <label htmlFor="coin">
         Moeda:
         <select type="text" id="coin" onChange={ handleClick } value={ valueState }>
+          <option value="" disabled hidden>{' '}</option>
           {arrayObjCoin.map(({ code }, i) => (
             <option key={ i } value={ code }>{code}</option>
           ))}
@@ -70,6 +71,7 @@ class AddExpense extends React.Component {
           onChange={ handleClick }
           value={ valueState }
         >
+          <option value="" disabled hidden>{' '}</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
@@ -83,6 +85,7 @@ class AddExpense extends React.Component {
       <label htmlFor="tag">
         Tag:
         <select type="text" id="tag" onChange={ handleClick } value={ valueState }>
+          <option value="" disabled hidden>{' '}</option>
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -109,14 +112,30 @@ class AddExpense extends React.Component {
     return (
       <button
         type="button"
-        onClick={ () => addSpend({
-          id: qtdSpended,
-          value: spent,
-          method: paymentMethod,
-          currency: coin,
-          description,
-          tag,
-        }) }
+        onClick={ () => {
+          if (
+            coin !== ''
+            && spent > 0
+            && paymentMethod !== ''
+            && tag !== ''
+            && description !== ''
+          ) {
+            addSpend({
+              id: qtdSpended,
+              value: spent,
+              method: paymentMethod,
+              currency: coin,
+              description,
+              tag,
+            });
+
+            this.setState({
+              coin: '', spent: 0, paymentMethod: '', tag: '', description: '',
+            });
+          } else {
+            console.log('preencha todos os campos');
+          }
+        } }
       >
         Adicionar despesa
       </button>

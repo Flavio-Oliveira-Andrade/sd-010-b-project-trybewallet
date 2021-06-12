@@ -5,23 +5,6 @@ import PropTypes from 'prop-types';
 class TableExpendes extends Component {
   constructor(props) {
     super(props);
-    /* this.state = {
-      arrayObj: [
-        {
-          id: 0,
-          description: 'gasto 1',
-          tag: 'alimentação',
-          method: 'cartão de crédito',
-          currency: 'ARS',
-          value: '2',
-          coinName: 'Dólar Americano', // vou ter que de a dar um jeit de tirar o '/ real brasileiro'
-          ask: '0.0538',
-          convertedValue: 'value * ask',
-          coinConvertion: 'real brasileiro',
-        },
-      ],
-    }; */
-
     this.renderExpendes = this.renderExpendes.bind(this);
   }
 
