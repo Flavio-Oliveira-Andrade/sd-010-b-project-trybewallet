@@ -1,7 +1,10 @@
 // Coloque aqui suas actions
 // export const addRegister = (value) => ({ type: 'ADD_REGISTER', data: value });
 
-export const loginAction = (email) => ({ type: 'saveEmail', email });
+export const loginAction = (state) => ({
+  type: state.type,
+  payload: state.payload,
+});
 
 export const getInApi = () => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
   .then((response) => response.json())

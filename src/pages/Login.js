@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loginAction } from '../actions';
 
@@ -9,55 +9,55 @@ class Login extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: false,
-      loged: false,
+      password: '',
+      loged: true,
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.veryfyEmail = this.veryfyEmail.bind(this);
+    this.saveLogin = this.saveLogin.bind(this);
   }
 
   handleChange(e) {
-    const { value, id } = e.target;
-    const emailPadrao = /^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$/;
-    const passwordLimit = 6;
-    if (id === 'email') {
-      if (emailPadrao.test(value)) {
-        this.setState({
-          loged: true,
-          email: value,
-        });
-      } else {
-        this.setState({
-          loged: false,
-        });
-      }
-    }
-    if (id === 'password') {
-      if (value.length >= passwordLimit) {
-        this.setState({
-          password: true,
-        });
-      } if (value.length !== passwordLimit) {
-        this.setState({
-          password: false,
-        });
-      }
+    const { name, value } = e.target;
+    const { email, password } = this.state;
+    const passwordLimit = 5;
+    this.setState({
+      [name]: value,
+    });
+    if (this.veryfyEmail(email) && (password.length >= passwordLimit)) {
+      this.setState({
+        loged: false,
+      });
+    } else {
+      this.setState({
+        loged: true,
+      });
     }
   }
 
-  veryfyEmail() {
-    const { email } = this.state;
+  saveLogin(e) {
+    e.preventDefault();
     const { login } = this.props;
-    login(email);
+    const { email, password } = this.state;
+    if (email && password) {
+      login({ type: 'LOGIN', payload: email });
+      this.setState({ redirect: true });
+    }
+  }
+
+  veryfyEmail(email) {
+    const emailPadrao = /^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$/;
+    return emailPadrao.test(email);
   }
 
   render() {
-    const { password, loged } = this.state;
-    let valid = false;
-    if (loged && password) {
-      valid = true;
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
     }
+    const { loged } = this.state;
     return (
       <div className="Login">
         <section className="login-inputs">
@@ -79,15 +79,13 @@ class Login extends React.Component {
           />
         </section>
         <div className="link">
-          <Link to="/carteira">
-            <button
-              type="button"
-              disabled={ !valid }
-              onClick={ this.veryfyEmail }
-            >
-              Entrar
-            </button>
-          </Link>
+          <button
+            type="button"
+            disabled={ loged }
+            onClick={ this.saveLogin }
+          >
+            Entrar
+          </button>
         </div>
       </div>
     );

@@ -65,7 +65,7 @@ class ExpenseList extends React.Component {
                   type="button"
                   data-testid="delete-btn"
                   value={ expense.id }
-                  onClick={ this.removeExpense }
+                  onClick={ this.deleteExpense }
                 >
                   Excluir
                 </button>

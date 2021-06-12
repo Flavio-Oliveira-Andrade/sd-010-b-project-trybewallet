@@ -57,7 +57,7 @@ class Form extends React.Component {
     const { moeda, 'método de pagamento': pagamento, tag } = this.state;
     const { moedas } = this.props;
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form onSubmit={ this.handleClick }>
         <label htmlFor="valor">
           Valor
           <input id="valor" name="valor" type="number" onChange={ this.handleChange } />
@@ -112,7 +112,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  myDispatch: () => dispatch(loginAction()),
+  myDispatch: (e) => dispatch(loginAction(e)),
   fetchFiltered: () => dispatch(getInApi()),
 });
 
