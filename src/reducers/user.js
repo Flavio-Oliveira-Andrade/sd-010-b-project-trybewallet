@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
-  console.log(`reducer:${action.payload?.user}`);
+  // console.log(`reducer:${action.payload?.user}`);
   switch (action.type) {
   case 'VERIFY_LOGIN':
     return {

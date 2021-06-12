@@ -5,14 +5,12 @@ import FormExpenses from '../components/FormExpenses';
 
 class Wallet extends React.Component {
   render() {
-    const { user } = this.props;
-    console.log('Wallet:');
-    console.log(user);
+    const { user: { email } } = this.props;
     return (
       <>
         <div>TrybeWallet</div>
         <header>
-          <div data-testid="email-field">{ user.email }</div>
+          <div data-testid="email-field">{ email }</div>
         </header>
         <p>Despesa total:</p>
         <p data-testid="total-field">0</p>
@@ -30,11 +28,8 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-/* Wallet.propTypes = {
-  user: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string,
-  }),
-}; */
-// export default Wallet;
+Wallet.propTypes = {
+  user: PropTypes.shape().isRequired,
+};
+
 export default connect(mapStateToProps)(Wallet);
