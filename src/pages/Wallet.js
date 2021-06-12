@@ -6,6 +6,7 @@ import { dispatchFetchedCurrencies } from '../actions/index';
 import selectCurrencies from '../selectors';
 
 import WalletForm from '../components/WalletForm';
+import ExpensesTable from '../components/ExpensesTable';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -23,7 +24,7 @@ class Wallet extends React.Component {
             { email }
           </span>
           <span data-testid="total-field">
-            { total }
+            { parseFloat(total).toFixed(2) }
           </span>
           <span data-testid="header-currency-field">
             BRL
@@ -32,6 +33,7 @@ class Wallet extends React.Component {
         <main>
           <WalletForm currencies={ currencies } />
         </main>
+        <ExpensesTable />
       </div>
     );
   }
