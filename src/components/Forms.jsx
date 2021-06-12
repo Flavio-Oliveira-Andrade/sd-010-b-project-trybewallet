@@ -4,6 +4,14 @@ import PropTypes from 'prop-types';
 import { fetchAPI } from '../actions';
 
 class Forms extends Component {
+  constructor() {
+    super();
+
+    this.state = {};
+
+    this.getCurrency = this.getCurrency.bind(this);
+  }
+
   componentDidMount() {
     const { fetchDispatch } = this.props;
     fetchDispatch();
@@ -37,15 +45,8 @@ class Forms extends Component {
             Descrição
             <input type="text" name="description" id="description" />
           </label>
-
-          <label htmlFor="currency">
-            Moeda
-            <select name="currency" id="currency">
-              {' '}
-              {Object.keys(currencies).filter((currency) => currency !== 'USDT')
-                .map((map$) => <option key={ map$ } value={ map$ }>{map$}</option>)}
-            </select>
-          </label>
+          {' '}
+          {this.getCurrency}
 
           <label htmlFor="payment">
             Método de pagamento
