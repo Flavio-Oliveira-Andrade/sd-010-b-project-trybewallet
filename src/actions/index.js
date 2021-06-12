@@ -3,7 +3,9 @@ import getAPICurrency from '../services/currencyAPI';
 
 export const USERLOGIN = 'user_Login';
 export const CURRENCIES = 'currencies';
+export const CURRENCYNOW = 'currencynow';
 export const EXPENSES = 'expenses';
+export const TOTAL = 'totalExpenses';
 
 export default function userLogin(values) {
   return {
@@ -19,10 +21,22 @@ export function currencyFind(currency) {
   };
 }
 
-export function expensesExport(expense) {
+export function currencyNow(currency) {
+  return async (dispatch) => {
+    const resultAPI = await getAPICurrency();
+    delete resultAPI.USDT;
+    currency.exchangeRates = resultAPI;
+    dispatch({
+      type: CURRENCYNOW,
+      payload: currency,
+    });
+  };
+}
+
+export function totalExpensesExport(totalExpense) {
   return {
-    type: EXPENSES,
-    payload: expense,
+    type: TOTAL,
+    payload: totalExpense,
   };
 }
 

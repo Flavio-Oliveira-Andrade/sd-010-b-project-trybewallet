@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { expensesExport, fetchCurrency } from '../actions';
+import { currencyNow, fetchCurrency, totalExpensesExport } from '../actions';
 
 class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: 0,
-      value: 0,
+      value: '',
       description: '',
       currency: 'USD',
       method: '',
@@ -16,6 +16,7 @@ class Form extends Component {
     };
     this.typeChecker = this.typeChecker.bind(this);
     this.clickSend = this.clickSend.bind(this);
+    this.structure = this.structure.bind(this);
   }
 
   componentDidMount() {
@@ -23,48 +24,45 @@ class Form extends Component {
     currencies();
   }
 
+  // https://www.pluralsight.com/guides/how-to-use-react-to-set-the-value-of-an-input
   typeChecker({ target: { name, value } }) {
-    this.setState([{
+    this.setState({
       [name]: value,
-    }]);
+    });
     // console.log(name, value);
     // this.setState({ ...this.state, name: value })
   }
 
   clickSend(event) {
     event.preventDefault();
-    const { expenses, currencyLabel } = this.props;
-    const auxiliarState = {
-      ...this.state,
-      exchangeRates: currencyLabel,
-    };
-    expenses(auxiliarState);
+    const { currencyDispatch } = this.props;
+    const auxiliarState = this.state;
+    currencyDispatch(auxiliarState);
     const { id } = this.state;
     this.setState({
       id: id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
     });
   }
 
-  render() {
-    const { currencyLabel } = this.props;
-    // const { state } = this;
+  structure() {
+    const { description, method, tag } = this.state;
+
     return (
-      <form>
-        <label htmlFor="valor">
-          Valor:
-          <input onChange={ this.typeChecker } type="number" id="valor" name="value" />
-        </label>
-        <label htmlFor="moeda">
-          Moeda:
-          <select id="moeda" name="currency" onChange={ this.typeChecker }>
-            {Object.values(currencyLabel).map((item) => (
-              <option key={ item.code } name={ item.name }>{ item.code }</option>
-            ))}
-          </select>
-        </label>
+      <>
         <label htmlFor="metodo">
           Método de pagamento:
-          <select type="text" id="metodo" name="method" onChange={ this.typeChecker }>
+          <select
+            type="text"
+            id="metodo"
+            name="method"
+            onChange={ this.typeChecker }
+            value={ method }
+          >
             <option selected>-</option>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
@@ -73,7 +71,7 @@ class Form extends Component {
         </label>
         <label htmlFor="despesas">
           Tag:
-          <select id="despesas" name="tag" onChange={ this.typeChecker }>
+          <select id="despesas" name="tag" onChange={ this.typeChecker } value={ tag }>
             <option selected>-</option>
             <option>Alimentação</option>
             <option>Lazer</option>
@@ -81,16 +79,50 @@ class Form extends Component {
             <option>Transporte</option>
             <option>Saúde</option>
           </select>
-          <label htmlFor="descricao">
-            Descrição:
-            <input
-              type="text"
-              id="descricao"
-              name="description"
-              onChange={ this.typeChecker }
-            />
-          </label>
         </label>
+        <label htmlFor="descricao">
+          Descrição:
+          <input
+            type="text"
+            id="descricao"
+            name="description"
+            onChange={ this.typeChecker }
+            value={ description }
+          />
+        </label>
+      </>
+    );
+  }
+
+  render() {
+    const { currencyLabel } = this.props;
+    const { value, currency } = this.state;
+    return (
+      <form>
+        <label htmlFor="valor">
+          Valor:
+          <input
+            onChange={ this.typeChecker }
+            type="number"
+            id="valor"
+            name="value"
+            value={ value }
+          />
+        </label>
+        <label htmlFor="moeda">
+          Moeda:
+          <select
+            id="moeda"
+            name="currency"
+            onChange={ this.typeChecker }
+            value={ currency }
+          >
+            {Object.values(currencyLabel).map((item) => (
+              <option key={ item.code } name={ item.name }>{ item.code }</option>
+            ))}
+          </select>
+        </label>
+        { this.structure() }
         <button type="submit" onClick={ this.clickSend }>Adicionar despesa</button>
       </form>
     );
@@ -98,12 +130,15 @@ class Form extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  expensesLabel: state.wallet.expenses,
   currencyLabel: state.wallet.currencies,
+
 });
 
-const MapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   currencies: () => dispatch(fetchCurrency()),
-  expenses: (state) => dispatch(expensesExport(state)),
+  currencyDispatch: (state) => dispatch(currencyNow(state)),
+  totalExpenses: (state) => dispatch(totalExpensesExport(state)),
 });
 
 Form.propTypes = ({
@@ -112,4 +147,4 @@ Form.propTypes = ({
 }).isRequired;
 
 // export default Form;
-export default connect(mapStateToProps, MapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
