@@ -1,9 +1,18 @@
 import { EXPENSES, CURRENCIES } from '.';
 
-export const expenseOnChange = (expenses) => ({
+export const expenseOnChange = ({
+  id, value, currency, method, tag, description, exchangeRates }) => ({
   type: EXPENSES,
   payload: {
-    expenses: [expenses],
+    expenses: {
+      id,
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates,
+    },
   },
 });
 

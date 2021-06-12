@@ -8,16 +8,20 @@ class Form extends React.Component {
     super(props);
     this.state = {
       moedas: [],
-      expense: '',
+      id: 0,
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
     };
-    this.getValue = this.getValue.bind(this);
+    this.getValues = this.getValues.bind(this);
     this.getValueStore = this.getValueStore.bind(this);
+    this.fetchApi = this.fetchApi.bind(this);
   }
 
   async componentDidMount() {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const moedas = await response.json();
-    this.getMoedas(moedas);
+    await this.fetchApi();
   }
 
   getMoedas(moedas) {
@@ -26,27 +30,67 @@ class Form extends React.Component {
     this.setState({ moedas: moedinhas });
   }
 
-  getValue({ target: { value } }) {
-    this.setState({ expense: value });
+  getValues({ target: { value, name } }) {
+    this.setState({ [name]: value });
   }
 
-  getValueStore() {
-    const { expense } = this.state;
-    const { expenseChange } = this.props;
-    expenseChange(expense);
-    this.setState({ expense: '' });
+  async getValueStore() {
+    const { id, value,
+      currency,
+      method,
+      tag,
+      description } = this.state;
+    const { expenseChange, totalField } = this.props;
+    const exchangeRates = await this.fetchApi();
+
+    expenseChange({ id,
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates });
+    this.setState((oldState) => ({
+      id: oldState.id + 1,
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
+    }));
+    totalField();
+  }
+
+  async fetchApi() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const moedas = await response.json();
+    this.getMoedas(moedas);
+    return moedas;
   }
 
   selectCategory() {
     return (
       <label htmlFor="categoria">
         Tag
-        <select name="categoria" id="categoria">
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+        <select onChange={ this.getValues } name="tag" id="categoria">
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
+  selectMethod() {
+    return (
+      <label htmlFor="metodo">
+        Método de pagamento
+        <select onChange={ this.getValues } name="method" id="metodo">
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de Crédito</option>
+          <option value="Cartão de débito">Cartão de Débito</option>
         </select>
       </label>
     );
@@ -60,21 +104,27 @@ class Form extends React.Component {
           Valor:
           <input
             type="text"
-            name="valor"
+            name="value"
             id="valor"
-            onChange={ this.getValue }
+            onChange={ this.getValues }
             value={ expense }
           />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" name="descricao" id="descricao" />
+          <input
+            type="text"
+            name="description"
+            id="descricao"
+            onChange={ this.getValues }
+          />
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select name="moeda" id="moeda">
+          <select name="currency" id="moeda" onChange={ this.getValues }>
             {moedas.map((moeda) => (
               <option
+                name="currency"
                 key={ moeda }
                 value={ moeda }
               >
@@ -82,14 +132,7 @@ class Form extends React.Component {
               </option>))}
           </select>
         </label>
-        <label htmlFor="metodo">
-          Método de pagamento
-          <select name="metodo" id="metodo">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de Crédito</option>
-            <option value="debito">Cartão de Débito</option>
-          </select>
-        </label>
+        {this.selectMethod()}
         {this.selectCategory()}
         <button
           type="button"
@@ -104,9 +147,11 @@ class Form extends React.Component {
 
 Form.propTypes = {
   expenseChange: PropTypes.func,
+  totalField: PropTypes.func,
 };
 Form.defaultProps = {
   expenseChange: () => {},
+  totalField: () => {},
 };
 const mapDispatchToProps = (dispatch) => ({
   expenseChange: (expense) => dispatch(expenseOnChange(expense)),
