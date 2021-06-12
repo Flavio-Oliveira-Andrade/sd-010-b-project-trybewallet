@@ -21,30 +21,28 @@ class Wallet extends React.Component {
     const { email } = this.props;
     const { value } = this.state;
     return (
-      <section>
-        <header>
-          <p data-testid="email-field">
-            Olá
-            {' '}
-            {email}
-          </p>
-          <form>
-            <label htmlFor="total-spent">
-              Total de gastos
-              <input
-                data-testid="total-field"
-                onChange={ this.handleChange }
-                id="total-spent"
-                type="number"
-                value={ value }
-              />
-            </label>
-            <select>
-              <option data-testid="header-currency-field">BRL</option>
-            </select>
-          </form>
-        </header>
-      </section>
+      <header>
+        <p data-testid="email-field">
+          Olá
+          {' '}
+          {email}
+        </p>
+        <form>
+          <label htmlFor="total-spent">
+            Total de gastos
+            <input
+              data-testid="total-field"
+              onChange={ this.handleChange }
+              id="total-spent"
+              type="number"
+              value={ value }
+            />
+          </label>
+          <select>
+            <option data-testid="header-currency-field">BRL</option>
+          </select>
+        </form>
+      </header>
     );
   }
 }
