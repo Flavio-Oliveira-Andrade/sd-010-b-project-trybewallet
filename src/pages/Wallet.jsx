@@ -1,27 +1,19 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import Description from '../components/Description';
+import Value from '../components/Value';
 import PaymentMethod from '../components/PaymentMethod';
+import Tag from '../components/Tag';
 import SelectCurr from '../components/SelectCurr';
 import { addExpense } from '../actions';
-import Tag from '../components/Tag';
 
 import './Wallet.css';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialstate();
-    this.handleChange = this.handleChange.bind(this);
-    this.renderInputs = this.renderInputs.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.getInitialstate = this.getInitialstate.bind(this);
-    this.resetState = this.resetState.bind(this);
-  }
-
-  getInitialstate() {
-    const initialState = {
-      id: '',
+    this.state = {
       value: '',
       description: '',
       currency: 'USD',
@@ -29,7 +21,9 @@ class Wallet extends React.Component {
       tag: 'Alimentação',
       exchangeRates: {},
     };
-    return initialState;
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.initialState = this.initialState.bind(this);
   }
 
   handleChange({ target }) {
@@ -37,6 +31,17 @@ class Wallet extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [name]: value,
+    });
+  }
+
+  initialState() {
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      exchangeRates: {},
     });
   }
 
@@ -53,25 +58,7 @@ class Wallet extends React.Component {
       exchangeRates,
     });
     console.log(addExpense);
-    this.resetState();
-  }
-
-  resetState() {
-    this.setState(this.getInitialstate());
-  }
-
-  renderInputs(labelid, text, type, name) {
-    return (
-      <label htmlFor={ labelid }>
-        {text}
-        <input
-          id={ labelid }
-          type={ type }
-          name={ name }
-          onChange={ this.handleChange }
-        />
-      </label>
-    );
+    this.setState(this.initialState());
   }
 
   render() {
@@ -86,8 +73,8 @@ class Wallet extends React.Component {
           </div>
         </header>
         <form className="wallet--form">
-          {this.renderInputs('value', 'Valor:', 'text', 'value')}
-          {this.renderInputs('description', 'Descrição', 'text', 'description')}
+          <Value handleChange={ this.handleChange } />
+          <Description handleChange={ this.handleChange } />
           <SelectCurr handleChange={ this.handleChange } />
           <Tag handleChange={ this.handleChange } />
           <PaymentMethod handleChange={ this.handleChange } />
@@ -107,10 +94,6 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   valor: () => dispatch(addExpense),
-// });
 
 const mapDispatchToProps = (dispatch) => ({
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class PaymentMethod extends React.Component {
   constructor(props) {
@@ -24,5 +25,13 @@ class PaymentMethod extends React.Component {
     );
   }
 }
+
+PaymentMethod.propTypes = {
+  handleChange: PropTypes.func,
+};
+
+PaymentMethod.defaultProps = {
+  handleChange: '',
+};
 
 export default PaymentMethod;

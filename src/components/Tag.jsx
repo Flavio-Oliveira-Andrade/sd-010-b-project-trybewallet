@@ -25,4 +25,12 @@ class Tag extends React.Component {
   }
 }
 
+Tag.propTypes = {
+  handleChange: PropTypes.func,
+};
+
+Tag.defaultProps = {
+  handleChange: '',
+};
+
 export default Tag;

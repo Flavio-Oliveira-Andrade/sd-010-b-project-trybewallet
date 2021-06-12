@@ -39,4 +39,12 @@ class SelectCurr extends React.Component {
   }
 }
 
+SelectCurr.propTypes = {
+  handleChange: PropTypes.func,
+};
+
+SelectCurr.defaultProps = {
+  handleChange: '',
+};
+
 export default SelectCurr;
