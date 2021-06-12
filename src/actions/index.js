@@ -1,3 +1,4 @@
+// action para requisitar API E APRESENTAR MOEDAS
 export const REQUEST_API = 'REQUEST_API';
 export const GET_CURRENCY = 'GET_CURRENCY';
 
@@ -13,6 +14,7 @@ export function fetchAPI() {
   };
 }
 
+// action de adição de usuário após login
 export const ADD_USER = 'ADD_USER';
 
 const userInput = (email) => ({
