@@ -51,6 +51,8 @@ class ExpenseForm extends React.Component {
   }
 
   render() {
+    // const { currencies } = this.props;
+    // const arrayCurrencies = Object.keys(currencies);
     return (
       <form>
         <label htmlFor="valor">
@@ -59,17 +61,12 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="descricao">
           Descrição
-          <input
-            type="text"
-            name="description"
-            id="descricao"
-            onChange={ this.handleChange }
-          />
+          <input type="text" name="description" id="descricao" onChange={ this.handleChange } />
         </label>
         <label htmlFor="moeda">
           Moeda
           <select id="moeda" name="currency" onChange={ this.handleChange }>
-            { this.inputCurrency }
+            {this.inputCurrency()}
           </select>
         </label>
         <label htmlFor="pagamento">
