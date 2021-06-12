@@ -18,6 +18,7 @@ class Forms extends Component {
   }
 
   getCurrency() {
+    const { currencies } = this.props;
     return (
       <label htmlFor="currency">
         Moeda
@@ -31,7 +32,6 @@ class Forms extends Component {
   }
 
   render() {
-    const { currencies } = this.props;
     return (
       <main>
         <form>
