@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense, sumExpenses } from '../actions';
+import { deleteExpense, sumExpenses, editExpense } from '../actions';
 
 class TableWallet extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class TableWallet extends Component {
   }
 
   TableExpenses() {
-    const { expenses } = this.props;
+    const { expenses, handleClickEdit } = this.props;
     return (
       expenses.map(({ id, description, tag, method, value, currency, exchangeRates }) => {
         const coin = exchangeRates[currency];
@@ -39,6 +39,13 @@ class TableWallet extends Component {
               onClick={ () => this.handleClickRemove(id) }
             >
               Deletar
+            </button>
+            <button
+              type="button"
+              data-testid="edit-btn"
+              onClick={ () => handleClickEdit(id) }
+            >
+              Editar
             </button>
           </tr>
         );
@@ -73,6 +80,7 @@ class TableWallet extends Component {
 TableWallet.propTypes = {
   removeExpense: PropTypes.func.isRequired,
   addSumExpenses: PropTypes.func.isRequired,
+  handleClickEdit: PropTypes.func.isRequired,
   expenses: PropTypes.objectOf(Object).isRequired,
 };
 
@@ -83,6 +91,9 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (id) => dispatch(
     deleteExpense(id),
+  ),
+  handleClickEdit: (id) => dispatch(
+    editExpense(id),
   ),
   addSumExpenses: () => dispatch(
     sumExpenses(),

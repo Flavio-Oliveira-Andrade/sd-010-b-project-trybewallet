@@ -1,4 +1,4 @@
-import getCurrencies from '../services/api';
+import getCurrencies from '../api';
 // LOGIN -------------------------------------------------------------------
 export const ADD_LOGIN = 'ADD_LOGIN';
 
@@ -18,6 +18,8 @@ export const FETCH_CURRENCIES_LIST_ERROR = 'FETCH_CURRENCIES_LIST_ERROR';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const SUM_EXPENSES = 'SUM_EXPENSES';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const SHOW_EXPENSE = 'SHOW_EXPENSE';
 
 export const addExpenses = (expense) => ({
   type: ADD_EXPENSES,
@@ -34,6 +36,20 @@ export const deleteExpense = (id) => ({
   type: DELETE_EXPENSE,
   payload: {
     id,
+  },
+});
+
+export const editExpense = (id) => ({
+  type: EDIT_EXPENSE,
+  payload: {
+    id,
+  },
+});
+
+export const shownExpense = () => ({
+  type: SHOW_EXPENSE,
+  payload: {
+    editedExpense: false,
   },
 });
 

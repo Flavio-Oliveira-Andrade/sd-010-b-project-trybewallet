@@ -1,31 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, addExpenses, sumExpenses } from '../actions';
+import { fetchCurrencies, addExpenses, sumExpenses, shownExpense } from '../actions';
 
+const initialState = {
+  id: '',
+  value: '',
+  description: '',
+  currency: undefined,
+  method: '',
+  tag: '',
+  currencies: {},
+  showBtnEdit: false,
+};
 class FormsWallet extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: '',
-      tag: '',
-    };
+    this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.formValue = this.formValue.bind(this);
-    this.formCurrency = this.formCurrency.bind(this);
-    this.formPayment = this.formPayment.bind(this);
-    this.formTag = this.formTag.bind(this);
-    this.formDescription = this.formDescription.bind(this);
+    this.handleClickAdd = this.handleClickAdd.bind(this);
+    this.showEditingOnScreen = this.showEditingOnScreen.bind(this);
+    this.handleInputs = this.handleInputs.bind(this);
+    this.handleSelects = this.handleSelects.bind(this);
   }
 
   componentDidMount() {
     const { fetchCoins } = this.props;
     fetchCoins();
+  }
+
+  componentDidUpdate() {
+    const { editedExpense } = this.props;
+    if (editedExpense) {
+      this.showEditingOnScreen();
+    }
   }
 
   handleChange({ target: { value, name } }) {
@@ -34,21 +43,11 @@ class FormsWallet extends Component {
     });
   }
 
-  async handleClick() {
-    const { value,
-      description,
-      currency,
-      method,
-      tag,
-    } = this.state;
+  async handleClickAdd() {
+    const { value, description, currency = 'USD', method, tag } = this.state;
 
     const {
-      currencies,
-      expenses,
-      fetchCoins,
-      addToExpenses,
-      addSumExpenses,
-    } = this.props;
+      currencies, expenses, fetchCoins, addToExpenses, addSumExpenses } = this.props;
 
     await fetchCoins();
     const expense = {
@@ -63,136 +62,110 @@ class FormsWallet extends Component {
     addToExpenses(expense);
     addSumExpenses();
 
+    this.setState(initialState);
+  }
+
+  handleClickEdit() {
+    const { id, value, description, currency, method, tag, currencies } = this.state;
+    const { addToExpenses, addSumExpenses } = this.props;
+    const expense = {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: currencies,
+    };
+    addToExpenses(expense);
+    addSumExpenses();
+  }
+
+  handleInputs(labelName, inputName, inputValue, inputType) {
+    return (
+      <label htmlFor={ inputName }>
+        { labelName }
+        <input
+          type={ inputType }
+          name={ inputName }
+          id={ inputName }
+          value={ inputValue }
+          onChange={ this.handleChange }
+        />
+      </label>
+    );
+  }
+
+  handleSelects(labelName, selectName, selectValue, selectItems) {
+    if (labelName === 'Moeda:') {
+      const listCurrency = Object.keys(selectItems); // https://qastack.com.br/programming/5072136/javascript-filter-for-objects // Aula : Object 24/03/2021
+      return (
+        <label htmlFor={ selectName }>
+          { labelName }
+          <select
+            name={ selectName }
+            id={ selectName }
+            value={ selectValue }
+            onChange={ this.handleChange }
+          >
+            {listCurrency.filter((coin) => coin !== 'USDT')
+              .map((currency) => (
+                <option key={ currency }>{ currency }</option>))}
+          </select>
+        </label>
+      );
+    }
+    return (
+      <label htmlFor={ selectName }>
+        { labelName }
+        <select
+          name={ selectName }
+          id={ selectName }
+          value={ selectValue }
+          onChange={ this.handleChange }
+        >
+          <option>Selecione</option>
+          {selectItems
+            .map((currency) => (
+              <option key={ currency }>{ currency }</option>))}
+        </select>
+      </label>
+    );
+  }
+
+  showEditingOnScreen() {
+    const { editingExpense: { id, value, method, tag, description, exchangeRates },
+      handleShownExpense } = this.props;
     this.setState({
-      value: '',
-      description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      id,
+      value,
+      method,
+      tag,
+      description,
+      showBtnEdit: true,
+      currencies: exchangeRates,
     });
-  }
-
-  formValue(value) {
-    return (
-      <label
-        htmlFor="value"
-      >
-        Valor:
-        <input
-          id="value"
-          type="number"
-          name="value"
-          value={ value }
-          onChange={ this.handleChange }
-        />
-      </label>
-    );
-  }
-
-  formCurrency() {
-    const { currencies } = this.props;
-    const listCurrency = Object.keys(currencies); // https://qastack.com.br/programming/5072136/javascript-filter-for-objects // Aula : Object 24/03/2021
-    return (
-      <label
-        htmlFor="coin"
-      >
-        Moeda:
-        <select
-          id="coin"
-          type="number"
-          name="currency"
-          onChange={ this.handleChange }
-        >
-          {listCurrency.filter((coin) => coin !== 'USDT')
-            .map((coin) => (
-              <option
-                key={ coin }
-              >
-                {coin}
-              </option>
-            ))}
-        </select>
-      </label>
-    );
-  }
-
-  formPayment(method) {
-    return (
-      <label
-        htmlFor="payment"
-      >
-        Método de Pagamento:
-        <select
-          id="payment"
-          type="text"
-          name="method"
-          value={ method }
-          onChange={ this.handleChange }
-        >
-          <option>Selecione o Pagamento</option>
-          <option>Dinheiro</option>
-          <option>Cartão de débito</option>
-          <option>Cartão de crédito</option>
-        </select>
-      </label>
-    );
-  }
-
-  formTag(tag) {
-    return (
-      <label
-        htmlFor="tag"
-      >
-        Tag:
-        <select
-          id="tag"
-          type="text"
-          name="tag"
-          value={ tag }
-          onChange={ this.handleChange }
-        >
-          <option>Selecione a Tag</option>
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
-        </select>
-      </label>
-    );
-  }
-
-  formDescription(description) {
-    return (
-      <label
-        htmlFor="description"
-      >
-        Descrição:
-        <input
-          id="description"
-          type="text"
-          name="description"
-          value={ description }
-          onChange={ this.handleChange }
-        />
-      </label>
-    );
+    handleShownExpense();
   }
 
   render() {
-    const { value, description, method, tag } = this.state;
+    const { value, description, method, tag, showBtnEdit } = this.state;
+    const { currencies } = this.props;
+    const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <>
-        {this.formValue(value)}
-        {this.formCurrency()}
-        {this.formPayment(method)}
-        {this.formTag(tag)}
-        {this.formDescription(description)}
+        {this.handleInputs('Valor:', 'value', value, 'number')}
+        {this.handleSelects('Moeda:', 'currency', undefined, currencies)}
+        {this.handleSelects('Método de pagamento:', 'method', method, methods)}
+        {this.handleSelects('Tag:', 'tag', tag, tags)}
+        {this.handleInputs('Descrição:', 'description', description, 'text')}
         <button
           type="button"
-          onClick={ this.handleClick }
+          data-testid="edit-btn"
+          onClick={ this.handleClickAdd }
         >
-          Adicionar despesa
+          {(!showBtnEdit) ? 'Adicionar despesa' : 'Editar despesa'}
         </button>
       </>
     );
@@ -203,13 +176,19 @@ FormsWallet.propTypes = {
   fetchCoins: PropTypes.func.isRequired,
   addToExpenses: PropTypes.func.isRequired,
   addSumExpenses: PropTypes.func.isRequired,
+  handleShownExpense: PropTypes.func.isRequired,
+  editedExpense: PropTypes.bool.isRequired,
   currencies: PropTypes.objectOf(Object).isRequired,
   expenses: PropTypes.objectOf(Object).isRequired,
+  editingExpense: PropTypes.objectOf(Object).isRequired,
 };
 
-const mapStateToProps = ({ wallet: { currencies, expenses } }) => ({
+const mapStateToProps = ({
+  wallet: { currencies, expenses, editingExpense, editedExpense } }) => ({
   currencies,
   expenses,
+  editingExpense,
+  editedExpense,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -221,6 +200,9 @@ const mapDispatchToProps = (dispatch) => ({
   ),
   addSumExpenses: () => dispatch(
     sumExpenses(),
+  ),
+  handleShownExpense: () => dispatch(
+    shownExpense(),
   ),
 });
 
