@@ -5,6 +5,16 @@ import React from 'react';
 import './Wallet.css';
 
 class Form extends React.Component {
+
+  fetchAPI = () => (
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => (
+        response.json()
+          .then((json) => Promise.resolve(json))
+      ))
+  );
+  
+  
   render() {
     return (
       <form>
