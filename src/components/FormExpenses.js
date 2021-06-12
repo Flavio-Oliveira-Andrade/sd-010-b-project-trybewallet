@@ -27,10 +27,9 @@ class FormExpenses extends Component {
           Moeda:
           <select id="currency">
             {
-              Object.keys(currencies).map((currency, index) => {
-                const { code } = currencies[currency];
-                return (<option key={ index }>{ code }</option>);
-              })
+              currencies.map((currency, index) => (
+                <option key={ index }>{currency[0]}</option>
+              ))
             }
           </select>
         </label>
