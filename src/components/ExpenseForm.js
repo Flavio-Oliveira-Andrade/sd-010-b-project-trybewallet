@@ -1,6 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchApi } from '../actions';
 
 class ExpenseForm extends React.Component {
+  componentDidMount() {
+  }
+
   render() {
     return (
       <form>
@@ -15,7 +21,7 @@ class ExpenseForm extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select name="currency" id="currency">
-            <option value="*">*</option>
+            <option>{' '}</option>
           </select>
         </label>
         <label htmlFor="payment">
