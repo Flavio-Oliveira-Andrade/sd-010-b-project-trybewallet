@@ -9,11 +9,11 @@ class Forms extends React.Component {
 
     this.state = {
       infoDispense: {
-        coin: 'USD',
-        describe: '',
-        payment: 'money',
-        categorie: 'food',
-        expenses: '',
+        currency: 'USD',
+        description: '',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+        value: '',
       },
     };
     this.handleChange = this.handleChange.bind(this);
@@ -26,14 +26,15 @@ class Forms extends React.Component {
   }
 
   handleChange(event) {
-    const { target: { value, id } } = event;
+    const { target: { value, name } } = event;
     const { infoDispense } = this.state;
     const { idExpense } = this.props;
+    const id = idExpense;
     this.setState({
       infoDispense: {
         ...infoDispense,
-        [id]: value,
-        idExpense,
+        [name]: value,
+        id,
       },
     });
   }
@@ -45,48 +46,49 @@ class Forms extends React.Component {
   }
 
   render() {
-    const { expenses, describe, coin, payment, categorie } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { coins } = this.props;
     return (
       <form>
-        <label htmlFor="expenses">
+        <label htmlFor="value">
           Valor
           <input
             type="number"
-            value={ expenses }
-            id="expenses"
+            value={ value }
+            id="value"
+            name="value"
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="describe">
+        <label htmlFor="description">
           Descrição
-          <input value={ describe } id="describe" onChange={ this.handleChange } />
+          <input value={ description } id="description" onChange={ this.handleChange } name="description" />
         </label>
-        <label htmlFor="coin">
+        <label htmlFor="currency">
           Moeda
-          <select id="coin" value={ coin } onChange={ this.handleChange }>
+          <select id="currency" value={ currency } name="currency" onChange={ this.handleChange }>
             {Object.keys(coins)
               .map((current) => (current !== 'USDT'
                 ? <option>{ current }</option>
                 : null))}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de Pagamento
-          <select id="payment" value={ payment } onChange={ this.handleChange }>
-            <option value="money">Dinheiro</option>
-            <option value="creditCard">Cartão de Crédito</option>
-            <option value="debitCard">Cartão de Débito</option>
+          <select id="method" value={ method } name="method" onChange={ this.handleChange }>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de Crédito</option>
+            <option value="Cartão de débito">Cartão de Débito</option>
           </select>
         </label>
-        <label htmlFor="categorie">
+        <label htmlFor="tag">
           Tag
-          <select id="categorie" value={ categorie } onChange={ this.handleChange }>
-            <option value="food">Alimentação</option>
-            <option value="roby">Lazer</option>
-            <option value="job">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="hearth">Saúde</option>
+          <select id="tag" value={ tag } name="tag" onChange={ this.handleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         <button type="button" onClick={ this.saveExpenses }>Adicionar despesa</button>

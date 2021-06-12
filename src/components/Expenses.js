@@ -9,9 +9,9 @@ class Expenses extends React.Component {
       <section>
         {expenses.map((expense, key) => (
           <div key={ key }>
-            <span>{ expense.expenses }</span>
-            <span>{ expense.describe }</span>
-            <span>{ expense.categorie }</span>
+            <span>{ expense.value }</span>
+            <span>{ expense.escription }</span>
+            <span>{ expense.tag }</span>
           </div>
         ))}
       </section>

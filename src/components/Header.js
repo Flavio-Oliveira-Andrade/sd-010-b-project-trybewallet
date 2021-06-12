@@ -17,9 +17,9 @@ class Header extends React.Component {
     return expenses.reduce((acc, curr) => {
       const values = Object.values(curr.exchangeRates);
       const filterBRLT = values.filter((value) => value.codein !== 'BRLT');
-      const filterCoin = filterBRLT.filter((value) => curr.coin === value.code);
+      const filterCoin = filterBRLT.filter((value) => curr.currency === value.code);
       const finalCoin = filterCoin[0].ask;
-      acc += Number(curr.expenses) * finalCoin;
+      acc += Number(curr.value) * finalCoin;
       return (acc);
     }, 0);
   }
