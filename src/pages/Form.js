@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 
 import './Wallet.css';
@@ -38,9 +38,7 @@ class Form extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
-
       </form>
-
     );
   }
 }
@@ -59,4 +57,4 @@ class Form extends React.Component {
 //   ),
 // });
 
-export default connect(mapStateToProps, mapDispachToProps)(Form);
+export default Form;
