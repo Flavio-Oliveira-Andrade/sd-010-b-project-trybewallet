@@ -39,4 +39,4 @@ export const addExpenses = (expense, objCurrency) => ({
   },
 });
 
-dispatch(addExpenses(expense, objCurrency));
+// dispatch(addExpenses(expense, objCurrency));

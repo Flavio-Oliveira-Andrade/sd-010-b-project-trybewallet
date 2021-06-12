@@ -9,6 +9,19 @@ class Forms extends Component {
     fetchDispatch();
   }
 
+  getCurrency() {
+    return (
+      <label htmlFor="currency">
+        Moeda
+        <select name="currency" id="currency">
+          {' '}
+          {Object.keys(currencies).filter((currency) => currency !== 'USDT')
+            .map((map$) => <option key={ map$ } value={ map$ }>{map$}</option>)}
+        </select>
+      </label>
+    );
+  }
+
   render() {
     const { currencies } = this.props;
     return (
@@ -56,7 +69,7 @@ class Forms extends Component {
           <button
             className="add-expense"
             type="button"
-            onClick={ () }
+            onClick={ () => {} }
           >
             Adicionar despesa
           </button>
