@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 import '../styles/addExpense.css';
 
 class AddExpense extends React.Component {
   render() {
+    const { currencies, isFetching } = this.props;
     return (
       <form className="expense-form">
         <label htmlFor="valor">
@@ -17,7 +20,8 @@ class AddExpense extends React.Component {
         <label htmlFor="moeda">
           <span>Moeda: </span>
           <select name="moeda" id="moeda">
-            {}
+            { isFetching ? null : Object.keys(currencies).filter((cur) => cur !== 'USDT')
+              .map((currency) => <option key={ currency }>{currency}</option>) }
           </select>
         </label>
         <label htmlFor="payment-metod">
@@ -43,4 +47,14 @@ class AddExpense extends React.Component {
   }
 }
 
-export default AddExpense;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
+});
+
+AddExpense.propTypes = {
+  currencies: PropTypes.object,
+  isFetching: PropTypes.bool,
+}.isRequired;
+
+export default connect(mapStateToProps, null)(AddExpense);

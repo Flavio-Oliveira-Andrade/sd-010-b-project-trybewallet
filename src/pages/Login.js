@@ -23,7 +23,7 @@ class Login extends React.Component {
     const { saveEmail } = this.props;
     return (
       <div className="container">
-        <img src="https://static.wixstatic.com/media/4c2984_e8ba75672946447b9c0718f98d806496~mv2.png/v1/fill/w_562,h_142,al_c,lg_1,q_90/4c2984_e8ba75672946447b9c0718f98d806496~mv2.webp" alt="logo-trybe" className="logo" />
+        <img src="https://static.wixstatic.com/media/4c2984_e8ba75672946447b9c0718f98d806496~mv2.png/v1/fill/w_562,h_142,al_c,lg_1,q_90/4c2984_e8ba75672946447b9c0718f98d806496~mv2.webp" alt="logo-trybe" className="logo-img" />
         <form className="form-field">
           <label htmlFor="email">
             Email:
@@ -56,6 +56,7 @@ class Login extends React.Component {
         {shouldRedirect ? <Redirect to="/carteira" /> : null }
         <button
           type="button"
+          className="login-btn"
           onClick={ () => {
             saveEmail(email);
             this.setState({ shouldRedirect: true });

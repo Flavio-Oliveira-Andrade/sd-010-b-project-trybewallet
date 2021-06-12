@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 
 import '../styles/wallet.css';
 import AddExpense from '../components/AddExpense';
+import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -12,6 +13,11 @@ class Wallet extends React.Component {
     this.state = {
       total: 0,
     };
+  }
+
+  componentDidMount() {
+    const { fetcher } = this.props;
+    fetcher();
   }
 
   render() {
@@ -43,8 +49,12 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  fetcher: () => dispatch(fetchCurrencies()),
+});
+
 Wallet.propTypes = {
   email: PropTypes.string,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
