@@ -9,7 +9,6 @@ class Header extends React.Component {
     const { lerEmail } = this.props;
     return (
       <header>
-        <div>TrybeWallet</div>
         <div className="flex">
           <p>Email : </p>
           <p data-testid="email-field">

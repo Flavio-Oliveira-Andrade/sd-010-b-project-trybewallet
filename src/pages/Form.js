@@ -8,29 +8,35 @@ class Form extends React.Component {
   render() {
     return (
       <form>
-        <label htmlFor="valor" className="flex">
-          <p>Valor da despesa : </p>
-          <input type="text" name="valor" />
+        <label htmlFor="valor">
+          Valor :
+          <input type="text" id="valor" name="valor" />
         </label>
-        <label htmlFor="Descrição" className="flex">
-          <p>Descrição da despesa : </p>
-          <input type="text" name="Descrição" />
+
+        <label htmlFor="descricao">
+          Descrição :
+          <input type="text" id="descricao" name="descricao" />
         </label>
-        <label htmlFor="Moeda" className="flex">
-          <p>Moeda : </p>
-          <select id="Moeda">
-            <option>Alimentação</option>
+
+        <label htmlFor="moeda">
+          Moeda :
+          <select id="moeda" name="moeda">
+            <option>BRL</option>
           </select>
         </label>
-        <label htmlFor="Método de pagamento" className="flex">
-          <p>Método de pagamento : </p>
-          <select id="Método de pagamento">
-            <option>Alimentação</option>
+
+        <label htmlFor="pagamento">
+          Método de pagamento :
+          <select id="pagamento" name="pagamento">
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="tag" className="flex">
-          <p>Despesa</p>
-          <select id="tag">
+
+        <label htmlFor="tag">
+          Tag :
+          <select id="tag" name="tag">
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>

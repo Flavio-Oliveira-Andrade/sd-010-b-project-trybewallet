@@ -1,7 +1,7 @@
-.flex {
+.flex, header {
   display: flex;
 }
 
-p {
+p, label {
   margin: 5px;
 }
