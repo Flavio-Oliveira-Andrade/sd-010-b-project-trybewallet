@@ -51,6 +51,10 @@ const mapDispatchToProps = (dispatch) => ({
   getApiToCurrencies: () => dispatch(fetchApi()),
 });
 
+const mapStateToProps = (state) => ({
+  getCurrencies: state.wallet.currencies,
+});
+
 ExpenseForm.propTypes = {
   getApiToCurrencies: PropTypes.func.isRequired,
   getCurrencies: PropTypes.objectOf.isRequired,
