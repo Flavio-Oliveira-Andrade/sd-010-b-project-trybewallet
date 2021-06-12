@@ -17,6 +17,7 @@ class Forms extends Component {
     fetchDispatch();
   }
 
+  // componentes //
   getCurrency() {
     const { currencies } = this.props;
     return (
@@ -29,6 +30,10 @@ class Forms extends Component {
         </select>
       </label>
     );
+  }
+
+  handleClick({ target: { id, value } }) {
+    this.setState({ [id]: value });
   }
 
   render() {
