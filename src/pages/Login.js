@@ -1,10 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { userLogin } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      email: '',
+      senha: '',
+    };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -16,6 +22,17 @@ class Login extends React.Component {
   }
 
   render() {
+    const { history, updateUser } = this.props;
+    const { email, senha } = this.state;
+    // Crédito Alessandra Rezende
+    const validaEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const min = 6;
+    const habilitaBotao = email.match(validaEmail) && senha.length >= min ? null : true;
+    const checkLogin = () => {
+      updateUser(email);
+      history.push('/carteira');
+    };
+
     return (
       <div className="login">
         <label htmlFor="email">
@@ -41,13 +58,24 @@ class Login extends React.Component {
         <button
           type="button"
           className="btnLogin"
+          onClick={ checkLogin }
+          disabled={ habilitaBotao }
         >
           {' '}
-          ENTRAR
+          Entrar
         </button>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  updateUser: (email) => dispatch(userLogin(email)),
+});
+
+Login.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  history: PropTypes.string.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
