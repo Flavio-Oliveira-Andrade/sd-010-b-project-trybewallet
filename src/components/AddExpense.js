@@ -126,7 +126,7 @@ class AddExpense extends React.Component {
   render() {
     const { arrayObjCoin, coin, spent, paymentMethod, tag, description } = this.state;
     return (
-      <div className="add-spend">
+      <menu className="add-spend">
         <form>
           {this.spend(this.handleClick, spent)}
           {this.coin(this.handleClick, coin, arrayObjCoin)}
@@ -136,7 +136,7 @@ class AddExpense extends React.Component {
 
           {this.buttonAddSpend()}
         </form>
-      </div>
+      </menu>
     );
   }
 }
