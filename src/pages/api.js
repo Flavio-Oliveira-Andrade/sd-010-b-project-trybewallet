@@ -5,7 +5,5 @@ export async function getMoedas() {
 }
 
 export async function morreLint() {
-  return fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((fetchReturn) => fetchReturn.json())
-    .catch((error) => error);
+  console.log('morre Lint')
 }
