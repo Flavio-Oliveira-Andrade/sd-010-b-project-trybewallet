@@ -167,6 +167,7 @@ Edition.propTypes = {
   currencies: PropTypes.arrayOf(String).isRequired,
   editRow: PropTypes.func.isRequired,
   data: PropTypes.shape(Object).isRequired,
+  editValues: PropTypes.shape(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
