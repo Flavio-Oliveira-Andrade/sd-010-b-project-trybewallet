@@ -7,6 +7,16 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      expenses: {
+        value: 0,
+        description: '',
+        currency: '',
+        payment: '',
+        tag: '',
+      },
+    };
+
     this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
   }
 
