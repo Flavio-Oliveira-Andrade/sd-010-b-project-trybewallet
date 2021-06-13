@@ -10,7 +10,7 @@ export function userExpenses(payload) {
   };
 }
 
-export function userLogin(email) {
+export function userLogin({ email }) {
   return {
     type: USER_DATA,
     email,
