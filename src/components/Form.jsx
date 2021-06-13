@@ -12,7 +12,6 @@ class Form extends Component {
 
   componentDidMount() {
     const { requestDales } = this.props;
-    console.log('mount');
     return requestDales();
   }
 
