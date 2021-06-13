@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApi } from '../actions';
+import { fetchApi, userExpenses } from '../actions';
 import '../App.css';
 
 class ExpenseForm extends React.Component {
@@ -57,6 +57,7 @@ class ExpenseForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getApiToCurrencies: () => dispatch(fetchApi()),
+  addExpensives: () => dispatch(userExpenses),
 });
 
 const mapStateToProps = (state) => ({
