@@ -41,7 +41,18 @@ body {
   padding: 3px;
 }
 
-
+.btn-normal {
+  background-color: rgb(84, 117, 106);
+  border-radius: 5px;
+  border-style: none;
+  color: rgb(251, 255, 255);
+  cursor: pointer;
+  font-size: medium;
+  height: 25px;
+  outline: none;
+  padding: 5px;
+  text-shadow: none;
+}
 
 /* .App {
   text-align: center;
