@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApi } from '../actions';
+import '../App.css';
 
 class ExpenseForm extends React.Component {
   componentDidMount() {
@@ -46,7 +47,7 @@ class ExpenseForm extends React.Component {
             <option value="saude">Saúde</option>
           </select>
         </label>
-        <button type="button">Adicionar despesa</button>
+        <button className="btn-normal" type="button">Adicionar despesa</button>
       </form>
     );
   }

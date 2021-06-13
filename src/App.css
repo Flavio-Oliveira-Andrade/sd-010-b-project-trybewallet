@@ -29,6 +29,20 @@ body {
   margin-top: 15px;
 }
 
+.input-exp {
+  border: rgb(129, 152, 188) solid 1px;
+  border-radius: 5px;
+  color: darkslategrey;
+  font-size: 15px;
+  height: 22px;
+  margin-left: 5px;
+  margin-right: 15px;
+  margin-top: 25px;
+  padding: 3px;
+}
+
+
+
 /* .App {
   text-align: center;
 }
