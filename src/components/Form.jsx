@@ -25,6 +25,14 @@ class Form extends Component {
     return request();
   }
 
+  handleChange({ value, name }) {
+    this.setState({
+      expenses:{
+        [name]: value,
+      }
+    });
+  }
+
   renderCurrencysOptions() {
     const { currencies } = this.props;
     return currencies.currencies.map((dale, key) => (
