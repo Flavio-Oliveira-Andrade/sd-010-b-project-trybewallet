@@ -5,5 +5,5 @@ export async function getMoedas() {
 }
 
 export async function morreLint() {
-  console.log('morre Lint')
+  console.log('morre Lint');
 }
