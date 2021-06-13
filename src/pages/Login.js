@@ -85,7 +85,8 @@ class Login extends React.Component {
           </button>
         </Link>
         { redirect && <Redirect to="/carteira" /> }
-      </>);
+      </>
+    );
   }
 
   render() {
