@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-/* import PropTypes from 'prop-types'; */
+import PropTypes from 'prop-types';
 import { fetchCurrencies, saveExpense as saveExpenseAc } from '../actions/index';
 
 class FormExpenses extends Component {
@@ -121,8 +121,8 @@ class FormExpenses extends Component {
             onChange={ this.handleInput }
           >
             {
-              currencies.map((currency, index) => (
-                <option key={ index }>{currency[0]}</option>
+              currencies.map((curr, index) => (
+                <option key={ index }>{curr[0]}</option>
               ))
             }
           </select>
@@ -135,11 +135,10 @@ class FormExpenses extends Component {
         <button
           type="button"
           onClick={ () => {
-            this.setState((oldState) => {
-              return ({
-                id: oldState.id + 1,
-              });
-            }, () => {
+            this.setState((oldState) => ({
+              id: oldState.id + 1,
+            }),
+            () => {
               saveExpense(this.state);
             });
           } }
@@ -160,8 +159,8 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 FormExpenses.propTypes = {
-  /* code: PropTypes.string.isRequired,
   getCurrencies: PropTypes.func().isRequired,
-  currencies: PropTypes.shape().isRequired, */
+  saveExpense: PropTypes.func().isRequired,
+  currencies: PropTypes.shape().isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpenses);

@@ -34,6 +34,36 @@ class Wallet extends React.Component {
     return totalExpenses.toFixed(2);
   }
 
+  renderExpenses(expenses, deleteExpense) {
+    return (
+      expenses.map((expense, index) => (
+        <tr key={ index }>
+          <td>{ expense.description }</td>
+          <td>{ expense.tag }</td>
+          <td>{ expense.paymentMethod }</td>
+          <td>{ `${expense.currency} ${expense.value}` }</td>
+          <td>
+            { expense.exchangeRates.find(
+              (ex) => ex[expense.currency],
+            )[expense.currency].name.replace('/Real Brasileiro', '') }
+          </td>
+          <td>{ this.currencyValue(expense) }</td>
+          <td>{ this.valueExpenseConvertedToReal(expense) }</td>
+          <td>Real Brasileiro</td>
+          <td>
+            <button
+              data-testid="delete-btn"
+              type="submit"
+              onClick={ () => deleteExpense(expense) }
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      ))
+    );
+  }
+
   render() {
     const { user: { email }, expenses, deleteExpense } = this.props;
     return (
@@ -63,21 +93,7 @@ class Wallet extends React.Component {
             <td>Moeda de conversão</td>
             <td>Editar/Excluir</td>
           </tr>
-          { expenses?.map((expense, index) => (
-            <tr key={ index }>
-              <td>{ expense.description }</td>
-              <td>{ expense.tag }</td>
-              <td>{ expense.paymentMethod }</td>
-              <td>{ `${expense.currency} ${expense.value}` }</td>
-              <td>
-                { expense.exchangeRates.find((ex) => ex[expense.currency])[expense.currency].name.replace('/Real Brasileiro', '') }
-              </td>
-              <td>{ this.currencyValue(expense) }</td>
-              <td>{ this.valueExpenseConvertedToReal(expense) }</td>
-              <td>Real Brasileiro</td>
-              <td><button data-testid="delete-btn" type="submit" onClick={ () => deleteExpense(expense) }>Excluir</button></td>
-            </tr>
-          ))}
+          { this.renderExpenses(expenses, deleteExpense) }
         </table>
       </>
     );
@@ -95,6 +111,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   user: PropTypes.shape().isRequired,
+  expenses: PropTypes.shape().isRequired,
+  deleteExpense: PropTypes.func().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
