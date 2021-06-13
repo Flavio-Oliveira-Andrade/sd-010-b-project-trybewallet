@@ -112,7 +112,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   user: PropTypes.shape().isRequired,
   expenses: PropTypes.shape().isRequired,
-  deleteExpense: PropTypes.func().isRequired,
+  deleteExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
