@@ -23,7 +23,7 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="currency">
           Moeda
-          <select name="currency" id="currency">
+          <select className="input-exp" name="currency" id="currency">
             { Object.keys(getCurrencies).filter((elem) => elem !== 'USDT')
               .map((elem) => (<option key={ elem } value={ elem }>{ elem }</option>)) }
           </select>
