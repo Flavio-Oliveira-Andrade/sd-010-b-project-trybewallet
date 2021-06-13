@@ -48,7 +48,7 @@ class ExpenseForm extends React.Component {
               <option value="saude">Saúde</option>
             </select>
           </label>
-          <button className="btn-normal" type="button">Adicionar despesa</button>
+          <button className="btn-add" type="button">Adicionar despesa</button>
         </form>
       </section>
     );

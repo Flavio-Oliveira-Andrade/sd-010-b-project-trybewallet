@@ -1,6 +1,7 @@
 .validateError {
-  color: rgb(252, 63, 63);
+  color: rgb(156, 0, 0);
   font-size: small;
+  font-weight: 500;
   margin-top: 5px;
 }
 
@@ -16,21 +17,26 @@
 }
 
 .login-form {
-  background-color: lightslategray;
+  background-color: rgb(105, 139, 139);
   border-radius: 8px;
   box-shadow: 5px 5px 15px rgb(80, 79, 79);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 300px;
   min-height: 20vh;
   padding: 5rem;
 }
 
 .section-form-expensives {
+  background-color: rgb(105, 139, 139);
   display: flex;
   justify-content: center;
+  padding: 10px;
 }
 
 .general-header {
-  background-color: lightslategray;
+  background-color: darkslategray;
   display: flex;
   justify-content: center;
 }
@@ -44,17 +50,22 @@
 }
 
 .user-email {
-  color: rgb(22, 56, 56);
+  color: white;
   margin-bottom: 15px;
   margin-left: 15px;
 }
 
 .user-total {
-  color: rgb(22, 56, 56);
-  font-size: 25px;
+  background-color: rgb(22, 56, 56);
+  border-radius: 50px;
+  color: white;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 15px;
   margin-left: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* body {
@@ -85,18 +96,75 @@
   padding: 3px;
 }
 
-.btn-normal {
-  background-color: rgb(84, 117, 106);
+.btn-add {
+  background-color: rgb(22, 56, 56);
   border-radius: 5px;
   border-style: none;
   color: rgb(251, 255, 255);
   cursor: pointer;
   font-size: medium;
-  height: 25px;
+  height: 35px;
+  outline: none;
+  padding: 4px;
+  text-shadow: none;
+  width: 175px;
+}
+
+.general-login {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-email {
+  border: rgb(129, 152, 188) solid 1px;
+  border-radius: 5px;
+  color: darkslategrey;
+  font-size: 15px;
+  font-weight: 600;
+  height: 22px;
+  margin-left: 5px;
+  margin-right: 15px;
+  margin-top: 5px;
+  padding: 3px;
+  width: 200px;
+}
+
+.input-password {
+  border: rgb(129, 152, 188) solid 1px;
+  border-radius: 5px;
+  color: darkslategrey;
+  font-size: 15px;
+  font-weight: 600;
+  height: 22px;
+  margin-left: 5px;
+  margin-right: 15px;
+  margin-top: 5px;
+  padding: 3px;
+  width: 200px;
+}
+
+.btn-login {
+  background-color: darkslategrey;
+  border-radius: 5px;
+  border-style: none;
+  color: rgb(251, 255, 255);
+  cursor: pointer;
+  font-size: medium;
+  height: 30px;
+  margin-top: 10px;
   outline: none;
   padding: 5px;
   text-shadow: none;
+  width: 265px;
 }
+
+textarea:focus, input:focus, select:focus {
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+} 
 
 /* .App {
   text-align: center;

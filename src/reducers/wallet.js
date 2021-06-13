@@ -3,7 +3,7 @@ import { GET_CURRENCIES, USER_EXPENSES, IS_FETCH } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
-  // expenses: [],
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

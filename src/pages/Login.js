@@ -100,31 +100,33 @@ class Login extends React.Component {
       <section className="login-form-container">
         <form className="login-form">
           <div><h1>TrybeWallet!</h1></div>
-          <div className="text-login">Login</div>
-          <label htmlFor="email">
-            Email:
-            <input
-              className="input-email"
-              name="email"
-              type="email"
-              data-testid="email-input"
-              onChange={ ({ target }) => { this.handleValidateEmail(target); } }
-            />
-            <p className="validateError">{ emailMessageError }</p>
-          </label>
-          <label htmlFor="password">
-            Senha:
-            <input
-              className="input-password"
-              id="password"
-              name="password"
-              type="password"
-              data-testid="password-input"
-              onChange={ ({ target }) => { this.handleValidatePassword(target); } }
-            />
-            <p className="validateError">{ pwMessageError }</p>
-          </label>
+          <div className="general-login">
+            <label htmlFor="email">
+              Email:
+              <input
+                className="input-email"
+                name="email"
+                type="email"
+                data-testid="email-input"
+                onChange={ ({ target }) => { this.handleValidateEmail(target); } }
+              />
+              <p className="validateError">{ emailMessageError }</p>
+            </label>
+            <label htmlFor="password">
+              Senha:
+              <input
+                className="input-password"
+                id="password"
+                name="password"
+                type="password"
+                data-testid="password-input"
+                onChange={ ({ target }) => { this.handleValidatePassword(target); } }
+              />
+              <p className="validateError">{ pwMessageError }</p>
+            </label>
+          </div>
           <button
+            className="btn-login"
             type="button"
             disabled={ invalidEmail || invalidPw }
             onClick={ this.handleClickLoginAllowed }
