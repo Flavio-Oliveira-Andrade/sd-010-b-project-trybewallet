@@ -9,7 +9,7 @@ class Header extends React.Component {
       <header className="general-header">
         <section className="section-header">
           <div className="user-email"><h2 data-testid="email-field">{ email }</h2></div>
-          <div>
+          <div className="user-total">
             <span data-testid="total-field">0</span>
             <span> </span>
             <span data-testid="header-currency-field">BRL</span>
