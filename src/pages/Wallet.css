@@ -13,3 +13,32 @@ p {
 label {
   margin: 5px;
 }
+
+.ListHeder {
+  display: flex;
+  background-color: #142138;
+  border: 2px rgb(40, 64, 117) groove;
+}
+
+.ListP {
+  display: flex;
+  align-self: center;
+  background-color: #152138;
+  width: 11%;
+
+}
+
+.listSection {
+  display: flex;
+  background-color: white;
+  border: 2px rgb(40, 64, 117) groove;
+}
+
+.itemP {
+  display: flex;
+  align-self: center;
+  background-color: white;
+  color: #142138;
+  width: 10.5%;
+
+}

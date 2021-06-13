@@ -13,6 +13,13 @@ function reducerGastos(state = INITIAL_STATE, action) {
         ...state.expenses,
         { id: state.id, ...action.value.expenses }],
       id: state.id + 1 };
+
+  case 'EDITAR':
+    return { ...state,
+      expanses: [state.expenses.filter((item) => item.id !== action.value)],
+
+    };
+
   default:
     return state;
   }

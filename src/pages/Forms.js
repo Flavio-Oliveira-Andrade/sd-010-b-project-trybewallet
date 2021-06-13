@@ -12,7 +12,7 @@ class Forms extends React.Component {
     super(props);
     this.state = {
       value: 0,
-      description: '',
+      description: '---',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
@@ -66,21 +66,21 @@ class Forms extends React.Component {
   render() {
     return (
       <form>
-        <label htmlFor="valor">
-          Valor :
-          <input
-            type="text"
-            id="valor"
-            name="value"
-            onChange={ this.textfunc }
-          />
-        </label>
         <label htmlFor="descricao">
           Descrição :
           <input
             type="text"
             id="descricao"
             name="description"
+            onChange={ this.textfunc }
+          />
+        </label>
+        <label htmlFor="valor">
+          Valor :
+          <input
+            type="text"
+            id="valor"
+            name="value"
             onChange={ this.textfunc }
           />
         </label>
@@ -115,7 +115,7 @@ class Forms extends React.Component {
 }
 
 Forms.propTypes = {
-  updateGasto: PropTypes.string.isRequired,
+  updateGasto: PropTypes.func.isRequired,
 };
 
 const mapDispachToProps = (dispatch) => ({
