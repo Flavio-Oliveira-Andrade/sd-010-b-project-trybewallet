@@ -3,20 +3,14 @@ export const EXPENSE_DATA = 'EXPENSE_DATA';
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const RECEIVE_CURRENCY = 'RECEIVE_CURRENCY';
 
-export function userExpenses({ value, description, currency, method, tag }) {
+export function userExpenses(payload) {
   return {
     type: EXPENSE_DATA,
-    payload: {
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    },
+    payload,
   };
 }
 
-export function userLogin({ email }) {
+export function userLogin(email) {
   return {
     type: USER_DATA,
     email,
@@ -57,5 +51,14 @@ export function fetchCurrencies() {
     return fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((currencies) => dispatch(receiveCurrency(currencies)));
+  };
+}
+
+export function fetchExpenses(payload) {
+  return (dispatch) => {
+    dispatch(requestCurrency());
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((rate) => dispatch(userExpenses({ ...payload, exchangeRates: rate })));
   };
 }

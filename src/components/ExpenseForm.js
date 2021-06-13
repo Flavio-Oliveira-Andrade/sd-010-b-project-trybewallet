@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../ExpenseForm.css';
-import { fetchCurrencies, userExpenses } from '../actions/index';
+import { fetchCurrencies, fetchExpenses } from '../actions/index';
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -10,8 +10,10 @@ class ExpenseForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.cleanForm = this.cleanForm.bind(this);
+    this.addId = this.addId.bind(this);
 
     this.state = {
+      id: 0,
       value: '',
       description: '',
       currency: '',
@@ -36,8 +38,14 @@ class ExpenseForm extends Component {
     document.getElementById('form1').reset();
   }
 
+  addId() {
+    this.setState((prev) => ({
+      id: prev.id + 1,
+    }));
+  }
+
   render() {
-    const { src, userExpense } = this.props;
+    const { currencies, fetchExpense } = this.props;
     return (
       <form className="form" id="form1">
         <label htmlFor="value">
@@ -47,7 +55,7 @@ class ExpenseForm extends Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency" name="currency" onChange={ this.handleChange }>
-            { src.map((currencie, i) => <option key={ i }>{ currencie.code }</option>)}
+            {currencies.map((curr, idx) => <option key={ idx }>{ curr.code }</option>)}
           </select>
         </label>
         <label htmlFor="method">
@@ -79,7 +87,7 @@ class ExpenseForm extends Component {
         </label>
         <button
           type="button"
-          onClick={ () => { userExpense(this.state); this.cleanForm(); } }
+          onClick={ () => { this.cleanForm(); this.addId(); fetchExpense(this.state); } }
         >
           Adicionar despesa
         </button>
@@ -89,18 +97,18 @@ class ExpenseForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  src: state.wallet.currencies,
+  currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrency: () => dispatch(fetchCurrencies()),
-  userExpense: (userData) => dispatch(userExpenses(userData)),
+  fetchExpense: (payload) => dispatch(fetchExpenses(payload)),
 });
 
 ExpenseForm.propTypes = {
   fetchCurrency: PropTypes.func.isRequired,
-  src: PropTypes.arrayOf(PropTypes.object).isRequired,
-  userExpense: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchExpense: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
