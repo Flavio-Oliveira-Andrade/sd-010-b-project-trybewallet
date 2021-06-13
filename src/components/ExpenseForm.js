@@ -13,42 +13,44 @@ class ExpenseForm extends React.Component {
   render() {
     const { getCurrencies } = this.props;
     return (
-      <form>
-        <label htmlFor="amount">
-          Valor
-          <input className="input-exp" name="amount" id="amount" type="number" />
-        </label>
-        <label htmlFor="description">
-          Descrição
-          <input className="input-exp" name="description" id="description" type="text" />
-        </label>
-        <label htmlFor="currency">
-          Moeda
-          <select className="input-exp" name="currency" id="currency">
-            { Object.keys(getCurrencies).filter((elem) => elem !== 'USDT')
-              .map((elem) => (<option key={ elem } value={ elem }>{ elem }</option>)) }
-          </select>
-        </label>
-        <label htmlFor="payment">
-          Método de pagamento
-          <select className="input-exp" name="payment" id="payment">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de crédito</option>
-            <option value="debito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag
-          <select className="input-exp" name="tag" id="tag">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalhho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
-          </select>
-        </label>
-        <button className="btn-normal" type="button">Adicionar despesa</button>
-      </form>
+      <section>
+        <form>
+          <label htmlFor="amount">
+            Valor
+            <input className="input-exp" name="amount" id="amount" type="number" />
+          </label>
+          <label htmlFor="descrip">
+            Descrição
+            <input className="input-exp" name="descrip" id="descrip" type="text" />
+          </label>
+          <label htmlFor="currency">
+            Moeda
+            <select className="input-exp" name="currency" id="currency">
+              { Object.keys(getCurrencies).filter((elem) => elem !== 'USDT')
+                .map((elem) => (<option key={ elem } value={ elem }>{ elem }</option>)) }
+            </select>
+          </label>
+          <label htmlFor="payment">
+            Método de pagamento
+            <select className="input-exp" name="payment" id="payment">
+              <option value="dinheiro">Dinheiro</option>
+              <option value="credito">Cartão de crédito</option>
+              <option value="debito">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag
+            <select className="input-exp" name="tag" id="tag">
+              <option value="alimentacao">Alimentação</option>
+              <option value="lazer">Lazer</option>
+              <option value="trabalhho">Trabalho</option>
+              <option value="transporte">Transporte</option>
+              <option value="saude">Saúde</option>
+            </select>
+          </label>
+          <button className="btn-normal" type="button">Adicionar despesa</button>
+        </form>
+      </section>
     );
   }
 }
