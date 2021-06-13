@@ -40,7 +40,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { verifyLogin } = this.props;
+    const { verify } = this.props;
     const { email, password, isDisabled } = this.state;
     /* console.log(user); */
     return (
@@ -71,7 +71,7 @@ class Login extends React.Component {
         </label>
         <button
           type="button"
-          onClick={ () => verifyLogin({ email, password }) }
+          onClick={ () => verify({ email, password }) }
           disabled={ isDisabled }
         >
           <Link to="/carteira">Entrar</Link>
@@ -82,11 +82,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  verifyLogin: PropTypes.func.isRequired,
+  verify: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  verifyLogin: (login) => dispatch(verifyLogin(login)),
+  verify: (login) => dispatch(verifyLogin(login)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

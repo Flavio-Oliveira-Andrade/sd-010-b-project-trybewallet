@@ -50,26 +50,21 @@ const getCurrencies = (currencies) => ({
   },
 });
 
-export const fetchCurrencies = () => {
-  // console.log('estou dentro de fetchCurrencies');
-  return (dispatch) => {
+export const fetchCurrencies = () => (
+  (dispatch) => {
     dispatch(requestCurrencies());
     return fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((currencies) => dispatch(getCurrencies(currencies)));
-  };
-};
+  });
 
-export const saveExpense = (expense) => {
-  return (dispatch) => {
-    return fetch('https://economia.awesomeapi.com.br/json/all')
+export const saveExpense = (expense) => (
+  (dispatch) => (
+    fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((currencies) => {
         const currenciesInformation = getArrayCurrencies(currencies);
         expense.exchangeRates = currenciesInformation;
         dispatch(saveExpenseAction(expense));
-      });
-  };
-};
-
-// dispatch(receiveCurrencies(currencies)));
+      }))
+);
