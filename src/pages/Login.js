@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import actionEmail from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,10 +20,7 @@ class Login extends React.Component {
   }
 
   handleDisabled() {
-    const { validEmail, validPassword, disabled } = this.state;
-    console.log(validEmail);
-    console.log(validPassword);
-    console.log(disabled);
+    const { validEmail, validPassword } = this.state;
     if (validEmail === true && validPassword === true) {
       this.setState({ disabled: false });
     }
@@ -55,8 +55,9 @@ class Login extends React.Component {
 
   render() {
     const { email, password, disabled } = this.state;
-    console.log(email);
     console.log(password);
+    const { functionEmail, getEmail } = this.props;
+    if (getEmail) return <Redirect to="/carteira" />;
     return (
       <>
         <div>Login</div>
@@ -73,7 +74,7 @@ class Login extends React.Component {
         <button
           disabled={ disabled }
           type="button"
-          onClick={ this.validarEmail }
+          onClick={ () => functionEmail(email) }
         >
           Entrar
         </button>
@@ -82,4 +83,17 @@ class Login extends React.Component {
   }
 }
 
-export default connect()(Login);
+Login.propTypes = {
+  functionEmail: PropTypes.func.isRequired,
+  getEmail: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  getEmail: state.user.email,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  functionEmail: (email) => dispatch(actionEmail(email)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
