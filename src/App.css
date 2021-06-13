@@ -43,6 +43,12 @@
   margin-top: 15px;
 }
 
+.user-email {
+  color: rgb(22, 56, 56);
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
 .user-total {
   color: rgb(22, 56, 56);
   font-size: 25px;
@@ -67,7 +73,7 @@
   margin-top: 15px;
 }
 
-.input-exp {
+.input-normal {
   border: rgb(129, 152, 188) solid 1px;
   border-radius: 5px;
   color: darkslategrey;

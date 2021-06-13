@@ -104,7 +104,7 @@ class Login extends React.Component {
           <label htmlFor="email">
             Email:
             <input
-              className="email"
+              className="input-email"
               name="email"
               type="email"
               data-testid="email-input"
@@ -115,6 +115,7 @@ class Login extends React.Component {
           <label htmlFor="password">
             Senha:
             <input
+              className="input-password"
               id="password"
               name="password"
               type="password"
