@@ -5,18 +5,16 @@ import PropTypes from 'prop-types';
 class Header extends Component {
   render() {
     const { email, expensesLabel } = this.props;
-    const conversao = expensesLabel;
+    const currencyConversion = expensesLabel;
     const arrayconver = [];
-    conversao.map((item) => {
+    currencyConversion.map((item) => {
       const money = item.currency;
       const exchange = item.exchangeRates[money];
       const real = item.value * exchange.ask;
       arrayconver.push(real);
       return arrayconver;
     });
-    // console.log(expensesLabel);
     const total = arrayconver.reduce((acc, num) => acc + parseFloat(num), 0);
-    // console.log(total);
     return (
       <header>
         <h1>TrybeWallet</h1>

@@ -21,6 +21,7 @@ export function currencyFind(currency) {
   };
 }
 
+// recebia ajuda do Gabriel Miranda para realizar a segunda chamada de fetch pedido no requisito 8
 export function currencyNow(currency) {
   return async (dispatch) => {
     const resultAPI = await getAPICurrency();
