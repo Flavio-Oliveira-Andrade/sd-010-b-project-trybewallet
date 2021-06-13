@@ -30,7 +30,7 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="payment">
           Método de pagamento
-          <select name="payment" id="payment">
+          <select className="input-exp" name="payment" id="payment">
             <option value="dinheiro">Dinheiro</option>
             <option value="credito">Cartão de crédito</option>
             <option value="debito">Cartão de débito</option>
