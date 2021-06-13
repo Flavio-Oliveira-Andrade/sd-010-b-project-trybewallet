@@ -11,13 +11,12 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    const { requestDales } = this.props;
-    return requestDales();
+    const { request } = this.props;
+    return request();
   }
 
   renderCurrencysOptions() {
     const { currencies } = this.props;
-    console.log('merda so');
     return currencies.currencies.map((dale, key) => (
       <option key={ key }>{ dale.code }</option>
     ));
@@ -37,7 +36,6 @@ class Form extends Component {
         <label htmlFor="currency">
           Moeda:
           <select id="currency" name="moeda">
-            {/* { console.log('ola rapazes') } */}
             { this.renderCurrencysOptions() }
           </select>
         </label>
@@ -70,12 +68,12 @@ Form.defaultProps = {
 };
 
 Form.propTypes = {
-  requestDales: PropTypes.func.isRequired,
+  request: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf(PropTypes.string),
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  requestDales: () => dispatch(requestApi()),
+  request: () => dispatch(requestApi()),
 });
 
 const mapStateToProps = ({ wallet: currencies }) => ({
