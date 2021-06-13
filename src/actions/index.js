@@ -9,6 +9,7 @@ const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 /* const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES'; */
 const GET_CURRENCIES = 'GET_CURRENCIES';
 const SAVE_EXPENSE = 'SAVE_EXPENSE';
+const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES,
@@ -32,6 +33,15 @@ const saveExpenseAction = (expense) => ({
     expense,
   },
 });
+
+export const deleteExpenseAction = (expenseDeleted) => {
+  console.log('dentro de deleteExpenseAction');
+  console.log(expenseDeleted);
+  return ({
+    type: DELETE_EXPENSE,
+    payload: expenseDeleted,
+  });
+};
 
 const getCurrencies = (currencies) => ({
   type: GET_CURRENCIES,

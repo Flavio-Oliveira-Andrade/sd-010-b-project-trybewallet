@@ -10,12 +10,20 @@ const getArrayCurrencies = (action) => {
   return currenciesArray.filter((currency) => (currency[0] !== 'USDT'));
 };
 
+const deleteExpense = (expenses, action) => {
+  console.log('dentro de deleteExpense');
+  return expenses.filter((expense) => expense.id !== action.payload.id);
+};
+
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'GET_CURRENCIES':
     return { ...state, currencies: getArrayCurrencies(action) };
   case 'SAVE_EXPENSE':
     return { ...state, expenses: [...state.expenses, action.payload.expense] };
+  case 'DELETE_EXPENSE':
+    console.log('dentro de delete expense');
+    return { ...state, expenses: [...deleteExpense(state.expenses, action)] };
   default:
     return state;
   }

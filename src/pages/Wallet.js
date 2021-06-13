@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveExpense } from '../actions';
 import FormExpenses from '../components/FormExpenses';
-//
+import { deleteExpenseAction } from '../actions';
+
 class Wallet extends React.Component {
   currencyValue(expense) {
     const currencySelected = expense.exchangeRates.find((ex) => ex[expense.currency]);
@@ -35,7 +35,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { user: { email }, expenses } = this.props;
+    const { user: { email }, expenses, deleteExpense } = this.props;
     return (
       <>
         <div>TrybeWallet</div>
@@ -44,7 +44,7 @@ class Wallet extends React.Component {
         </header>
         <p>Despesa total:</p>
         <p data-testid="total-field">
-          { this.totalExpenses(expenses) }
+          { /* this.totalExpenses(expenses) */ }
         </p>
 
         <p>Campo:</p>
@@ -63,7 +63,7 @@ class Wallet extends React.Component {
             <td>Moeda de conversão</td>
             <td>Editar/Excluir</td>
           </tr>
-          {expenses.map((expense, index) => (
+          { expenses?.map((expense, index) => (
             <tr key={ index }>
               <td>{ expense.description }</td>
               <td>{ expense.tag }</td>
@@ -75,6 +75,7 @@ class Wallet extends React.Component {
               <td>{ this.currencyValue(expense) }</td>
               <td>{ this.valueExpenseConvertedToReal(expense) }</td>
               <td>Real Brasileiro</td>
+              <td><button data-testid="delete-btn" type="submit" onClick={ () => deleteExpense(expense) }>Excluir</button></td>
             </tr>
           ))}
         </table>
@@ -88,8 +89,12 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (expense) => dispatch(deleteExpenseAction(expense)),
+});
+
 Wallet.propTypes = {
   user: PropTypes.shape().isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

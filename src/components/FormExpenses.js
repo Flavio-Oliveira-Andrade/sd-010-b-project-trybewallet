@@ -8,7 +8,7 @@ class FormExpenses extends Component {
     super(props);
     this.state = {
       id: -1,
-      value: '',
+      value: 0,
       description: '',
       currency: 'USD',
       paymentMethod: 'Dinheiro',
