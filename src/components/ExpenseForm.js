@@ -38,7 +38,7 @@ class ExpenseForm extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" id="tag">
+          <select className="input-exp" name="tag" id="tag">
             <option value="alimentacao">Alimentação</option>
             <option value="lazer">Lazer</option>
             <option value="trabalhho">Trabalho</option>
