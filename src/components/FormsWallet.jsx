@@ -90,10 +90,12 @@ class FormsWallet extends Component {
           name={ inputName }
           id={ inputName }
           value={ inputValue }
+          className={ inputName }
           data-testid={ `${inputName}-input` }
           onChange={ this.handleChange }
         />
       </label>
+
     );
   }
 
@@ -107,6 +109,7 @@ class FormsWallet extends Component {
             name={ selectName }
             id={ selectName }
             value={ selectValue }
+            className={ selectName }
             data-testid={ `${selectName}-input` }
             onChange={ this.handleChange }
           >
@@ -124,6 +127,7 @@ class FormsWallet extends Component {
           name={ selectName }
           id={ selectName }
           value={ selectValue }
+          className={ selectName }
           data-testid={ `${selectName}-input` }
           onChange={ this.handleChange }
         >
@@ -153,23 +157,27 @@ class FormsWallet extends Component {
 
   render() {
     const { value, description, method, tag, showBtnEdit } = this.state;
+    // const { value, showBtnEdit } = this.state;
     const { currencies } = this.props;
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
-      <>
-        {this.handleInputs('Valor:', 'value', value)}
-        {this.handleSelects('Moeda:', 'currency', undefined, currencies)}
-        {this.handleSelects('Método de pagamento:', 'method', method, methods)}
-        {this.handleSelects('Tag:', 'tag', tag, tags)}
-        {this.handleInputs('Descrição:', 'description', description)}
+      <div className={ (!showBtnEdit) ? 'formsWalletAdd' : 'formsWalletEdit' }>
+        <div className="forms">
+          {this.handleInputs('Valor:', 'value', value)}
+          {this.handleSelects('Moeda:', 'currency', undefined, currencies)}
+          {this.handleSelects('Método de pagamento:', 'method', method, methods)}
+          {this.handleSelects('Tag:', 'tag', tag, tags)}
+          {this.handleInputs('Descrição:', 'description', description)}
+        </div>
         <button
           type="button"
+          className={ (!showBtnEdit) ? 'addExpense' : 'editExpense' }
           onClick={ this.handleClickAdd }
         >
           {(!showBtnEdit) ? 'Adicionar despesa' : 'Editar despesa'}
         </button>
-      </>
+      </div>
     );
   }
 }

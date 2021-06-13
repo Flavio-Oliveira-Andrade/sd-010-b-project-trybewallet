@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FaEdit, FaEraser } from 'react-icons/fa';
 import { deleteExpense, sumExpenses, editExpense } from '../actions';
 
 class TableWallet extends Component {
@@ -24,8 +25,8 @@ class TableWallet extends Component {
       expenses.map(({ id, description, tag, method, value, currency, exchangeRates }) => {
         const coin = exchangeRates[currency];
         return (
-          <div key={ id }>
-            <table>
+          <div key={ id } className="tableExpenses">
+            <table className={ (id % 2 === 0) ? 'tableBody isEven' : 'tableBody' }>
               <tbody>
                 <tr>
                   <td>{description}</td>
@@ -39,20 +40,22 @@ class TableWallet extends Component {
                 </tr>
               </tbody>
             </table>
-            <div>
-              <button
-                type="button"
-                data-testid="delete-btn"
-                onClick={ () => this.handleClickRemove(id) }
-              >
-                Deletar
-              </button>
+            <div className="areaButtons">
               <button
                 type="button"
                 data-testid="edit-btn"
+                className="editButton"
                 onClick={ () => handleClickEdit(id) }
               >
-                Editar
+                <FaEdit className="editIcon" />
+              </button>
+              <button
+                type="button"
+                data-testid="delete-btn"
+                className="eraseButton"
+                onClick={ () => this.handleClickRemove(id) }
+              >
+                <FaEraser className="eraseIcon" />
               </button>
             </div>
           </div>
@@ -63,8 +66,8 @@ class TableWallet extends Component {
 
   render() {
     return (
-      <div>
-        <table>
+      <div className="tableWallet">
+        <table className="tableHeader">
           <thead>
             <tr>
               <th>Descrição</th>
