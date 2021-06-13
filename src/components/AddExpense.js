@@ -35,9 +35,9 @@ class AddExpense extends Component {
             <td>{ method }</td>
             <td>{ value }</td>
             <td>{ exchangeRates[currency].name.split('/', 1) }</td>
-            <td>{ `R$ ${Number(exchangeRates[currency].ask).toFixed(2)}` }</td>
-            <td>{ `R$ ${Number(value * exchangeRates[currency].ask).toFixed(2)}` }</td>
-            <td>{ exchangeRates[currency].name.split('/')[1] }</td>
+            <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
+            <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
+            <td>Real</td>
           </tr>
         )) }
       </table>
