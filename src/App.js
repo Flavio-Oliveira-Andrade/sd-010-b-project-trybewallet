@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
+import Edition from './pages/Edition';
+import NotFound from './components/NotFound';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +17,10 @@ class App extends React.Component {
     return (
       <Switch>
         <Route path="/carteira" component={ Wallet } />
+        <Route path="/edition" component={ Edition } />
+        <Route path="/notfound" component={ NotFound } />
         <Route exact path="/" component={ Login } />
+        <Route component={ NotFound } />
       </Switch>
     );
   }

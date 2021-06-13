@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getDataThunk } from '../actions/apiRequests';
+import { Redirect } from 'react-router-dom';
+import { getDataThunk, getCurrencieData } from '../actions/apiRequests';
 import Header from '../components/Header';
 import Form from '../components/Form';
 import Table from '../components/Table';
@@ -9,10 +10,16 @@ import Table from '../components/Table';
 class Wallet extends React.Component {
   componentDidMount() {
     const { fetchData } = this.props;
-    fetchData();
+    fetchData().then(() => {
+      const { fetchCurrency, data } = this.props;
+      delete data.USDT;
+      fetchCurrency(data);
+    });
   }
 
   render() {
+    const { notfoundError } = this.props;
+    if (notfoundError) return <Redirect to="/notfound" />;
     return (
       <section>
         <Header />
@@ -25,14 +32,20 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  fetchCurrency: PropTypes.func.isRequired,
+  notfoundError: PropTypes.bool.isRequired,
+  data: PropTypes.shape(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loading: state.wallet.loading,
+  data: state.wallet.data,
+  notfoundError: state.wallet.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: () => dispatch(getDataThunk()),
+  fetchCurrency: (data) => dispatch(getCurrencieData(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

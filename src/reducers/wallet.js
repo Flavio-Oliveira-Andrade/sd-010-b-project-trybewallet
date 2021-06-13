@@ -47,13 +47,14 @@ const walletReducer = (state = initialState, action) => {
   case EDIT_EXPENSE:
     return {
       ...state,
-      editionKey: action.payload.expense,
+      expenses: [state.expenses.filter((row) => row.id !== action.payload.row.id),
+        action.payload.row],
     };
   case FETCH_URL_ERROR:
     return {
       ...state,
       loading: false,
-      error: action.payload.error,
+      error: action.error,
     };
   default:
     return state;

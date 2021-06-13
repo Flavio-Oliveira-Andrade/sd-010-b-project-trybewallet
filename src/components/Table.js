@@ -2,8 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import removeExpenseAction from '../actions/removeExpenseAction';
-import editAction from '../actions/editAction';
+import editStateAction from '../actions/editStateAction';
 
 class Table extends React.Component {
   generateTableHeaders() {
@@ -50,13 +51,15 @@ class Table extends React.Component {
                 >
                   x
                 </button>
-                <button
-                  data-testid="edit-btn"
-                  onClick={ () => editExpense(expense) }
-                  type="button"
-                >
-                  Editar despesa
-                </button>
+                <Link to="/edition">
+                  <button
+                    data-testid="edit-btn"
+                    onClick={ () => editExpense(expense) }
+                    type="button"
+                  >
+                    Editar despesa
+                  </button>
+                </Link>
               </td>
             </tr>))}
         </tbody>
@@ -77,7 +80,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (tableRow) => dispatch(removeExpenseAction(tableRow)),
-  editExpense: (tableRow) => dispatch(editAction(tableRow)),
+  editExpense: (tableRow) => dispatch(editStateAction(tableRow)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

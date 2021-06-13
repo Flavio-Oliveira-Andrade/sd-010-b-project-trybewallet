@@ -1,9 +1,9 @@
 import { EDIT_EXPENSE } from './index';
 
-const editAction = (expense) => ({
+const editAction = (row) => ({
   type: EDIT_EXPENSE,
   payload: {
-    expense,
+    row,
   },
 });
 

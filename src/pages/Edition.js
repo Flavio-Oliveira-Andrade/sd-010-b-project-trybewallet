@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getDataThunk } from '../actions/apiRequests';
-import addExpenseAction from '../actions/addExpenseAction';
+import PropTypes from 'prop-types';
+import Header from '../components/Header';
+import Table from '../components/Table';
+import editAction from '../actions/editAction';
 
 const intitialState = {
   id: -1,
@@ -14,12 +15,30 @@ const intitialState = {
   exchangeRates: {},
 };
 
-class Form extends React.Component {
+class Edition extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...intitialState };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.setInitialState = this.setInitialState.bind(this);
+  }
+
+  componentDidMount() {
+    this.setInitialState();
+  }
+
+  setInitialState() {
+    const { editValues } = this.props;
+    this.setState({
+      id: editValues.id,
+      value: editValues.value,
+      description: editValues.description,
+      currency: editValues.currency,
+      method: editValues.method,
+      tag: editValues.tag,
+      exchangeRates: editValues.exchangeRates,
+    });
   }
 
   handleValueInput() {
@@ -115,11 +134,9 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { fetchData } = this.props;
-    fetchData();
-    const { addExpense, data } = this.props;
+    const { data, editRow } = this.props;
     delete data.USDT;
-    this.setState({ exchangeRates: data }, () => addExpense(this.state));
+    this.setState({ exchangeRates: data }, () => editRow(this.state));
     this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
@@ -130,34 +147,36 @@ class Form extends React.Component {
 
   render() {
     return (
-      <form>
-        {this.handleValueInput()}
-        {this.handleDescriptionTextarea()}
-        {this.handleCurrencyInput()}
-        {this.handlePaymentMethod()}
-        {this.handleTagInput()}
-        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
-      </form>
+      <div>
+        <Header />
+        <form>
+          {this.handleValueInput()}
+          {this.handleDescriptionTextarea()}
+          {this.handleCurrencyInput()}
+          {this.handlePaymentMethod()}
+          {this.handleTagInput()}
+          <button type="button" onClick={ this.handleClick }>Editar despesa</button>
+        </form>
+        <Table onClick={ false } />
+      </div>
     );
   }
 }
 
-Form.propTypes = {
+Edition.propTypes = {
   currencies: PropTypes.arrayOf(String).isRequired,
-  addExpense: PropTypes.func.isRequired,
+  editRow: PropTypes.func.isRequired,
   data: PropTypes.shape(Object).isRequired,
-  fetchData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   data: state.wallet.data,
-  editvalues: state.wallet.editionKey,
+  editValues: state.edit.editionKey,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (stateData) => dispatch(addExpenseAction(stateData)),
-  fetchData: () => dispatch(getDataThunk()),
+  editRow: (stateData) => dispatch(editAction(stateData)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Edition);

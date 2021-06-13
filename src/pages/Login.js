@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect, Link } from 'react-router-dom';
+import { getDataThunk } from '../actions/apiRequests';
 import loginAction from '../actions/loginAction';
 
 class Login extends React.Component {
@@ -16,6 +17,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.mailAndPassValidation = this.mailAndPassValidation.bind(this);
+    this.handleBtnLogin = this.handleBtnLogin.bind(this);
   }
 
   handleChange({ target }) {
@@ -24,6 +26,7 @@ class Login extends React.Component {
     this.mailAndPassValidation();
   }
 
+  // Help de Diegho Moraes pra essa sacada de analizar direto do estado
   mailAndPassValidation() {
     const passwordMin = 5;
     const { email, password } = this.state;
@@ -33,10 +36,17 @@ class Login extends React.Component {
     });
   }
 
-  // Help de Diegho Moraes pra essa sacada de analizar direto do estado
+  handleBtnLogin() {
+    // const { userLogin, fetchData } = this.props;
+    // const { email } = this.state;
+    // userLogin(email);
+    // fetchData();
+  }
+
   render() {
-    const { userLogin } = this.props;
-    const { email, mailValidation, passwordValidation } = this.state;
+    const { data, userLogin } = this.props;
+    const { mailValidation, passwordValidation, email } = this.state;
+    if (data) return <Redirect to="/carteira" />;
     return (
       <form>
         <label htmlFor="email">
@@ -76,10 +86,18 @@ class Login extends React.Component {
 
 Login.propTypes = {
   userLogin: PropTypes.func.isRequired,
+  // fetchData: PropTypes.func.isRequired,
+  data: PropTypes.shape(Object).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  notfoundError: state.wallet.error,
+  data: state.wallet.data,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   userLogin: (userMail) => dispatch(loginAction(userMail)),
+  fetchData: () => dispatch(getDataThunk()),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
