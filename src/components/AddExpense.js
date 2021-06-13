@@ -9,42 +9,46 @@ class AddExpense extends Component {
 
     return (
       <table>
-        <tr>
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        { list.map(({
-          description,
-          tag,
-          method,
-          value,
-          currency,
-          exchangeRates,
-        },
-        index) => (
-          <tr key={ index }>
-            <td>{ description }</td>
-            <td>{ tag }</td>
-            <td>{ method }</td>
-            <td>{ Number(value).toFixed(2) }</td>
-            <td>
-              {
-                currency === 'USD'
-                  ? 'Dólar Comercial' : exchangeRates[currency].name.split('/', 1)
-              }
-            </td>
-            <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
-            <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
-            <td>Real</td>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
           </tr>
-        )) }
+        </thead>
+        <tbody>
+          { list.map(({
+            description,
+            tag,
+            method,
+            value,
+            currency,
+            exchangeRates,
+          },
+          index) => (
+            <tr key={ index }>
+              <td>{ description }</td>
+              <td>{ tag }</td>
+              <td>{ method }</td>
+              <td>{ Number(value).toFixed(2) }</td>
+              <td>
+                {
+                  currency === 'USD'
+                    ? 'Dólar Comercial' : exchangeRates[currency].name.split('/', 1)
+                }
+              </td>
+              <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
+              <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
+              <td>Real</td>
+            </tr>
+          )) }
+        </tbody>
       </table>
     );
   }
