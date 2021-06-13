@@ -113,28 +113,28 @@ class AddExpense extends React.Component {
       <button
         type="button"
         onClick={ () => {
-          if (
+          /* if (
             coin !== ''
             && spent > 0
             && paymentMethod !== ''
             && tag !== ''
             && description !== ''
-          ) {
-            addSpend({
-              id: qtdSpended,
-              value: spent,
-              method: paymentMethod,
-              currency: coin,
-              description,
-              tag,
-            });
+          ) { */
+          addSpend({
+            id: qtdSpended,
+            value: spent,
+            method: paymentMethod,
+            currency: coin,
+            description,
+            tag,
+          });
 
-            this.setState({
-              coin: '', spent: 0, paymentMethod: '', tag: '', description: '',
-            });
-          } else {
+          this.setState({
+            coin: '', spent: 0, paymentMethod: '', tag: '', description: '',
+          });
+          /*  } else {
             console.log('preencha todos os campos');
-          }
+          } */
         } }
       >
         Adicionar despesa

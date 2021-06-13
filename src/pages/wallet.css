@@ -54,3 +54,21 @@ header div span {
   border: 1px solid;
   text-align: center;
 }
+
+.btn-delet {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  width: 30px;
+}
+
+.btn-delet img {
+  width: 100%;
+}
+
+.btn-delet img:active {
+  background-color: red;
+}

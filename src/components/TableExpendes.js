@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import trash from '../icons/trash.svg';
 
 class TableExpendes extends Component {
   constructor(props) {
@@ -42,7 +43,9 @@ class TableExpendes extends Component {
           <td>{this.convertValue(value, exchangeRates[currency].ask)}</td>
           <td>{this.getNameCoinFormatted(exchangeRates[currency].name)[1]}</td>
           <td>
-            <button id="0" type="button">Deletar</button>
+            <button type="button" data-testid="delete-btn" className="btn-delet">
+              <img src={ trash } alt="Delete" />
+            </button>
           </td>
         </tr>))
     );
