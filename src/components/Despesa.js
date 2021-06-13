@@ -21,17 +21,35 @@ const tag = () => (
   </select>
 );
 
-function Despesa() {
-  return (
-    <form>
-      <label htmlFor="valor">
-        Valor
-        <input
-          type="text"
-          data-testid="value-input"
-          id="valor"
-        />
-      </label>
+class Despesa extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      retornoConsulta: [],
+      carregando: true,
+    };
+
+    this.consultarApi = this.consultarApi.bind(this);
+    this.inputDescricao = this.inputDescricao.bind(this);
+    this.retornaValores = this.retornaValores.bind(this);
+  }
+
+  componentDidMount() {
+    this.consultarApi();
+  }
+
+  consultarApi() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json()
+        .then((json) => {
+          const { USDT, ...curr } = json;
+          this.setState({ retornoConsulta: Object.keys(curr), carregando: false });
+        }));
+  }
+
+  inputDescricao() {
+    return (
       <label htmlFor="descricao">
         Descrição
         <input
@@ -39,36 +57,63 @@ function Despesa() {
           id="descricao"
           data-testid="description-input"
         />
-      </label>
+      </label>);
+  }
+
+  retornaValores() {
+    const { retornoConsulta } = this.state;
+    const currency = Object.values(retornoConsulta).filter((result) => result);
+    return (
       <label
         htmlFor="moeda"
+        className="moeda"
       >
         Moeda
         <select
           data-testid="currency-input"
           id="moeda"
+          value=""
+          onChange={ () => {} }
         >
-          <option
-            data-testid=""
-          >
-            {}
-          </option>
+          { currency.map((result, index) => (
+            <option key={ index } value={ result } data-testid={ result }>
+              {result}
+            </option>))}
         </select>
       </label>
-      <label
-        htmlFor="pgto"
-      >
-        Método de pagamento
-        {pgto()}
-      </label>
-      <label
-        htmlFor="tag"
-      >
-        Tag
-        {tag()}
-      </label>
-    </form>
-  );
+    );
+  }
+
+  render() {
+    const { carregando } = this.state;
+    return (
+      <form>
+        <label htmlFor="valor">
+          Valor
+          <input
+            type="text"
+            data-testid="value-input"
+            id="valor"
+          />
+        </label>
+        {this.inputDescricao()}
+        {!carregando
+          ? this.retornaValores() : null}
+        <label
+          htmlFor="pgto"
+        >
+          Método de pagamento
+          {pgto()}
+        </label>
+        <label
+          htmlFor="tag"
+        >
+          Tag
+          {tag()}
+        </label>
+      </form>
+    );
+  }
 }
 
 export default Despesa;
