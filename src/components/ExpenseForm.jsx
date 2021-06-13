@@ -5,6 +5,19 @@ import { fetchApi, userExpenses } from '../actions';
 import '../App.css';
 
 class ExpenseForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      id: '',
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      exchangeRates: {},
+    };
+  }
+
   componentDidMount() {
     const { getApiToCurrencies } = this.props;
     getApiToCurrencies();
