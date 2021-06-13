@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
-  changingTotal() {
+  totalChange() {
     const { totalExpense } = this.props;
     const values = totalExpense.reduce((acc, curr) => {
       const change = curr.exchangeRates[curr.currency].ask;
@@ -21,7 +21,7 @@ class Header extends Component {
           data-testid="total-field"
         >
           {`Despesa total: R$ 
-            ${this.changingTotal()}`}
+            ${this.totalChange()}`}
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </div>

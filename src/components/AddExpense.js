@@ -8,16 +8,39 @@ class AddExpense extends Component {
     const { list } = this.props;
 
     return (
-      <div>
-        { list.map(({ description, tag, method, value }, index) => (
-          <ul key={ index } className="listItem">
-            <li>{ description }</li>
-            <li>{ tag }</li>
-            <li>{ method }</li>
-            <li>{ value }</li>
-          </ul>
+      <table>
+        <tr>
+          <td>Descrição</td>
+          <td>Tag</td>
+          <td>Método de Pagamento</td>
+          <td>Valor</td>
+          <td>Moeda</td>
+          <td>Câmbio Utilizado</td>
+          <td>Valor Convertido</td>
+          <td>Moeda de Conversão</td>
+          <td>Editar/Excluir</td>
+        </tr>
+        { list.map(({
+          description,
+          tag,
+          method,
+          value,
+          currency,
+          exchangeRates,
+        },
+        index) => (
+          <tr key={ index }>
+            <td>{ description }</td>
+            <td>{ tag }</td>
+            <td>{ method }</td>
+            <td>{ value }</td>
+            <td>{ exchangeRates[currency].name.split('/', 1) }</td>
+            <td>{ `R$ ${Number(exchangeRates[currency].ask).toFixed(2)}` }</td>
+            <td>{ `R$ ${Number(value * exchangeRates[currency].ask).toFixed(2)}` }</td>
+            <td>{ exchangeRates[currency].name.split('/')[1] }</td>
+          </tr>
         )) }
-      </div>
+      </table>
     );
   }
 }
