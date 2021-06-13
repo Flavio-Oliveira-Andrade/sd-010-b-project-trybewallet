@@ -143,7 +143,7 @@ class FormExpenses extends Component {
             });
           } }
         >
-          Adicionar dispesa
+          Adicionar despesa
         </button>
       </form>
     );
