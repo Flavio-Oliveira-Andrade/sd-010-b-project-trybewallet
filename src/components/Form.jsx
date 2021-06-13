@@ -42,7 +42,7 @@ class Form extends Component {
     const { value, description, currency, payment, tag } = this.state;
     return (
       <form className="form">
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
           <input
             type="number"
