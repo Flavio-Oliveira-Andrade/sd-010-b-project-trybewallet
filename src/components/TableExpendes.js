@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import trash from '../icons/trash.svg';
+import { actionDeleteExpense } from '../actions/index';
 
 class TableExpendes extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class TableExpendes extends Component {
   }
 
   renderExpendes() {
-    const { spend } = this.props;
+    const { spend, deletExpense } = this.props;
 
     return (
       spend.map(({ description, tag, method, value, id, currency, exchangeRates }) => (
@@ -43,7 +44,12 @@ class TableExpendes extends Component {
           <td>{this.convertValue(value, exchangeRates[currency].ask)}</td>
           <td>{this.getNameCoinFormatted(exchangeRates[currency].name)[1]}</td>
           <td>
-            <button type="button" data-testid="delete-btn" className="btn-delet">
+            <button
+              type="button"
+              data-testid="delete-btn"
+              className="btn-delet"
+              onClick={ () => deletExpense(id) }
+            >
               <img src={ trash } alt="Delete" />
             </button>
           </td>
@@ -81,8 +87,13 @@ const mapStateToProps = (state) => ({
   spend: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deletExpense: (id) => dispatch(actionDeleteExpense(id)),
+});
+
 TableExpendes.propTypes = {
   spend: PropTypes.arrayOf(Object).isRequired,
+  deletExpense: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(TableExpendes);
+export default connect(mapStateToProps, mapDispatchToProps)(TableExpendes);
