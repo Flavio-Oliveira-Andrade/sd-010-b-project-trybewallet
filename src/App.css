@@ -16,7 +16,7 @@
 }
 
 .login-form {
-  background-color: rgb(136, 165, 166);
+  background-color: lightslategray;
   border-radius: 8px;
   box-shadow: 5px 5px 15px rgb(80, 79, 79);
   max-width: 300px;
@@ -27,6 +27,20 @@
 .section-form-expensives {
   display: flex;
   justify-content: center;
+}
+
+.general-header {
+  background-color: lightslategray;
+  display: flex;
+  justify-content: center;
+}
+
+.section-header {
+  align-items:baseline;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;;
+  margin-top: 15px;
 }
 
 /* body {

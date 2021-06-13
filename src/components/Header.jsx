@@ -6,12 +6,14 @@ class Header extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <section className="general-header">
-          <h2 data-testid="email-field">{ email }</h2>
-          <span data-testid="total-field">0</span>
-          <span> </span>
-          <span data-testid="header-currency-field">BRL</span>
+      <header className="general-header">
+        <section className="section-header">
+          <div><h2 data-testid="email-field">{ email }</h2></div>
+          <div>
+            <span data-testid="total-field">0</span>
+            <span> </span>
+            <span data-testid="header-currency-field">BRL</span>
+          </div>
         </section>
       </header>
     );
