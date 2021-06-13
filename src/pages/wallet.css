@@ -55,7 +55,6 @@ header div span {
   text-align: center;
 }
 
-/* botão transparent: translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&text=I can read%2C but I don%27t quite understand the words%0AI%27m sorry my english is not good to talk&op=translate */
 .btn-delet {
   background-color: transparent;
   border: none;
@@ -73,3 +72,8 @@ header div span {
 .btn-delet img:active {
   background-color: red;
 }
+
+/* botão transparent: http://translate.google.com.br/?hl=pt-BR&sl=en&tl=pt&text=I
+  can read%2C but I don%27t quite understand the words%0AI%27m sorry my english
+  is not good to talk&op=translate
+*/
