@@ -209,6 +209,13 @@ const currenciesObject = {
 	}
 	}
 
-currenciesArray = Object.entries(currenciesObject);
-
-console.log(currenciesArray.filter((currency) => (currency[0] !=='USDT')));
+currenciesArray = [];
+currencies = Object.keys(currenciesObject).filter((currency) => currency !== 'USDT');
+currencies.forEach((currency) => {
+	//  console.log(currenciesObject[currency]);
+	currenciesArray.push({
+		[currency]: currenciesObject[currency]
+	})
+});
+console.log(currenciesArray);
+//console.log(currenciesArray.filter((currency) => (currenciesObject[currency] !=='USDT')));
