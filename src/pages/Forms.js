@@ -30,6 +30,7 @@ class Forms extends React.Component {
   save() {
     const { updateGasto } = this.props;
     const { value, description, currency, method, tag, exchangeRates } = this.state;
+    this.apiMoedas();
     const expenses = {
       expenses:
       { value, description, currency, method, tag, exchangeRates },
@@ -47,7 +48,6 @@ class Forms extends React.Component {
   }
 
   textfunc({ target: { value, name } }) {
-    console.log(value, name);
     this.setState({
       [name]: value,
     });

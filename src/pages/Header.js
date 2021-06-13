@@ -6,7 +6,6 @@ import './Wallet.css';
 
 class Header extends React.Component {
   wallet(expenses) {
-    console.log(expenses);
     let soma = 0;
     if (expenses.length !== 0) {
       expenses.forEach((expense) => {
