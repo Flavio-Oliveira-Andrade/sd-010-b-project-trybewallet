@@ -31,7 +31,7 @@ class Wallet extends React.Component {
             {' '}
             { this.totalExpenses() }
           </h3>
-          <h3 data-testid="header-currency-field">{ CAMBIO }</h3>
+          <h3 data-testid="header-currency-field">{ LOCAL_CURRENCY }</h3>
         </header>
         <Form />
       </>
