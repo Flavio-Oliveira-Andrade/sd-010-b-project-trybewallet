@@ -1,15 +1,21 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  state: '',
+  currencies: [],
+  expenses: [],
+  id: 0,
 };
 
-function myReducer(state = INITIAL_STATE, action) {
+function reducerGastos(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'NEW_ACTION':
-    return { state: action.state };
+  case 'DESPESA':
+    return { ...state,
+      expenses: [
+        ...state.expenses,
+        { id: state.id, ...action.value.expenses }],
+      id: state.id + 1 };
   default:
     return state;
   }
 }
 
-export default myReducer;
+export default reducerGastos;

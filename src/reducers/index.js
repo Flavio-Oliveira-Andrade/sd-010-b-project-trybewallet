@@ -3,10 +3,10 @@
 import { combineReducers } from 'redux';
 
 import reducerUsuario from './user';
-import wallet from './wallet';
+import reducerGastos from './wallet';
 
 const rootReducer = combineReducers({
-  wallet,
+  wallet: reducerGastos,
   user: reducerUsuario,
 });
 
