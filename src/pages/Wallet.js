@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import getExchange from '../services/api';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Wallet extends React.Component {
   }
 
   genderForm() {
+    console.log(getExchange());
     return (
       <form>
         <label htmlFor="wallet-value">
