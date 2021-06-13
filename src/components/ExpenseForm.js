@@ -15,7 +15,7 @@ class ExpenseForm extends React.Component {
       <form>
         <label htmlFor="amount">
           Valor
-          <input name="amount" id="amount" type="number" />
+          <input className="input-expenseves" name="amount" id="amount" type="number" />
         </label>
         <label htmlFor="description">
           Descrição
@@ -25,7 +25,7 @@ class ExpenseForm extends React.Component {
           Moeda
           <select name="currency" id="currency">
             { Object.keys(getCurrencies).filter((elem) => elem !== 'USDT')
-              .map((elem) => (<option key={ elem }>{ elem }</option>)) }
+              .map((elem) => (<option key={ elem } value={ elem }>{ elem }</option>)) }
           </select>
         </label>
         <label htmlFor="payment">
@@ -39,13 +39,14 @@ class ExpenseForm extends React.Component {
         <label htmlFor="tag">
           Tag
           <select name="tag" id="tag">
-            <option value="dinheiro">Alimentação</option>
-            <option value="credito">Lazer</option>
-            <option value="debito">Trabalho</option>
-            <option value="debito">Transporte</option>
-            <option value="debito">Saúde</option>
+            <option value="alimentacao">Alimentação</option>
+            <option value="lazer">Lazer</option>
+            <option value="trabalhho">Trabalho</option>
+            <option value="transporte">Transporte</option>
+            <option value="saude">Saúde</option>
           </select>
         </label>
+        <button type="button">Adicionar despesa</button>
       </form>
     );
   }
