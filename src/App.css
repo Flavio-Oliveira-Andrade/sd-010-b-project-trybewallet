@@ -24,6 +24,11 @@
   padding: 5rem;
 }
 
+.section-form-expensives {
+  display: flex;
+  justify-content: center;
+}
+
 /* body {
   align-items: center;
   background-color: white;

@@ -13,7 +13,7 @@ class ExpenseForm extends React.Component {
   render() {
     const { getCurrencies } = this.props;
     return (
-      <section className="all-form-expensives">
+      <section className="section-form-expensives">
         <form>
           <label htmlFor="amount">
             Valor
