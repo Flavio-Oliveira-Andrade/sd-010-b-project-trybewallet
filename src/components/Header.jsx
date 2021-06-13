@@ -7,7 +7,7 @@ class Header extends React.Component {
     const { email } = this.props;
     return (
       <header>
-        <section>
+        <section className="general-header">
           <h2 data-testid="email-field">{ email }</h2>
           <span data-testid="total-field">0</span>
           <span> </span>
