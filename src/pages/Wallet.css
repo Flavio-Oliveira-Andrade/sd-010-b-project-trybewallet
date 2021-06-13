@@ -15,30 +15,30 @@ label {
 }
 
 .ListHeder {
-  display: flex;
   background-color: #142138;
   border: 2px rgb(40, 64, 117) groove;
+  display: flex;
 }
 
 .ListP {
-  display: flex;
   align-self: center;
   background-color: #152138;
+  display: flex;
   width: 11%;
 
 }
 
 .listSection {
-  display: flex;
   background-color: white;
   border: 2px rgb(40, 64, 117) groove;
+  display: flex;
 }
 
 .itemP {
-  display: flex;
   align-self: center;
   background-color: white;
   color: #142138;
+  display: flex;
   width: 10.5%;
 
 }
