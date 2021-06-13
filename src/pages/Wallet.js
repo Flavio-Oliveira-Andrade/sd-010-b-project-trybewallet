@@ -74,7 +74,7 @@ class Wallet extends React.Component {
         </header>
         <p>Despesa total:</p>
         <p data-testid="total-field">
-          { /* this.totalExpenses(expenses) */ }
+          { this.totalExpenses(expenses) }
         </p>
 
         <p>Campo:</p>
