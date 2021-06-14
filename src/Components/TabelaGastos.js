@@ -23,7 +23,7 @@ class TabelaGastos extends Component {
   }
 
   editExpense({ target }) {
-    
+    return target;
   }
 
   createTableHeading() {
