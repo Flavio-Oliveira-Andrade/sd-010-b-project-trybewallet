@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import saveEmailLogon from '../actions/index.js';
 
 class Login extends React.Component {
   constructor(props) {
@@ -22,6 +25,7 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     const emailValido = email.match(/^[^ ]+@[^ ]+.[a-z]{2,3}$/);
+    const { logon } = this.props;
     return (
       <div>
         Login
@@ -35,7 +39,8 @@ class Login extends React.Component {
             type="email"
             name="email"
             data-testid="email-input"
-            onChange={ this.handleChange }
+            onChange={ (e) => logon(e.target.value) }
+            onInputCapture={ this.handleChange }
           />
         </label>
         <label htmlFor="password">
@@ -67,4 +72,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  logon: (email) => dispatch(saveEmailLogon(email)),
+});
+
+Login.propTypes = {
+  logon: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
