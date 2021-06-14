@@ -34,7 +34,6 @@ class Wallet extends React.Component {
     const { email } = this.props;
     const { value, coins } = this.state;
     const coinsArr = Object.keys(coins);
-    // const { currencies } = initialStateHeader.wallet;
     return (
       <header>
         <HeaderWallet value={ value } email={ email } onChange={ this.handleChange } />
