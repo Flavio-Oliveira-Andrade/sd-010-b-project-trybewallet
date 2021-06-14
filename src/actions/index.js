@@ -41,19 +41,28 @@ export function fetchAPIExpenses() {
   return () => fetch('https://economia.awesomeapi.com.br/json/all')
     .then((r) => r.json())
     .then((currencies) => {
-      const currenciesAll = Object.keys(currencies);
-      const objeto = {};
-      for (let i = 0; i < currenciesAll.length; i += 1) {
-        if (currenciesAll[i] !== 'USDT') {
-          objeto[currenciesAll[i]] = currencies[currenciesAll[i]];
-          // objeto += currencies[currenciesAll[i]];
-        }
-      }
+      const currenciesAll = currencies;
       // console.log(objeto);
-      return objeto;
+      return currenciesAll;
     });
 // .then((currencies) => dispatch(actionAddExpenses(currencies)));
 }
+
+// export function fetchAPIExpenses() {
+//   return () => fetch('https://economia.awesomeapi.com.br/json/all')
+//     .then((r) => r.json())
+//     .then((currencies) => {
+//       const currenciesAll = Object.keys(currencies);
+//       const objeto = {};
+//       for (let i = 0; i < currenciesAll.length; i += 1) {
+//         if (currenciesAll[i] !== 'USDT') {
+//           objeto[currenciesAll[i]] = currencies[currenciesAll[i]];
+//           // objeto += currencies[currenciesAll[i]];
+//         }
+//       }
+//       // console.log(objeto);
+//       return objeto;
+//     });
 
 // export function fetchAPIExpenses() {
 //   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
