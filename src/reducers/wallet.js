@@ -1,20 +1,33 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import { CURRENCIES, CURRENCYNOW, TOTAL } from '../actions';
+
 const initialState = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
+  totalExpenses: [],
 };
 
-function walletReducer(state = initialState, action) {
-  switch (action.type) {
-  case 'ADD_REGISTER':
-    return [...state, action.data];
-  case 'DELETE_REGISTER':
-    return state.filter((register) => register !== action.value);
+export default (state = initialState, { type, payload }) => {
+  switch (type) {
+  case CURRENCIES:
+    return {
+      ...state,
+      currencies: payload,
+    };
+
+  case CURRENCYNOW:
+    return {
+      ...state,
+      expenses: [...state.expenses, { ...payload }],
+    };
+
+  case TOTAL:
+    return {
+      ...state,
+      totalExpenses: [...state.totalExpenses, payload],
+    };
+
   default:
     return state;
   }
-}
-
-export default walletReducer;
+};

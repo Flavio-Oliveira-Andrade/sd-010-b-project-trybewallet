@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { login as loginAction } from '../actions';
+import PropTypes from 'prop-types';
+import action from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,42 +11,76 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validatePassword = this.validatePassword.bind(this);
+    this.test = this.test.bind(this);
+  }
+
+  // https://www.w3schools.com/jsref/jsref_regexp_test.asp
+
+  validateEmail({ target: { value } }) {
+    const validFormat = RegExp(/[a-z0-9]+@[a-z0-9]+\.[a-z0-9]{2,3}(\.[a-z0-9]+)?$/);
+    if (validFormat.test(value)) {
+      this.setState({
+        email: value,
+      });
+    }
+  }
+
+  validatePassword({ target: { value } }) {
+    const THREE = 3;
+    if (value.length >= THREE) {
+      this.setState({
+        password: value,
+      });
+    }
+  }
+
+  test() {
+    let status = false;
+    const { email, password } = this.state;
+    if (email && password) {
+      status = false;
+    } else {
+      status = true;
+    }
+    return status;
   }
 
   render() {
     const { email, password } = this.state;
-    // const { login } = this.props;
+    const { username } = this.props;
     return (
-      <div className="Login">
-        <section className="login-inputs">
-          <input
-            type="text"
-            onChange={ ({ target }) => this.setState({ email: target.value }) }
-            placeholder="email"
-            data-testid="email-input"
-          />
-          <input
-            type="password"
-            onChange={ ({ target }) => this.setState({ email: target.value }) }
-            placeholder="senha"
-            data-testid="password-input"
-          />
-        </section>
-        <section className="link">
-          <Link
-            to="/carteira"
-            onClick={ () => login({ email, password }) }
-          >
-            Entrar
-          </Link>
-        </section>
+
+      <div>
+        <h1>Login</h1>
+
+        <input
+          type="text"
+          name="email"
+          onChange={ this.validateEmail }
+          data-testid="email-input"
+        />
+        <input
+          type="password"
+          name="password"
+          onChange={ this.validatePassword }
+          data-testid="password-input"
+        />
+        <Link to="/carteira" onClick={ () => username({ email, password }) }>
+          <button type="button" disabled={ this.test() }>Entrar</button>
+        </Link>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (event) => dispatch(loginAction(event)),
+  username: (values) => dispatch(action(values)),
 });
+
+Login.propTypes = ({
+  username: PropTypes.function,
+}).isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
