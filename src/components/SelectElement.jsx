@@ -14,9 +14,9 @@ export default class SelectElement extends Component {
           value={ value }
           onChange={ handleChange }
         >
-          { options.map((option) => (
-            <option key={ option.value } value={ option.value }>
-              { option.optionLabel }
+          { options.map((option, index) => (
+            <option key={ index } value={ option }>
+              { option }
             </option>
           )) }
         </select>
@@ -29,6 +29,6 @@ SelectElement.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleChange: PropTypes.func.isRequired,
 };

@@ -5,51 +5,57 @@ import { connect } from 'react-redux';
 import InputElement from './InputElement';
 import SelectElement from './SelectElement';
 
-const EXPENSE_INITIAL_STATE = {
-  expense: '',
-  description: '',
-  currency: '',
-  paymentMethod: '',
-  tag: '',
-};
+import { newExpense } from '../actions';
 
 const PAYMENT_METHOD = [
-  { value: 'cash', optionLabel: 'Dinheiro' },
-  { value: 'credit', optionLabel: 'Cartão de Crédito' },
-  { value: 'debit', optionLabel: 'Cartão de Débito' },
+  'Dinheiro', 'Cartão de crédito', 'Cartão de débito',
 ];
 
 const TAG = [
-  { value: 'food', optionLabel: 'Alimentação' },
-  { value: 'leisure', optionLabel: 'Lazer' },
-  { value: 'work', optionLabel: 'Trabalho' },
-  { value: 'transport', optionLabel: 'Transporte' },
-  { value: 'health', optionLabel: 'Saúde' },
+  'Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde',
 ];
 
 class ExpenseForm extends Component {
   constructor(props) {
     super(props);
+    const { expenses } = this.props;
+    const EXPENSE_INITIAL_STATE = {
+      id: expenses.length,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
+      exchangeRates: {},
+    };
+
     this.state = EXPENSE_INITIAL_STATE;
 
     this.handleChange = this.handleChange.bind(this);
+    this.callAction = this.callAction.bind(this);
   }
 
   handleChange(event) {
-    console.log(event.target.name, event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  async callAction() {
+    const { addNewExpense, expenses, fetchAPI } = this.props;
+    const getCurrencies = await fetchAPI();
+    this.setState({ exchangeRates: getCurrencies, id: expenses.length });
+    addNewExpense(this.state);
+  }
+
   render() {
-    const { expense, description, currency, paymentMethod, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { currencyOptions } = this.props;
 
     return (
       <form>
         <InputElement
           label="Valor"
-          name="expense"
-          value={ expense }
+          name="value"
+          value={ value }
           handleChange={ this.handleChange }
         />
 
@@ -70,8 +76,8 @@ class ExpenseForm extends Component {
 
         <SelectElement
           label="Método de Pagamento"
-          name="paymentMethod"
-          value={ paymentMethod }
+          name="method"
+          value={ method }
           options={ PAYMENT_METHOD }
           handleChange={ this.handleChange }
         />
@@ -83,21 +89,26 @@ class ExpenseForm extends Component {
           options={ TAG }
           handleChange={ this.handleChange }
         />
+
+        <button type="button" onClick={ this.callAction }>Adicionar Despesa</button>
       </form>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
 
-// });
+const mapDispatchToProps = (dispatch) => ({
+  addNewExpense: (state) => dispatch(newExpense(state)),
+});
 
-const mapDispatchToProps = {
-
-};
-
-export default connect(null, mapDispatchToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
 
 ExpenseForm.propTypes = {
-  currencyOptions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  currencyOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  addNewExpense: PropTypes.func.isRequired,
+  fetchAPI: PropTypes.func.isRequired,
 };

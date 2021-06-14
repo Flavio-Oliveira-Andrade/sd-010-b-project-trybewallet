@@ -9,21 +9,30 @@ class Wallet extends React.Component {
     this.state = {
       currencyOptions: [],
     };
+
+    this.fetchCurrencyOptions = this.fetchCurrencyOptions.bind(this);
     this.fetchAPI = this.fetchAPI.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
+    this.fetchCurrencyOptions();
   }
 
   async fetchAPI() {
     const getCurrencies = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await getCurrencies.json();
-    const currenciesUntreated = Object.keys(response);
+    delete response.USDT;
+
+    return response;
+  }
+
+  async fetchCurrencyOptions() {
+    const getCurrencies = await this.fetchAPI();
+    const currenciesUntreated = Object.keys(getCurrencies);
     const currencyOptions = currenciesUntreated.reduce((acc, currencyCode) => {
       const THREE_LETTERS = 3;
       if (currencyCode.length <= THREE_LETTERS) {
-        acc = [...acc, { value: currencyCode, optionLabel: currencyCode }];
+        acc = [...acc, currencyCode];
       }
       return acc;
     }, []);
@@ -37,7 +46,10 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        <ExpenseForm currencyOptions={ currencyOptions } />
+        <ExpenseForm
+          currencyOptions={ currencyOptions }
+          fetchAPI={ this.fetchAPI }
+        />
       </>
     );
   }
