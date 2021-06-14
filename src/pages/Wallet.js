@@ -11,7 +11,7 @@ class Wallet extends React.Component {
       defaultCurrency: 'BRL',
       value: 0,
       description: '',
-      currency: 'USD',
+      currency: '',
       method: '',
       tag: '',
       currenciesArray: [],
