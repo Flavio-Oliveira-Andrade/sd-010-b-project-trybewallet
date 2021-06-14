@@ -1,6 +1,6 @@
-const apiUrl = 'https://economia.awesomeapi.com.br/json/all';
+export const apiUrl = 'https://economia.awesomeapi.com.br/json/all';
 
-const getExchange = () => (
+export const getExchange = () => (
   fetch(apiUrl).then((response) => (
     response.json().then((json) => (
       response.ok
@@ -9,5 +9,3 @@ const getExchange = () => (
   ))
 
 );
-
-export default getExchange;
