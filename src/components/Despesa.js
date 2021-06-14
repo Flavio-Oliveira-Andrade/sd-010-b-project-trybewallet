@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addDespesa } from '../actions';
 
 const pgto = () => (
   <select
@@ -12,7 +15,10 @@ const pgto = () => (
 );
 
 const tag = () => (
-  <select data-testid="tag-input" id="tag">
+  <select
+    data-testid="tag-input"
+    id="tag"
+  >
     <option value="Alimentação">Alimentação</option>
     <option value="Lazer">Lazer</option>
     <option value="Trabalho">Trabalho</option>
@@ -28,14 +34,47 @@ class Despesa extends React.Component {
     this.state = {
       retornoConsulta: [],
       carregando: true,
+      despesaId: 0,
+      despesa: {
+        id: 0,
+        value: 0,
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+        description: '',
+      },
+      exchangeRates: [],
     };
 
     this.consultarApi = this.consultarApi.bind(this);
     this.inputDescricao = this.inputDescricao.bind(this);
     this.retornaValores = this.retornaValores.bind(this);
+    this.adicionarDespesa = this.adicionarDespesa.bind(this);
   }
 
   componentDidMount() {
+    this.consultarApi();
+  }
+
+  updateId() {
+    const { despesaId } = this.state;
+    this.setState((prev) => ({ despesaId: prev.despesaId + 1 }));
+    console.log(despesaId);
+  }
+
+  adicionarDespesa() {
+    const selectTag = document.querySelector('#tag');
+    const selectPgto = document.querySelector('#pgto');
+    const { despesaId, exchangeRates } = this.state;
+    const { addDespesas } = this.props;
+    this.setState((prev) => ({ despesaId: prev.despesaId + 1 }));
+    console.log(despesaId);
+    addDespesas({ despesa: {
+      id: despesaId,
+      tag: selectTag.value,
+      method: selectPgto.value,
+    },
+    exchangeRates });
     this.consultarApi();
   }
 
@@ -44,11 +83,15 @@ class Despesa extends React.Component {
       .then((response) => response.json()
         .then((json) => {
           const { USDT, ...curr } = json;
-          this.setState({ retornoConsulta: Object.keys(curr), carregando: false });
+          this.setState({
+            exchangeRates: curr,
+            retornoConsulta: Object.keys(curr),
+            carregando: false });
         }));
   }
 
   inputDescricao() {
+    const { despesa } = this.state;
     return (
       <label htmlFor="descricao">
         Descrição
@@ -56,12 +99,15 @@ class Despesa extends React.Component {
           type="text"
           id="descricao"
           data-testid="description-input"
+          onChange={ (e) => this.setState({
+            despesa: { ...despesa, description: e.target.value },
+          }) }
         />
       </label>);
   }
 
   retornaValores() {
-    const { retornoConsulta } = this.state;
+    const { retornoConsulta, despesa } = this.state;
     const currency = Object.values(retornoConsulta).filter((result) => result);
     return (
       <label
@@ -72,8 +118,10 @@ class Despesa extends React.Component {
         <select
           data-testid="currency-input"
           id="moeda"
-          value=""
-          onChange={ () => {} }
+          value={ despesa.currency }
+          onChange={ (e) => this.setState({
+            despesa: { ...despesa, currency: e.target.value },
+          }) }
         >
           { currency.map((result, index) => (
             <option key={ index } value={ result } data-testid={ result }>
@@ -85,7 +133,7 @@ class Despesa extends React.Component {
   }
 
   render() {
-    const { carregando } = this.state;
+    const { carregando, despesa } = this.state;
     return (
       <form>
         <label htmlFor="valor">
@@ -94,6 +142,9 @@ class Despesa extends React.Component {
             type="text"
             data-testid="value-input"
             id="valor"
+            onChange={ (e) => this.setState({
+              despesa: { ...despesa, value: e.target.value },
+            }) }
           />
         </label>
         {this.inputDescricao()}
@@ -111,9 +162,24 @@ class Despesa extends React.Component {
           Tag
           {tag()}
         </label>
+        <button
+          type="button"
+          className="button"
+          onClick={ this.adicionarDespesa }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default Despesa;
+const mapDispatchToProps = (dispatch) => ({
+  addDespesas: (state) => dispatch(addDespesa(state)),
+});
+
+Despesa.propTypes = {
+  addDespesas: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Despesa);
