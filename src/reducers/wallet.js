@@ -1,12 +1,13 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { REQUEST_CURRENCIES, ADD_EXPENSE,
-  GET_CURRENCIES, FAILED_FETCH } from '../actions';
+  GET_CURRENCIES, FAILED_FETCH, UPDATE_TOTAL } from '../actions';
 
 const initialState = {
   currencies: [],
   expenses: [],
   isFeching: false,
   error: '',
+  totalSum: 0,
 };
 
 const wallet = (state = initialState, action) => {
@@ -33,6 +34,11 @@ const wallet = (state = initialState, action) => {
       ...state,
       error: action.payload,
       isFeching: false,
+    };
+  case UPDATE_TOTAL:
+    return {
+      ...state,
+      totalSum: action.payload,
     };
   default:
     return state;
