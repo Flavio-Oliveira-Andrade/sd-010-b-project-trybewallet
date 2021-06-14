@@ -14,13 +14,12 @@ class Wallet extends React.Component {
     super(props);
 
     this.state = {
-      total: 0,
       moedas: [],
       // despesas: [],
       id: 0,
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       method: '',
       tag: '',
       // exchangeRates: {},
@@ -31,8 +30,6 @@ class Wallet extends React.Component {
     // this.atualizaDespesas = this.atualizaDespesas.bind(this);
     this.salva = this.salva.bind(this);
     this.requisitionDespesas = this.requisitionDespesas.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
-    this.renderTotal = this.renderTotal.bind(this);
   }
 
   componentDidMount() {
@@ -60,7 +57,7 @@ class Wallet extends React.Component {
     const { salvaDespesas } = this.props;
     // const api = await apiDespesas();
     const exchangeRates = await this.requisitionDespesas();
-    // console.log(exchangeRates);
+    console.log(exchangeRates);
     const {
       id,
       value,
@@ -69,7 +66,7 @@ class Wallet extends React.Component {
       method,
       tag } = this.state;
     // console.log(exchangeRates);
-    this.setState((valor) => ({ id: valor.id + 1 }));
+    // this.setState((valor) => ({ id: valor.id + 1 }));
     salvaDespesas({ id,
       value,
       currency,
@@ -77,14 +74,14 @@ class Wallet extends React.Component {
       tag,
       description,
       exchangeRates });
-    // this.setState((oldState) => ({
-    //   id: oldState.id + 1,
-    //   value: '',
-    //   currency: '',
-    //   method: '',
-    //   tag: '',
-    //   description: '',
-    // }));
+    this.setState((oldState) => ({
+      id: oldState.id + 1,
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
+    }));
     // console.log(objetoFinal);
     // salvaDespesas(objetoFinal);
     // this.requisitionDespesas();
@@ -98,16 +95,17 @@ class Wallet extends React.Component {
 
   renderTotal() {
     const { totalGlobal } = this.props;
-    return totalGlobal.reduce((acc, expense) => {
-      acc += parseFloat(expense.value);
-      return acc;
-    }, '187.12');
+    console.log(totalGlobal);
+    const t = totalGlobal.reduce((acc, expense) => {
+      const moeda = expense.currency;
+      return acc + (Number(expense.value) * expense.exchangeRates[moeda].ask);
+    }, 0);
     // console.log(t);
+    return t;
   }
 
   renderHeader() {
     const { userEmail } = this.props;
-    const { total } = this.state;
 
     return (
       <header>
@@ -117,8 +115,6 @@ class Wallet extends React.Component {
         </select>
         <p data-testid="total-field">
           Total:
-          {' '}
-          {total}
           {' '}
           {this.renderTotal()}
         </p>
