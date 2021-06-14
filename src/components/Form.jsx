@@ -11,7 +11,7 @@ class Form extends Component {
     this.state = {
       value: 0,
       description: '',
-      currency: '',
+      currency: 'USD',
       payment: '',
       tag: '',
       exchangeRates: 0,
@@ -64,7 +64,7 @@ class Form extends Component {
   renderCurrencysOptions() {
     const { currencies } = this.props;
     return currencies.currencies.map((info, key) => (
-      <option key={ key }>{ info.code }</option>
+      <option key={ key } value={ info.code }>{ info.code }</option>
     ));
   }
 
@@ -99,7 +99,6 @@ class Form extends Component {
             onChange={ (e) => this.handleChange(e.target) }
             value={ currency }
           >
-            <option selected value={ value }>...</option>
             { this.renderCurrencysOptions() }
           </select>
         </label>
