@@ -159,13 +159,13 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
-    const { dispenses, defaultCurrency } = this.state;
+    const { value, defaultCurrency } = this.state;
 
     return (
       <>
         <header>
           <h2 data-testid="email-field">{ email }</h2>
-          <h2 data-testid="total-field">{ dispenses }</h2>
+          <h2 data-testid="total-field">{ value }</h2>
           <h2 data-testid="header-currency-field">{ defaultCurrency }</h2>
         </header>
         <form>
