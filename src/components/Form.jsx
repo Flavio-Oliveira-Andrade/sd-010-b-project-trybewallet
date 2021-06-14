@@ -32,7 +32,10 @@ class Form extends React.Component {
   async requestInfo() {
     return fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
-      .then((i) => this.setState({ exchangeRates: i }, () => this.superFunction()));
+      .then((i) => {
+        delete i.USDT;
+        this.setState({ exchangeRates: i }, () => this.superFunction());
+      });
   }
 
   handleChange(event) {

@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { userEmail } = this.props;
-    console.log();
+    const { userEmail, total } = this.props;
+    const result = total.reduce((a, c) => a
+    + (Number(c.value)
+    * Number(c.exchangeRates[c.currency].ask)), 0);
     return (
       <header>
         <span data-testid="email-field">
@@ -13,7 +15,7 @@ class Header extends React.Component {
         </span>
 
         <span data-testid="total-field">
-          0
+          { (Math.round(result * 100) / 100).toFixed(2) }
         </span>
 
         <span data-testid="header-currency-field">
@@ -26,6 +28,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  total: PropTypes.arrayOf().isRequired,
 };
 
 const mapStateToProps = (state) => ({
