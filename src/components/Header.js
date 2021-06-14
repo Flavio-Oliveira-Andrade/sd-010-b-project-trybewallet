@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { email, total } = this.props;
+    const { email, total = 0 } = this.props; // ficar de olho aqui !
     return (
-      <div>
-        <h1 data-testid="email-field">{ email }</h1>
-        <h2 data-testid="total-field">{ total }</h2>
-        <h2 data-testid="header-currency-field">BRL</h2>
-      </div>
+      <header>
+        <div>
+          <h1 data-testid="email-field">{ email }</h1>
+          <h2 data-testid="total-field">{ total }</h2>
+          <h2 data-testid="header-currency-field">BRL</h2>
+        </div>
+      </header>
     );
   }
 }
