@@ -12,7 +12,7 @@ class Wallet extends React.Component {
 
   totalExpenses() {
     const { expenses } = this.props;
-    return expenses.reduce((a, b) => a + b, 0);
+    return expenses.reduce((a, b) => parseInt(a.value, 10) + parseInt(b.value, 10), 0);
   }
 
   render() {

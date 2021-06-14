@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestApi } from '../actions/wallet';
+import { requestApi, addData } from '../actions/wallet';
 import Select from './select';
 
 class Form extends Component {
@@ -14,15 +14,45 @@ class Form extends Component {
       currency: '',
       payment: '',
       tag: '',
+      exchangeRates: 0,
     };
 
-    this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
+    this.getExpenses = this.getExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
   }
 
   componentDidMount() {
     const { request } = this.props;
     return request();
+  }
+
+  async getExpenses(e) {
+    const { setExpenses } = this.props;
+    const { value, description, currency, payment, tag, exchangeRates } = this.state;
+    await this.setExpensesRates();
+    const data = {
+      value,
+      description,
+      currency,
+      payment,
+      tag,
+      exchangeRates,
+    };
+    if (!data) {
+      e.preventDefault();
+    }
+    setExpenses(data);
+  }
+
+  setExpensesRates() {
+    const { request, currencies } = this.props;
+    const { currency } = this.state;
+    request();
+    const dale = currencies.currencies.filter((e) => e.code === currency).high;
+    this.setState({
+      exchangeRates: dale,
+    });
   }
 
   handleChange({ value, id }) {
@@ -46,6 +76,7 @@ class Form extends Component {
           Valor
           <input
             type="number"
+            min="0"
             id="value"
             onChange={ (e) => this.handleChange(e.target) }
             value={ value }
@@ -68,6 +99,7 @@ class Form extends Component {
             onChange={ (e) => this.handleChange(e.target) }
             value={ currency }
           >
+            <option selected value={ value }>...</option>
             { this.renderCurrencysOptions() }
           </select>
         </label>
@@ -76,7 +108,7 @@ class Form extends Component {
           payment={ payment }
           tag={ tag }
         />
-        <button type="button">Adicionar Despesa</button>
+        <button type="button" onClick={ this.getExpenses }>Adicionar Despesa</button>
       </form>
     );
   }
@@ -89,14 +121,17 @@ Form.defaultProps = {
 Form.propTypes = {
   request: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string),
+  setExpenses: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   request: () => dispatch(requestApi()),
+  setExpenses: (data) => dispatch(addData(data)),
 });
 
-const mapStateToProps = ({ wallet: currencies }) => ({
+const mapStateToProps = ({ wallet: currencies, expenses }) => ({
   currencies,
+  expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

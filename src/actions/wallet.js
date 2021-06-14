@@ -1,4 +1,4 @@
-import { GET_API, GET_TOTAL } from './index';
+import { GET_API, GET_TOTAL, GET_DATA } from './index';
 import getAPI from '../services/API';
 
 export const actionTotal = (total = 0) => ({
@@ -9,6 +9,11 @@ export const actionTotal = (total = 0) => ({
 export const actionApi = (results) => ({
   type: GET_API,
   payload: results,
+});
+
+export const addData = (data) => ({
+  type: GET_DATA,
+  payload: data,
 });
 
 export const requestApi = () => async (dispatch) => {
