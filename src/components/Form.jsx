@@ -12,9 +12,9 @@ class Form extends Component {
       value: 0,
       description: '',
       currency: 'USD',
-      payment: '',
+      method: '',
       tag: '',
-      exchangeRates: 0,
+      exchangeRates: {},
     };
 
     this.getExpenses = this.getExpenses.bind(this);
@@ -29,13 +29,13 @@ class Form extends Component {
 
   async getExpenses(e) {
     const { setExpenses } = this.props;
-    const { value, description, currency, payment, tag, exchangeRates } = this.state;
+    const { value, description, currency, method, tag, exchangeRates } = this.state;
     await this.setExpensesRates();
     const data = {
       value,
       description,
       currency,
-      payment,
+      method,
       tag,
       exchangeRates,
     };
@@ -46,12 +46,11 @@ class Form extends Component {
   }
 
   setExpensesRates() {
-    const { currencies } = this.props;
-    const { currency } = this.state;
-    // request();
-    const dale = currencies.currencies.filter((e) => e.code === currency).high;
+    const { currencies, request } = this.props;
+    request();
+    // const dale = currencies.currencies;
     this.setState({
-      exchangeRates: dale,
+      exchangeRates: currencies,
     });
   }
 
@@ -69,7 +68,7 @@ class Form extends Component {
   }
 
   render() {
-    const { value, description, currency, payment, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form className="form">
         <label htmlFor="value">
@@ -104,7 +103,7 @@ class Form extends Component {
         </label>
         <Select
           onChange={ (e) => this.handleChange(e.target) }
-          payment={ payment }
+          method={ method }
           tag={ tag }
         />
         <button type="button" onClick={ this.getExpenses }>Adicionar Despesa</button>
