@@ -33,19 +33,21 @@ class AddExpense extends Component {
           },
           index) => (
             <tr key={ index }>
-              <td>{ description }</td>
-              <td>{ tag }</td>
-              <td>{ method }</td>
-              <td>{ Number(value).toFixed(2) }</td>
-              <td>
+              <td role="cell">{ description }</td>
+              <td role="cell">{ tag }</td>
+              <td role="cell">{ method }</td>
+              <td role="cell">{ Number(value).toFixed(2) }</td>
+              <td role="cell">
                 {
                   currency === 'USD'
                     ? 'Dólar Comercial' : exchangeRates[currency].name.split('/', 1)
                 }
               </td>
-              <td>{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
-              <td>{ Number(value * exchangeRates[currency].ask).toFixed(2) }</td>
-              <td>Real</td>
+              <td role="cell">{ Number(exchangeRates[currency].ask).toFixed(2) }</td>
+              <td role="cell">
+                { Number(value * exchangeRates[currency].ask).toFixed(2) }
+              </td>
+              <td role="cell">Real</td>
             </tr>
           )) }
         </tbody>
