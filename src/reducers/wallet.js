@@ -8,8 +8,11 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case '':
-    return {};
+  case 'WALLET_ACTION_ADD_EXPENSE':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload.expense],
+    };
   default:
     return state;
   }

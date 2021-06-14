@@ -1,6 +1,4 @@
-// Coloque aqui suas actions
-
-function loginAction(email) {
+export function loginAction(email) {
   return {
     type: 'LOGIN_ACTION',
     payload: {
@@ -9,4 +7,13 @@ function loginAction(email) {
   };
 }
 
-export default loginAction;
+export function walletAction(expense) {
+  return {
+    type: 'WALLET_ACTION_ADD_EXPENSE',
+    payload: {
+      expense,
+    },
+  };
+}
+
+// export { loginAction, walletAction };

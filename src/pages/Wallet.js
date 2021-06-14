@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { useSelector } from 'react-redux';
+import { walletAction } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      defaultCurrency: 'BRL',
       value: 0,
       description: '',
-      currency: 'BRL',
-      method: 'money',
-      tag: 'alimentacao',
+      currency: 'USD',
+      method: '',
+      tag: '',
       currenciesArray: [],
     };
+    this.createExpenses = this.createExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -106,9 +108,10 @@ class Wallet extends React.Component {
           name="method"
           value={ method }
         >
-          <option value="money">Dinheiro</option>
-          <option value="credit-card">Cartão de crédito</option>
-          <option value="debit-card">Cartão de débito</option>
+          <option>Selecione</option>
+          <option>Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
         </select>
       </label>
     );
@@ -127,26 +130,43 @@ class Wallet extends React.Component {
           name="tag"
           value={ tag }
         >
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+          <option>Selecione</option>
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
         </select>
       </label>
     );
   }
 
+  createExpenses() {
+    const { value, description, currency, method, tag } = this.state;
+    const { walletToAction } = this.props;
+
+    const expense = {
+      // id: expenses.length,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    };
+
+    walletToAction(expense);
+  }
+
   render() {
     const { email } = this.props;
-    const { dispenses, currency } = this.state;
+    const { dispenses, defaultCurrency } = this.state;
 
     return (
       <>
         <header>
           <h2 data-testid="email-field">{ email }</h2>
           <h2 data-testid="total-field">{ dispenses }</h2>
-          <h2 data-testid="header-currency-field">{ currency }</h2>
+          <h2 data-testid="header-currency-field">{ defaultCurrency }</h2>
         </header>
         <form>
           { this.createValue() }
@@ -154,7 +174,12 @@ class Wallet extends React.Component {
           { this.createCurrency() }
           { this.createPaymentMethod() }
           { this.createCategory() }
-          <button type="button">Adicionar despesa</button>
+          <button
+            onClick={ this.createExpenses }
+            type="button"
+          >
+            Adicionar despesa
+          </button>
         </form>
       </>
     );
@@ -164,11 +189,30 @@ class Wallet extends React.Component {
 function mapStateToProps(state) {
   return {
     email: state.user.email,
+    expenses: state.wallet.expenses,
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    walletToAction: (expense) => dispatch(walletAction(expense)),
+  };
+}
+
+// Store (state) -> user // wallet
+// user -> email
+//  wallet -> expenses
+
+// const mapStateToProps = ({ user: { email, password }, wallet: { expenses }}) => ({
+//   email,
+//   password,
+//   expenses,
+// })
+
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  walletToAction: PropTypes.func.isRequired,
+  // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
