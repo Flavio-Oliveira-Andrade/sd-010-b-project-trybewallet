@@ -9,14 +9,26 @@ class Wallet extends React.Component {
 
     this.state = {
       dispenses: 0,
-      currency: 'BRL',
       description: '',
+      currency: 'BRL',
       currenciesArray: [],
     };
   }
 
   componentDidMount() {
     this.fetchApiFunction();
+  }
+
+  handleChangeValue(valor) {
+    this.setState({ dispenses: valor });
+  }
+
+  handleChangeDescription(valor) {
+    this.setState({ description: valor });
+  }
+
+  handleChangeCurrency(valor) {
+    this.setState({ currency: valor });
   }
 
   fetchApiFunction() {
@@ -37,6 +49,7 @@ class Wallet extends React.Component {
       <label htmlFor="value">
         Valor
         <input
+          onChange={ (e) => this.handleChangeValue(e.target.value) }
           name="value"
           value={ dispenses }
           id="value"
@@ -52,6 +65,7 @@ class Wallet extends React.Component {
       <label htmlFor="description">
         Descrição
         <input
+          onChange={ (e) => this.handleChangeDescription(e.target.value) }
           name="description"
           value={ description }
           id="description"
@@ -67,7 +81,12 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="currency">
         Moeda
-        <select id="currency" role="combobox" name="currency">
+        <select
+          id="currency"
+          role="combobox"
+          name="currency"
+          onChange={ (e) => this.handleChangeCurrency(e.target.value) }
+        >
           {
             currenciesArray
               .filter((param) => param !== usdt)
@@ -123,6 +142,7 @@ class Wallet extends React.Component {
           { this.createCurrency() }
           { this.createPaymentMethod() }
           { this.createCategory() }
+          <button type="button">Adicionar despesa</button>
         </form>
       </>
     );
