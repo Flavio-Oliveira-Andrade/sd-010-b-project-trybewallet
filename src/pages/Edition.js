@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import editAction from '../actions/editAction';
@@ -134,10 +135,10 @@ class Edition extends React.Component {
   }
 
   handleClick() {
-    const { data, editRow } = this.props;
-    delete data.USDT;
-    this.setState({ exchangeRates: data }, () => editRow(this.state));
-    this.setState((previousState) => ({ id: previousState.id + 1 }));
+    // const { data, editRow } = this.props;
+    // delete data.USDT;
+    // this.setState({ exchangeRates: data }, );
+    // this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
   handleChange({ target }) {
@@ -146,6 +147,7 @@ class Edition extends React.Component {
   }
 
   render() {
+    const { editRow } = this.props;
     return (
       <div>
         <Header />
@@ -155,9 +157,16 @@ class Edition extends React.Component {
           {this.handleCurrencyInput()}
           {this.handlePaymentMethod()}
           {this.handleTagInput()}
-          <button type="button" onClick={ this.handleClick }>Editar despesa</button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              onClick={ () => editRow(this.state) }
+            >
+              Editar despesa
+            </button>
+          </Link>
         </form>
-        <Table onClick={ false } />
+        <Table disable />
       </div>
     );
   }
@@ -166,7 +175,7 @@ class Edition extends React.Component {
 Edition.propTypes = {
   currencies: PropTypes.arrayOf(String).isRequired,
   editRow: PropTypes.func.isRequired,
-  data: PropTypes.shape(Object).isRequired,
+  // data: PropTypes.shape(Object).isRequired,
   editValues: PropTypes.shape(Object).isRequired,
 };
 
