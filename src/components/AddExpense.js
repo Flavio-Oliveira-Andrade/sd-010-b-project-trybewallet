@@ -36,7 +36,7 @@ class AddExpense extends Component {
               <td role="cell">{ description }</td>
               <td role="cell">{ tag }</td>
               <td role="cell">{ method }</td>
-              <td role="cell">{ Number(value).toFixed(2) }</td>
+              <td role="cell">{ Number(value) }</td>
               <td role="cell">
                 {
                   currency === 'USD'
