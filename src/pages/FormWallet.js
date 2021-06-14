@@ -47,7 +47,7 @@ class FormWallet extends Component {
 
   renderSelectCategory() {
     return (
-      <label htmlFor="category">
+      <label htmlFor="tag">
         Tag
         <select
           name="tag"
@@ -56,7 +56,7 @@ class FormWallet extends Component {
         >
           <option value="food">Alimentação</option>
           <option value="leisure">Lazer</option>
-          <option value="work" selected>Trabalho</option>
+          <option value="work">Trabalho</option>
           <option value="transport">Transporte</option>
           <option value="health">Saúde</option>
         </select>
@@ -74,7 +74,7 @@ class FormWallet extends Component {
           onChange={ this.handleChange }
         >
           <option value="money">Dinheiro</option>
-          <option value="credit-card" selected>Cartão de crédito</option>
+          <option value="credit-card">Cartão de crédito</option>
           <option value="debit card">Cartão de débito</option>
         </select>
       </label>
