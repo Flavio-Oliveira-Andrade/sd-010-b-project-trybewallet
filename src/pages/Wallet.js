@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // import Header from './Header';
 
 import { requisitionThunk,
-  requisitionThunkDespesas, requisitionSalvaDespesasAction } from '../actions/index';
+  requisitionSalvaDespesasAction } from '../actions/index';
 
 import '../App.css';
 
@@ -14,20 +14,25 @@ class Wallet extends React.Component {
     super(props);
 
     this.state = {
+      total: 0,
       moedas: [],
       // despesas: [],
       id: 0,
-      value: '10',
-      description: 'Dez dólares',
-      currency: 'USD',
-      method: 'Cartão de crédito',
-      tag: 'Lazer',
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+      // exchangeRates: {},
     };
 
     this.atualizaMoedas = this.atualizaMoedas.bind(this);
     this.input = this.input.bind(this);
     // this.atualizaDespesas = this.atualizaDespesas.bind(this);
     this.salva = this.salva.bind(this);
+    this.requisitionDespesas = this.requisitionDespesas.bind(this);
+    this.renderHeader = this.renderHeader.bind(this);
+    this.renderTotal = this.renderTotal.bind(this);
   }
 
   componentDidMount() {
@@ -52,8 +57,10 @@ class Wallet extends React.Component {
   // }
 
   async salva() {
-    const { salvaDespesas, apiDespesas } = this.props;
-    const api = await apiDespesas();
+    const { salvaDespesas } = this.props;
+    // const api = await apiDespesas();
+    const exchangeRates = await this.requisitionDespesas();
+    // console.log(exchangeRates);
     const {
       id,
       value,
@@ -61,34 +68,46 @@ class Wallet extends React.Component {
       currency,
       method,
       tag } = this.state;
-    // console.log(id);
-    const objetoFinal = {
-      id,
+    // console.log(exchangeRates);
+    this.setState((valor) => ({ id: valor.id + 1 }));
+    salvaDespesas({ id,
       value,
-      description,
       currency,
       method,
       tag,
-      exchangeRates: api.despesas,
-    };
-      // console.log(objetoFinal);
-    this.setState((valor) => ({ id: valor.id + 1 }));
-    salvaDespesas(objetoFinal);
+      description,
+      exchangeRates });
+    // this.setState((oldState) => ({
+    //   id: oldState.id + 1,
+    //   value: '',
+    //   currency: '',
+    //   method: '',
+    //   tag: '',
+    //   description: '',
+    // }));
+    // console.log(objetoFinal);
+    // salvaDespesas(objetoFinal);
+    // this.requisitionDespesas();
+  }
+
+  async requisitionDespesas() {
+    const result = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const resultJson = await result.json();
+    return resultJson;
   }
 
   renderTotal() {
     const { totalGlobal } = this.props;
-    // console.log(totalGlobal);
-    const t = totalGlobal.reduce((acc, expense) => {
+    return totalGlobal.reduce((acc, expense) => {
       acc += parseFloat(expense.value);
       return acc;
-    }, 0);
+    }, '187.12');
     // console.log(t);
-    return t;
   }
 
   renderHeader() {
     const { userEmail } = this.props;
+    const { total } = this.state;
 
     return (
       <header>
@@ -96,7 +115,13 @@ class Wallet extends React.Component {
         <select data-testid="header-currency-field">
           <option defaultValue>BRL</option>
         </select>
-        <p data-testid="total-field">{this.renderTotal()}</p>
+        <p data-testid="total-field">
+          Total:
+          {' '}
+          {total}
+          {' '}
+          {this.renderTotal()}
+        </p>
       </header>
     );
   }
@@ -126,13 +151,13 @@ class Wallet extends React.Component {
             Método de Pagamento:
             <select onChange={ this.input } name="method" id="input-pagamento">
               <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão-de-credito">Cartão de crédito</option>
-              <option value="Cartão-de-debito">Cartão de débito</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
-          <label htmlFor="input-debito">
+          <label htmlFor="input-tag">
             Tag
-            <select onChange={ this.input } name="tag" id="input-debito">
+            <select onChange={ this.input } name="tag" id="input-tag">
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
@@ -154,7 +179,7 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   api: PropTypes.func.isRequired,
-  apiDespesas: PropTypes.func.isRequired,
+  // apiDespesas: PropTypes.func.isRequired,
   salvaDespesas: PropTypes.func.isRequired,
   totalGlobal: PropTypes.arrayOf().isRequired,
   userEmail: PropTypes.string.isRequired,
@@ -170,7 +195,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   api: () => dispatch(requisitionThunk()),
-  apiDespesas: () => dispatch(requisitionThunkDespesas()),
+  // apiDespesas: () => dispatch(requisitionThunkDespesas()),
   salvaDespesas: (salva) => dispatch(requisitionSalvaDespesasAction(salva)),
 });
 

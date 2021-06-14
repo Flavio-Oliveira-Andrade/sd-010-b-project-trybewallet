@@ -20,15 +20,25 @@ export const requisitionAction = (api) => ({
 });
 
 // Ação que faz requisição para API para salvar as despesas
-export const requisitionDespesasAction = (despesas) => ({
-  type: REQUISITION_API_DESPESAS,
-  despesas,
-});
+// export const requisitionDespesasAction = (despesas) => ({
+//   type: REQUISITION_API_DESPESAS,
+//   despesas,
+// });
 
 // Ação que salva despesas
-export const requisitionSalvaDespesasAction = (salvaDespesas) => ({
+export const requisitionSalvaDespesasAction = ({
+  id, value, currency, method, tag, description, exchangeRates }) => ({
   type: REQUISITION_API_SALVA_DESPESAS,
-  salvaDespesas,
+
+  expenses: {
+    id,
+    value,
+    currency,
+    method,
+    tag,
+    description,
+    exchangeRates,
+  },
 });
 
 // Funções de Thunk: traduzindo assincronicidade
@@ -46,9 +56,9 @@ export const requisitionThunk = () => async (dispatch) => {
 };
 
 // Thunk que faz requisição para API para salvar as despesas
-export const requisitionThunkDespesas = () => async (dispatch) => {
-  const result = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const resultJson = await result.json();
-  // console.log(resultJson);
-  return dispatch(requisitionDespesasAction(resultJson));
-};
+// export const requisitionThunkDespesas = () => async (dispatch) => {
+//   const result = await fetch('https://economia.awesomeapi.com.br/json/all');
+//   const resultJson = await result.json();
+//   // console.log(resultJson);
+//   return dispatch(requisitionDespesasAction(resultJson));
+// };
