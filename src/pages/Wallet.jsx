@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchCurrency from '../services/fetchCurrency';
 import { actionFetchCurrencies, newExpense } from '../actions';
+import WalletTable from '../Components/WalletTable';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -17,8 +18,8 @@ class Wallet extends React.Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'Alimentação',
-      tag: 'Dinheiro',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -133,10 +134,11 @@ class Wallet extends React.Component {
       <div>
         <header>
           <section data-testid="email-field">{userEmail}</section>
-          <section data-testid="total-field">{`Total: ${total}`}</section>
+          <section data-testid="total-field">{`Total: ${total.toFixed(2)}`}</section>
           <section data-testid="header-currency-field">Moeda atual: BRL</section>
         </header>
         {this.returnForm()}
+        <WalletTable />
       </div>
     );
   }
