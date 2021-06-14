@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApi, requestExpenses } from '../actions';
 
@@ -7,11 +7,13 @@ class FormsDespesa extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: 0,
       value: '',
       description: '',
-      tag: 'Alimentação',
       currency: 'USD',
-      payment: 'Dinheiro',
+      tag: 'Alimentação',
+      method: '',
+      exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
     this.addDispesa = this.addDispesa.bind(this);
@@ -21,6 +23,7 @@ class FormsDespesa extends Component {
     this.renderPaymentLabel = this.renderPaymentLabel.bind(this);
     this.renderTagLabel = this.renderTagLabel.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.fetchExchangeRates = this.fetchExchangeRates.bind(this);
   }
 
   componentDidMount() {
@@ -33,10 +36,17 @@ class FormsDespesa extends Component {
     this.setState({ [name]: value });
   }
 
-  addDispesa() {
+  async fetchExchangeRates() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await response.json();
+    this.setState({ exchangeRates: data });
+  }
+
+  async addDispesa() {
+    await this.fetchExchangeRates();
     const { keepForm } = this.props;
-    keepForm({ teste: 'teste' });
-    console.log('oi');
+    keepForm(this.state);
+    this.setState((oldState) => ({ id: oldState.id + 1 }));
   }
 
   renderValueLabel() {
@@ -91,19 +101,19 @@ class FormsDespesa extends Component {
   }
 
   renderPaymentLabel() {
-    const { payment } = this.state;
+    const { method } = this.state;
     return (
-      <label htmlFor="payment">
+      <label htmlFor="method">
         Método de pagamento
         <select
-          name="payment"
-          id="payment"
-          value={ payment }
+          name="method"
+          id="method"
+          value={ method }
           onChange={ (e) => this.handleChange(e) }
         >
-          <option value="dinheiro">Dinheiro</option>
-          <option value="debito">Cartão de Débito</option>
-          <option value="credito">Cartão de Crédito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de débito">Cartão de débito</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
         </select>
       </label>);
   }
@@ -119,11 +129,11 @@ class FormsDespesa extends Component {
           value={ tag }
           onChange={ (e) => this.handleChange(e) }
         >
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>);
   }
@@ -140,7 +150,6 @@ class FormsDespesa extends Component {
 
   render() {
     return (
-      // <form */onSubmit={ (e) => this.addDispesa(e) }>
       <form>
         {this.renderValueLabel()}
         ;
@@ -168,11 +177,11 @@ const mapDispatchToProps = (dispatch) => ({
   keepForm: (expense) => dispatch(requestExpenses(expense)),
 });
 
-// FormsDespesa.propTypes = {
-//   Apifetch: PropTypes.func.isRequired,
-//   keepForm: PropTypes.func.isRequired,
-//   currencies: PropTypes.arrayOf.isRequired,
-// };
+FormsDespesa.propTypes = {
+  Apifetch: PropTypes.func.isRequired,
+  keepForm: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf.isRequired,
+};
 
 // export default FormsDespesa;
 export default connect(mapStateToProps, mapDispatchToProps)(FormsDespesa);

@@ -42,14 +42,15 @@ export const requestExpenses = (expense) => ({
   },
 });
 
-export const fetchApi = () => (dispatch) => {
-  dispatch(requestApi());
-  fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((r) => r.json())
-    .then((sucess) => {
-      dispatch(requestApiSuccess(sucess));
-    })
-    .catch((erro) => {
-      dispatch(requestApiError(erro));
-    });
-};
+export const fetchApi = () => (
+  async (dispatch) => {
+    dispatch(requestApi());
+    try {
+      const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const data = await response.json();
+      dispatch(requestApiSuccess(data));
+    } catch (error) {
+      dispatch(requestApiError(error));
+    }
+  }
+);

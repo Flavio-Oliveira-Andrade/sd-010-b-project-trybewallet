@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      totalGastos: 0,
-    };
+  totalExpenses() {
+    const { expenses } = this.props;
+    const result = expenses.reduce((acc, curr) => acc
+      + (parseFloat(curr.value) * curr.exchangeRates[curr.currency].ask), 0);
+    return result.toFixed(2);
   }
 
   render() {
-    const { email, expenses } = this.props;
-    const { totalGastos } = this.state;
-
-    console.log(expenses);
+    const { email } = this.props;
     return (
       <header>
         <h3 data-testid="email-field">{email}</h3>
         <h3 data-testid="total-field">
           Dispesa Total:
-          {totalGastos}
+          {this.totalExpenses()}
         </h3>
         <h3 data-testid="header-currency-field">BRL</h3>
-        <h3>{expenses}</h3>
+        <Link to="/"><h2>Login</h2></Link>
       </header>
     );
   }
@@ -32,7 +30,6 @@ class Home extends Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
-  // currencies: state.wallet.currencies,
 });
 
 // const mapDispatchToProps = () => {

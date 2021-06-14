@@ -7,6 +7,8 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   loading: true,
+  exchangeRates: {},
+  error: '',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -22,6 +24,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: action.payload.currencies,
       loading: action.payload.loading,
+      exchangeRates: action.payload.exchangeRates,
     };
 
   case REQUEST_API_ERROR:
