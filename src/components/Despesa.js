@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addDespesa } from '../actions';
+import { addDespesa, fetchAPI } from '../actions';
 
 const pgto = () => (
   <select
@@ -35,7 +35,7 @@ class Despesa extends React.Component {
       retornoConsulta: [],
       carregando: true,
       despesaId: 0,
-      despesa: {
+      expenses: {
         id: 0,
         value: 0,
         currency: 'USD',
@@ -53,29 +53,28 @@ class Despesa extends React.Component {
   }
 
   componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
     this.consultarApi();
   }
 
-  updateId() {
-    const { despesaId } = this.state;
-    this.setState((prev) => ({ despesaId: prev.despesaId + 1 }));
-    console.log(despesaId);
-  }
-
   adicionarDespesa() {
+    this.consultarApi();
     const selectTag = document.querySelector('#tag');
     const selectPgto = document.querySelector('#pgto');
-    const { despesaId, exchangeRates } = this.state;
-    const { addDespesas } = this.props;
+    const { despesaId, exchangeRates, expenses } = this.state;
+    const { addDespesas, getCurrency } = this.props;
     this.setState((prev) => ({ despesaId: prev.despesaId + 1 }));
     console.log(despesaId);
-    addDespesas({ despesa: {
+    addDespesas({ expenses: {
       id: despesaId,
+      currency: expenses.currency,
+      description: expenses.description,
       tag: selectTag.value,
       method: selectPgto.value,
     },
     exchangeRates });
-    this.consultarApi();
+    getCurrency();
   }
 
   consultarApi() {
@@ -91,7 +90,7 @@ class Despesa extends React.Component {
   }
 
   inputDescricao() {
-    const { despesa } = this.state;
+    const { expenses } = this.state;
     return (
       <label htmlFor="descricao">
         Descrição
@@ -100,14 +99,14 @@ class Despesa extends React.Component {
           id="descricao"
           data-testid="description-input"
           onChange={ (e) => this.setState({
-            despesa: { ...despesa, description: e.target.value },
+            expenses: { ...expenses, description: e.target.value },
           }) }
         />
       </label>);
   }
 
   retornaValores() {
-    const { retornoConsulta, despesa } = this.state;
+    const { retornoConsulta, expenses } = this.state;
     const currency = Object.values(retornoConsulta).filter((result) => result);
     return (
       <label
@@ -118,9 +117,9 @@ class Despesa extends React.Component {
         <select
           data-testid="currency-input"
           id="moeda"
-          value={ despesa.currency }
+          value={ expenses.currency }
           onChange={ (e) => this.setState({
-            despesa: { ...despesa, currency: e.target.value },
+            expenses: { ...expenses, currency: e.target.value },
           }) }
         >
           { currency.map((result, index) => (
@@ -133,7 +132,7 @@ class Despesa extends React.Component {
   }
 
   render() {
-    const { carregando, despesa } = this.state;
+    const { carregando, expenses } = this.state;
     return (
       <form>
         <label htmlFor="valor">
@@ -143,7 +142,7 @@ class Despesa extends React.Component {
             data-testid="value-input"
             id="valor"
             onChange={ (e) => this.setState({
-              despesa: { ...despesa, value: e.target.value },
+              expenses: { ...expenses, value: e.target.value },
             }) }
           />
         </label>
@@ -176,10 +175,12 @@ class Despesa extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   addDespesas: (state) => dispatch(addDespesa(state)),
+  getCurrency: () => dispatch(fetchAPI()),
 });
 
 Despesa.propTypes = {
   addDespesas: PropTypes.func.isRequired,
+  getCurrency: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Despesa);
