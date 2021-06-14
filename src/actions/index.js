@@ -1,7 +1,7 @@
 // Coloque aqui suas actions
 export const VALID_EMAIL = 'get-email';
 export const ACTION_WALLET_CURRENCIES = 'ACTION_WALLET_CURRENCIES';
-export const ACTION_WALLET_EXPENSES = 'ACTION_WALLET_EXPENSES';
+// export const ACTION_WALLET_EXPENSES = 'ACTION_WALLET_EXPENSES';
 export const ACTION_WALLET_STATE_EXPENSES = 'ACTION_WALLET_STATE_EXPENSES';
 
 export const actionEmail = (email) => ({
@@ -14,10 +14,10 @@ const actionCurrencies = (currencies) => ({
   currencies,
 });
 
-const actionAddExpenses = (expense) => ({
-  type: ACTION_WALLET_EXPENSES,
-  expense,
-});
+// const actionAddExpenses = (expense) => ({
+//   type: ACTION_WALLET_EXPENSES,
+//   expense,
+// });
 
 export const actionAddStateExpenses = (state) => ({
   type: ACTION_WALLET_STATE_EXPENSES,
@@ -31,14 +31,14 @@ export function fetchAPI() {
       // const currenciesAll = currencies;
       // console.log(currenciesAll)
       const currenciesWithout = Object.keys(currencies).filter((c) => c !== 'USDT');
-      console.log(currenciesWithout);
+      // console.log(currenciesWithout);
       return currenciesWithout;
     })
     .then((currencies) => dispatch(actionCurrencies(currencies)));
 }
 
 export function fetchAPIExpenses() {
-  return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+  return () => fetch('https://economia.awesomeapi.com.br/json/all')
     .then((r) => r.json())
     .then((currencies) => {
       const currenciesAll = Object.keys(currencies);
@@ -49,10 +49,10 @@ export function fetchAPIExpenses() {
           // objeto += currencies[currenciesAll[i]];
         }
       }
-      console.log(objeto);
+      // console.log(objeto);
       return objeto;
-    })
-    .then((currencies) => dispatch(actionAddExpenses(currencies)));
+    });
+// .then((currencies) => dispatch(actionAddExpenses(currencies)));
 }
 
 // export function fetchAPIExpenses() {

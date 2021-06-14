@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI as fetchApi, fetchAPIExpenses as fetchApiExpenses, actionAddStateExpenses } from '../actions/index';
-
-// const paymentWays = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-// const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+import {
+  fetchAPI as fetchApi,
+  fetchAPIExpenses as fetchApiExpenses,
+  actionAddStateExpenses } from '../actions/index';
 
 class FormWallet extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class FormWallet extends Component {
       currency: '',
       method: '',
       tag: '',
-      exchangeRates: undefined,
+      exchangeRates: {},
     };
     this.renderSelectCategory = this.renderSelectCategory.bind(this);
     this.renderSelectMethod = this.renderSelectMethod.bind(this);
@@ -31,10 +31,12 @@ class FormWallet extends Component {
   }
 
   handleSubmit() {
-    const { fetchAPIExpenses, actionAddState } = this.props;
+    const { fetchAPIExpenses, actionAddState, expensesArr } = this.props;
 
-    actionAddState(this.state);
-    fetchAPIExpenses();
+    fetchAPIExpenses().then((expenses) => this.setState({
+      id: expensesArr.length,
+      exchangeRates: expenses,
+    })).then(() => actionAddState(this.state));
   }
 
   handleChange({ target: { name, value } }) {
@@ -54,7 +56,7 @@ class FormWallet extends Component {
         >
           <option value="food">Alimentação</option>
           <option value="leisure">Lazer</option>
-          <option value="work">Trabalho</option>
+          <option value="work" selected>Trabalho</option>
           <option value="transport">Transporte</option>
           <option value="health">Saúde</option>
         </select>
@@ -72,7 +74,7 @@ class FormWallet extends Component {
           onChange={ this.handleChange }
         >
           <option value="money">Dinheiro</option>
-          <option value="credit-card">Cartão de crédito</option>
+          <option value="credit-card" selected>Cartão de crédito</option>
           <option value="debit card">Cartão de débito</option>
         </select>
       </label>
@@ -135,11 +137,15 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expensesArr: state.wallet.expenses,
 });
 
 FormWallet.propTypes = {
   currencies: PropTypes.arrayOf.isRequired,
   fetchAPI: PropTypes.func.isRequired,
+  fetchAPIExpenses: PropTypes.func.isRequired,
+  actionAddState: PropTypes.func.isRequired,
+  expensesArr: PropTypes.arrayOf.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
