@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApi, addData } from '../actions/wallet';
 import Select from './select';
+import Table from './Table';
 
 class Form extends Component {
   constructor(props) {
@@ -46,9 +47,9 @@ class Form extends Component {
   }
 
   setExpensesRates() {
-    const { request, currencies } = this.props;
+    const { currencies } = this.props;
     const { currency } = this.state;
-    request();
+    // request();
     const dale = currencies.currencies.filter((e) => e.code === currency).high;
     this.setState({
       exchangeRates: dale,
@@ -107,6 +108,7 @@ class Form extends Component {
           payment={ payment }
           tag={ tag }
         />
+        <Table />
         <button type="button" onClick={ this.getExpenses }>Adicionar Despesa</button>
       </form>
     );
