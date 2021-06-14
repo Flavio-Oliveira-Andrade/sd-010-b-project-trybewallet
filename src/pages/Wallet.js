@@ -8,9 +8,11 @@ class Wallet extends React.Component {
     super(props);
 
     this.state = {
-      dispenses: 0,
+      value: 0,
       description: '',
       currency: 'BRL',
+      method: 'money',
+      tag: 'alimentacao',
       currenciesArray: [],
     };
   }
@@ -19,16 +21,10 @@ class Wallet extends React.Component {
     this.fetchApiFunction();
   }
 
-  handleChangeValue(valor) {
-    this.setState({ dispenses: valor });
-  }
-
-  handleChangeDescription(valor) {
-    this.setState({ description: valor });
-  }
-
-  handleChangeCurrency(valor) {
-    this.setState({ currency: valor });
+  handleChange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
   }
 
   fetchApiFunction() {
@@ -43,15 +39,15 @@ class Wallet extends React.Component {
   }
 
   createValue() {
-    const { dispenses } = this.state;
+    const { value } = this.state;
 
     return (
       <label htmlFor="value">
         Valor
         <input
-          onChange={ (e) => this.handleChangeValue(e.target.value) }
+          onChange={ (e) => this.handleChange(e) }
           name="value"
-          value={ dispenses }
+          value={ value }
           id="value"
         />
       </label>
@@ -65,7 +61,7 @@ class Wallet extends React.Component {
       <label htmlFor="description">
         Descrição
         <input
-          onChange={ (e) => this.handleChangeDescription(e.target.value) }
+          onChange={ (e) => this.handleChange(e) }
           name="description"
           value={ description }
           id="description"
@@ -82,10 +78,10 @@ class Wallet extends React.Component {
       <label htmlFor="currency">
         Moeda
         <select
+          onChange={ (e) => this.handleChange(e) }
           id="currency"
           role="combobox"
           name="currency"
-          onChange={ (e) => this.handleChangeCurrency(e.target.value) }
         >
           {
             currenciesArray
@@ -98,10 +94,18 @@ class Wallet extends React.Component {
   }
 
   createPaymentMethod() {
+    const { method } = this.state;
+
     return (
       <label htmlFor="payment">
         Método de pagamento
-        <select id="payment" role="combobox" name="payment">
+        <select
+          onChange={ (e) => this.handleChange(e) }
+          id="method"
+          role="combobox"
+          name="method"
+          value={ method }
+        >
           <option value="money">Dinheiro</option>
           <option value="credit-card">Cartão de crédito</option>
           <option value="debit-card">Cartão de débito</option>
@@ -111,10 +115,18 @@ class Wallet extends React.Component {
   }
 
   createCategory() {
+    const { tag } = this.state;
+
     return (
       <label htmlFor="tag">
         Tag
-        <select id="tag" role="combobox" name="tag">
+        <select
+          onChange={ (e) => this.handleChange(e) }
+          id="tag"
+          role="combobox"
+          name="tag"
+          value={ tag }
+        >
           <option value="alimentacao">Alimentação</option>
           <option value="lazer">Lazer</option>
           <option value="trabalho">Trabalho</option>
