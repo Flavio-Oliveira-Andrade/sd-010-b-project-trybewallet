@@ -12,6 +12,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: [action.api],
     };
+  case 'DESPESA':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expenses],
+    };
   default:
     return state;
   }
