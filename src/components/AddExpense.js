@@ -26,12 +26,13 @@ class AddExpense extends React.Component {
   }
 
   getTotalSum() {
-    const { expenses, updateTotalSum } = this.props;
+    const { expenses, updateTotalSum, updateTotal } = this.props;
     let sum = 0;
     expenses.forEach((expense) => {
       sum += expense.value * expense.exchangeRates[expense.currency].ask;
     });
     sum = Math.round(sum * 100) / 100;
+    updateTotal(sum);
     updateTotalSum(sum);
   }
 

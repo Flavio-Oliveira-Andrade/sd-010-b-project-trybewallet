@@ -7,13 +7,28 @@ import AddExpense from '../components/AddExpense';
 import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      total: 0,
+    };
+
+    this.updateTotal = this.updateTotal.bind(this);
+  }
+
   componentDidMount() {
     const { fetcher } = this.props;
     fetcher();
   }
 
+  updateTotal(totalSum) {
+    this.setState({ total: totalSum });
+  }
+
   render() {
-    const { email, totalSum } = this.props;
+    const { email } = this.props;
+    const { total } = this.state;
     return (
       <div>
         <header className="header">
@@ -24,13 +39,13 @@ class Wallet extends React.Component {
             </h5>
             <div className="currency">
               <h5 data-testid="total-field">
-                { `Despesa total: ${totalSum}` }
+                { `Despesa total: ${total}`}
               </h5>
               <h5 data-testid="header-currency-field">BRL</h5>
             </div>
           </div>
         </header>
-        <AddExpense />
+        <AddExpense updateTotal={ this.updateTotal } />
       </div>
     );
   }
@@ -39,7 +54,6 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
-  totalSum: state.wallet.totalSum,
 });
 
 const mapDispatchToProps = (dispatch) => ({
