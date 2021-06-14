@@ -11,6 +11,7 @@ class TabelaGastos extends Component {
     this.createTableHeading = this.createTableHeading.bind(this);
     this.createTableExpenses = this.createTableExpenses.bind(this);
     this.deleteExpense = this.deleteExpense.bind(this);
+    this.editExpense = this.editExpense.bind(this);
   }
 
   deleteExpense({ target }) {
@@ -19,6 +20,10 @@ class TabelaGastos extends Component {
     const newArrayExpense = [...expenses]
       .filter((expense) => expense.id !== Number(idDeletado));
     updateExpenses(newArrayExpense);
+  }
+
+  editExpense({ target }) {
+    
   }
 
   createTableHeading() {
@@ -65,6 +70,14 @@ class TabelaGastos extends Component {
             onClick={ this.deleteExpense }
           >
             Delete
+          </button>
+          <button
+            key={ expValue.id }
+            data-testid="edit-btn"
+            type="button"
+            onClick={ this.editExpense }
+          >
+            Editar despesa
           </button>
         </tr>
       </table>

@@ -30,14 +30,14 @@ class WalletForms extends Component {
     await updateMoedas(getApi());
   }
 
-  handleClick() {
-    const { addExpenses } = this.props;
+  async handleClick() {
+    const { addExpenses, updateMoedas, currencies } = this.props;
     const { id } = this.state;
     const cont = id;
-    getApi().then((result) => {
-      this.setState({ id: cont + 1, exchangeRates: result });
-      addExpenses(this.state);
-    });
+    await updateMoedas(getApi());
+    const result = currencies;
+    this.setState({ id: cont + 1, exchangeRates: result });
+    addExpenses(this.state);
   }
 
   createInputValor() {
