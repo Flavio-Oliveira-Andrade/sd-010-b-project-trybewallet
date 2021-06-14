@@ -2,6 +2,7 @@ export const USER_DATA = 'USER_DATA';
 export const EXPENSE_DATA = 'EXPENSE_DATA';
 export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const RECEIVE_CURRENCY = 'RECEIVE_CURRENCY';
+export const DELETE_ITEM = 'DELETE_ITEM';
 
 export function userExpenses(payload) {
   return {
@@ -14,6 +15,13 @@ export function userLogin({ email }) {
   return {
     type: USER_DATA,
     email,
+  };
+}
+
+export function deleteItem(id) {
+  return {
+    type: DELETE_ITEM,
+    payload: id,
   };
 }
 

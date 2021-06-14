@@ -1,4 +1,9 @@
-import { EXPENSE_DATA, REQUEST_CURRENCY, RECEIVE_CURRENCY } from '../actions/index';
+import {
+  EXPENSE_DATA,
+  REQUEST_CURRENCY,
+  RECEIVE_CURRENCY,
+  DELETE_ITEM,
+} from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -20,6 +25,11 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       currencies: action.payload,
+    };
+  case DELETE_ITEM:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter(({ id }) => id !== action.payload)],
     };
   default:
     return state;
