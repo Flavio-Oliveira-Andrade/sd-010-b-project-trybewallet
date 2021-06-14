@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InputSelectExpenses({
+function InputSelectTag({
   labelDescription = 'Descrição da label',
 }) {
   return (
@@ -19,4 +19,4 @@ function InputSelectExpenses({
   );
 }
 
-export default InputSelectExpenses;
+export default InputSelectTag;
