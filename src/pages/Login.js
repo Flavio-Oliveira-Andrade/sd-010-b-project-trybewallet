@@ -40,7 +40,6 @@ class Login extends React.Component {
     const { email, isValidEmail, isValidSenha } = this.state;
     const { login } = this.props;
     const enable = isValidEmail && isValidSenha;
-    console.log(email);
     return (
       <div className="App">
         <header>
