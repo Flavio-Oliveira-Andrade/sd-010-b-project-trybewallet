@@ -61,7 +61,6 @@ class Wallet extends React.Component {
   total() {
     const { getTotal } = this.props;
     console.log(getTotal);
-    const totalDespesa = 0;
     const aux = getTotal.reduce((acc, value) => {
       const auxCurrency = value.currency;
       return acc + (Number(value.value) * value.exchangeRates[auxCurrency].ask);
