@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import saveEmail from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -32,12 +36,9 @@ class Login extends React.Component {
     this.setState({ isValidSenha: value.length >= minLength });
   }
 
-  // handleClick() {
-
-  // }
-
   render() {
     const { email, isValidEmail, isValidSenha } = this.state;
+    const { login } = this.props;
     const enable = isValidEmail && isValidSenha;
     console.log(email);
     return (
@@ -66,11 +67,27 @@ class Login extends React.Component {
               onChange={ this.handleChangeSenha }
             />
           </label>
-          <button type="button" disabled={ !enable }>Entrar</button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              disabled={ !enable }
+              onClick={ () => login(email) }
+            >
+              Entrar
+            </button>
+          </Link>
         </main>
       </div>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  login: (event) => dispatch(saveEmail(event)),
+});
+
+Login.propTypes = {
+  login: PropTypes.string.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
