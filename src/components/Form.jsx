@@ -20,6 +20,7 @@ class Form extends Component {
     this.getExpenses = this.getExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
+    this.setExpensesRates = this.setExpensesRates.bind(this);
   }
 
   componentDidMount() {
@@ -27,10 +28,21 @@ class Form extends Component {
     return request();
   }
 
-  async getExpenses(e) {
+  setExpensesRates() {
+    const { currencies, request } = this.props;
+    const { exchangeRates } = this.state;
+    request();
+    console.log(exchangeRates);
+    return this.setState({
+      exchangeRates: { ...currencies.currencies },
+    });
+  }
+
+  getExpenses(e) {
     const { setExpenses } = this.props;
     const { value, description, currency, method, tag, exchangeRates } = this.state;
-    await this.setExpensesRates();
+    this.setExpensesRates();
+    // console.log(exchangeRates);
     const data = {
       value,
       description,
@@ -39,19 +51,11 @@ class Form extends Component {
       tag,
       exchangeRates,
     };
+    // console.log(data);
     if (!data) {
       e.preventDefault();
     }
     setExpenses(data);
-  }
-
-  setExpensesRates() {
-    const { currencies, request } = this.props;
-    request();
-    // const dale = currencies.currencies;
-    this.setState({
-      exchangeRates: currencies,
-    });
   }
 
   handleChange({ value, id }) {
