@@ -6,4 +6,4 @@ export const loginAction = (email) => ({
   email,
 });
 
-export const wallet = (state) => ({ type: 'USER_LOGIN', state });
+export const wallet = (despesa) => ({ type: 'USER_LOGIN', despesa });
