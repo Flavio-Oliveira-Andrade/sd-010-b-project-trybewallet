@@ -14,7 +14,7 @@ class Login extends React.Component {
     this.checkInput = this.checkInput.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-// pucxando o valor dos inputs e colocando no estado local
+  // pucxando o valor dos inputs e colocando no estado local
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -22,7 +22,8 @@ class Login extends React.Component {
       [name]: value,
     });
   }
-// valida o email e sennha
+
+  // valida o email e sennha
   checkInput() {
     const { password, email } = this.state;
     const cinco = 5;
@@ -37,8 +38,21 @@ class Login extends React.Component {
     return (
       <form className="login">
         <img src={ cambio } alt="wallet" width="200px" />
-        <Inputs place="Email" name="email" handle={ this.handleChange } value={ email } test="email-input" />
-        <Inputs place="Senha" type="password" name="password" handle={ this.handleChange } value={ password } test="password-input" />
+        <Inputs
+          place="Email"
+          name="email"
+          handle={ this.handleChange }
+          value={ email }
+          test="email-input"
+        />
+        <Inputs
+          place="Senha"
+          type="password"
+          name="password"
+          handle={ this.handleChange }
+          value={ password }
+          test="password-input"
+        />
         <button
           type="button"
           disabled={ this.checkInput() }
