@@ -50,6 +50,7 @@ class Wallet extends React.Component {
           name="value"
           value={ value }
           id="value"
+          placeholder="0"
         />
       </label>
     );
@@ -174,13 +175,13 @@ class Wallet extends React.Component {
 
   render() {
     const { email } = this.props;
-    const { value, expenses, defaultCurrency, total } = this.state;
+    const { defaultCurrency, total } = this.state;
 
     return (
       <>
         <header>
-          <h2 data-testid="email-field">{ !email ? 'faça seu login' : email }</h2>
-          <h2 data-testid="total-field">{ expenses ? total : value }</h2>
+          <h2 data-testid="email-field">{ email }</h2>
+          <h2 data-testid="total-field">{ total }</h2>
           <h2 data-testid="header-currency-field">{ defaultCurrency }</h2>
         </header>
         <form>
