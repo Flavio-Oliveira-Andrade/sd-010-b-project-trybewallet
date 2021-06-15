@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import store from './Store/index';
+import Wallet from './pages/Wallet';
 
 class App extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class App extends React.Component {
       <Provider store={ store }>
         <Switch>
           <Route path="/" component={ Login } />
+          <Route path="/carteira" component={ Wallet } />
         </Switch>
       </Provider>
     );
