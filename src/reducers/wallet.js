@@ -1,23 +1,17 @@
 const INITIAL_STATE = {
-  expenses: [],
   id: 0,
+  expenses: [],
   total: 0,
 };
 
 function wallet(state = INITIAL_STATE, action) {
-  const id = state.expenses.length;
-  console.log(state.total)
   switch (action.type) {
   case 'add':
     return {
       ...state,
-      expenses: [...state.expenses, action.state],
-      id,
-    };
-  case 'allAmount':
-    return {
-      ...state,
-      total: state.total + action.state,
+      expenses: [...state.expenses, action.state.expenses],
+      id: state.id,
+      total: state.total + action.state.total,
     };
   default:
     return state;

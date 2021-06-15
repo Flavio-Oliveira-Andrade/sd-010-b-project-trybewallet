@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { add, allAmount } from '../actions';
+import { add } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = { cotation: 0, currencies: [] };
+    this.state = { cotation: 0, currencies: [], id: 0 };
     this.loadPrices = this.loadPrices.bind(this);
     this.totalAmount = this.totalAmount.bind(this);
   }
@@ -26,38 +26,38 @@ class Wallet extends React.Component {
     });
   }
 
-  totalAmount() {
-    this.loadPrices();
-    const { cotation } = this.state;
-    const { addAmount, calculateTotal, id } = this.props;
+  async totalAmount() {
+    await this.loadPrices();
+    const { cotation, id } = this.state;
+    const { addAmount } = this.props;
     const value = document.querySelector('#value');
     const description = document.querySelector('#description').value;
     const method = document.querySelector('#payament').value;
     const tag = document.querySelector('#tag').value;
     const currency = document.querySelector('#currency').value;
-    const brlEquivalent = cotation[currency].bid * value.value;
-    const cot = cotation;
-    delete cotation.USDT;
-    addAmount({
+    const brlEquivalent = ((cotation[currency].high * 1 + cotation[currency].low * 1)
+     * value.value) / 2;
+    await addAmount({ expenses: {
       id,
       value: value.value,
       description,
       currency,
       method,
       tag,
-      exchangeRates: cot });
-      console.log(brlEquivalent);
-    calculateTotal(brlEquivalent);
+      exchangeRates: cotation },
+    total: Math.floor(brlEquivalent * 100) / 100,
+    });
+    this.setState((old) => ({ ...old, id: id + 1 }));
   }
 
   render() {
     const { currencies } = this.state;
-    const { emailLog, total } = this.props;
+    const { emailLog, total = 0 } = this.props;
     return (
       <div>
         <header id="header">
           <h5 data-testid="email-field">{ emailLog }</h5>
-          <h6 data-testid="total-field">{ total }</h6>
+          <h6 data-testid="total-field">{total || 0}</h6>
           <h6 data-testid="header-currency-field">BRL</h6>
         </header>
         <form>
@@ -78,9 +78,9 @@ class Wallet extends React.Component {
           <label htmlFor="payament">
             Método de pagamento
             <select id="payament">
-              <option value="Dinehiro">Dinheiro</option>
-              <option value="Cartão de Crédito">Cartão de crédito</option>
-              <option value="Cartão de Débito">Cartão de débito</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
             </select>
           </label>
           <label htmlFor="tag">
@@ -103,15 +103,16 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   emailLog: state.user.email,
   id: state.wallet.id,
-  total: state.wallet.total,
+  total: state.wallet.total || 0,
 });
 
-// Wallet.propTypes = {
-//   emailLog: PropTypes.string.isRequired,
-// };
-
 const mapDispatchToProps = (dispatch) => ({
-  addAmount: (state) => dispatch(add(state)),
-  calculateTotal: (state) => dispatch(allAmount(state)) });
+  addAmount: (state) => dispatch(add(state)) });
+
+Wallet.propTypes = {
+  addAmount: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
+  emailLog: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
