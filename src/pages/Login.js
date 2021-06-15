@@ -34,6 +34,8 @@ class Login extends React.Component {
   handlechangeEmail(event) {
     this.setState({ email: event.target.value });
 
+    // /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
+
     const emailTest = RegExp(/^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/);
     const verifyEmail = emailTest.test(event.target.value);
 

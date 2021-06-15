@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { walletAction } from '../actions';
+import { actionThunk, walletAction } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -12,32 +12,29 @@ class Wallet extends React.Component {
       value: 0,
       description: '',
       currency: '',
-      method: '',
-      tag: '',
-      currenciesArray: [],
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.createValue = this.createValue.bind(this);
+    this.createDescription = this.createDescription.bind(this);
+    this.createCurrency = this.createCurrency.bind(this);
+    this.createPaymentMethod = this.createPaymentMethod.bind(this);
+    this.createCategory = this.createCategory.bind(this);
     this.createExpenses = this.createExpenses.bind(this);
   }
 
   componentDidMount() {
-    this.fetchApiFunction();
+    const { requestApi } = this.props;
+
+    requestApi();
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
-  }
-
-  fetchApiFunction() {
-    const url = 'https://economia.awesomeapi.com.br/json/all';
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        const currencies = Object.keys(response);
-        this.setState({ currenciesArray: currencies });
-      });
   }
 
   createValue() {
@@ -73,7 +70,8 @@ class Wallet extends React.Component {
   }
 
   createCurrency() {
-    const { currenciesArray } = this.state;
+    const { currencies } = this.props;
+    const currenciesArray = Object.keys(currencies);
     const usdt = 'USDT';
 
     return (
@@ -108,7 +106,6 @@ class Wallet extends React.Component {
           name="method"
           value={ method }
         >
-          <option>Selecione</option>
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
           <option>Cartão de débito</option>
@@ -130,7 +127,6 @@ class Wallet extends React.Component {
           name="tag"
           value={ tag }
         >
-          <option>Selecione</option>
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
@@ -143,10 +139,11 @@ class Wallet extends React.Component {
 
   createExpenses() {
     const { value, description, currency, method, tag } = this.state;
-    const { walletToAction } = this.props;
+    const { expenses, walletToAction } = this.props;
+    console.log(expenses);
 
     const expense = {
-      // id: expenses.length,
+      id: '0',
       value,
       description,
       currency,
@@ -175,7 +172,7 @@ class Wallet extends React.Component {
           { this.createPaymentMethod() }
           { this.createCategory() }
           <button
-            onClick={ this.createExpenses }
+            onClick={ () => this.createExpenses() }
             type="button"
           >
             Adicionar despesa
@@ -186,33 +183,25 @@ class Wallet extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    email: state.user.email,
-    expenses: state.wallet.expenses,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     walletToAction: (expense) => dispatch(walletAction(expense)),
+    requestApi: () => dispatch(actionThunk()),
   };
 }
 
-// Store (state) -> user // wallet
-// user -> email
-//  wallet -> expenses
-
-// const mapStateToProps = ({ user: { email, password }, wallet: { expenses }}) => ({
-//   email,
-//   password,
-//   expenses,
-// })
+const mapStateToProps = ({ user: { email }, wallet: { expenses, currencies } }) => ({
+  email,
+  expenses,
+  currencies,
+});
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   walletToAction: PropTypes.func.isRequired,
-  // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  requestApi: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
