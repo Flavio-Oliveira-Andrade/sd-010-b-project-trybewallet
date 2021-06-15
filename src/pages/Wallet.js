@@ -9,6 +9,8 @@ class Wallet extends React.Component {
       <div>
         <header>
           <span data-testid="email-field">{ emailUser }</span>
+          <span data-testid="total-field">0</span>
+          <span data-testid="header-currency-field">"BRL"</span>
         </header>
         <form>
           <label htmlFor="valor">
@@ -36,17 +38,6 @@ class Wallet extends React.Component {
             Moeda
             <select name="Moedas" id="Moedas">
               <option value="USD">USD</option>
-              <option value="CAD">CAD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="ARS">ARS</option>
-              <option value="BTC">BTC</option>
-              <option value="LTC">LTC</option>
-              <option value="JPY">JPY</option>
-              <option value="CHF">CHF</option>
-              <option value="AUD">AUD</option>
-              <option value="CNY">CNY</option>
-              <option value="ILS">ILS</option>
               <option value="ETH">ETH</option>
             </select>
           </label>
