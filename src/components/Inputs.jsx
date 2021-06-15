@@ -19,10 +19,13 @@ class Input extends React.Component {
 
 Input.propTypes = {
   place: PropTypes.string.isRequired,
-  type: PropTypes.string,isRequired
+  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   test: PropTypes.string.isRequired,
   handle: PropTypes.func.isRequired,
+};
+Input.defaultProps = {
+  type: 'text',
 };
 
 export default Input;
