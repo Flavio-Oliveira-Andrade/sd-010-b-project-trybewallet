@@ -27,7 +27,6 @@ export const editaDespesas = (state, edit) => ({ type: EDITA_ITEM, state, edit }
 
 export const updateItem = (state) => ({ type: UPDATE_ITEM, state });
 
-// CÓDIGO PRECISOU SER REFATORADO PARA PASSAR NO TESTE DO REQUISITO BÔNUS - REFATORAÇÃO FEITA COM AJUDA DO HENRIQUE CLEMENTINO!
 export function fetchAPI() {
   return (dispatch) => {
     dispatch(requestAPI());
