@@ -156,8 +156,8 @@ class Wallet extends React.Component {
       exchangeRates: currencies,
     };
 
-    this.addValue();
     walletToAction(expense);
+    this.addValue();
   }
 
   addValue() {
@@ -167,9 +167,7 @@ class Wallet extends React.Component {
       .map(({ value, currency, exchangeRates }) => exchangeRates[currency].ask * value);
 
     const total = listExpenses.reduce((acc, value) => acc + value, 0).toFixed(2);
-    this.setState({
-      total,
-    });
+    this.setState({ total });
     return total;
   }
 
