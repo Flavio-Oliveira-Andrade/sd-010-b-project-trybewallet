@@ -29,7 +29,7 @@ class Select extends React.Component {
   }
 }
 
-Select.propsType = {
+Select.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 

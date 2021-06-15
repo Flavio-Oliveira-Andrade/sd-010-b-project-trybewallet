@@ -4,14 +4,10 @@ class Despesa extends React.Component {
   render() {
     return (
       <div>
-        ola mundo
+        despesa aqui
       </div>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  despesa: state.state,
-});
 
 export default Despesa;
