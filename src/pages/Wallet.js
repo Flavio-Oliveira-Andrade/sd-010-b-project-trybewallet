@@ -8,12 +8,12 @@ class Wallet extends React.Component {
     super(props);
     this.genderForm = this.genderForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.generateCurrency = this.generateCurrency.bind(this);
+    // this.generateCurrency = this.generateCurrency.bind(this);
   }
 
   componentDidMount() {
-    const { fetch } = this.props;
-    fetch();
+    // const { currenciesFetch } = this.props;
+    // currenciesFetch();
   }
 
   handleChange({ target: { name, value } }) {
@@ -22,15 +22,15 @@ class Wallet extends React.Component {
     });
   }
 
-  generateCurrency() {
-    const { currencies } = this.props;
-    const currenciesList = Object.keys(currencies);
-    return (
-      currenciesList.map((curr) => ((curr !== 'USDT')
-        ? <option>{curr}</option>
-        : null))
-    );
-  }
+  // generateCurrency() {
+  //   const { currencies } = this.props;
+  //   const currenciesList = Object.keys(currencies);
+  //   return (
+  //     currenciesList.map((curr) => ((curr !== 'USDT')
+  //       ? <option>{curr}</option>
+  //       : null))
+  //   );
+  // }
 
   genderForm() {
     return (
@@ -52,7 +52,7 @@ class Wallet extends React.Component {
             //   this.handleChange
             // }
           >
-            {this.generateCurrency()}
+            {/* {this.generateCurrency()} */}
           </select>
         </label>
         <label htmlFor="wallet-payment">
@@ -106,7 +106,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetch: () => dispatch(fetchCurrencies()),
+  currenciesFetch: () => dispatch(fetchCurrencies()),
 });
 
 Wallet.propTypes = {

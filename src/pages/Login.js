@@ -15,58 +15,22 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      emailCheck: false,
-      passwordCheck: false,
-      btnLock: true,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.emailValidation = this.emailValidation.bind(this);
-    this.passwordValidation = this.passwordValidation.bind(this);
   }
 
   handleChange({ target: { value, name } }) {
-    const { email, password } = this.state;
     this.setState({
       [name]: value,
-    },
-    () => {
-      if (name === 'email') { this.emailValidation(email); }
-      if (name === 'password') { this.passwordValidation(password); }
     });
   }
 
-  emailValidation(email) {
-    const standartEmail = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/);
-    const validation = standartEmail.test(email);
-    if (validation) {
-      this.setState({
-        emailCheck: validation,
-      }, () => {
-        const { emailCheck, passwordCheck } = this.state;
-        if (emailCheck && passwordCheck) {
-          this.setState({ btnLock: false });
-        }
-      });
-    }
-  }
-
-  passwordValidation(password) {
-    const minimunPassSize = 5;
-    if (password.length === minimunPassSize) {
-      this.setState({
-        passwordCheck: true,
-      }, () => {
-        const { emailCheck, passwordCheck } = this.state;
-        if (passwordCheck && emailCheck) {
-          this.setState({ btnLock: false });
-        }
-      });
-    }
-  }
-
   render() {
-    const { email, password, btnLock } = this.state;
+    const sizePass = 6;
+    const { email, password } = this.state;
     const { login } = this.props;
+    const passwordCheck = password.length >= sizePass;
+    const emailCheck = RegExp(/^[\w+.]+@\w+\.\w{2,}?$/).test(email);
     return (
       <div className="media">
         <form className="box">
@@ -99,7 +63,7 @@ class Login extends React.Component {
           <Link to="/carteira">
             <button
               // className="button is-primary"
-              disabled={ btnLock }
+              disabled={ !passwordCheck || !emailCheck }
               onClick={ () => { login(email); } }
               type="button"
             >
