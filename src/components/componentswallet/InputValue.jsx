@@ -1,27 +1,19 @@
 import React from 'react';
 
 function InputValue({
-  labelDescription = 'Descrição da label',
-  id = 'value-id',
-  inputValue = 0,
-  onInputValueChange = null,
+  value = 0,
+  onChangeValue = null,
 }) {
-  function handleInputValueChange({ currentTarget }) {
-    if (onInputValueChange) {
-      const newValue = currentTarget.value;
-      onInputValueChange(newValue);
-    }
-  }
-
   return (
     <div>
-      <label htmlFor={ id }>
-        {labelDescription}
+      <label htmlFor="value-id">
+        Valor
         <input
-          id={ id }
+          name="value"
+          id="value-id"
           type="number"
-          value={ inputValue }
-          onChange={ handleInputValueChange }
+          value={ value }
+          onChange={ onChangeValue }
         />
       </label>
     </div>

@@ -3,7 +3,8 @@ import requestApi from '../../services/api';
 import { getNewId } from '../../services/idServices';
 
 function InputSelectMoeda({
-  labelDescription = 'Descrição da label',
+  inputMoeda = 'USD',
+  onChangeMoeda = null,
 }) {
   const [moedas, setMoedas] = useState([]);
 
@@ -18,8 +19,13 @@ function InputSelectMoeda({
   return (
     <div>
       <label htmlFor="select-id">
-        {labelDescription}
-        <select name="moeda" id="select-id">
+        Moeda
+        <select
+          name="currency"
+          id="select-id"
+          onChange={ onChangeMoeda }
+          value={ inputMoeda }
+        >
           {moedas.map((item) => <option key={ getNewId() }>{item.code}</option>)}
         </select>
       </label>

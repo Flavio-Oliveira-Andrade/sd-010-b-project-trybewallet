@@ -1,42 +1,38 @@
 import React from 'react';
-import InputDescriptionExpenses from './InputDescriptionExpenses';
+import InputDescription from './InputDescription';
 import InputValue from './InputValue';
 import InputSelectMoeda from './InputSelectMoeda';
 import InputSelectMethod from './InputSelectMethod';
-import InputSelectExpenses from './InputSelectExpenses';
+import InputSelectTag from './InputSelectTag';
 
 function FormsExpenses({
-  onInputValueChange = null,
-  handleInputValueChange = null,
-  onInputDescriptionChange = null,
-  handleInputDescriptionChange = null,
+  description = '',
+  onChangeDescription = null,
+  value = 0,
+  onChangeValue = '',
+  inputMoeda = 'USD',
+  onChangeMoeda = null,
+  inputMethod = 'Dinheiro',
+  onChangeMethod = null,
+  inputTag = 'Alimentação',
+  onChangeTag = null,
 }) {
   return (
     <div>
       <form>
-        <InputValue
-          labelDescription="Valor"
-          inputValue={ onInputValueChange }
-          onInputValueChange={ handleInputValueChange }
+        <InputValue value={ value } onChangeValue={ onChangeValue } />
+        <InputDescription
+          description={ description }
+          onChangeDescription={ onChangeDescription }
         />
 
-        <InputDescriptionExpenses
-          labelDescription="Descrição"
-          inputValue={ onInputDescriptionChange }
-          onInputDescriptionChange={ handleInputDescriptionChange }
-        />
-
-        <InputSelectMoeda
-          labelDescription="Moeda"
-        />
+        <InputSelectMoeda inputMoeda={ inputMoeda } onChangeMoeda={ onChangeMoeda } />
 
         <InputSelectMethod
-          labelDescription="Método de pagamento"
+          inputMethod={ inputMethod }
+          onChangeMethod={ onChangeMethod }
         />
-
-        <InputSelectExpenses
-          labelDescription="Tag"
-        />
+        <InputSelectTag inputTag={ inputTag } onChangeTag={ onChangeTag } />
       </form>
     </div>
   );

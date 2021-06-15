@@ -1,48 +1,51 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import FormsExpenses from '../components/componentswallet/FormsExpenses';
 import Header from '../components/componentswallet/Header';
 import ButtonAddExpenses from '../components/componentswallet/ButtonAddExpenses';
-import { saveExpenses } from '../actions/index';
+import { saveRequest, saveExpenses } from '../actions/index';
+import objExpenses from '../helpers/initialState';
 
 function Wallet() {
-  const emailUser = useSelector((state) => state.user.email);
-  const [totalDespesas] = useState(0);
-  const [cambio] = useState('BRL');
-  const [inputValue, setInputValue] = useState(0);
-  const [inputDescription, setInputDescripion] = useState('');
-
+  const [expenses, setExpenses] = useState(objExpenses);
   const dispatch = useDispatch();
-  function handleInputValueChange(newValue) {
-    setInputValue(newValue);
-  }
-  function handleInputDescriptionChange(newDescription) {
-    setInputDescripion(newDescription);
-  }
 
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setExpenses((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  function setClick() {
+    dispatch(saveExpenses(expenses));
+  }
   const getRequest = useCallback(async () => {
-    dispatch(saveExpenses());
+    dispatch(saveRequest());
   }, [dispatch]);
 
-  useEffect(() => {
+  function hadleChange() {
     getRequest();
-  }, [getRequest]);
+    setClick();
+  }
 
   return (
     <>
-      <Header>
-        <span data-testid="email-field">{`Email: ${emailUser}`}</span>
-        <span data-testid="total-field">{`Total das despesas: ${totalDespesas}`}</span>
-        <span data-testid="header-currency-field">{`Moeda: ${cambio}`}</span>
-      </Header>
-
+      <Header />
       <FormsExpenses
-        onInputValueChange={ inputValue }
-        onInputDescriptionChange={ inputDescription }
-        handleInputValueChange={ handleInputValueChange }
-        handleInputDescriptionChange={ handleInputDescriptionChange }
+        description={ expenses.description }
+        onChangeDescription={ handleOnChange }
+        value={ expenses.value }
+        onChangeValue={ handleOnChange }
+        inputMoeda={ expenses.currency }
+        onChangeMoeda={ handleOnChange }
+        inputMethod={ expenses.method }
+        onChangeMethod={ handleOnChange }
+        inputTag={ expenses.tag }
+        onChangeTag={ handleOnChange }
       />
-      <ButtonAddExpenses handleOnClick={ getRequest } />
+      <ButtonAddExpenses handleOnClick={ hadleChange } />
     </>
   );
 }

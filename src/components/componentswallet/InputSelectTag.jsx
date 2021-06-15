@@ -1,13 +1,19 @@
 import React from 'react';
 
 function InputSelectTag({
-  labelDescription = 'Descrição da label',
+  inputTag = 'Alimentação',
+  onChangeTag = null,
 }) {
   return (
     <div>
-      <label htmlFor="select-id">
-        {labelDescription}
-        <select name="moeda" id="select-id">
+      <label htmlFor="select-id-tag">
+        Tag
+        <select
+          name="tag"
+          id="select-id-tag"
+          value={ inputTag }
+          onChange={ onChangeTag }
+        >
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>

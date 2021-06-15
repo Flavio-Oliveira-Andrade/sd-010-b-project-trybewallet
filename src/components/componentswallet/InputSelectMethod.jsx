@@ -1,13 +1,19 @@
 import React from 'react';
 
 function InputSelectMethod({
-  labelDescription = 'Descrição da label',
+  inputMethod = 'Dinheiro',
+  onChangeMethod = null,
 }) {
   return (
     <div>
       <label htmlFor="select-id">
-        {labelDescription}
-        <select name="moeda" id="select-id">
+        Método de pagamento
+        <select
+          name="method"
+          id="select-id"
+          value={ inputMethod }
+          onChange={ onChangeMethod }
+        >
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
           <option>Cartão de débito</option>
