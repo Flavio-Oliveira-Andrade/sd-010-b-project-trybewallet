@@ -14,38 +14,42 @@ class Wallet extends React.Component {
         </header>
         <form>
           <label htmlFor="valor">
-            Valor
-            <input type="text" name="valor" id="valor" />
+            Valor:
+            {' '}
+            <input type="text" id="valor" />
           </label>
-          <label htmlFor="Descrição">
-            Descrição
-            <input type="text" name="Descrição" id="Descrição" />
+          <label htmlFor="descricao">
+            Descrição:
+            {' '}
+            <input type="text" id="descricao" />
           </label>
-          <label htmlFor="Moeda.">
-            Moeda
-            <select name="Moedas" id="Moedas" data-testid="currency-input">
-              <option value="USD">{}</option>
+          <label htmlFor="moeda">
+            Moeda:
+            {' '}
+            <select id="moeda">
+              <option value="moeda">Moeda</option>
             </select>
           </label>
-          <label htmlFor="Método de pagamento">
-            Método de pagamento
-            <select name="pagamento" id="Método" data-testid="method-input">
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
+          <label htmlFor="pagamento">
+            Método de pagamento:
+            {' '}
+            <select id="pagamento">
+              <option value="dinheiro">Dinheiro</option>
+              <option value="credito">Cartão de crédito</option>
+              <option value="debito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
-            Tag
-            <select name="tag" id="tag" data-testid="tag-input">
-              <option value="Alimentação">Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Saúde">Saúde</option>
+            Tag:
+            {' '}
+            <select id="tag">
+              <option value="alimentacao">Alimentação</option>
+              <option value="lazer">Lazer</option>
+              <option value="trabalho">Trabalho</option>
+              <option value="transporte">Transporte</option>
+              <option value="saúde">Saúde</option>
             </select>
           </label>
-
         </form>
       </div>);
   }
