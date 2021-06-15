@@ -6,7 +6,8 @@ import reducer from '../reducers';
 const store = createStore(
   reducer,
   composeWithDevTools(
-    applyMiddleware(thunk),
+    applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__
+    && Window.__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
 
