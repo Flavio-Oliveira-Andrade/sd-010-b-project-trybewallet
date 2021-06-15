@@ -27,6 +27,7 @@ class Login extends React.Component {
     // se password && teste do regex retorna true
     // o botao de submit é habilitado
     const validEmailandPassword = (password.length >= SixNumber)
+    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
     && RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
     return (
       <div>

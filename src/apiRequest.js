@@ -5,5 +5,4 @@ const fetchCoinsApi = async () => {
   return responseJson;
 };
 // ja tenho o objeto!!
-const responseOfAPiWallet = fetchCoinsApi();
-export default responseOfAPiWallet;
+export default fetchCoinsApi;
