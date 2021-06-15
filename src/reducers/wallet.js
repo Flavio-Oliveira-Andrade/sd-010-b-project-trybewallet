@@ -1,10 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { COIN_CHANGE, EXPENSES_CHANGE,ACTUAL_VALUE } from '../actions/index';
+import { COIN_CHANGE, EXPENSES_CHANGE, ACTUAL_VALUE } from '../actions/index';
 
 const initialState = {
   currencies: [],
   expenses: [],
-  actualValue:{},
+  actualValue: {},
 };
 
 function walletReducer(state = initialState, action) {
@@ -14,17 +14,17 @@ function walletReducer(state = initialState, action) {
       ...state,
       currencies: action.payload,
     };
+    // { ...state, expenses: [...state.expenses, payload] };
   case EXPENSES_CHANGE:
     return {
       ...state,
-      expenses: action.payload,
+      expenses: [...state.expenses, action.payload],
     };
-    case ACTUAL_VALUE:
-      return {
-        ...state,
-        actualValue: action.payload,
-      };
-  
+  case ACTUAL_VALUE:
+    return {
+      ...state,
+      actualValue: action.payload,
+    };
 
   default:
     return state;

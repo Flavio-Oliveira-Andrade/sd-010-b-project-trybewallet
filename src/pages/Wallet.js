@@ -9,8 +9,6 @@ class Wallet extends React.Component {
     // this.totalStoreExpenses = this.totalStoreExpenses.bind(this);
   }
 
-
-
   // totalStoreExpenses() {
   //   const { valueOfExpenses } = this.props;
   //   // if (valueOfExpenses.length === 0) {
@@ -22,7 +20,7 @@ class Wallet extends React.Component {
   // }
 
   render() {
-    const { email,} = this.props;
+    const { email } = this.props;
     return (
       <>
         <header>
@@ -42,7 +40,6 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   valueOfExpenses: state.wallet.expenses,
   coin: state.wallet.currencies,
-  exchange:state.wallet.actualValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
