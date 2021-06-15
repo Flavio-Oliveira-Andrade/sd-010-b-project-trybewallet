@@ -22,10 +22,12 @@ Input.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   test: PropTypes.string.isRequired,
-  handle: PropTypes.func.isRequired,
+  handle: PropTypes.func,
 };
+// especificação da props do text
 Input.defaultProps = {
   type: 'text',
+  handle: undefined,
 };
 
 export default Input;

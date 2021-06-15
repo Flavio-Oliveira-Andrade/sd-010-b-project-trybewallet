@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
 import Wallet from './pages/Wallet';
 import Login from './pages/Login';
 
-class App {
+class App extends Component {
   render() {
     return (
       <Switch>
