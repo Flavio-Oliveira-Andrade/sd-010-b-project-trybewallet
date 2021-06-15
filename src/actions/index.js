@@ -1,18 +1,17 @@
 // Coloque aqui suas actions
-import { apiUrl } from '../services/api';
+import { getCurrencies } from '../services/api';
 
 export const loginAction = (value) => ({
   type: 'LOGIN',
   value,
 });
 
-export const requestCurrenciesOk = (value) => ({
+export const requestCurrenciesOk = (currencies) => ({
   type: 'ADD_CURRENCY',
-  value,
+  payload: { currencies },
 });
 
 export const fetchCurrencies = () => (dispatch) => {
-  fetch(apiUrl)
-    .then((response) => response.json())
+  getCurrencies()
     .then((res) => dispatch(requestCurrenciesOk(res)));
 };

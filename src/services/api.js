@@ -1,5 +1,12 @@
 export const apiUrl = 'https://economia.awesomeapi.com.br/json/all';
 
+export const getCurrencies = () => (
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((res) => Object.keys(res))
+    .then((res) => res.filter((currency) => currency !== 'USDT'))
+);
+
 export const getExchange = () => (
   fetch(apiUrl).then((response) => (
     response.json().then((json) => (

@@ -12,8 +12,8 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    // const { currenciesFetch } = this.props;
-    // currenciesFetch();
+    const { currenciesFetch } = this.props;
+    currenciesFetch();
   }
 
   handleChange({ target: { name, value } }) {
@@ -24,15 +24,12 @@ class Wallet extends React.Component {
 
   // generateCurrency() {
   //   const { currencies } = this.props;
-  //   const currenciesList = Object.keys(currencies);
   //   return (
-  //     currenciesList.map((curr) => ((curr !== 'USDT')
-  //       ? <option>{curr}</option>
-  //       : null))
-  //   );
+  //     currencies.map((curr) => <option>{ curr }</option>));
   // }
 
   genderForm() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="wallet-value">
@@ -48,11 +45,11 @@ class Wallet extends React.Component {
           <select
             name="exchange"
             id="wallet-exchange"
-            // onChange={
-            //   this.handleChange
-            // }
+            onChange={
+              this.handleChange
+            }
           >
-            {/* {this.generateCurrency()} */}
+            {currencies.map((curr) => <option key={ curr }>{ curr }</option>)}
           </select>
         </label>
         <label htmlFor="wallet-payment">
