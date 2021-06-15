@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class WalletForm extends Component {
   render() {
-    const { currencies } = this.props;
+    const { currencies, expense } = this.props;
     return (
       <form>
         <label htmlFor="expense-value">
@@ -55,6 +55,10 @@ class WalletForm extends Component {
   }
 }
 
+WalletForm.defaultProps = {
+  expense: {},
+};
+
 const currencieFormat = {
   code: PropTypes.string,
   codein: PropTypes.string,
@@ -88,4 +92,18 @@ WalletForm.propTypes = {
     XRP: PropTypes.shape(currencieFormat),
     DOGE: PropTypes.shape(currencieFormat),
   }).isRequired,
+  expense: PropTypes.shape({
+    id: PropTypes.number,
+    description: PropTypes.string,
+    tag: PropTypes.string,
+    method: PropTypes.string,
+    currency: PropTypes.string,
+    exchangeRates: PropTypes.func,
+  }),
 };
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, null)(WalletForm);
