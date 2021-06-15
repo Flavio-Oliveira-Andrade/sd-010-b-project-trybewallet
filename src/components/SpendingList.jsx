@@ -95,6 +95,5 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   email: state.user.email,
 });
-
-// export default SpendingList;
+// A colega Camila tirou uma dúvida no slack sobre o exercício 8, que eu tirei como base para realizar o map.
 export default connect(mapStateToProps, mapDispatchToProps)(SpendingList);
