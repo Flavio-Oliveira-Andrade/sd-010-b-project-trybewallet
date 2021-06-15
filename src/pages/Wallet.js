@@ -10,7 +10,7 @@ class Wallet extends React.Component {
         <header>
           <span data-testid="email-field">{ emailUser }</span>
           <span data-testid="total-field">0</span>
-          <span data-testid="header-currency-field">"BRL"</span>
+          <span data-testid="header-currency-field">BRL</span>
         </header>
         <form>
           <label htmlFor="valor">
