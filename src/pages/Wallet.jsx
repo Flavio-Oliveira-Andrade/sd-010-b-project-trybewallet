@@ -145,12 +145,43 @@ class Wallet extends React.Component {
   }
 }
 
+const currencieFormat = {
+  code: PropTypes.string,
+  codein: PropTypes.string,
+  name: PropTypes.string,
+  high: PropTypes.string,
+  low: PropTypes.string,
+  varBid: PropTypes.string,
+  pctChange: PropTypes.string,
+  bid: PropTypes.string,
+  ask: PropTypes.string,
+  timestamp: PropTypes.string,
+  create_date: PropTypes.string,
+};
+
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   userExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchNewExpense: PropTypes.func.isRequired,
   dispatchCurrencies: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies: PropTypes.shape({
+    USD: PropTypes.shape(currencieFormat),
+    USDT: PropTypes.shape(currencieFormat),
+    CAD: PropTypes.shape(currencieFormat),
+    GBP: PropTypes.shape(currencieFormat),
+    ARS: PropTypes.shape(currencieFormat),
+    BTC: PropTypes.shape(currencieFormat),
+    LTC: PropTypes.shape(currencieFormat),
+    EUR: PropTypes.shape(currencieFormat),
+    JPY: PropTypes.shape(currencieFormat),
+    CHF: PropTypes.shape(currencieFormat),
+    AUD: PropTypes.shape(currencieFormat),
+    CNY: PropTypes.shape(currencieFormat),
+    ILS: PropTypes.shape(currencieFormat),
+    ETH: PropTypes.shape(currencieFormat),
+    XRP: PropTypes.shape(currencieFormat),
+    DOGE: PropTypes.shape(currencieFormat),
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
