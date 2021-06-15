@@ -62,7 +62,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ this.checkInput() }
-          onClick={ () => login({ email, pasword }) }
+          onClick={ () => login({ email, password }) }
         >
           Entrar
         </button>
