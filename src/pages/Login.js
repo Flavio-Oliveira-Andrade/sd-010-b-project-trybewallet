@@ -7,7 +7,7 @@ class Login extends React.Component {
   render() {
     return (
       <form className="login">
-        <img src={ cambio } alt="wallet" width="185px" />
+        <img src={ cambio } alt="wallet" width="200px" />
         <Inputs place="Email" name="email" value="" test="email-input" />
         <Inputs place="Senha" name="password" value="" test="password-input" />
         <button type="button">
