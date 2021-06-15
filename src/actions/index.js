@@ -5,10 +5,16 @@ export const saveEmailLogin = (email) => ({
   email,
 });
 
-export const saveExpenses = () => async (dispatch) => {
+export const saveExpenses = (expense) => ({
+  type: 'SAVE_EXPENSES',
+  expense,
+});
+
+export const saveRequest = () => async (dispatch) => {
   const response = await requestApi();
+  console.log(response);
   dispatch({
-    type: 'SAVE_EXPENSES',
-    payload: response,
+    type: 'SAVE_REQUEST',
+    response,
   });
 };
