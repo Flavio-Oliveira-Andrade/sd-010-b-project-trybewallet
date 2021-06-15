@@ -92,7 +92,7 @@ class WalletExpenseIncluder extends React.Component {
     return (
       <form>
         <label htmlFor="value">
-          {'Valor: '}
+          Valor
           <input
             onChange={ this.handleChange }
             name="value"
@@ -102,23 +102,23 @@ class WalletExpenseIncluder extends React.Component {
           />
         </label>
         <label htmlFor="currency">
-          {'Moeda: '}
+          Moeda
           {this.renderCurrencies()}
         </label>
         <label htmlFor="method">
-          {'Forma de Pagamento: '}
+          Método de pagamento
           <select name="method" data-testid="method-input" onChange={ this.handleChange }>
             {methodList.map((e) => <option key={ e } value={ e }>{e}</option>)}
           </select>
         </label>
         <label htmlFor="tag">
-          {'Tag: '}
+          Tag
           <select name="tag" data-testid="tag-input" onChange={ this.handleChange }>
             {tagList.map((tag) => <option key={ tag } value={ tag }>{tag}</option>)}
           </select>
         </label>
         <label htmlFor="description">
-          {'Descrição: '}
+          Descrição
           <input
             onChange={ this.handleChange }
             name="description"
