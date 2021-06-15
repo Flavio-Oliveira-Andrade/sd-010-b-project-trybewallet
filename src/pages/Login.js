@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import saveEmail from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -24,6 +27,7 @@ class Login extends React.Component {
   }
 
   validateEmail() {
+    // Source: https://stackoverflow.com/a/9204568/15377250
     const { password, email } = this.state;
     const maxPassword = 6;
     const re = /\S+@\S+\.\S+/;
@@ -40,6 +44,7 @@ class Login extends React.Component {
 
   render() {
     const { email, disabled, password } = this.state;
+    const { save } = this.props;
     return (
       <form>
         <label htmlFor="email">
@@ -53,6 +58,7 @@ class Login extends React.Component {
         </label>
         <label htmlFor="password">
           <input
+            type="password"
             data-testid="password-input"
             name="password"
             placeholder="Senha"
@@ -63,7 +69,7 @@ class Login extends React.Component {
         <Link to="/carteira">
           <button
             type="button"
-            onClick={ (e) => this.handleSubmit(e) }
+            onClick={ () => save(email) }
             disabled={ disabled }
           >
             Entrar
@@ -74,4 +80,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  save: (item) => dispatch(saveEmail(item)),
+});
+
+Login.propTypes = {
+  save: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
