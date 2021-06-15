@@ -14,6 +14,7 @@ class Wallet extends React.Component {
       currency: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      total: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +24,7 @@ class Wallet extends React.Component {
     this.createPaymentMethod = this.createPaymentMethod.bind(this);
     this.createCategory = this.createCategory.bind(this);
     this.createExpenses = this.createExpenses.bind(this);
+    this.addValue = this.addValue.bind(this);
   }
 
   componentDidMount() {
@@ -150,19 +152,32 @@ class Wallet extends React.Component {
       method,
       tag,
     };
-
+    this.addValue();
     walletToAction(expense);
+  }
+
+  addValue() {
+    const { expenses } = this.props;
+
+    const listExpenses = expenses
+      .map(({ value, currency, exchangeRates }) => exchangeRates[currency].ask * value);
+
+    const total = listExpenses.reduce((acc, value) => acc + value, 0).toFixed(2);
+    this.setState({
+      total,
+    });
+    return total;
   }
 
   render() {
     const { email } = this.props;
-    const { value, defaultCurrency } = this.state;
+    const { value, expenses, defaultCurrency, total } = this.state;
 
     return (
       <>
         <header>
-          <h2 data-testid="email-field">{ email }</h2>
-          <h2 data-testid="total-field">{ value }</h2>
+          <h2 data-testid="email-field">{ !email ? 'faça seu login' : email }</h2>
+          <h2 data-testid="total-field">{ expenses ? total : value }</h2>
           <h2 data-testid="header-currency-field">{ defaultCurrency }</h2>
         </header>
         <form>
