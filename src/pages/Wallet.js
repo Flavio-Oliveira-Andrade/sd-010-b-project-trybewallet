@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Despesa from './Despesa';
 import FormularioDeDespesa from './FormularioDeDespesa';
 
 class Wallet extends Component {
@@ -6,6 +7,7 @@ class Wallet extends Component {
     return (
       <div>
         <FormularioDeDespesa />
+        <Despesa />
       </div>
     );
   }

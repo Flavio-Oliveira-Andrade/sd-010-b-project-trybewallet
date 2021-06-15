@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
+import Select from './Select';
+import { wallet } from '../actions';
 
 class FormularioDeDespesa extends Component {
   constructor() {
@@ -14,6 +16,10 @@ class FormularioDeDespesa extends Component {
       valor: 0,
       moeda: 'BRL',
       moedas: [],
+      describe: '',
+      typeCoin: 'USD',
+      typePagamento: 'Dinheiro',
+      typeDespesa: 'Alimentação',
     };
   }
 
@@ -37,11 +43,12 @@ class FormularioDeDespesa extends Component {
   }
 
   render() {
-    const { email } = this.props;
-    const { valor, moeda, moedas } = this.state;
+    const { email, buttoSaveState } = this.props;
+    const { valor, moeda, moedas, describe } = this.state;
+    const { handleChange } = this;
 
     return (
-      <form>
+      <form onSubmit>
         <header>
           <p data-testid="email-field">{ email }</p>
         </header>
@@ -52,11 +59,10 @@ class FormularioDeDespesa extends Component {
         <div>
           <p data-testid="header-currency-field">{ moeda }</p>
         </div>
-        <Input id="valor" type="number" name="number" describe="Valor" />
-        <Input id="describe" type="text" name="describe" describe="Descrição" />
+        <Input valor={ valor } describe={ describe } func={ handleChange } />
         <label htmlFor="moeda">
           Moeda
-          <select id="moeda">
+          <select id="moeda" name="typeCoin" onClick={ this.handleChange }>
             {moedas.map((moedaName) => (
               <option key={ moedaName } value={ moedaName }>
                 {moedaName}
@@ -64,24 +70,13 @@ class FormularioDeDespesa extends Component {
             ))}
           </select>
         </label>
-        <label htmlFor="pagamento">
-          <p>Método de pagamento</p>
-          <select id="pagamento">
-            <option value="Dinheiro">Dinheiro</option>
-            <option name="credito" value="credito">Cartão de crédito</option>
-            <option name="debito" value="debito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tipo">
-          <p>Tag</p>
-          <select id="tipo">
-            <option name="alimentacao" value="alimentacao"> Alimentação </option>
-            <option name="lazer" value="lazer">Lazer</option>
-            <option name="trabalho" value="trabalho">Trabalho</option>
-            <option name="transporte" value="transporte">Transporte</option>
-            <option name="saude" value="saude">Saúde</option>
-          </select>
-        </label>
+        <Select handleChange={ this.handleChange } />
+        <button
+          type="button"
+          onClick={ () => buttoSaveState(this.state) }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -91,8 +86,12 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  buttoSaveState: (state) => dispatch(wallet(state)) });
+
 FormularioDeDespesa.propTypes = {
   email: PropTypes.string.isRequired,
+  buttoSaveState: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(FormularioDeDespesa);
+export default connect(mapStateToProps, mapDispatchToProps)(FormularioDeDespesa);
