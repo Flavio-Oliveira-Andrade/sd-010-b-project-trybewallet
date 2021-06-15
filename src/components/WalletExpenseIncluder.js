@@ -74,6 +74,7 @@ class WalletExpenseIncluder extends React.Component {
     currencies = Object.keys(currencies);
     return (
       <select
+        id="currency"
         name="currency"
         data-testid="currency-input"
         onChange={ this.handleChange }
@@ -95,6 +96,7 @@ class WalletExpenseIncluder extends React.Component {
           Valor
           <input
             onChange={ this.handleChange }
+            id="value"
             name="value"
             type="number"
             step="0.1"
@@ -107,13 +109,13 @@ class WalletExpenseIncluder extends React.Component {
         </label>
         <label htmlFor="method">
           Método de pagamento
-          <select name="method" data-testid="method-input" onChange={ this.handleChange }>
+          <select id="method" data-testid="method-input" onChange={ this.handleChange }>
             {methodList.map((e) => <option key={ e } value={ e }>{e}</option>)}
           </select>
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" data-testid="tag-input" onChange={ this.handleChange }>
+          <select id="tag" data-testid="tag-input" onChange={ this.handleChange }>
             {tagList.map((tag) => <option key={ tag } value={ tag }>{tag}</option>)}
           </select>
         </label>
@@ -121,6 +123,7 @@ class WalletExpenseIncluder extends React.Component {
           Descrição
           <input
             onChange={ this.handleChange }
+            id="description"
             name="description"
             type="text"
             maxLength="25"
