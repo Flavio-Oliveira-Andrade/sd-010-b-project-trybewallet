@@ -139,19 +139,22 @@ class Wallet extends React.Component {
     );
   }
 
-  createExpenses() {
+  async createExpenses() {
     const { value, description, currency, method, tag } = this.state;
-    const { expenses, walletToAction } = this.props;
-    console.log(expenses);
+    const { expenses, walletToAction, currencies, requestApi } = this.props;
+
+    await requestApi();
 
     const expense = {
-      id: '0',
+      id: expenses.length,
       value,
       description,
       currency,
       method,
       tag,
+      exchangeRates: currencies,
     };
+
     this.addValue();
     walletToAction(expense);
   }
