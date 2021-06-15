@@ -1,6 +1,6 @@
 .main-box {
   align-items: center;
-  background: #6c7a89;
+  background: gray;
   display: flex;
   flex-direction: column;
   height: 100vh;

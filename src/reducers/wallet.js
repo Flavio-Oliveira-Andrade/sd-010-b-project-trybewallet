@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  currencies: [], expenses: [], edit: { editing: false, editData: '' } };
+  currencies: [], expenses: [], edit: { editing: false, editData: {} } };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {

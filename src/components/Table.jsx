@@ -25,7 +25,7 @@ class Table extends Component {
   }
 
   tableBody(expenses, editing, propDelExpense, propToEdit) {
-    if (expenses) {
+    if (expenses.length > 0) {
       return (
         <tbody>
           { expenses

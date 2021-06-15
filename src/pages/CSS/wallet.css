@@ -1,52 +1,60 @@
 html {
-  background-color: #6c7a89;
+  background-color: grey;
 }
 
 .app-header {
   align-items: center;
-  background-color: #6c7a89;
+  background-color: gray;
   color: whitesmoke;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   font-size: 30px;
   justify-content: space-around;
   min-height: 50px;
+  padding: 10px 0;
 }
 
 .form-table {
   align-items: center;
-  background-color: #282c34;
+  background-color: black;
   color: #20db99;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  padding: 15px 5px;
+  padding: 22px 5px;
 }
 
 .edit-table {
   align-items: center;
-  background-color: #20db99;
-  color: #282c34;
+  background-color: orangered;
+  color: black;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  padding: 15px 5px;
+  padding: 22px 5px;
 }
 
 label {
   text-align: center;
 }
 
-input {
+button { 
+  border-radius: 5px;
+}
+
+.form-table input , select {
+  margin-left: 5px;
+  background-color: whitesmoke;
+  border-radius: 5px;
   width: 120px;
 }
 
-.form-table input , select , button {
+.edit-table input , select {
+  margin-left: 5px;
   background-color: whitesmoke;
   border-radius: 5px;
-}
-
-.edit-table input , select , button {
-  background-color: whitesmoke;
-  border-radius: 5px;
+  width: 120px;
 }
 
 .expenses-table {

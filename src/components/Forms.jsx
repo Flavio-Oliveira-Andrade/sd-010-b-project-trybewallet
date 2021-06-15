@@ -17,6 +17,7 @@ class Forms extends Component {
   constructor(props) {
     super(props);
     this.resetState = this.resetState.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.spendingValue = this.spendingValue.bind(this);
     this.spendingDescription = this.spendingDescription.bind(this);
     this.spendingCurrency = this.spendingCurrency.bind(this);
@@ -42,6 +43,10 @@ class Forms extends Component {
     this.setState({ expense });
   }
 
+  handleChange({ target: { value, id } }) {
+    this.setState((prev) => ({ expense: { ...prev.expense, [id]: value } }));
+  }
+
   spendingValue(value) {
     return (
       <label htmlFor="value" data-testid="value-input">
@@ -52,10 +57,7 @@ class Forms extends Component {
           type="number"
           step="1.00"
           min="0"
-          onChange={ ({ target }) => {
-            this.setState((prev) => ({
-              expense: { ...prev.expense, value: target.value } }));
-          } }
+          onChange={ this.handleChange }
         />
       </label>
     );
@@ -65,14 +67,11 @@ class Forms extends Component {
     return (
       <label htmlFor="description" data-testid="description-input">
         Descrição
-        <input
+        <textarea
           id="description"
           type="text"
           value={ description }
-          onChange={ ({ target: { value } }) => {
-            this.setState((prev) => ({
-              expense: { ...prev.expense, description: value } }));
-          } }
+          onChange={ this.handleChange }
         />
       </label>
     );
@@ -85,10 +84,7 @@ class Forms extends Component {
         <select
           id="currency"
           value={ currency }
-          onChange={ ({ target: { value } }) => {
-            this.setState((prev) => ({
-              expense: { ...prev.expense, currency: value } }));
-          } }
+          onChange={ this.handleChange }
         >
           {currencies.map((curr) => (
             <option
@@ -111,10 +107,7 @@ class Forms extends Component {
         <select
           id="method"
           value={ method }
-          onChange={ ({ target: { value } }) => {
-            this.setState((prev) => ({
-              expense: { ...prev.expense, method: value } }));
-          } }
+          onChange={ this.handleChange }
         >
           <option defaultValue hidden>Escolha</option>
           <option value="Dinheiro">Dinheiro</option>
@@ -132,10 +125,7 @@ class Forms extends Component {
         <select
           id="tag"
           value={ tag }
-          onChange={ ({ target: { value } }) => {
-            this.setState((prev) => ({
-              expense: { ...prev.expense, tag: value } }));
-          } }
+          onChange={ this.handleChange }
         >
           <option defaultValue hidden>Escolha</option>
           <option value="Alimentação">Alimentação</option>
@@ -153,8 +143,8 @@ class Forms extends Component {
     const { propExpenseData, propEditExpense, propToEdit } = this.props;
     if (editing) {
       propEditExpense(expense);
-      propToEdit(false, {});
       this.resetState(0);
+      propToEdit(false, {});
     } else {
       propExpenseData(expense);
       this.resetState(1);
