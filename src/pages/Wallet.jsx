@@ -2,19 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchCurrency from '../services/fetchCurrency';
-import { actionFetchCurrencies, newExpense } from '../actions';
+import { actionFetchCurrencies, newExpense, receiveCurrencies } from '../actions';
 import WalletTable from '../Components/WalletTable';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.calculateTotal = this.calculateTotal.bind(this);
-    this.setCurrencyOnState = this.setCurrencyOnState.bind(this);
+    // this.setCurrencyOnState = this.setCurrencyOnGlobalState.bind(this);
     this.returnCurrencies = this.returnCurrencies.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.addCost = this.addCost.bind(this);
     this.state = {
-      currencies: {},
+      // currencies: {},
       value: '',
       description: '',
       currency: 'USD',
@@ -25,11 +25,12 @@ class Wallet extends React.Component {
 
   async componentDidMount() {
     const currencies = await fetchCurrency();
-    this.setCurrencyOnState(currencies);
+    this.setCurrencyOnGlobalState(currencies);
   }
 
-  setCurrencyOnState(currencies) {
-    this.setState({ currencies });
+  setCurrencyOnGlobalState(currencies) {
+    const { dispatchCurrencies } = this.props;
+    dispatchCurrencies(currencies);
   }
 
   handleChange({ target }) {
@@ -37,7 +38,7 @@ class Wallet extends React.Component {
     this.setState({ [name]: value });
   }
 
-  returnCurrencies(currencies) {
+  returnCurrencies(currencies = {}) {
     if (Object.keys(currencies) === 0) {
       return (<option value="loading">Carregando...</option>);
     }
@@ -77,7 +78,7 @@ class Wallet extends React.Component {
   }
 
   returnForm() {
-    const { currencies } = this.state;
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="expense-value">
@@ -148,11 +149,14 @@ Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   userExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchNewExpense: PropTypes.func.isRequired,
+  dispatchCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchNewExpense: (state) => dispatch(newExpense(state)),
   dispatchFetchCurrencies: () => dispatch(actionFetchCurrencies()),
+  dispatchCurrencies: (state) => dispatch(receiveCurrencies(state)),
 });
 
 const mapStateToProps = (state) => ({

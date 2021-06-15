@@ -55,7 +55,7 @@ class WalletTable extends Component {
                 </td>
                 <td>Real</td>
                 <td>
-                  <button type="button">Editar</button>
+                  <button type="button" data-testid="edit-btn">Editar</button>
                   <button
                     data-testid="delete-btn"
                     id={ expense.id }
