@@ -157,7 +157,6 @@ class FormsWallet extends Component {
 
   render() {
     const { value, description, method, tag, showBtnEdit } = this.state;
-    // const { value, showBtnEdit } = this.state;
     const { currencies } = this.props;
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -172,6 +171,7 @@ class FormsWallet extends Component {
         </div>
         <button
           type="button"
+          data-testid="edit-btn"
           className={ (!showBtnEdit) ? 'addExpense' : 'editExpense' }
           onClick={ this.handleClickAdd }
         >
