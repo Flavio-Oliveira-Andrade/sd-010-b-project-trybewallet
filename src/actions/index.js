@@ -1,9 +1,9 @@
 export const NEW_USER = 'NEW_USER';
 export const WALLET_INFO = 'WALLET_INFO';
 
-const userAction = (payload) => ({
+const userAction = (email) => ({
   type: 'NEW_USER',
-  payload,
+  payload: { email },
 });
 
 const walletAction = (expenses, exchange) => ({

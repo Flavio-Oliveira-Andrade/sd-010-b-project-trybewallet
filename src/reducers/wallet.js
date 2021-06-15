@@ -1,10 +1,8 @@
 import { WALLET_INFO } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 // { EXPENSES: [], }?

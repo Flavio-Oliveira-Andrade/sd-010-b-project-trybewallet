@@ -11,18 +11,49 @@ class Form extends React.Component {
 	this.state = {
 		valor: '',
 		description: '',
-		moeda: '',
-		metodo: '',
+		currency: '',
+		method: '',
 		despesas: '',
 	};
 };
 
 render() {
+
 	return (
 		<form>
-			<label>
+			<label htmlFor="value">
+				Valor
 				<input
+					type="number"
+					id="value"
+					onChange={ this.handleChange}
 				/>
+			</label>
+			<label htmlFor="description">
+				Descrição
+				<input
+					type="text"
+					id="description"
+					onChange={ this.handleChange}
+				/>
+			</label>
+			<label htmlFor="currency">
+				Moeda
+				<select
+					id="currency"
+					onChange={ this.handleChange}
+				>
+				</select>
+			</label>
+
+			<label htmlFor="method">
+				Método de Pagamento
+				<select
+					type=""
+					id=""
+					onChange={ this.handleChange}
+				>
+				</select>
 			</label>
 		</form>
 	)
