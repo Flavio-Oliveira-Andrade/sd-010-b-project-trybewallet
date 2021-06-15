@@ -36,9 +36,9 @@ class Login extends React.Component {
     const { password, email } = this.state;
     return (
       <form className="login">
-        <img src={cambio} alt="wallet" width="200px" />
-        <Inputs place="Email" name="email" handle={this.handleChange} value={email} test="email-input" />
-        <Inputs place="Senha" type="password" name="password" handle={this.handleChange} value={password} test="password-input" />
+        <img src={ cambio } alt="wallet" width="200px" />
+        <Inputs place="Email" name="email" handle={ this.handleChange } value={ email } test="email-input" />
+        <Inputs place="Senha" type="password" name="password" handle={ this.handleChange } value={ password } test="password-input" />
         <button
           type="button"
           disabled={ this.checkInput() }
