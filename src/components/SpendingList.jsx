@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getResult } from '../actions';
 
-export class SpendingList extends Component {
+class SpendingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +18,6 @@ export class SpendingList extends Component {
 
   componentDidMount() {
     const { secondDispatch } = this.props;
-    console.log(Object.keys(this.props));
     secondDispatch();
   }
 
@@ -40,7 +39,6 @@ export class SpendingList extends Component {
           <label htmlFor="value">
             <input id="value" type="text" onChange={ () => this.handleChange() } />
             Valor
-            {currencies}
           </label>
           <label htmlFor="description">
             <input id="description" type="text" onChange={ () => this.handleChange() } />
@@ -49,12 +47,11 @@ export class SpendingList extends Component {
           <label htmlFor="currency">
             Moeda
             <select id="currency">
-              {/* {currencies.map((currency) => (
-                <option key={ currency.code } name={ currency.name }>
-                  {currency.code}
+              {Object.keys(currencies).map((currency) => (
+                <option key={ currency }>
+                  {currency}
                 </option>
-              )) } */}
-              <option value="Moeda">Moeda</option>
+              )) }
             </select>
           </label>
           <label htmlFor="optionPayment">
@@ -85,8 +82,8 @@ export class SpendingList extends Component {
 }
 
 SpendingList.propTypes = ({
-  currencies: PropTypes.objectOf().isRequired,
-  secondDispatch: PropTypes.string.isRequired,
+  currencies: PropTypes.objectOf.isRequired,
+  secondDispatch: PropTypes.func.isRequired,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import { SpendingList } from '../components/SpendingList';
+import SpendingList from '../components/SpendingList';
 
 class Wallet extends React.Component {
   render() {

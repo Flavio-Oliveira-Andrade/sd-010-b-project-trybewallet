@@ -17,8 +17,8 @@ export const walletAction = (currencies) => ({
 });
 
 export const getResult = () => async (dispatch) => {
-  const results = await fetchURL();
-  delete results.USDT;
+  const currencies = await fetchURL();
+  delete currencies.USDT;
   // a propriedade delete eu aprendi com meu colega Carlos.
-  return dispatch(walletAction(results));
+  return dispatch(walletAction(currencies));
 };
