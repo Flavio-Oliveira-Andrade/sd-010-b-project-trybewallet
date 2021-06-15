@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Inputs from '../components/Inputs';
-
+import loginAction from '../actions/userAction';
 import cambio from '../img/cambio.jpg';
 
 class Login extends React.Component {
@@ -35,9 +37,11 @@ class Login extends React.Component {
 
   render() {
     const { password, email } = this.state;
+    const { login } = this.props;
     return (
       <form className="login">
         <img src={ cambio } alt="wallet" width="200px" />
+        <br />
         <Inputs
           place="Email"
           name="email"
@@ -45,6 +49,7 @@ class Login extends React.Component {
           value={ email }
           test="email-input"
         />
+        <br />
         <Inputs
           place="Senha"
           type="password"
@@ -53,9 +58,11 @@ class Login extends React.Component {
           value={ password }
           test="password-input"
         />
+        <br />
         <button
           type="button"
           disabled={ this.checkInput() }
+          onClick={ () => login({ email, pasword }) }
         >
           Entrar
         </button>
@@ -63,5 +70,13 @@ class Login extends React.Component {
     );
   }
 }
+// usado para conectar as actions ao componentes do reducers
+const mapDisPatchToProps = (dispatch) => ({
+  login: (e) => dispatch(loginAction(e)),
+});
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDisPatchToProps)(Login);
