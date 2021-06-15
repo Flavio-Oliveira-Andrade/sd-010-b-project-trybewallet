@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { actionThunkCoin, actionThunkExpenses, expenses } from '../actions/walletActions';
 
 class Form extends React.Component {
@@ -24,7 +25,10 @@ class Form extends React.Component {
   }
 
   async handleClick() {
-    const { exchange, expensesWithState, expenses } = this.props;
+    const { exchange, expensesWithState } = this.props;
+    // para de dar problema!!!
+    console.log(this.state);
+    // para de dar problema!!!
     await expensesWithState();
     const { id } = this.state;
     this.setState({
@@ -105,5 +109,11 @@ const mapStateToProps = (state) => ({
   coins: state.wallet.currencies,
   exchange: state.wallet.actualValue,
 });
+
+// Form.propTypes = {
+//   email: PropTypes.string,
+//   coins: PropTypes.arrayOf(PropTypes.string),
+//   exchange: PropTypes.objectOf(PropTypes.object),
+// }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

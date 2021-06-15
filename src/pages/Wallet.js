@@ -4,11 +4,6 @@ import Form from './Form';
 import { actionThunkCoin } from '../actions/walletActions';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.totalStoreExpenses = this.totalStoreExpenses.bind(this);
-  }
-
   // totalStoreExpenses() {
   //   const { valueOfExpenses } = this.props;
   //   // if (valueOfExpenses.length === 0) {
@@ -45,5 +40,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   actionCoins: () => dispatch(actionThunkCoin()),
 });
+
+// Wallet.propTypes = {
+//   email: PropTypes.string.isRequired,
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
