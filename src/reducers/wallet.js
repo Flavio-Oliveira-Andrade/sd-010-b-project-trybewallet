@@ -1,9 +1,7 @@
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    isFetching: false,
-    expenses: [],
-  },
+  currencies: [],
+  isFetching: false,
+  expenses: [],
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -11,7 +9,7 @@ function wallet(state = INITIAL_STATE, action) {
   case 'WALLET_ACTION_ADD_EXPENSE':
     return {
       ...state,
-      expenses: [...state.wallet.expenses, action.payload.expense],
+      expenses: [...state.expenses, action.payload.expense],
     };
   case 'GET_CURRENCIES_SUCCESS':
     return {
