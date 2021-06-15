@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { actionThunkCoin, actionThunkExpenses, expenses } from '../actions/walletActions';
 
 class Form extends React.Component {
@@ -110,10 +110,8 @@ const mapStateToProps = (state) => ({
   exchange: state.wallet.actualValue,
 });
 
-// Form.propTypes = {
-//   email: PropTypes.string,
-//   coins: PropTypes.arrayOf(PropTypes.string),
-//   exchange: PropTypes.objectOf(PropTypes.object),
-// }.isRequired;
+Form.propTypes = {
+  actionCoins: PropTypes.func,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

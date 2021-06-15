@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Form from './Form';
 import { actionThunkCoin } from '../actions/walletActions';
 
@@ -41,8 +42,16 @@ const mapDispatchToProps = (dispatch) => ({
   actionCoins: () => dispatch(actionThunkCoin()),
 });
 
-// Wallet.propTypes = {
-//   email: PropTypes.string.isRequired,
-// };
+// PropTypes.array,
+// PropTypes.bool,
+// PropTypes.func,
+// PropTypes.number,
+// PropTypes.object,
+// PropTypes.string,
+// PropTypes.symbol,
+
+Wallet.propTypes = {
+  email: PropTypes.string,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
