@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { Redirect } from 'react-router';
-// import Wallet from './Wallet';
 import loginAction from '../actions';
 
 class Login extends React.Component {
@@ -19,13 +18,14 @@ class Login extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  // https://pt.stackoverflow.com/questions/369892/como-redirecionar-para-uma-rota-usando-onclick-e-react-router
+
   onClick() {
     const { emailAdress, passwordData } = this.state;
     const { firstDispatch } = this.props;
     firstDispatch(emailAdress, passwordData);
     this.setState({ shouldRedirect: true });
   }
-  // https://pt.stackoverflow.com/questions/369892/como-redirecionar-para-uma-rota-usando-onclick-e-react-router
 
   validationFields() {
     const { emailAdress, passwordData } = this.state;
@@ -90,7 +90,7 @@ class Login extends React.Component {
   }
 }
 
-const mapDipatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   firstDispatch: (emailAdress, passwordData) => dispatch(loginAction({
     userName: emailAdress, password: passwordData })),
 });
@@ -98,4 +98,4 @@ const mapDipatchToProps = (dispatch) => ({
 Login.propTypes = {
   firstDispatch: propTypes.func.isRequired,
 };
-export default connect(null, mapDipatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
