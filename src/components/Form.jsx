@@ -20,7 +20,8 @@ class Form extends Component {
     this.getExpenses = this.getExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
-    this.setExpensesRates = this.setExpensesRates.bind(this);
+    this.setExchangeRates = this.setExchangeRates.bind(this);
+    this.testesamerda = this.testesamerda.bind(this);
   }
 
   componentDidMount() {
@@ -28,21 +29,27 @@ class Form extends Component {
     return request();
   }
 
-  setExpensesRates() {
+  componentDidUpdate() {
+    // const { exchangeRates } = this.state;
+    // if (exchangeRates === {}) return this.setExchangeRates();
+    return console.log('dale');
+  }
+
+  setExchangeRates() {
     const { currencies, request } = this.props;
     const { exchangeRates } = this.state;
-    request();
+    console.log('oi');
     console.log(exchangeRates);
+
+    request();
     return this.setState({
-      exchangeRates: { ...currencies.currencies },
+      exchangeRates: { ...currencies },
     });
   }
 
   getExpenses(e) {
     const { setExpenses } = this.props;
     const { value, description, currency, method, tag, exchangeRates } = this.state;
-    this.setExpensesRates();
-    // console.log(exchangeRates);
     const data = {
       value,
       description,
@@ -51,11 +58,14 @@ class Form extends Component {
       tag,
       exchangeRates,
     };
-    // console.log(data);
     if (!data) {
       e.preventDefault();
     }
     setExpenses(data);
+  }
+
+  testesamerda() {
+    this.setExchangeRates();
   }
 
   handleChange({ value, id }) {
@@ -66,7 +76,7 @@ class Form extends Component {
 
   renderCurrencysOptions() {
     const { currencies } = this.props;
-    return currencies.currencies.map((info, key) => (
+    return currencies.map((info, key) => (
       <option key={ key } value={ info.code }>{ info.code }</option>
     ));
   }
@@ -111,18 +121,19 @@ class Form extends Component {
           tag={ tag }
         />
         <button type="button" onClick={ this.getExpenses }>Adicionar Despesa</button>
+        <button type="button" onClick={ this.testesamerda }>test</button>
       </form>
     );
   }
 }
 
 Form.defaultProps = {
-  currencies: [],
+  currencies: { '': '' },
 };
 
 Form.propTypes = {
   request: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string),
+  currencies: PropTypes.objectOf(PropTypes.string),
   setExpenses: PropTypes.func.isRequired,
 };
 
@@ -131,9 +142,9 @@ const mapDispatchToProps = (dispatch) => ({
   setExpenses: (data) => dispatch(addData(data)),
 });
 
-const mapStateToProps = ({ wallet: currencies, expenses }) => ({
-  currencies,
-  expenses,
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

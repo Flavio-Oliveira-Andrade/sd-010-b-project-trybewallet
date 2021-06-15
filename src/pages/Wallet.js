@@ -42,12 +42,12 @@ class Wallet extends React.Component {
 }
 
 Wallet.defaultProps = {
-  expenses: [],
+  expenses: {},
 };
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.string),
+  expenses: PropTypes.objectOf(PropTypes.string),
 };
 
 const mapDispathToProps = (dispatch) => ({

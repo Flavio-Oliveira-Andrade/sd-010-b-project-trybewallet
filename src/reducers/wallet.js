@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
     return { ...state, currencies: [...payload] };
 
   case GET_DATA:
-    return { ...state, expenses: [payload] };
+    return { ...state, expenses: [...state.expenses, payload] };
 
   default:
     return state;

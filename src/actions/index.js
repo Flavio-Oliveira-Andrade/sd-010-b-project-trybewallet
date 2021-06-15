@@ -8,5 +8,3 @@ export const addUsername = (email) => ({
   type: ADD_USER,
   payload: email,
 });
-
-export const getAPI = () => ({ type: GET_API });
