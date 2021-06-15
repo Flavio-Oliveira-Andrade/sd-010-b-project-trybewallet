@@ -106,7 +106,8 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, value } = this.props;
+    console.log(value);
     return (
       <main>
         <header>
@@ -116,7 +117,7 @@ class Wallet extends React.Component {
           </h3>
           <h3 data-testid="total-field">
             Despesa Total:
-            { 0 }
+            { value }
           </h3>
           <h3 data-testid="header-currency-field">
             Câmbio em uso: BRL
@@ -131,6 +132,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
+  value: state.wallet.expenses.value,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -141,6 +143,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   email: PropTypes.string,
   currencies: PropTypes.objectOf,
+  value: PropTypes.number,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

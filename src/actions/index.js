@@ -1,4 +1,6 @@
 // Coloque aqui suas actions
+
+import { ADD_EXCHANGE, ADD_CURRENCY } from '../reducers/wallet';
 import { getCurrencies, getCurrenciesAll } from '../services/api';
 
 export const loginAction = (value) => ({
@@ -7,12 +9,12 @@ export const loginAction = (value) => ({
 });
 
 export const requestCurrenciesOk = (currencies) => ({
-  type: 'ADD_CURRENCY',
+  type: ADD_CURRENCY,
   payload: { currencies },
 });
 
 export const requestExchangeOk = (exchangeRates) => ({
-  type: 'ADD_EXCHANGE',
+  type: ADD_EXCHANGE,
   payload: { exchangeRates },
 });
 
