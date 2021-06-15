@@ -7,8 +7,8 @@ import actionStore from '../actions';
 
 class Wallet extends React.Component {
   async componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies(await CURRENCY(), 'currencies');
+    const { setCurrencies } = this.props;
+    setCurrencies(await CURRENCY(), 'currencies');
   }
 
   render() {
@@ -21,8 +21,10 @@ class Wallet extends React.Component {
             {` ${email}`}
           </p>
           <p data-testid="total-field">
+            {expenses.map((valor) => (
+              valor.valueExpense
+            ))}
             0
-            {` ${expenses}`}
           </p>
           <p data-testid="header-currency-field">
             BRL
@@ -37,7 +39,7 @@ Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
-  getCurrencies: PropTypes.func.isRequired,
+  setCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ // LER
@@ -47,7 +49,7 @@ const mapStateToProps = (state) => ({ // LER
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: (value, type) => dispatch(actionStore(Object.keys(value), type)),
+  setCurrencies: (value, type) => dispatch(actionStore(Object.keys(value), type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
