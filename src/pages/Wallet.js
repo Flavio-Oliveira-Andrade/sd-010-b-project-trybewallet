@@ -11,8 +11,8 @@ class Wallet extends React.Component {
       value: '0',
       description: '',
       currency: 'USD',
-      method: 'cash',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       exchangeRates: {},
     };
     this.genderForm = this.genderForm.bind(this);
@@ -105,13 +105,18 @@ class Wallet extends React.Component {
     );
   }
 
-  render() {
-    const { email, expenses } = this.props;
+  sumTotal() {
+    const { expenses } = this.props;
     const total = expenses.reduce(
       (acc, curr) => acc + curr.value
         * curr.exchangeRates[curr.currency].ask,
       0,
     );
+    return total.toFixed(2);
+  }
+
+  render() {
+    const { email } = this.props;
     return (
       <main>
         <header>
@@ -121,7 +126,7 @@ class Wallet extends React.Component {
           </h3>
           <h3 data-testid="total-field">
             Despesa Total:
-            { total.toFixed(2) }
+            { this.sumTotal() }
           </h3>
           <h3 data-testid="header-currency-field">
             Câmbio em uso: BRL
