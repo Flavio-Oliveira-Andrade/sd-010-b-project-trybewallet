@@ -1,7 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCoinsThunk } from '../actions';
 
 class FormWallet extends React.Component {
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+
+  // async fetchAPI() {
+  //   return fetch('https://economia.awesomeapi.com.br/json/all')
+  //     .then((resultado) => resultado.json());
+  // }
+
   render() {
+    const currencies = this.props;
+    console.log(this.props);
+
     return (
       <form>
         <label htmlFor="valor">
@@ -18,7 +34,11 @@ class FormWallet extends React.Component {
           Moeda:
           {' '}
           <select id="moeda">
-            <option value="moeda">Moeda</option>
+            {!currencies
+              ? <option value="BRL">BRL</option>
+              : currencies.map((currency) => (
+                <option key={ currency } value={ currency }>{ currency }</option>
+              ))}
           </select>
         </label>
         <label htmlFor="pagamento">
@@ -46,4 +66,17 @@ class FormWallet extends React.Component {
   }
 }
 
-export default FormWallet;
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(getCoinsThunk()),
+});
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+FormWallet.propTypes = {
+  getCoins: PropTypes.func.isRequired,
+  map: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
