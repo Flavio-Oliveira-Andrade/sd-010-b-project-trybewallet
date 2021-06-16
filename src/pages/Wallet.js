@@ -43,7 +43,7 @@ class Wallet extends React.Component {
         <tr key={ index }>
           <td>{ expense.description }</td>
           <td>{ expense.tag }</td>
-          <td>{ expense.paymentMethod }</td>
+          <td>{ expense.method }</td>
           <td>{ `${expense.currency} ${expense.value}` }</td>
           <td>
             { getArrayCurrencies(expense.exchangeRates).find(

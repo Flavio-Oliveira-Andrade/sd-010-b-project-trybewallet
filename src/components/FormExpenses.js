@@ -11,7 +11,7 @@ class FormExpenses extends Component {
       value: 0,
       description: '',
       currency: 'USD',
-      paymentMethod: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
     this.handleInput = this.handleInput.bind(this);
@@ -24,7 +24,7 @@ class FormExpenses extends Component {
 
   handleInput(event) {
     const { name, value } = event.target;
-    console.log(name, value);
+    // console.log(name, value);
     this.setState({
       [name]: value,
     }, () => {
@@ -65,14 +65,14 @@ class FormExpenses extends Component {
   }
 
   inputPaymentMethod() {
-    const { paymentMethod } = this.state;
+    const { method } = this.state;
     return (
       <label htmlFor="payment-method">
         Método de pagamento
         <select
           id="payment-method"
-          name="paymentMethod"
-          value={ paymentMethod }
+          name="method"
+          value={ method }
           onChange={ this.handleInput }
         >
           <option>Dinheiro</option>
