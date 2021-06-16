@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Inputs from '../components/Inputs';
 import loginAction from '../actions/userAction';
 import cambio from '../img/cambio.jpg';
@@ -37,39 +38,46 @@ class Login extends React.Component {
 
   render() {
     const { password, email } = this.state;
-    const { login } = this.props;
+    const { login, redirect } = this.props;
     return (
-      <form className="login">
-        <img src={ cambio } alt="wallet" width="200px" />
-        <br />
-        <Inputs
-          place="Email"
-          name="email"
-          handle={ this.handleChange }
-          value={ email }
-          test="email-input"
-        />
-        <br />
-        <Inputs
-          place="Senha"
-          type="password"
-          name="password"
-          handle={ this.handleChange }
-          value={ password }
-          test="password-input"
-        />
-        <br />
-        <button
-          type="button"
-          disabled={ this.checkInput() }
-          onClick={ () => login({ email, password }) }
-        >
-          Entrar
-        </button>
-      </form>
+      <div>
+        { redirect && <Redirect to="/carteira" /> }
+        <form className="login">
+          <img src={ cambio } alt="wallet" width="200px" />
+          <br />
+          <Inputs
+            place="Email"
+            name="email"
+            handle={ this.handleChange }
+            value={ email }
+            test="email-input"
+          />
+          <br />
+          <Inputs
+            place="Senha"
+            type="password"
+            name="password"
+            handle={ this.handleChange }
+            value={ password }
+            test="password-input"
+          />
+          <br />
+          <button
+            type="button"
+            disabled={ this.checkInput() }
+            onClick={ () => login({ email, password }) }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 }
+// usado para salvar o estado do component no global
+const mapStateToProps = (state) => ({
+  redirect: state.user.redirect,
+});
 // usado para conectar as actions ao componentes do reducers
 const mapDisPatchToProps = (dispatch) => ({
   login: (e) => dispatch(loginAction(e)),
@@ -77,6 +85,7 @@ const mapDisPatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  redirect: PropTypes.bool.isRequired,
 };
 
-export default connect(null, mapDisPatchToProps)(Login);
+export default connect(mapStateToProps, mapDisPatchToProps)(Login);
