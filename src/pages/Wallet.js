@@ -8,7 +8,7 @@ class Wallet extends React.Component {
     super(props);
     this.state = {
       id: 0,
-      value: '',
+      value: '0',
       description: '',
       currency: 'USD',
       method: 'cash',
@@ -32,11 +32,11 @@ class Wallet extends React.Component {
     });
   }
 
-  saveExpense() {
+  async saveExpense() {
     const expense = { ...this.state };
     const { id } = this.state;
     const { takeExpense } = this.props;
-    takeExpense(expense);
+    await takeExpense(expense);
     this.setState({
       id: id + 1,
     });
@@ -47,11 +47,11 @@ class Wallet extends React.Component {
       <label htmlFor="wallet-tag">
         Tag:
         <select name="tag" id="wallet-tag" onChange={ this.handleChange }>
-          <option value="food">Alimentação</option>
-          <option value="leisure">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transportation">Transporte</option>
-          <option value="health">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -94,9 +94,9 @@ class Wallet extends React.Component {
         <label htmlFor="wallet-payment">
           Método de pagamento:
           <select name="method" id="wallet-payment" onChange={ this.handleChange }>
-            <option value="cash">Dinheiro</option>
-            <option value="credit">Cartão de crédito</option>
-            <option value="debit">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         {this.genderTag()}
@@ -106,8 +106,12 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, value } = this.props;
-    console.log(value);
+    const { email, expenses } = this.props;
+    const total = expenses.reduce(
+      (previous, curr) => previous + curr.value
+        * curr.exchangeRates[curr.currency].ask,
+      0,
+    );
     return (
       <main>
         <header>
@@ -117,13 +121,14 @@ class Wallet extends React.Component {
           </h3>
           <h3 data-testid="total-field">
             Despesa Total:
-            { value }
+            { total.toFixed(2) }
           </h3>
           <h3 data-testid="header-currency-field">
             Câmbio em uso: BRL
           </h3>
         </header>
         {this.genderForm()}
+        <p>{}</p>
       </main>
     );
   }
@@ -132,7 +137,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
-  value: state.wallet.expenses.value,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
