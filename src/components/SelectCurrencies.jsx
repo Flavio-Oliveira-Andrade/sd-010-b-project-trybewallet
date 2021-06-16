@@ -13,7 +13,6 @@ class SelectCurrencies extends React.Component {
       <label htmlFor="currency">
         Moeda
         <select id="currency" onChange={ Select }>
-          <option value="">-</option>
           {currencies.map((moeda) => (
             <option value={ moeda } key={ moeda }>{ moeda }</option>
           ))}
