@@ -16,9 +16,10 @@ class Header extends React.Component {
           <span
             data-testid="total-field"
           >
+            0
             {!expenses ? 0 : expenses.reduce((accumulator, currentValue) => accumulator
                + parseFloat(currentValue.exchangeRates[currentValue
-                 .currencyUsed].ask * currentValue.value), 0)}
+                 .currency].ask * currentValue.value), 0)}
             ;
           </span>
           <span data-testid="header-currency-field">

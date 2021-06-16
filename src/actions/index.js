@@ -24,9 +24,13 @@ export const getResult = () => async (dispatch) => {
   return dispatch(walletAction(currencies));
 };
 
-export const expenseAction = (spendingItems) => ({
-
+export const exchangeCurrency = (currencies) => ({
   type: SPENDING,
-  payload: { spendingItems },
-
+  payload: currencies,
 });
+
+export const expenseAction = (spendingItems) => async (dispatch) => {
+  const exchange = await fetchURL();
+  const exchangeRates = { ...spendingItems, exchangeRates: exchange };
+  return dispatch(exchangeCurrency(exchangeRates));
+};

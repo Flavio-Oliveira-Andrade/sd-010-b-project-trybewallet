@@ -11,7 +11,7 @@ export default function wallet(state = INITIAL_STATE, action) {
   case WALLET:
     return {
       ...state,
-      currencies: action.payload,
+      currencies: Object.keys(action.payload),
     };
   case SPENDING:
     return {

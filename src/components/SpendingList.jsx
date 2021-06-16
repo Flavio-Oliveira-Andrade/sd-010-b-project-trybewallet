@@ -7,11 +7,11 @@ class SpendingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: -1,
-      cost: '',
-      currencyUsed: '',
-      paymentMethod: '',
-      tag: '',
+      id: 0,
+      value: '',
+      currency: 'USD',
+      method: 'Cartão de crédito',
+      tag: 'Alimentação',
       description: '',
       exchangeRates: {},
     };
@@ -31,11 +31,9 @@ class SpendingList extends Component {
     });
   }
 
-  handleClick() {
-    const { secondDispatch, currencies, thirdDispatch } = this.props;
-    secondDispatch();
-    delete currencies.USDT;
-    this.setState({ exchangeRates: currencies }, () => { thirdDispatch(this.state); });
+  async handleClick() {
+    const { thirdDispatch } = this.props;
+    thirdDispatch(this.state);
     this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
@@ -46,7 +44,7 @@ class SpendingList extends Component {
         <label htmlFor="paymentMethod">
           <select
             id="paymentMethod"
-            name="paymentMethod"
+            name="method"
             value={ paymentMethod }
             onChange={ this.handleChange }
           >
@@ -79,7 +77,7 @@ class SpendingList extends Component {
           <label htmlFor="cost">
             <input
               id="cost"
-              name="cost"
+              name="value"
               type="text"
               value={ cost }
               onChange={ this.handleChange }
@@ -100,11 +98,11 @@ class SpendingList extends Component {
             Moeda
             <select
               id="currencyUsed"
-              name="currencyUsed"
+              name="currency"
               value={ currencyUsed }
               onChange={ this.handleChange }
             >
-              {Object.keys(currencies).map((currency) => (
+              {(currencies).map((currency) => (
                 <option key={ currency }>
                   {currency}
                 </option>
@@ -112,7 +110,7 @@ class SpendingList extends Component {
             </select>
           </label>
           {this.handlePaymentAndTag()}
-          <button type="button" onChange={ this.handleClick }>
+          <button type="button" onClick={ this.handleClick }>
             Adicionar Despesas
           </button>
         </form>
