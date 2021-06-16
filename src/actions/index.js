@@ -25,7 +25,7 @@ export const requestCurrencies = (currencies) => ({
   },
 });
 
-export const fetchCurrencies = () => async (dispatch) => {
+export const fetchCurrenciesCode = () => async (dispatch) => {
   dispatch(fetchingCurrencies());
 
   const currencies = await getCurrencies();
