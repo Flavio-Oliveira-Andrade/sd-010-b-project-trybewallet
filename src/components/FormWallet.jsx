@@ -75,6 +75,8 @@ const mapStateToProps = (state) => ({
 
 FormWallet.propTypes = {
   getCoins: PropTypes.func.isRequired,
+  map: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
