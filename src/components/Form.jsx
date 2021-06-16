@@ -17,11 +17,11 @@ class Form extends Component {
   }
 
   handleClick() {
-    const { addNewExpense, currenciesInfo, expenses, getCurrencies } = this.props;
+    const { addNewExpense, currencies, expenses, getCurrencies } = this.props;
     getCurrencies();
     this.setState({
       id: expenses.length || 0,
-      exchangeRates: currenciesInfo,
+      exchangeRates: currencies,
     }, () => addNewExpense(this.state));
   }
 
@@ -50,14 +50,14 @@ class Form extends Component {
         </label>
         <label htmlFor="currency">
           Moeda:
-          <select id="currency" name="currency" onClick={ this.handleValues }>
-            {currencies.map((currency) => (
+          <select id="currency" name="currency" onChange={ this.handleValues }>
+            {Object.keys(currencies).map((currency) => (
               <option key={ currency }>{currency}</option>))}
           </select>
         </label>
         <label htmlFor="payment">
           Método de pagamento:
-          <select id="payment" name="method" onClick={ this.handleValues }>
+          <select id="payment" name="method" onChange={ this.handleValues }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -65,7 +65,7 @@ class Form extends Component {
         </label>
         <label htmlFor="tag">
           Tag:
-          <select id="tag" name="tag" onClick={ this.handleValues }>
+          <select id="tag" name="tag" onChange={ this.handleValues }>
             <option>Alimentação</option>
             <option>Lazer</option>
             <option>Trabalho</option>
@@ -83,7 +83,6 @@ class Form extends Component {
 
 Form.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currenciesInfo: PropTypes.arrayOf(PropTypes.string).isRequired,
   expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   addNewExpense: PropTypes.arrayOf(PropTypes.func).isRequired,
   getCurrencies: PropTypes.arrayOf(PropTypes.func).isRequired,
@@ -91,7 +90,6 @@ Form.propTypes = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  currenciesInfo: state.wallet.currenciesInfo,
   expenses: state.wallet.expenses,
 });
 

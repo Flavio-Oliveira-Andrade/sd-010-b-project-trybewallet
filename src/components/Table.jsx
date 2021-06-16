@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense, deleteExpense, fetchCurrency } from '../actions';
+import { deleteExpense } from '../actions';
 
 class Table extends Component {
   render() {
@@ -59,14 +59,10 @@ Table.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
-  currenciesInfo: state.wallet.currenciesInfo,
   expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrency()),
-  addNewExpense: (expense) => dispatch(addExpense(expense)),
   deleteAnExpense: (expenseId) => dispatch(deleteExpense(expenseId)),
 });
 

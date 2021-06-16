@@ -2,7 +2,6 @@ import { ADD_EXPENSE, DELETE_EXPENSE, GET_CURRENCY } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
-  currenciesInfo: {},
   expenses: [],
 };
 
@@ -12,8 +11,7 @@ function wallet(state = INITIAL_STATE, action) {
     delete action.payload.USDT;
     return {
       ...state,
-      currencies: Object.keys(action.payload),
-      currenciesInfo: action.payload,
+      currencies: action.payload,
     };
   case ADD_EXPENSE:
     return {
