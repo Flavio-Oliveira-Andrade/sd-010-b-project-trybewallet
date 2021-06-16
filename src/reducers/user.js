@@ -1,4 +1,4 @@
-import SUBMIT_EMAIL from '../actions/index';
+import SUBMIT_EMAIL from '../actions/userActions';
 
 const USER_STATE = {
   email: '',

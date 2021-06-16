@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { newExpense } from '../actions/index';
 
 class Form extends React.Component {
   constructor() {
@@ -21,9 +24,26 @@ class Form extends React.Component {
     this.setState({ coins });
   }
 
+  handleClick() {
+    const { newExpenses, expenses } = this.props;
+    let id = 0;
+
+    if (expenses.length > 0) {
+      id = expenses[expenses.length - 1].id + 1;
+    }
+    const payload = {
+      id,
+      value: document.getElementById('valor').value,
+      description: document.getElementById('descricao').value,
+      currency: document.getElementById('moeda').value,
+      method: document.getElementById('metodo').value,
+      tag: document.getElementById('tag').value,
+    };
+    newExpenses(payload);
+  }
+
   render() {
     const { coins } = this.state;
-
     return (
       <form>
         <label htmlFor="valor">
@@ -38,10 +58,7 @@ class Form extends React.Component {
           Moeda
           <select name="moeda" id="moeda">
             { coins.map((coin) => (
-              <option
-                key={ coin }
-                value={ coin }
-              >
+              <option key={ coin } value={ coin }>
                 { coin }
               </option>
             )) }
@@ -64,10 +81,25 @@ class Form extends React.Component {
             <option>Transporte</option>
             <option>Saúde</option>
           </select>
+          <button type="button" onClick={ () => this.handleClick }>
+            Adicionar Despesa
+          </button>
         </label>
       </form>
     );
   }
 }
 
-export default Form;
+Form.propTypes = {
+  newExpense: PropTypes.func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  newExpenses: (payload) => dispatch(newExpense(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

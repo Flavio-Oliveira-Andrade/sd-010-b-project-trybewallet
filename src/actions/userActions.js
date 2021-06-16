@@ -1,10 +1,3 @@
-import SUBMIT_EMAIL from './index';
+const SUBMIT_EMAIL = 'SUBMIT_EMAIL';
 
-export default function submitEmail(email) {
-  return {
-    type: SUBMIT_EMAIL,
-    payload: {
-      email,
-    },
-  };
-}
+export default SUBMIT_EMAIL;
