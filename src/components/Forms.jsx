@@ -31,7 +31,7 @@ class Forms extends Component {
 
   componentDidUpdate(prev) {
     const { editing, editData } = this.props;
-    if (editing && prev.editing === false) this.editMode(editData);
+    if (editing && !prev.editing) this.editMode(editData);
   }
 
   resetState(add) {
@@ -49,9 +49,10 @@ class Forms extends Component {
 
   spendingValue(value) {
     return (
-      <label htmlFor="value" data-testid="value-input">
+      <label htmlFor="value">
         Valor
         <input
+          data-testid="value-input"
           id="value"
           value={ value }
           type="number"
@@ -65,9 +66,10 @@ class Forms extends Component {
 
   spendingDescription(description) {
     return (
-      <label htmlFor="description" data-testid="description-input">
+      <label htmlFor="description">
         Descrição
-        <textarea
+        <input
+          data-testid="description-input"
           id="description"
           type="text"
           value={ description }
@@ -79,9 +81,10 @@ class Forms extends Component {
 
   spendingCurrency(currency, currencies) {
     return (
-      <label htmlFor="currency" data-testid="currency-input">
+      <label htmlFor="currency">
         Moeda
         <select
+          data-testid="currency-input"
           id="currency"
           value={ currency }
           onChange={ this.handleChange }
@@ -102,9 +105,10 @@ class Forms extends Component {
 
   spendingMethod(method) {
     return (
-      <label htmlFor="method" data-testid="method-input">
+      <label htmlFor="method">
         Método de pagamento
         <select
+          data-testid="method-input"
           id="method"
           value={ method }
           onChange={ this.handleChange }
@@ -120,9 +124,10 @@ class Forms extends Component {
 
   spendingTag(tag) {
     return (
-      <label htmlFor="tag" data-testid="tag-input">
+      <label htmlFor="tag">
         Tag
         <select
+          data-testid="tag-input"
           id="tag"
           value={ tag }
           onChange={ this.handleChange }
