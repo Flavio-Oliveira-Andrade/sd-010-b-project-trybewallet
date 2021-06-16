@@ -1,4 +1,2 @@
 // Coloque aqui suas actions
-const loginAction = (email) => ({ type: 'saveEmail', email });
-
-export default loginAction;
+export const login = (email) => ({ type: 'email', email });
