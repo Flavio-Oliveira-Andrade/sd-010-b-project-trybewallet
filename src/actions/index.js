@@ -37,17 +37,6 @@ export function fetchAPI() {
     .then((currencies) => dispatch(actionCurrencies(currencies)));
 }
 
-export function fetchAPIExpenses() {
-  return () => fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((r) => r.json())
-    .then((currencies) => {
-      const currenciesAll = currencies;
-      // console.log(objeto);
-      return currenciesAll;
-    });
-// .then((currencies) => dispatch(actionAddExpenses(currencies)));
-}
-
 // export function fetchAPIExpenses() {
 //   return () => fetch('https://economia.awesomeapi.com.br/json/all')
 //     .then((r) => r.json())
@@ -63,6 +52,18 @@ export function fetchAPIExpenses() {
 //       // console.log(objeto);
 //       return objeto;
 //     });
+// }
+
+export function fetchAPIExpenses() {
+  return () => fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((r) => r.json())
+    .then((currencies) => {
+      const currenciesAll = currencies;
+      // console.log(objeto);
+      return currenciesAll;
+    });
+// .then((currencies) => dispatch(actionAddExpenses(currencies)));
+}
 
 // export function fetchAPIExpenses() {
 //   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')

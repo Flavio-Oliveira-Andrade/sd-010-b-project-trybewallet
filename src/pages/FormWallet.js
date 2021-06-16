@@ -13,10 +13,10 @@ class FormWallet extends Component {
     this.state = {
       id: '',
       value: '',
-      description: '',
       currency: '',
-      method: '',
+      method: 'Cartão de crédito',
       tag: '',
+      description: '',
       exchangeRates: {},
     };
     this.renderSelectCategory = this.renderSelectCategory.bind(this);
@@ -54,11 +54,11 @@ class FormWallet extends Component {
           id="tag"
           onChange={ this.handleChange }
         >
-          <option value="food">Alimentação</option>
-          <option value="leisure">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -73,9 +73,9 @@ class FormWallet extends Component {
           id="method"
           onChange={ this.handleChange }
         >
-          <option value="money">Dinheiro</option>
-          <option value="credit-card">Cartão de crédito</option>
-          <option value="debit card">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -141,11 +141,11 @@ const mapStateToProps = (state) => ({
 });
 
 FormWallet.propTypes = {
-  currencies: PropTypes.arrayOf.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
   fetchAPI: PropTypes.func.isRequired,
   fetchAPIExpenses: PropTypes.func.isRequired,
   actionAddState: PropTypes.func.isRequired,
-  expensesArr: PropTypes.arrayOf.isRequired,
+  expensesArr: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
