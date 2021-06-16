@@ -15,7 +15,7 @@ const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES,
 });
 
-const getArrayCurrencies = (currenciesObj) => {
+export const getArrayCurrencies = (currenciesObj) => {
   const currenciesArray = [];
   const currencies = Object.keys(currenciesObj).filter((currency) => currency !== 'USDT');
   currencies.forEach((currency) => {
@@ -23,7 +23,7 @@ const getArrayCurrencies = (currenciesObj) => {
       [currency]: currenciesObj[currency],
     });
   });
-  console.log(currenciesArray);
+  // console.log(currenciesArray);
   return currenciesArray;
 };
 
@@ -35,7 +35,7 @@ const saveExpenseAction = (expense) => ({
 });
 
 export const deleteExpenseAction = (expenseDeleted) => {
-  console.log('dentro de deleteExpenseAction');
+  // console.log('dentro de deleteExpenseAction');
   console.log(expenseDeleted);
   return ({
     type: DELETE_EXPENSE,
@@ -63,8 +63,8 @@ export const saveExpense = (expense) => (
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((currencies) => {
-        const currenciesInformation = getArrayCurrencies(currencies);
-        expense.exchangeRates = currenciesInformation;
+        // const currenciesInformation = getArrayCurrencies(currencies);
+        expense.exchangeRates = currencies;
         dispatch(saveExpenseAction(expense));
       }))
 );

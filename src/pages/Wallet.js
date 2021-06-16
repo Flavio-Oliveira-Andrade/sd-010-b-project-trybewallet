@@ -2,16 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FormExpenses from '../components/FormExpenses';
-import { deleteExpenseAction } from '../actions';
+import { deleteExpenseAction, getArrayCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   currencyValue(expense) {
-    const currencySelected = expense.exchangeRates.find((ex) => ex[expense.currency]);
+    const currencySelected = getArrayCurrencies(
+      expense.exchangeRates,
+    ).find((ex) => ex[expense.currency]);
     return parseFloat(currencySelected[expense.currency].ask).toFixed(2);
   }
 
   valueExpenseConvertedToReal(expense) {
-    const currencySelected = expense.exchangeRates.find((ex) => ex[expense.currency]);
+    const exchangeRates = getArrayCurrencies(expense.exchangeRates);
+    const currencySelected = exchangeRates.find((ex) => ex[expense.currency]);
     const valueExpense = (
       currencySelected[expense.currency].ask * expense.value
     ).toFixed(2);
@@ -43,7 +46,7 @@ class Wallet extends React.Component {
           <td>{ expense.paymentMethod }</td>
           <td>{ `${expense.currency} ${expense.value}` }</td>
           <td>
-            { expense.exchangeRates.find(
+            { getArrayCurrencies(expense.exchangeRates).find(
               (ex) => ex[expense.currency],
             )[expense.currency].name.replace('/Real Brasileiro', '') }
           </td>

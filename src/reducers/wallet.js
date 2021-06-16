@@ -22,7 +22,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case 'SAVE_EXPENSE':
     return { ...state, expenses: [...state.expenses, action.payload.expense] };
   case 'DELETE_EXPENSE':
-    console.log('dentro de delete expense');
+    // console.log('dentro de delete expense');
     return { ...state, expenses: [...deleteExpense(state.expenses, action)] };
   default:
     return state;

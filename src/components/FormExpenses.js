@@ -28,8 +28,8 @@ class FormExpenses extends Component {
     this.setState({
       [name]: value,
     }, () => {
-      console.log('state atualizado');
-      console.log(this.state);
+      // console.log('state atualizado');
+      // console.log(this.state);
     });
   }
 
