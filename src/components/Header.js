@@ -6,33 +6,28 @@ class Header extends React.Component {
   render() {
     const { email, expenses, currencies } = this.props;
     return (
-      <div>
+      <fieldset>
         <div>TrybeWallet</div>
-        <header>
-          <span data-testid="email-field">
-            { email }
-          </span>
-          <span data-testid="total-field">
-            0
-          </span>
-          <span data-testid="header-currency-field">
-            BRL
-          </span>
-        </header>
-        <div>
-          <input
-            type="text"
-            value={ currencies }
-            placeholder="despesas"
-          />
-          { expenses }
-
-          <input
-            type="text"
-            placeholder="câmbio"
-          />
-        </div>
-      </div>
+        <span data-testid="email-field">
+          { email }
+        </span>
+        <span data-testid="total-field">
+          0
+        </span>
+        <span data-testid="header-currency-field">
+          BRL
+        </span>
+        <input
+          type="text"
+          value={ currencies }
+          placeholder="despesas"
+        />
+        { expenses }
+        <input
+          type="text"
+          placeholder="câmbio"
+        />
+      </fieldset>
     );
   }
 }
