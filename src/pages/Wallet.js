@@ -13,7 +13,21 @@ class Wallet extends React.Component {
 
   totalExpenses() {
     const { expenses } = this.props;
-    return expenses.reduce((a, b) => parseInt(a.value, 10) + parseInt(b.value, 10), 0);
+    if (expenses.length < 1) {
+      return 0;
+    }
+    let total = 0;
+    expenses.forEach((element) => {
+      let number = parseFloat(element.value);
+      // captura os valores do obj que a API tras
+      const values = Object.values(element.exchangeRates);
+      // encontra a cotação da moeda que foi selecionada
+      const moeda = values.find((coin) => coin.code === element.currency);
+      // multiplica a moeda local pela cotação
+      number *= moeda.ask;
+      total += number;
+    });
+    return total.toFixed(2);
   }
 
   render() {
@@ -54,9 +68,9 @@ const mapDispathToProps = (dispatch) => ({
   totalExpenses: (total) => dispatch(actionTotal(total)),
 });
 
-const mapStateToProps = ({ user: { email }, wallet: { expenses } }) => ({
-  email,
-  expenses,
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispathToProps)(Wallet);

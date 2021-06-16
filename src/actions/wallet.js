@@ -23,5 +23,5 @@ export const addData = (data) => ({
 export const requestApi = () => async (dispatch) => {
   const result = await getAPI();
   const currencies = Object.values(result).filter((e) => e.codein !== 'BRLT');
-  dispatch(actionApi(currencies));
+  return dispatch(actionApi(currencies));
 };

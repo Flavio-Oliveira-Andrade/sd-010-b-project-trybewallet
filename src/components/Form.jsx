@@ -9,63 +9,54 @@ class Form extends Component {
     super(props);
 
     this.state = {
+      id: 0,
       value: 0,
       description: '',
       currency: 'USD',
       method: '',
       tag: '',
-      exchangeRates: {},
     };
 
     this.getExpenses = this.getExpenses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderCurrencysOptions = this.renderCurrencysOptions.bind(this);
-    this.setExchangeRates = this.setExchangeRates.bind(this);
-    this.testesamerda = this.testesamerda.bind(this);
+    // this.setExchangeRates = this.setExchangeRates.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { request } = this.props;
-    return request();
+    await request();
   }
 
-  componentDidUpdate() {
-    // const { exchangeRates } = this.state;
-    // if (exchangeRates === {}) return this.setExchangeRates();
-    return console.log('dale');
-  }
-
-  setExchangeRates() {
-    const { currencies, request } = this.props;
-    const { exchangeRates } = this.state;
-    console.log('oi');
-    console.log(exchangeRates);
-
-    request();
-    return this.setState({
-      exchangeRates: { ...currencies },
-    });
-  }
-
-  getExpenses(e) {
+  async getExpenses(e) {
     const { setExpenses } = this.props;
-    const { value, description, currency, method, tag, exchangeRates } = this.state;
+    const { id, value, description, currency, method, tag } = this.state;
+    // const apiCurrencies = await request();
+    const result = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((resultado) => resultado);
+    console.log(result);
+    // console.log(apiCurrencies.payload);
     const data = {
+      id,
       value,
       description,
       currency,
       method,
       tag,
-      exchangeRates,
+      exchangeRates: result,
     };
+
+    // await action(data);
+
+    const idPlus = id + 1;
+    this.setState({
+      id: idPlus,
+    });
     if (!data) {
       e.preventDefault();
     }
     setExpenses(data);
-  }
-
-  testesamerda() {
-    this.setExchangeRates();
   }
 
   handleChange({ value, id }) {
@@ -121,7 +112,6 @@ class Form extends Component {
           tag={ tag }
         />
         <button type="button" onClick={ this.getExpenses }>Adicionar Despesa</button>
-        <button type="button" onClick={ this.testesamerda }>test</button>
       </form>
     );
   }
