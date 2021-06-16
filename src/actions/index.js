@@ -12,7 +12,10 @@ export const newExpense = (payload) => async (dispatch) => {
   const data = await fetch('https://economia.awesomeapi.com.br/json/all');
   const result = await data.json();
 
-  dispatch(sucessNewExpense({ ...payload, exchangeRates: result }));
+  dispatch(sucessNewExpense({
+    ...payload,
+    exchangeRates: result,
+  }));
 };
 
 export function submitEmail(email) {

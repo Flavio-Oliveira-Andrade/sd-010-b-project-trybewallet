@@ -36,7 +36,7 @@ class Form extends React.Component {
       value: document.getElementById('valor').value,
       description: document.getElementById('descricao').value,
       currency: document.getElementById('moeda').value,
-      method: document.getElementById('metodo').value,
+      method: document.getElementById('pagamento').value,
       tag: document.getElementById('tag').value,
     };
     newExpenses(payload);
@@ -81,17 +81,17 @@ class Form extends React.Component {
             <option>Transporte</option>
             <option>Saúde</option>
           </select>
-          <button type="button" onClick={ () => this.handleClick }>
-            Adicionar Despesa
-          </button>
         </label>
+        <button type="button" onClick={ () => this.handleClick() }>
+          Adicionar Despesa
+        </button>
       </form>
     );
   }
 }
 
 Form.propTypes = {
-  newExpense: PropTypes.func,
+  newExpenses: PropTypes.func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
