@@ -7,8 +7,7 @@ html {
   background-color: gray;
   color: whitesmoke;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   font-size: 30px;
   justify-content: space-around;
   min-height: 50px;
@@ -39,7 +38,7 @@ label {
   text-align: center;
 }
 
-button { 
+button {
   border-radius: 5px;
 }
 
@@ -59,16 +58,16 @@ button {
 
 .expenses-table {
   border-radius: 3px;
-  margin-top: 10px;
   margin: auto;
+  margin-top: 10px;
   text-align: center;
 }
 
 .expenses-table table , th , td {
   align-self: stretch;
   background-color: whitesmoke;
-  border-radius: 3px;
   border: 1px solid black;
+  border-radius: 3px;
   padding: 0 5px;
   text-align: center;
   transition: 0.5s;
