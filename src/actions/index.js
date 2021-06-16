@@ -1,7 +1,7 @@
 import SUBMIT_EMAIL from './userActions';
 import NEW_EXPENSE from './walletActions';
 
-export async function sucessNewExpense(payload) {
+export function sucessNewExpense(payload) {
   return ({
     type: NEW_EXPENSE,
     payload,

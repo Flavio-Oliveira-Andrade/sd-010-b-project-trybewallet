@@ -90,6 +90,9 @@ class Form extends React.Component {
   }
 }
 
+// Requisito 8 entendido com a ajuda do Paulo Lima, PR: https://github.com/tryber/sd-010-b-project-trybewallet/pull/97
+// Agradecimentos especiais a Mateus Bodra, que me explicou o passo a passo desse processo até eu entender o thunk!
+
 Form.propTypes = {
   newExpenses: PropTypes.func,
 }.isRequired;
