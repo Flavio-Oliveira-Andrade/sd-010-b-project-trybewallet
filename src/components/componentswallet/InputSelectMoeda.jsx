@@ -3,7 +3,7 @@ import requestApi from '../../services/api';
 import { getNewId } from '../../services/idServices';
 
 function InputSelectMoeda({
-  inputMoeda = 'USD',
+  inputMoeda = 'BRL',
   onChangeMoeda = null,
 }) {
   const [moedas, setMoedas] = useState([]);
