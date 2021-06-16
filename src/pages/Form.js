@@ -7,7 +7,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: -1,
+      id: 0,
       value: 0,
       description: '',
       method: 'Dinheiro',
@@ -19,25 +19,32 @@ class Form extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
+  // preciso de uma callback no estrado
+  async componentDidMount() {
     const { actionCoins } = this.props;
     actionCoins();
+    // 1 chamanda component didmout!
+    // const { payload } = await expensesWithState();
+    // this.setState({
+    //   exchangeRates: payload,
+    // });
   }
 
   async handleClick() {
     // falta APENAS ISSO!! VERIFICAR NO PLANTAO!!
     const { exchange,
       expensesWithState,
-      expensesToState,
-      expensesWithRequest,
     } = this.props;
-    await expensesWithState();
+    // 2º chama pra enviar para o actionvalue! ajustar
+    // estado
+    await expensesWithState(this.state);
     const { id } = this.state;
     this.setState({
       id: (id + 1),
       exchangeRates: exchange,
     });
-    await expensesToState(this.state);
+    // enviar o estado para o estado!
+    // expensesToState(this.state);
   }
 
   handleChange({ target }) {
@@ -52,6 +59,7 @@ class Form extends React.Component {
     return (
       <form>
         <label htmlFor="valor">
+          Valor:
           <input
             type="number"
             id="valor"
@@ -100,7 +108,7 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   actionCoins: () => dispatch(actionThunkCoin()),
-  expensesWithState: () => dispatch(actionThunkExpenses()),
+  expensesWithState: (expense) => dispatch(actionThunkExpenses(expense)),
   expensesToState: (state) => dispatch(expenses(state)),
 });
 
@@ -108,7 +116,7 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   coins: state.wallet.currencies,
   exchange: state.wallet.actualValue,
-  expensesWithRequest: state.wallet.expenses,
+  arrayOfExpenses: state.wallet.expenses,
 });
 
 Form.propTypes = {

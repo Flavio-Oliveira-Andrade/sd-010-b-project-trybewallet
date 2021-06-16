@@ -5,23 +5,17 @@ import Form from './Form';
 import { actionThunkCoin } from '../actions/walletActions';
 
 class Wallet extends React.Component {
-  // totalStoreExpenses() {
-  //   const { valueOfExpenses } = this.props;
-  //   // if (valueOfExpenses.length === 0) {
-  //   //   return 0;
-  //   // }
-  //   const valueTotal = valueOfExpenses.reduce((acc, current) => (acc + current),
-  //     0);
-  //   return valueTotal;
-  // }
-
   render() {
-    const { email } = this.props;
+    const { email, valueOfExpenses } = this.props;
     return (
       <>
         <header>
           <div data-testid="email-field">{email}</div>
-          <div data-testid="total-field">{0}</div>
+          <div data-testid="total-field">
+            { valueOfExpenses.reduce((acc, exps) => (acc + exps.value
+                    * exps.exchangeRates[exps.currency].ask),
+            0).toFixed(2)}
+          </div>
           <div data-testid="header-currency-field">BRL</div>
         </header>
         <section>
@@ -41,14 +35,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   actionCoins: () => dispatch(actionThunkCoin()),
 });
-
-// PropTypes.array,
-// PropTypes.bool,
-// PropTypes.func,
-// PropTypes.number,
-// PropTypes.object,
-// PropTypes.string,
-// PropTypes.symbol,
 
 Wallet.propTypes = {
   email: PropTypes.string,

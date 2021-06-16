@@ -22,10 +22,10 @@ export const actionThunkCoin = () => async (dispatch) => {
   return dispatch(currencies(values));
 };
 
-export const actionThunkExpenses = () => async (dispatch) => {
+export const actionThunkExpenses = (expense) => async (dispatch) => {
   const result = await fetchCoinsApi();
-  delete result.USDT;
-  return dispatch(actualValue(result));
+  expense.exchangeRates = result;
+  return dispatch(expenses(expense));
 };
 
 export { expenses, currencies, actualValue };

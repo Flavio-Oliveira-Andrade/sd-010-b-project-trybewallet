@@ -14,7 +14,6 @@ function walletReducer(state = initialState, action) {
       ...state,
       currencies: action.payload,
     };
-    // { ...state, expenses: [...state.expenses, payload] };
   case EXPENSES_CHANGE:
     return {
       ...state,
