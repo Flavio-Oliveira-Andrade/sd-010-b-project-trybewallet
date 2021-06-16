@@ -33,26 +33,26 @@ class Wallet extends React.Component {
             Moeda:
             <select id="moeda">
               {Object.keys(currencies).map((moeda, index) => (
-                <option key={ index } value="moeda">{moeda}</option>
+                <option key={ index }>{moeda}</option>
               ))}
             </select>
           </label>
           <label htmlFor="pagamento">
             Método de pagamento:
             <select id="pagamento">
-              <option value="dinheiro">Dinheiro</option>
-              <option value="credito">Cartão de crédito</option>
-              <option value="debito">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
             Tag:
             <select id="tag">
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saúde">Saúde</option>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
         </form>
