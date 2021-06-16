@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import FormsExpenses from '../components/componentswallet/FormsExpenses';
 import Header from '../components/componentswallet/Header';
 import ButtonAddExpenses from '../components/componentswallet/ButtonAddExpenses';
-import { saveRequest, saveExpenses } from '../actions/index';
+import { saveExpenses } from '../actions/index';
 import objExpenses from '../helpers/initialState';
 
 function Wallet() {
@@ -21,12 +21,12 @@ function Wallet() {
   function setClick() {
     dispatch(saveExpenses(expenses));
   }
-  const getRequest = useCallback(async () => {
-    dispatch(saveRequest());
-  }, [dispatch]);
+  // const getRequest = useCallback(async () => {
+  //   dispatch(saveRequest());
+  // }, [dispatch]);
 
   function hadleChange() {
-    getRequest();
+    // getRequest();
     setClick();
   }
 

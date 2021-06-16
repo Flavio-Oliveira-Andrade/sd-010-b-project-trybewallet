@@ -26,7 +26,6 @@ function InputSelectMoeda({
           onChange={ onChangeMoeda }
           value={ inputMoeda }
         >
-          <option>BRL</option>
           {moedas.map((item) => <option key={ getNewId() }>{item.code}</option>)}
         </select>
       </label>

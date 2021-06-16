@@ -1,26 +1,19 @@
 const INITIAL_STATE = {
   currencies: [],
-  expenses: [{
-    id: 0,
-    description: '',
-    value: 0,
-    currency: 'BRL',
-    method: 'Dinheiro',
-    tag: 'Alimentação',
-  }],
+  expenses: [],
 };
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'SAVE_EXPENSES':
     return {
       ...state,
-      expense: action.expense,
+      expenses: [...state.expenses, { ...action.expenses, id: state.expenses.length }],
     };
-  case 'SAVE_REQUEST':
-    return {
-      ...state,
-      expenses: [{ ...state.expense, exchangeRates: action.response }],
-    };
+  // case 'SAVE_REQUEST':
+  //   return {
+  //     ...state,
+  //     expenses: [{ ...state.expense, exchangeRates: action.response }],
+  //   };
   default:
     return state;
   }
