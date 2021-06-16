@@ -7,6 +7,7 @@ class SpendingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: -1,
       cost: '',
       currencyUsed: '',
       paymentMethod: '',
@@ -24,16 +25,18 @@ class SpendingList extends Component {
     secondDispatch();
   }
 
-  handleChange({ target: { id, value } }) {
+  handleChange({ target: { name, value } }) {
     this.setState({
-      [id]: value,
+      [name]: value,
     });
   }
 
   handleClick() {
     const { secondDispatch, currencies, thirdDispatch } = this.props;
     secondDispatch();
+    delete currencies.USDT;
     this.setState({ exchangeRates: currencies }, () => { thirdDispatch(this.state); });
+    this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
   handlePaymentAndTag() {
@@ -43,6 +46,7 @@ class SpendingList extends Component {
         <label htmlFor="paymentMethod">
           <select
             id="paymentMethod"
+            name="paymentMethod"
             value={ paymentMethod }
             onChange={ this.handleChange }
           >
@@ -53,7 +57,7 @@ class SpendingList extends Component {
           Método de pagamento
         </label>
         <label htmlFor="tag">
-          <select id="tag" value={ tag } onChange={ this.handleChange }>
+          <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -75,6 +79,7 @@ class SpendingList extends Component {
           <label htmlFor="cost">
             <input
               id="cost"
+              name="cost"
               type="text"
               value={ cost }
               onChange={ this.handleChange }
@@ -84,6 +89,7 @@ class SpendingList extends Component {
           <label htmlFor="description">
             <input
               id="description"
+              name="description"
               value={ description }
               type="text"
               onChange={ this.handleChange }
@@ -94,6 +100,7 @@ class SpendingList extends Component {
             Moeda
             <select
               id="currencyUsed"
+              name="currencyUsed"
               value={ currencyUsed }
               onChange={ this.handleChange }
             >
@@ -132,5 +139,5 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   email: state.user.email,
 });
-// A colega Camila tirou uma dúvida no slack sobre o exercício 8, que eu tirei como base para realizar o map e também verifiquei seu repositório para verificar como realizar o handleClick.
+// A colega Camila tirou uma dúvida no slack sobre o exercício 8, que eu tirei como base para realizar o map e também verifiquei seu repositório para verificar como realizar o handleClick e expense do header.
 export default connect(mapStateToProps, mapDispatchToProps)(SpendingList);
