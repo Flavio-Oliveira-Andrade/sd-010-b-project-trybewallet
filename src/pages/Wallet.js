@@ -2,35 +2,50 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpenseAddForm from '../components/ExpenseAddForm';
-import CURRENCY from '../services/API';
-import actionStore from '../actions';
+import dataAPI from '../services/API';
+import { actionWalletCurrencies } from '../actions';
 
 class Wallet extends React.Component {
-  async componentDidMount() {
+  constructor() {
+    super();
+    this.state = {
+      total: 0,
+    };
+    this.addExpense = this.addExpense.bind(this);
+  }
+
+  componentDidMount() {
     const { setCurrencies } = this.props;
-    setCurrencies(await CURRENCY(), 'currencies');
+    setCurrencies(dataAPI(), 'currencies');
+  }
+
+  addExpense(object) {
+    const { total } = this.state;
+    const valueGasto = object.value;
+    const cambio = object.exchangeRates[object.currency].ask;
+    this.setState({
+      total: total + (valueGasto * cambio),
+    });
   }
 
   render() {
-    const { email, expenses, currencies } = this.props;
+    const { email, currencies } = this.props;
+    const { total } = this.state;
     return (
       <div>
         <header>
-          <p data-testid="email-field">
+          <span data-testid="email-field">
             Email:
             {` ${email}`}
-          </p>
-          <p data-testid="total-field">
-            {expenses.map((valor) => (
-              valor.valueExpense
-            ))}
-            0
-          </p>
-          <p data-testid="header-currency-field">
+          </span>
+          <span id="total-field" value="0" data-testid="total-field">
+            {total}
+          </span>
+          <span data-testid="header-currency-field">
             BRL
-          </p>
+          </span>
         </header>
-        <ExpenseAddForm currencies={ currencies } />
+        <ExpenseAddForm currencies={ currencies } addExpense={ this.addExpense } />
       </div>);
   }
 }
@@ -38,18 +53,16 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
   setCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ // LER
   email: state.user.email,
-  expenses: state.wallet.expenses,
   currencies: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrencies: (value, type) => dispatch(actionStore(Object.keys(value), type)),
+  setCurrencies: (API, type) => dispatch(actionWalletCurrencies(API, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

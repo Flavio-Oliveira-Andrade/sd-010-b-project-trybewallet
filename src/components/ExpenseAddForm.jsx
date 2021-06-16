@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import actionStore from '../actions';
+import { actionExpenses } from '../actions';
 import SelectCurrencies from './SelectCurrencies';
-import api from '../services/API';
+import dataAPI from '../services/API';
 
 class ExpenseAddForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valueExpense: 0,
-      descriptionExpense: '',
-      currencies: '',
-      payment: '',
-      category: '',
+      id: 0,
+      value: 0,
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
       exchangeRates: {},
     };
   }
@@ -32,49 +33,47 @@ class ExpenseAddForm extends React.Component {
     });
   }
 
-  async fetchAPI(e, string) {
+  controlForm(e) {
     e.preventDefault();
-    const API = await api();
+    const { Expenses, addExpense } = this.props;
+    const { id } = this.state;
     this.setState({
-      exchangeRates: API,
+      id: id + 1,
     });
     document.getElementById('formExpense').reset();
-    const { state } = this;
-    const { Expenses } = this.props;
-    Expenses(state, string);
+    Expenses(dataAPI(), this.state, 'expenses', addExpense);
   }
 
   render() {
     const { currencies } = this.props;
-    currencies.splice(1, 1);
     return (
       <form method="get" id="formExpense">
-        <label htmlFor="valueExpense">
+        <label htmlFor="value">
           Valor
           <input
             type="number"
-            id="valueExpense"
+            id="value"
             step="0.01"
             onChange={ (e) => this.Change(e) }
           />
         </label>
-        <label htmlFor="descriptionExpense">
+        <label htmlFor="description">
           Descrição
-          <input type="text" id="descriptionExpense" onChange={ (e) => this.Change(e) } />
+          <input type="text" id="description" onChange={ (e) => this.Change(e) } />
         </label>
         <SelectCurrencies currencies={ currencies } Select={ (e) => this.Select(e) } />
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="payment" onChange={ (e) => this.Select(e) }>
+          <select id="method" onChange={ (e) => this.Select(e) }>
             <option value="">-</option>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="category">
+        <label htmlFor="tag">
           Tag
-          <select id="category" onChange={ (e) => this.Select(e) }>
+          <select id="tag" onChange={ (e) => this.Select(e) }>
             <option value="">-</option>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
@@ -85,7 +84,9 @@ class ExpenseAddForm extends React.Component {
         </label>
         <button
           type="submit"
-          onClick={ (e) => { this.fetchAPI(e, 'Expenses'); } }
+          onClick={ (e) => {
+            this.controlForm(e);
+          } }
         >
           Adicionar despesa
         </button>
@@ -96,10 +97,11 @@ class ExpenseAddForm extends React.Component {
 ExpenseAddForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   Expenses: PropTypes.func.isRequired,
+  addExpense: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  Expenses: (value, type) => dispatch(actionStore(value, type)),
+  Expenses: (API, state, type, add) => dispatch(actionExpenses(API, state, type, add)),
 });
 
 export default connect(null, mapDispatchToProps)(ExpenseAddForm);

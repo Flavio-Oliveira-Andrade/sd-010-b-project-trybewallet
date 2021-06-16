@@ -10,9 +10,9 @@ class SelectCurrencies extends React.Component {
   render() {
     const { currencies, Select } = this.props;
     return (
-      <label htmlFor="currencies">
+      <label htmlFor="currency">
         Moeda
-        <select id="currencies" onChange={ Select }>
+        <select id="currency" onChange={ Select }>
           <option value="">-</option>
           {currencies.map((moeda) => (
             <option value={ moeda } key={ moeda }>{ moeda }</option>
