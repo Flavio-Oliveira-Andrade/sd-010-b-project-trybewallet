@@ -7,8 +7,8 @@ html {
   background-color: gray;
   color: whitesmoke;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
+  flex-wrap: wrap;
   font-size: 30px;
   justify-content: space-around;
   min-height: 50px;
@@ -44,31 +44,31 @@ button {
 }
 
 .form-table input , select {
-  margin-left: 5px;
   background-color: whitesmoke;
   border-radius: 5px;
+  margin-left: 5px;
   width: 120px;
 }
 
 .edit-table input , select {
-  margin-left: 5px;
   background-color: whitesmoke;
   border-radius: 5px;
+  margin-left: 5px;
   width: 120px;
 }
 
 .expenses-table {
   border-radius: 3px;
-  margin: auto;
   margin-top: 10px;
+  margin: auto;
   text-align: center;
 }
 
 .expenses-table table , th , td {
   align-self: stretch;
   background-color: whitesmoke;
-  border: 1px solid black;
   border-radius: 3px;
+  border: 1px solid black;
   padding: 0 5px;
   text-align: center;
   transition: 0.5s;
