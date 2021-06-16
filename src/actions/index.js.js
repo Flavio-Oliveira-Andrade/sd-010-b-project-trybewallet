@@ -1,5 +1,6 @@
 // Coloque aqui suas actions
 export const FETCH_MOEDAS = 'FETCH_MOEDAS';
+export const EXPENSES = 'EXPENSES';
 
 export const saveEmailLogon = (email) => ({
   type: 'SAVE_EMAIL_LOGON',
@@ -24,3 +25,16 @@ export function getMoedas() {
       });
   };
 }
+
+export const saveExpenses = (state) => (dispatch) => {
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((data) => {
+      delete data.USDT;
+      dispatch({
+        type: EXPENSES,
+        payload: { ...state, exchangeRates: data },
+
+      });
+    });
+};
