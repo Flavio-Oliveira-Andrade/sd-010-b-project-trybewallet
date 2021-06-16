@@ -7,8 +7,8 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: 0,
-      value: '',
+      id: -1,
+      value: 0,
       description: '',
       method: 'Dinheiro',
       currency: 'USD',
@@ -25,18 +25,19 @@ class Form extends React.Component {
   }
 
   async handleClick() {
-    const { exchange, expensesWithState } = this.props;
-    // para de dar problema!!!
-    console.log(this.state);
-    // para de dar problema!!!
+    // falta APENAS ISSO!! VERIFICAR NO PLANTAO!!
+    const { exchange,
+      expensesWithState,
+      expensesToState,
+      expensesWithRequest,
+    } = this.props;
     await expensesWithState();
     const { id } = this.state;
     this.setState({
-      id: id + 1,
+      id: (id + 1),
       exchangeRates: exchange,
     });
-    const stateOfComponent = this.state;
-    expenses(stateOfComponent);
+    await expensesToState(this.state);
   }
 
   handleChange({ target }) {
@@ -51,7 +52,6 @@ class Form extends React.Component {
     return (
       <form>
         <label htmlFor="valor">
-          Valor:
           <input
             type="number"
             id="valor"
@@ -101,13 +101,14 @@ class Form extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   actionCoins: () => dispatch(actionThunkCoin()),
   expensesWithState: () => dispatch(actionThunkExpenses()),
-  expenses: (state) => dispatch(expenses(state)),
+  expensesToState: (state) => dispatch(expenses(state)),
 });
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   coins: state.wallet.currencies,
   exchange: state.wallet.actualValue,
+  expensesWithRequest: state.wallet.expenses,
 });
 
 Form.propTypes = {
