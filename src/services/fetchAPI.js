@@ -1,6 +1,6 @@
 export const currenciesFetch = async () => {
   try {
-    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all%');
+    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await fetchApi.json();
     return response;
   } catch (error) {

@@ -15,8 +15,7 @@ class FormWallet extends React.Component {
   // }
 
   render() {
-    const currencies = this.props;
-    console.log(this.props);
+    const { currencies } = this.props;
 
     return (
       <form>
@@ -76,7 +75,6 @@ const mapStateToProps = (state) => ({
 
 FormWallet.propTypes = {
   getCoins: PropTypes.func.isRequired,
-  map: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
