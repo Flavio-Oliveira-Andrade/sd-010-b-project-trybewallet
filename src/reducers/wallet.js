@@ -10,7 +10,6 @@ function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case GET_CURRENCY:
     delete action.payload.USDT;
-    delete action.payload.DOGE;
     return {
       ...state,
       currencies: Object.keys(action.payload),

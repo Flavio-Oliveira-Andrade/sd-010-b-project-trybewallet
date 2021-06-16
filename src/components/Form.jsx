@@ -37,7 +37,7 @@ class Form extends Component {
       <form>
         <label htmlFor="value">
           Valor:
-          <input id="value" name="value" type="text" onBlur={ this.handleValues } />
+          <input id="value" name="value" type="text" onChange={ this.handleValues } />
         </label>
         <label htmlFor="description">
           Descrição:
@@ -45,7 +45,7 @@ class Form extends Component {
             id="description"
             name="description"
             type="text"
-            onBlur={ this.handleValues }
+            onChange={ this.handleValues }
           />
         </label>
         <label htmlFor="currency">

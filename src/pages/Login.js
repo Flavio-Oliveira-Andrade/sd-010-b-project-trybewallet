@@ -14,27 +14,30 @@ class Login extends React.Component {
 
     this.state = {
       disabled: true,
+      email: '',
       password: '',
     };
   }
 
   btnEnable() {
-    const { password } = this.state;
-    const { email } = this.props;
+    const { email, password } = this.state;
     const minFieldLength = 6;
-    const disabled = (email === 'error') || (password.length < minFieldLength);
+    const disabled = (email === '') || (password.length < minFieldLength);
     this.setState({
       disabled,
     });
   }
 
   verifyEmail({ target: { value: email } }) {
-    const { checkEmail } = this.props;
-    if (email.match(/^[^\s@]+@[^\s@]+.[^\s@]+$/i)) {
-      checkEmail(email);
-      this.btnEnable();
+    if (email.match(/^\S+@\S+\.\S+$/i)) {
+      // if (email.match(/^[^\s@]+@[^\s@]+.[^\s@]+$/i)) {
+      this.setState({
+        email,
+      }, () => this.btnEnable());
     } else {
-      checkEmail('error');
+      this.setState({
+        email: '',
+      }, () => this.btnEnable());
     }
   }
 
@@ -45,7 +48,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disabled } = this.state;
+    const { email, disabled } = this.state;
+    const { checkEmail } = this.props;
     return (
       <div>
         Login
@@ -70,7 +74,13 @@ class Login extends React.Component {
           />
         </label>
         <Link to="/carteira">
-          <button type="button" disabled={ disabled }>Entrar</button>
+          <button
+            type="button"
+            onClick={ () => checkEmail(email) }
+            disabled={ disabled }
+          >
+            Entrar
+          </button>
         </Link>
       </div>
     );
@@ -79,7 +89,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   checkEmail: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
+  // email: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

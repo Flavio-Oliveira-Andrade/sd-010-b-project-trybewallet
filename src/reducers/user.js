@@ -1,7 +1,7 @@
 import { CHECK_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
-  email: 'error',
+  email: '',
 };
 
 function user(state = INITIAL_STATE, { type, email }) {
