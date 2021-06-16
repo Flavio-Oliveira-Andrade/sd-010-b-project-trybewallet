@@ -12,7 +12,7 @@ class Login extends React.Component {
       password: '',
       disabled: true,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -21,10 +21,10 @@ class Login extends React.Component {
     }, () => this.validateEmail());
   }
 
-  handleSubmit(target) {
-    const targetResult = target;
-    console.log(targetResult);
-  }
+  // handleSubmit(target) {
+  //   const targetResult = target;
+  //   console.log(targetResult);
+  // }
 
   validateEmail() {
     // Source: https://stackoverflow.com/a/9204568/15377250
