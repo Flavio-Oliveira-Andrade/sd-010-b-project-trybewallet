@@ -44,7 +44,7 @@ class Login extends React.Component {
 
   render() {
     const { email, disabled, password } = this.state;
-    const { save } = this.props;
+    const { saveEmailState } = this.props;
     return (
       <form>
         <label htmlFor="email">
@@ -69,7 +69,7 @@ class Login extends React.Component {
         <Link to="/carteira">
           <button
             type="button"
-            onClick={ () => save(email) }
+            onClick={ () => saveEmailState(email) }
             disabled={ disabled }
           >
             Entrar
@@ -81,7 +81,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  save: (item) => dispatch(saveEmail(item)),
+  saveEmailState: (item) => dispatch(saveEmail(item)),
 });
 
 Login.propTypes = {
