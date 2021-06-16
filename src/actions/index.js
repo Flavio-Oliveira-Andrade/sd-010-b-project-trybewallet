@@ -1,9 +1,9 @@
 export const LOGIN_INFO = 'login';
 
-function loginAction({ userEmail, password }) {
+function loginAction({ userEmail, userPassword }) {
   return ({
     type: LOGIN_INFO,
-    payload: { userEmail, password },
+    payload: { userEmail, userPassword },
   });
 }
 

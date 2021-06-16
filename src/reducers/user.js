@@ -1,9 +1,7 @@
 import { LOGIN_INFO } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 function user(state = INITIAL_STATE, action) {
@@ -11,9 +9,7 @@ function user(state = INITIAL_STATE, action) {
   case LOGIN_INFO:
     return {
       ...state,
-      user: {
-        email: action.payload.userEmail,
-      },
+      email: action.payload.userEmail,
     };
   default:
     return state;
