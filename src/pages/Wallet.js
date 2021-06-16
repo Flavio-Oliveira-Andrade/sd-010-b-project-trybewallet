@@ -12,6 +12,7 @@ class Wallet extends React.Component {
   }
 
   totalExpenses() {
+    // help do João Vitor Fidanza
     const { expenses } = this.props;
     if (expenses.length < 1) {
       return 0;
