@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getMoedas } from '../actions/index.js';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { getlistMoedas } = this.props;
+    console.log('didmout');
+    getlistMoedas();
+  }
+
   render() {
-    const { emailUser } = this.props;
+    const { emailUser, currencies } = this.props;
     return (
       <div>
         <header>
@@ -20,19 +27,18 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="descricao">
             Descrição:
-            {'  '}
             <input type="text" id="descricao" />
           </label>
           <label htmlFor="moeda">
             Moeda:
-            {'  '}
             <select id="moeda">
-              <option value="moeda">Moeda</option>
+              {Object.keys(currencies).map((moeda, index) => (
+                <option key={ index } value="moeda">{moeda}</option>
+              ))}
             </select>
           </label>
           <label htmlFor="pagamento">
             Método de pagamento:
-            {'  '}
             <select id="pagamento">
               <option value="dinheiro">Dinheiro</option>
               <option value="credito">Cartão de crédito</option>
@@ -41,7 +47,6 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="tag">
             Tag:
-            {'  '}
             <select id="tag">
               <option value="alimentacao">Alimentação</option>
               <option value="lazer">Lazer</option>
@@ -56,6 +61,11 @@ class Wallet extends React.Component {
 }
 const mapStateToProps = (state) => ({
   emailUser: state.user.email,
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getlistMoedas: () => dispatch(getMoedas()),
 });
 
 Wallet.propTypes = {
@@ -64,4 +74,4 @@ Wallet.propTypes = {
   }),
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
