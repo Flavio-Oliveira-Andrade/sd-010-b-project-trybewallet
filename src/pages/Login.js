@@ -54,14 +54,14 @@ class Login extends React.Component {
           type="text"
           name="email"
           data-testid="email-input"
-          onChange={ this.handleChange }
+          onChange={ this.handleChange } // função linha 16
           value={ email }
         />
         <input
           type="password"
           name="password"
           data-testid="password-input"
-          onChange={ this.handleChange }
+          onChange={ this.handleChange } // função linha 16
           value={ password }
         />
         <input
@@ -77,8 +77,8 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  changeEmail: (email) => dispatch({
+const mapDispatchToProps = (dispatch) => ({ // enviando as informaçoes de atualização ACTION para
+  changeEmail: (email) => dispatch({ // a STORE
     type: 'CHANGE_EMAIL', email,
   }),
 });

@@ -17,8 +17,8 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
+const mapStateToProps = (state) => ({ // selecionando os dados da STORE que o componente
+  email: state.user.email, // precisa usar.
   total: state.wallet.total,
 });
 
