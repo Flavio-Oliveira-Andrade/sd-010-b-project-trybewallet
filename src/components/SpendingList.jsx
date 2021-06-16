@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getResult } from '../actions';
+import { getResult, expenseAction } from '../actions';
 
 class SpendingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // value: '',
-      // currency: '',
-      // paymentMethod: '',
-      // tag: '',
-      // description: '',
+      cost: '',
+      currencyUsed: '',
+      paymentMethod: '',
+      tag: '',
+      description: '',
+      exchangeRates: {},
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handlePaymentAndTag = this.handlePaymentAndTag.bind(this);
   }
 
   componentDidMount() {
@@ -21,32 +24,79 @@ class SpendingList extends Component {
     secondDispatch();
   }
 
-  handleChange() {
+  handleChange({ target: { id, value } }) {
     this.setState({
-      // value: target.value,
-      // currency: target.value,
-      // paymentMethod: target.value,
-      // tag: target.value,
-      // description: target.value,
+      [id]: value,
     });
+  }
+
+  handleClick() {
+    const { secondDispatch, currencies, thirdDispatch } = this.props;
+    secondDispatch();
+    this.setState({ exchangeRates: currencies }, () => { thirdDispatch(this.state); });
+  }
+
+  handlePaymentAndTag() {
+    const { tag, paymentMethod } = this.state;
+    return (
+      <div>
+        <label htmlFor="paymentMethod">
+          <select
+            id="paymentMethod"
+            value={ paymentMethod }
+            onChange={ this.handleChange }
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+          Método de pagamento
+        </label>
+        <label htmlFor="tag">
+          <select id="tag" value={ tag } onChange={ this.handleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Trabalho">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+          Tag
+        </label>
+      </div>
+    );
   }
 
   render() {
     const { currencies } = this.props;
+    const { cost, currencyUsed, description } = this.state;
     return (
       <div>
         <form>
-          <label htmlFor="value">
-            <input id="value" type="text" onChange={ () => this.handleChange() } />
+          <label htmlFor="cost">
+            <input
+              id="cost"
+              type="text"
+              value={ cost }
+              onChange={ this.handleChange }
+            />
             Valor
           </label>
           <label htmlFor="description">
-            <input id="description" type="text" onChange={ () => this.handleChange() } />
+            <input
+              id="description"
+              value={ description }
+              type="text"
+              onChange={ this.handleChange }
+            />
             Descrição
           </label>
-          <label htmlFor="currency">
+          <label htmlFor="currencyUsed">
             Moeda
-            <select id="currency">
+            <select
+              id="currencyUsed"
+              value={ currencyUsed }
+              onChange={ this.handleChange }
+            >
               {Object.keys(currencies).map((currency) => (
                 <option key={ currency }>
                   {currency}
@@ -54,25 +104,8 @@ class SpendingList extends Component {
               )) }
             </select>
           </label>
-          <label htmlFor="optionPayment">
-            <select id="optionPayment" onChange={ () => this.handleChange() }>
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
-            </select>
-            Método de pagamento
-          </label>
-          <label htmlFor="option">
-            <select id="option" onChange={ () => this.handleChange() }>
-              <option value="Alimentação">Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Trabalho">Transporte</option>
-              <option value="Saúde">Saúde</option>
-            </select>
-            Tag
-          </label>
-          <button type="button" onChange={ () => this.handleChange() }>
+          {this.handlePaymentAndTag()}
+          <button type="button" onChange={ this.handleClick }>
             Adicionar Despesas
           </button>
         </form>
@@ -82,12 +115,16 @@ class SpendingList extends Component {
 }
 
 SpendingList.propTypes = ({
-  currencies: PropTypes.objectOf.isRequired,
+  currencies: PropTypes.arrayOf.isRequired,
   secondDispatch: PropTypes.func.isRequired,
+  thirdDispatch: PropTypes.func.isRequired,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   secondDispatch: () => dispatch(getResult()),
+  thirdDispatch: (spendingItems) => dispatch(
+    expenseAction(spendingItems),
+  ),
 });
 
 const mapStateToProps = (state) => ({
@@ -95,5 +132,5 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   email: state.user.email,
 });
-// A colega Camila tirou uma dúvida no slack sobre o exercício 8, que eu tirei como base para realizar o map.
+// A colega Camila tirou uma dúvida no slack sobre o exercício 8, que eu tirei como base para realizar o map e também verifiquei seu repositório para verificar como realizar o handleClick.
 export default connect(mapStateToProps, mapDispatchToProps)(SpendingList);

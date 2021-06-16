@@ -35,6 +35,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  totalExpenses: state.wallet.currencies,
   expenses: state.wallet.expenses,
   email: state.user.email,
 });

@@ -3,6 +3,7 @@ import fetchURL from '../service/API';
 export const LOGIN = 'login';
 export const WALLET = 'wallet';
 export const RESULT = 'result';
+export const SPENDING = 'spending';
 
 export default function loginAction({ userName, password }) {
   return ({
@@ -22,3 +23,10 @@ export const getResult = () => async (dispatch) => {
   // a propriedade delete eu aprendi com meu colega Carlos.
   return dispatch(walletAction(currencies));
 };
+
+export const expenseAction = (spendingItems) => ({
+
+  type: SPENDING,
+  payload: { spendingItems },
+
+});

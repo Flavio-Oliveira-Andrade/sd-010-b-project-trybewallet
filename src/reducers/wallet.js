@@ -1,4 +1,4 @@
-import { WALLET } from '../actions';
+import { WALLET, SPENDING } from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],
@@ -13,7 +13,11 @@ export default function wallet(state = INITIAL_STATE, action) {
       ...state,
       currencies: action.payload,
     };
-
+  case SPENDING:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
   default:
     return state;
   }
