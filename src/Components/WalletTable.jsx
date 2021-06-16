@@ -18,7 +18,6 @@ class WalletTable extends Component {
   removingExpenses({ target }) {
     const { dispatchRemoveExpense } = this.props;
     const { id } = target;
-    console.log(id);
     dispatchRemoveExpense({ id });
   }
 

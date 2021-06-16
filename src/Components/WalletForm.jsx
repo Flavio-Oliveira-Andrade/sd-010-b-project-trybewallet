@@ -1,10 +1,70 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import fetchCurrency from '../services/fetchCurrency';
+import { actionFetchCurrencies, newExpense, receiveCurrencies } from '../actions';
 
 class WalletForm extends Component {
+  constructor(props) {
+    super(props);
+    this.addCost = this.addCost.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+  }
+
+  async componentDidMount() {
+    const currencies = await fetchCurrency();
+    this.setCurrencyOnGlobalState(currencies);
+  }
+
+  setCurrencyOnGlobalState(currencies) {
+    const { dispatchCurrencies } = this.props;
+    dispatchCurrencies(currencies);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  returnCurrencies(currencies = {}) {
+    if (Object.keys(currencies) === 0) {
+      return (<option value="loading">Carregando...</option>);
+    }
+    return Object.keys(currencies).filter((currency) => currency !== 'USDT')
+      .map((currency) => (
+        <option key={ currency } value={ currency }>
+          { currency }
+        </option>));
+  }
+
+  async addCost() {
+    const { value,
+      description, tag, method, currency } = this.state;
+    const { dispatchNewExpense, userExpenses } = this.props;
+    // dispatchFetchCurrencies();
+    const exchangeRates = await fetchCurrency();
+    const lastExpense = userExpenses[userExpenses.length - 1];
+    const expenseToAdd = {
+      id: lastExpense ? lastExpense.id + 1 : 0,
+      value,
+      description,
+      tag,
+      method,
+      currency,
+      exchangeRates,
+    };
+    dispatchNewExpense(expenseToAdd);
+  }
+
   render() {
-    const { currencies, expense } = this.props;
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="expense-value">
@@ -100,10 +160,20 @@ WalletForm.propTypes = {
     currency: PropTypes.string,
     exchangeRates: PropTypes.func,
   }),
+  userExpenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dispatchNewExpense: PropTypes.func.isRequired,
+  dispatchCurrencies: PropTypes.func.isRequired,
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchNewExpense: (state) => dispatch(newExpense(state)),
+  dispatchFetchCurrencies: () => dispatch(actionFetchCurrencies()),
+  dispatchCurrencies: (state) => dispatch(receiveCurrencies(state)),
+});
+
 const mapStateToProps = (state) => ({
+  userExpenses: state.wallet.expenses,
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(WalletForm);
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
