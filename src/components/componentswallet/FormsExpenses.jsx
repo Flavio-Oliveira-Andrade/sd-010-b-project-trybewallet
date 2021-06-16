@@ -10,7 +10,7 @@ function FormsExpenses({
   onChangeDescription = null,
   value = 0,
   onChangeValue = '',
-  inputMoeda = 'USD',
+  inputMoeda = 'BRL',
   onChangeMoeda = null,
   inputMethod = 'Dinheiro',
   onChangeMethod = null,
