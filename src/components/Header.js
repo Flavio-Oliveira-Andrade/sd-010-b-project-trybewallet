@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <header>
         <p data-testid="email-field">{`Usuário: ${user}`}</p>
-        <p>{`Valor total: ${total}`}</p>
+        <p data-testid="total-field">{`Valor total: ${total}`}</p>
         <p data-testid="header-currency-field">BRL</p>
       </header>
     );
