@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { Provider } from 'react-redux';
+import store from './store';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from './store';
 
 ReactDOM.render(
   <BrowserRouter>

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Input extends React.Component {
+class Inputs extends React.Component {
   render() {
-    const { type = 'text', name, test, handle, place } = this.props;
+    const { place, type = 'text', name, handle, test } = this.props;
     return (
       <input
         type={ type }
@@ -17,17 +17,16 @@ class Input extends React.Component {
   }
 }
 
-Input.propTypes = {
+Inputs.propTypes = {
   place: PropTypes.string.isRequired,
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   test: PropTypes.string.isRequired,
-  handle: PropTypes.func,
-};
-// especificação da props do text
-Input.defaultProps = {
-  type: 'text',
-  handle: undefined,
+  handle: PropTypes.func.isRequired,
 };
 
-export default Input;
+Inputs.defaultProps = {
+  type: 'text',
+};
+
+export default Inputs;
