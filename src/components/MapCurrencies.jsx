@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 class MapCurrencies extends React.Component {
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange } = this.props;
 
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda
-        <select id="moeda" name="moeda">
+        <select onChange={ onChange } id="currency" name="moeda">
           {currencies.map((moeda, index) => (
             <option key={ index }>{moeda.code}</option>
           ))}
@@ -20,6 +20,7 @@ class MapCurrencies extends React.Component {
 
 MapCurrencies.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default MapCurrencies;
