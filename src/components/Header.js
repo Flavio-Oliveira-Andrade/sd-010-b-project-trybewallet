@@ -7,7 +7,6 @@ class Header extends React.Component {
     const { email, expenses, currencies } = this.props;
     return (
       <fieldset>
-        <div>TrybeWallet</div>
         <span data-testid="email-field">
           { email }
         </span>
