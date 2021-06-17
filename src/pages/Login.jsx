@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { setUser } from '../actions';
 
 const MIN_LENGTH = 6; // password
@@ -13,6 +13,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       isBtnDisable: true,
+      isLogged: false,
     };
     this.validateLogin = this.validateLogin.bind(this);
   }
@@ -30,9 +31,16 @@ class Login extends React.Component {
     }
   }
 
+  redirectToWallet() {
+    this.setState({ isLogged: true });
+  }
+
   render() {
-    const { email, isBtnDisable } = this.state;
+    const { email, isBtnDisable, isLogged } = this.state;
     const { setUserEmail } = this.props;
+    if (isLogged) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <section className="login-container">
         <form>
@@ -40,7 +48,6 @@ class Login extends React.Component {
             Email:
             <input
               type="email"
-              name="emailInput"
               id="emailInput"
               placeholder="Email"
               data-testid="email-input"
@@ -49,12 +56,10 @@ class Login extends React.Component {
               } }
             />
           </label>
-
           <label htmlFor="passwordInput">
             Senha:
             <input
               type="password"
-              name="passwordInput"
               id="passwordInput"
               placeholder="Password"
               data-testid="password-input"
@@ -63,16 +68,19 @@ class Login extends React.Component {
               } }
             />
           </label>
-          <Link to="/carteira">
+          <section className="btn-container">
             <button
               type="button"
               data-testid="btn-login"
               disabled={ isBtnDisable }
-              onClick={ () => setUserEmail(email) }
+              onClick={ () => {
+                setUserEmail(email);
+                this.redirectToWallet();
+              } }
             >
               Entrar
             </button>
-          </Link>
+          </section>
         </form>
       </section>
     );

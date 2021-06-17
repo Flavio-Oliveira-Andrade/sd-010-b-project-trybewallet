@@ -87,7 +87,7 @@ table button:nth-child( 1 ):hover , table button:nth-child( 2 ):hover {
   transform: scale(1.1);
 }
 
-.login-container a {
+.login-container section {
   display: flex;
   justify-content: center;
   text-decoration: none;
