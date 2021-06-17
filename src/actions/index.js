@@ -31,4 +31,4 @@ export function fetchCurrencies() {
       .then((response) => response.json())
       .then((currencies) => dispatch(getCurrencies(currencies)));
   };
-};
+}
