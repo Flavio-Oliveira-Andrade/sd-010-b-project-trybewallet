@@ -11,7 +11,7 @@ function wallet(state = INITIAL_STATE, action) {
     delete action.payload.USDT;
     return {
       ...state,
-      currency: action.payload,
+      currencies: action.payload,
     };
   case NEW_EXPENSE:
     return {
