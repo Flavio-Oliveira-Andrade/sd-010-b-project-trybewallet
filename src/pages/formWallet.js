@@ -7,7 +7,7 @@ import { fetchApiMoeda, fetchAllcoins, addGastos } from '../actions';
 class Formulario extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = { // criei esse estado aqui pro requisito 8. Foi baseado no readme.
       id: '',
       value: '',
       currency: '',
@@ -18,7 +18,7 @@ class Formulario extends React.Component {
     };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
-    this.selectMethodFunction = this.selectMethodFunction.bind(this);
+    this.selectMethodFunction = this.selectMethodFunction.bind(this); // essa função foi pra não dar erro no lint por causa de muita linha no Render().
   }
 
   componentDidMount() {
@@ -37,12 +37,8 @@ class Formulario extends React.Component {
     fetchCoins().then((expenses) => this.setState({
       exchangeRates: expenses,
       id: gastosAtuaisArray.length,
-    })).then(() => gastoAction(this.state));
+    })).then(() => gastoAction(this.state)); // A utilidade disso aqui é: Quando eu clicar no botão, eu tenho que fazer tudo isso aqui serve pra ATUALIZAR aquele meu estado, na parte do expenses =[].
   }
-  // fetchAPIExpenses().then((expenses) => this.setState({
-  //   id: expensesArr.length,
-  //   exchangeRates: expenses,
-  // })).then(() => actionAddState(this.state));
 
   selectMethodFunction() {
     return (
@@ -106,7 +102,7 @@ class Formulario extends React.Component {
         </form>
       </section>
     ); // ATENÇÃO no map que eu fiz. Ele que faz aquele select aparecer diversas moedas de uma forma dinâmica, algo bem interessante.
-  }
+  } // OBS IMPORTANTE: No select da moeda, perdi muitas e muitas horas porque tinha colocado o name=currencies, isso fazia a soma das despesas dar errado. Tinha que ser currency. Quando ajeitei, aí deu certo.
 }
 Formulario.propTypes = {
   currencies: PropTypes.arrayOf.isRequired,
@@ -121,7 +117,7 @@ const mapStateToProps = (state) => ({
 }); // veja lá no index do reducers que currencies É UM ARRAY. Vou botar ela como props lá pra cima, e logo aqui em cima colocarei arrayOf no Proptypes
 const mapDispatchToProps = (dispatch) => ({
   fetchDispatch: () => dispatch(fetchApiMoeda()), // esse com chamada de API fica um pouco diferente do outro que fiz no Login.js. Não coloquei nada nos ().
-  fetchCoins: () => dispatch(fetchAllcoins()),
-  gastoAction: (gasto) => dispatch(addGastos(gasto)),
+  fetchCoins: () => dispatch(fetchAllcoins()), // essa é pra aquela outra fetch que fiz, que aí pega todas as moedas.
+  gastoAction: (gasto) => dispatch(addGastos(gasto)), // aqui foi na action que eu fiz e que trouxe pra esse mapDispatch também.
 }); // esse fetchDispatch(nome que inventei) é uma função. Vou botar ela como função lá pra cima, e aqui logo em cima no Proptypes colocarei como func
 export default connect(mapStateToProps, mapDispatchToProps)(Formulario);

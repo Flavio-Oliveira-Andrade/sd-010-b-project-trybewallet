@@ -13,7 +13,7 @@ const walletReducer = (state = initialstate, action) => {
   case ADICIONA_GASTOS:
     return {
       ...state, expenses: [...state.expenses, action.gasto],
-    };
+    }; // talvez desse action.payload ou action.gasto, mas aqui daria errado colocar action.payload.gasto
   default:
     return state;
   }
