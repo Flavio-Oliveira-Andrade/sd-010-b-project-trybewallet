@@ -19,7 +19,7 @@ class Header extends Component {
       const filterBRLT = values.filter((value) => value.codein !== 'BRLT');
       const filterCurrency = filterBRLT.filter((value) => cur.currency === value.code);
       const finalCurrency = filterCurrency[0].ask;
-      acc += Number(cur.values) * finalCurrency;
+      acc += Number(cur.value) * finalCurrency;
       return (acc);
     }, 0);
   }

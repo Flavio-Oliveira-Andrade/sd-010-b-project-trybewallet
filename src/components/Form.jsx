@@ -69,12 +69,12 @@ class Form extends Component {
                 .map((cur) => <option key={ cur } value={ cur }>{cur}</option>)}
             </select>
           </label>
-          <label htmlFor="Tag">
+          <label htmlFor="tag">
             Tag
             <select
               type="text"
-              name="Tag"
-              id="Tag"
+              name="tag"
+              id="tag"
               onChange={ this.handleChange }
               value={ tag }
             >
