@@ -10,7 +10,6 @@ export const saveEmailLogon = (email) => ({
 });
 
 export function getMoedas() {
-  console.log('function');
   return function getReturn(dispatch) {
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())

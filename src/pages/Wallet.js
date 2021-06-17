@@ -10,7 +10,7 @@ class Wallet extends React.Component {
       id: 0,
       value: 0,
       description: '',
-      currency: 'USD',
+      currency: 'BRL',
       method: 'Dinheiro',
       tag: 'Alimentação',
       exchangeRates: {},
@@ -21,7 +21,6 @@ class Wallet extends React.Component {
 
   componentDidMount() {
     const { getlistMoedas } = this.props;
-    console.log('didmout');
     getlistMoedas();
   }
 
