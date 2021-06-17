@@ -95,11 +95,19 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string,
+  newExpense: PropTypes.shapeOf({
+    id,
+    value,
+    description,
+    currency,
+    method,
+    tag,
+    exchangeRates,
+  }),
 };
 
 Wallet.defaultProps = {
-  email: undefined,
+  newExpense: undefined,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
