@@ -13,8 +13,6 @@ function Header() {
     return convert + acc;
   }, 0);
 
-  console.log(valor);
-
   return (
     <div>
       <span data-testid="email-field">{`Email: ${emailUser}`}</span>
@@ -22,7 +20,7 @@ function Header() {
       <span
         data-testid="header-currency-field"
       >
-        {`Moeda: ${'BRL'}`}
+        Moeda: BRL
       </span>
     </div>
   );

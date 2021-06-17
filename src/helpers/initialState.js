@@ -1,11 +1,11 @@
 // import { getNewId } from '../services/idServices';
 
 const objExpenses = {
-  description: '',
   value: 0,
-  currency: 'BRL',
+  currency: 'USD',
   method: 'Dinheiro',
   tag: 'Alimentação',
+  description: '',
 };
 
 export default objExpenses;

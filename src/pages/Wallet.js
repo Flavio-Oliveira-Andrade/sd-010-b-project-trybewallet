@@ -7,7 +7,7 @@ import { saveRequest } from '../actions/index';
 import objExpenses from '../helpers/initialState';
 
 function Wallet() {
-  const [expenses, setExpenses] = useState(objExpenses);
+  const [expenses, setExpenses] = useState({});
   const dispatch = useDispatch();
 
   const handleOnChange = (event) => {

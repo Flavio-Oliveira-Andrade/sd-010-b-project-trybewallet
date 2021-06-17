@@ -14,9 +14,9 @@ function InputSelectMethod({
           value={ inputMethod }
           onChange={ onChangeMethod }
         >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     </div>
