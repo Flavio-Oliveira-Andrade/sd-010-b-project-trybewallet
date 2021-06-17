@@ -91,7 +91,7 @@ class Form extends Component {
     );
   }
 }
-
+// teste
 Form.propTypes = {
   cotation: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf.isRequired,
