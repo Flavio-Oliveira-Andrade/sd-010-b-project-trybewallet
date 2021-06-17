@@ -58,7 +58,7 @@ class Form extends Component {
             handleChange={ this.handleChange }
           />
           <label htmlFor="currency">
-            Moeda:
+            Moeda
             <select
               name="currency"
               id="currency"
@@ -70,7 +70,7 @@ class Form extends Component {
             </select>
           </label>
           <label htmlFor="Tag">
-            Tag:
+            Tag
             <select
               type="text"
               name="Tag"

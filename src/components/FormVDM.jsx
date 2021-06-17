@@ -8,7 +8,7 @@ class FormVDM extends Component {
     return (
       <div>
         <label htmlFor="value">
-          Valor:
+          Valor
           <input
             type=""
             value={ value }
@@ -18,7 +18,7 @@ class FormVDM extends Component {
           />
         </label>
         <label htmlFor="description">
-          Descrição:
+          Descrição
           <input
             type="text"
             value={ description }
@@ -28,7 +28,7 @@ class FormVDM extends Component {
           />
         </label>
         <label htmlFor="method">
-          Método de pagamento:
+          Método de pagamento
           <select
             type="text"
             value={ method }
