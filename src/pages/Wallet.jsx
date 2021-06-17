@@ -8,9 +8,13 @@ class Wallet extends React.Component {
     super();
     this.state = {
       currencies: [],
+      expenseToEdit: {},
+      isEditMode: false,
     };
     this.fetchAPI = this.fetchAPI.bind(this);
     this.updateCurrencies = this.updateCurrencies.bind(this);
+    this.editExpense = this.editExpense.bind(this);
+    this.renderAddBtn = this.renderAddBtn.bind(this);
   }
 
   componentDidMount() {
@@ -30,13 +34,27 @@ class Wallet extends React.Component {
     return response;
   }
 
+  editExpense(expense) {
+    this.setState({ expenseToEdit: expense, isEditMode: true });
+  }
+
+  renderAddBtn() {
+    this.setState({ isEditMode: false });
+  }
+
   render() {
-    const { currencies } = this.state;
+    const { currencies, expenseToEdit, isEditMode } = this.state;
     return (
       <>
         <Header />
-        <ExpenseForms currencies={ currencies } fetchAPI={ this.fetchAPI } />
-        <ExpenseTable />
+        <ExpenseForms
+          currencies={ currencies }
+          fetchAPI={ this.fetchAPI }
+          expenseToEdit={ expenseToEdit }
+          isEditMode={ isEditMode }
+          renderAddBtn={ this.renderAddBtn }
+        />
+        <ExpenseTable editExpense={ this.editExpense } />
       </>
     );
   }

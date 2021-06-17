@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 class InputElement extends Component {
   render() {
-    const { name, type, label, onChange } = this.props;
+    const { name, type, label, onChange, defaultValue, dataTestid } = this.props;
+
     return (
       <label htmlFor={ name }>
         {label}
@@ -12,6 +13,8 @@ class InputElement extends Component {
           type={ type }
           name={ name }
           id={ name }
+          defaultValue={ defaultValue }
+          data-testid={ dataTestid }
           onChange={ onChange }
         />
       </label>

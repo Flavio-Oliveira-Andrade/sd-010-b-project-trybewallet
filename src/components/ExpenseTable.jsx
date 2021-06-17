@@ -18,7 +18,7 @@ const tableHeader = [
 
 class ExpenseTable extends Component {
   render() {
-    const { expenses, removeExpense, updateExpenses } = this.props;
+    const { expenses, removeExpense, updateExpenses, editExpense } = this.props;
 
     const expenseAmount = expenses.reduce((acc, curr) => {
       const { value, currency, exchangeRates } = curr;
@@ -33,7 +33,11 @@ class ExpenseTable extends Component {
             {tableHeader.map((th, idx) => <th key={ idx }>{th}</th>)}
           </tr>
         </thead>
-        <TableBody expenses={ expenses } removeExpense={ removeExpense } />
+        <TableBody
+          expenses={ expenses }
+          removeExpense={ removeExpense }
+          editExpense={ editExpense }
+        />
       </table>
     );
   }

@@ -4,15 +4,12 @@ import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
 class TableBody extends Component {
   render() {
-    const { expenses, removeExpense } = this.props;
+    const { expenses, removeExpense, editExpense } = this.props;
+
     return (
       <tbody>
-        {expenses.map((
-          {
-            value, description, currency, method, tag, exchangeRates,
-          },
-          idx,
-        ) => {
+        {expenses.map((expense, idx) => {
+          const { value, description, currency, method, tag, exchangeRates } = expense;
           const currencyName = exchangeRates[currency].name.split('/');
           return (
             <tr key={ idx }>
@@ -28,15 +25,14 @@ class TableBody extends Component {
                 <button
                   type="submit"
                   data-testid="edit-btn"
+                  onClick={ () => editExpense(expense) }
                 >
                   <AiFillEdit />
                 </button>
                 <button
                   type="submit"
-                  onClick={ () => {
-                    removeExpense(idx);
-                  } }
                   data-testid="delete-btn"
+                  onClick={ () => { removeExpense(idx); } }
                 >
                   <AiFillDelete />
                 </button>
