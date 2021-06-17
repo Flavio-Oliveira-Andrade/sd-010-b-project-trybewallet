@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import FormsExpenses from '../components/componentswallet/FormsExpenses';
 import Header from '../components/componentswallet/Header';
 import ButtonAddExpenses from '../components/componentswallet/ButtonAddExpenses';
-import { saveExpenses, saveRequest } from '../actions/index';
+import { saveRequest } from '../actions/index';
 import objExpenses from '../helpers/initialState';
 
 function Wallet() {
