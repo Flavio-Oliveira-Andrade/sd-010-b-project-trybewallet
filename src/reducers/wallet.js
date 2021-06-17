@@ -4,11 +4,6 @@ function arrayRemove(arr, id) {
   return arr.filter((e) => e.id !== id);
 }
 
-function editArray(arr, payload) {
-  const newArr = arr.filter((e) => e.id !== payload.id);
-  return [...newArr, payload];
-}
-
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],

@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 class SelectElement extends Component {
   render() {
-    const { name, label, options, onChange, dataTestid } = this.props;
+    const { label, options, onChange, dataTestid } = this.props;
     return (
-      <label htmlFor={ name }>
+      <label htmlFor={ label }>
         {label}
         :
         <select
-          name={ name }
-          id={ name }
+          id={ label }
           onChange={ onChange }
           data-testid={ dataTestid }
         >
@@ -26,7 +25,6 @@ class SelectElement extends Component {
   }
 }
 SelectElement.propTypes = {
-  name: PropTypes.string,
   label: PropTypes.string,
   options: PropTypes.arrayOf,
   onChange: PropTypes.func,

@@ -42,7 +42,6 @@ class ExpenseForms extends Component {
   updateExpense() {
     const { expenseToEdit, renderAddBtn } = this.props;
     const { exchangeRates, id } = expenseToEdit;
-    console.log(id);
     this.setState({ exchangeRates, id }, this.gotUpdated);
     renderAddBtn();
   }
@@ -54,7 +53,6 @@ class ExpenseForms extends Component {
       <form className="expense-input">
         <InputElement
           type="text"
-          name="value"
           label="Valor"
           defaultValue={ value }
           dataTestid="value-input"
@@ -62,14 +60,12 @@ class ExpenseForms extends Component {
         />
         <InputElement
           type="text"
-          name="description"
           label="Descrição"
           defaultValue={ description }
           dataTestid="description-input"
           onChange={ (e) => this.setState({ description: e.target.value }) }
         />
         <SelectElement
-          name="currency"
           label="Moeda"
           options={ currencies }
           defaultValue={ currency }
@@ -77,7 +73,6 @@ class ExpenseForms extends Component {
           onChange={ (e) => this.setState({ currency: e.target.value }) }
         />
         <SelectElement
-          name="method"
           label="Método de pagamento"
           options={ paymentMethod }
           defaultValue={ method }
@@ -85,15 +80,19 @@ class ExpenseForms extends Component {
           onChange={ (e) => this.setState({ method: e.target.value }) }
         />
         <SelectElement
-          name="tag"
           label="Tag"
           options={ tags }
           defaultValue={ tag }
           dataTestid="tag-input"
           onChange={ (e) => this.setState({ tag: e.target.value }) }
         />
-        {!isEditMode && <button type="button" onClick={ this.createExpense }>Adicionar Despesa</button>}
-        {isEditMode && <button type="button" onClick={ this.updateExpense }>Editar Despesa</button>}
+        {!isEditMode
+         && (
+           <button type="button" onClick={ this.createExpense }>
+             Adicionar Despesa
+           </button>)}
+        {isEditMode
+        && <button type="button" onClick={ this.updateExpense }>Editar Despesa</button>}
       </form>
     );
   }
