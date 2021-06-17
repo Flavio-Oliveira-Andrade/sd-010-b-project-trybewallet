@@ -98,7 +98,6 @@ class Wallet extends React.Component {
     let { id } = this.state;
     let expense = {};
     if (isEditing) {
-      // expense.id = expenses.find((expens) => expens.id === id).id;
       exchangeRates = expenses.find((expens) => expens.id === id).exchangeRates;
       expense = {
         id,
