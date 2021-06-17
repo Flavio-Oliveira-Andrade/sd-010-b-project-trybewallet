@@ -5,9 +5,10 @@ class Description extends React.Component {
   render() {
     const { handleChange } = this.props;
     return (
-      <label htmlFor="description">
+      <label htmlFor="textbox">
         Descrição
         <input
+          id="textbox"
           type="text"
           name="description"
           onChange={ handleChange }

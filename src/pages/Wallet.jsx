@@ -6,14 +6,15 @@ import Value from '../components/Value';
 import PaymentMethod from '../components/PaymentMethod';
 import Tag from '../components/Tag';
 import SelectCurr from '../components/SelectCurr';
-import { addExpense } from '../actions';
-
+import { addExchangeRate } from '../actions';
 import './Wallet.css';
+import WalletHeader from '../components/WallletHeader';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      count: 0,
       value: '',
       description: '',
       currency: 'USD',
@@ -23,7 +24,6 @@ class Wallet extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.initialState = this.initialState.bind(this);
   }
 
   handleChange({ target }) {
@@ -34,21 +34,20 @@ class Wallet extends React.Component {
     });
   }
 
-  initialState() {
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      exchangeRates: {},
-    });
-  }
-
   handleClick() {
-    const { addExpense } = this.props;
-    const { id, value, description, currency, method, tag, exchangeRates } = this.state;
-    addExpense({
+    let id = 0;
+    const { newExpense } = this.props;
+    const {
+      count,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates,
+    } = this.state;
+    id = count;
+    newExpense({
       id,
       value,
       description,
@@ -57,21 +56,15 @@ class Wallet extends React.Component {
       tag,
       exchangeRates,
     });
-    console.log(addExpense);
-    this.setState(this.initialState());
+    this.setState({
+      count: count + 1,
+    });
   }
 
   render() {
-    const { email } = this.props;
     return (
       <div>
-        <header data-testid="email-field">
-          {email}
-          <div className="info--currencie">
-            <span data-testid="total-field">Total de gastos: 0</span>
-            <span data-testid="header-currency-field">R$BRL</span>
-          </div>
-        </header>
+        <WalletHeader />
         <form className="wallet--form">
           <Value handleChange={ this.handleChange } />
           <Description handleChange={ this.handleChange } />
@@ -93,11 +86,12 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
 
-  addExpense: (email) => dispatch(addExpense(email)),
+  newExpense: (email) => dispatch(addExchangeRate(email)),
 });
 
 Wallet.propTypes = {

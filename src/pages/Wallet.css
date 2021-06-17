@@ -22,6 +22,10 @@ header {
   justify-content: space-between;
 }
 
+.wallet--form input {
+  width: 200px;
+} 
+
 .info--currencie {
   display: flex;
   justify-content: space-evenly;

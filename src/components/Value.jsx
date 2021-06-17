@@ -8,8 +8,10 @@ class Value extends React.Component {
       <label htmlFor="value">
         Valor
         <input
+          id="value"
           type="text"
           name="value"
+          min="0"
           onChange={ handleChange }
         />
       </label>
