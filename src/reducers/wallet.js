@@ -15,7 +15,7 @@ function wallet(state = INITIAL_STATE, action) {
   case 'ADD_EXPENSES':
     return {
       ...state,
-      expenses: action.state,
+      expenses: [...state.expenses, action.state],
     };
   default:
     return state;
