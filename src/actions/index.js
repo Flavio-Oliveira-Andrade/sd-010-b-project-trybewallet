@@ -3,11 +3,11 @@ export const FETCH_API = 'FETCH_API';
 export const FETCH_CURRENCY = 'FETCH_CURRENCY';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
-export const addExpense = (expense, coins) => ({
+export const addExpense = (expense, currencies) => ({
   type: ADD_EXPENSE,
   expense: {
     ...expense,
-    exchangeRates: coins,
+    exchangeRates: currencies,
   },
 });
 

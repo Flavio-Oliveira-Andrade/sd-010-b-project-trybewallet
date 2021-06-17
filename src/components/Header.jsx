@@ -4,9 +4,26 @@ import { connect } from 'react-redux';
 import Form from './Form';
 
 class Header extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.totalExpenses = this.totalExpenses.bind(this);
+  }
+
+  totalExpenses() {
+    const { expenses } = this.props;
+    if (expenses.length < 1) {
+      return 0;
+    }
+    return expenses.reduce((acc, cur) => {
+      const values = Object.values(cur.exchangeRates);
+      const filterBRLT = values.filter((value) => value.codein !== 'BRLT');
+      const filterCurrency = filterBRLT.filter((value) => cur.currency === value.code);
+      const finalCurrency = filterCurrency[0].ask;
+      acc += Number(cur.values) * finalCurrency;
+      return (acc);
+    }, 0);
+  }
+
   render() {
     const { userEmail } = this.props;
     return (
@@ -17,7 +34,7 @@ class Header extends Component {
           <input
             name="input-despesa-total"
             type="number"
-            value="0"
+            value={ this.totalExpenses() }
             data-testid="total-field"
           />
         </label>
@@ -34,11 +51,16 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  expenses: PropTypes.shape({
+    length: PropTypes.number,
+    reduce: PropTypes.func,
+  }).isRequired,
   userEmail: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

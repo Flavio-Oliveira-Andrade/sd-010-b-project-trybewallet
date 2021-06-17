@@ -28,10 +28,13 @@ class Form extends Component {
   handleChange(event) {
     const { target: { value, name } } = event;
     const { expenseDetails } = this.state;
+    const { expenseId } = this.props;
+    const id = expenseId;
     this.setState({
       expenseDetails: {
         ...expenseDetails,
         [name]: value,
+        id,
       },
     });
   }
@@ -93,6 +96,7 @@ Form.propTypes = {
   cotation: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf.isRequired,
   dispatchAPI: PropTypes.func.isRequired,
+  expenseId: PropTypes.number.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -103,6 +107,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expense: state.wallet.expenseDetails,
+  expenseId: state.wallet.expenses.length,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
