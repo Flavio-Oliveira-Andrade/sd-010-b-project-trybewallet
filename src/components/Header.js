@@ -18,9 +18,9 @@ class Header extends React.Component {
         <span data-testid="header-currency-field">
           BRL
         </span>
-        <span>
+        {/* <span>
           { expenses }
-        </span>
+        </span> */}
       </fieldset>
     );
   }

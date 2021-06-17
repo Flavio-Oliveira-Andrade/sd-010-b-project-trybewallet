@@ -52,11 +52,11 @@ class ExpensesForm extends React.Component {
           id="paymentMethod"
           name="paymentMethod"
           value={ paymentMethod }
-          onChange={ this.handleChange }
+          onChange={ (e) => { this.handleChange(e); } }
         >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -71,13 +71,13 @@ class ExpensesForm extends React.Component {
           id="option"
           name="tag"
           value={ tag }
-          onChange={ this.handleChange() }
+          onChange={ (e) => { this.handleChange(e); } }
         >
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Trabalho">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -96,7 +96,7 @@ class ExpensesForm extends React.Component {
               name="price"
               value={ price }
               type="text"
-              onChange={ this.handleChange }
+              onChange={ (e) => { this.handleChange(e); } }
             />
           </label>
           <label htmlFor="description">
@@ -106,7 +106,7 @@ class ExpensesForm extends React.Component {
               name="description"
               value={ description }
               type="text"
-              onChange={ this.handleChange }
+              onChange={ (e) => { this.handleChange(e); } }
             />
           </label>
           <label htmlFor="selectedCurrency">
@@ -115,7 +115,7 @@ class ExpensesForm extends React.Component {
               id="selectedCurrency"
               name="selectedCurrency"
               value={ selectedCurrency }
-              onChange={ this.handleChange }
+              onChange={ (e) => { this.handleChange(e); } }
             >
               {Object.keys(currencies).map((currency) => (
                 <option key={ currency }>{currency}</option>
