@@ -30,6 +30,13 @@ class FormularioDeDespesa extends Component {
       id: previ.id + 1,
     }));
     buttoSaveState(this.state);
+    this.setState(() => ({
+      value: 0,
+      currency: 'USD',
+      description: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    }));
   }
 
   handleChange({ target }) {
