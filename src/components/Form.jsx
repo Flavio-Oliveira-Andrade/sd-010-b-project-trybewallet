@@ -9,10 +9,10 @@ class Form extends Component {
     super(props);
     this.state = {
       expenseDetails: {
-        currency: 'USD',
+        currency: '',
         description: '',
-        method: 'dinheiro',
-        tag: 'alimentacao',
+        method: '',
+        tag: '',
         value: '',
       },
     };
