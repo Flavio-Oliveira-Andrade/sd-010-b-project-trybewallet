@@ -4,35 +4,30 @@ import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
 import { wallet } from '../actions';
+import MoedasOptions from './MoedasOptions';
 
 class FormularioDeDespesa extends Component {
   constructor() {
     super();
 
     this.handleChange = this.handleChange.bind(this);
-    this.getCurr = this.getCurr.bind(this);
-
+    this.maisUm = this.maisUm.bind(this);
     this.state = {
-      valor: 0,
-      moeda: 'BRL',
-      moedas: [],
-      describe: '',
-      typeCoin: 'USD',
-      typePagamento: 'Dinheiro',
-      typeDespesa: 'Alimentação',
+      id: 0,
+      value: 0,
+      currency: 'BRL',
+      description: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
-  componentDidMount() {
-    this.getCurr();
-  }
-
-  async getCurr() {
-    const result = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await result.json();
-    const moedas = Object.keys(data);
-    moedas.splice(1, 1);
-    this.setState({ moedas });
+  maisUm() {
+    const { buttoSaveState } = this.props;
+    this.setState((previ) => ({
+      id: previ.id + 1,
+    }));
+    buttoSaveState(this.state);
   }
 
   handleChange({ target }) {
@@ -43,8 +38,8 @@ class FormularioDeDespesa extends Component {
   }
 
   render() {
-    const { email, buttoSaveState } = this.props;
-    const { valor, moeda, moedas, describe } = this.state;
+    const { email } = this.props;
+    const { value, currency, description } = this.state;
     const { handleChange } = this;
 
     return (
@@ -54,28 +49,19 @@ class FormularioDeDespesa extends Component {
         </header>
         <div>
           <p>despesas</p>
-          <p data-testid="total-field">{ valor }</p>
+          <p data-testid="total-field">{ value }</p>
         </div>
         <div>
-          <p data-testid="header-currency-field">{ moeda }</p>
+          <p data-testid="header-currency-field">{ currency }</p>
         </div>
-        <Input valor={ valor } describe={ describe } func={ handleChange } />
-        <label htmlFor="moeda">
-          Moeda
-          <select id="moeda" name="typeCoin" onClick={ this.handleChange }>
-            {moedas.map((moedaName) => (
-              <option key={ moedaName } value={ moedaName }>
-                {moedaName}
-              </option>
-            ))}
-          </select>
-        </label>
+        <Input value={ value } describe={ description } func={ handleChange } />
+        <MoedasOptions handleChange={ this.handleChange } />
         <Select handleChange={ this.handleChange } />
         <button
           type="button"
-          onClick={ () => buttoSaveState(this.state) }
+          onClick={ this.maisUm }
         >
-          Adicionar despesa
+          Adicionar Despesa
         </button>
       </form>
     );

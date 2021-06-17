@@ -8,7 +8,7 @@ class Select extends React.Component {
       <div>
         <label htmlFor="pagamento">
           <p>Método de pagamento</p>
-          <select id="pagamento" name="typePagamento" onClick={ handleChange }>
+          <select id="pagamento" name="method" onClick={ handleChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="credito">Cartão de crédito</option>
             <option value="debito">Cartão de débito</option>
@@ -16,7 +16,7 @@ class Select extends React.Component {
         </label>
         <label htmlFor="tipo">
           <p>Tag</p>
-          <select id="tipo" name="typeDespesa" onClick={ handleChange }>
+          <select id="tipo" name="tag" onClick={ handleChange }>
             <option value="alimentacao"> Alimentação </option>
             <option value="lazer">Lazer</option>
             <option value="trabalho">Trabalho</option>
