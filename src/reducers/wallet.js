@@ -1,8 +1,8 @@
 import { WALLET_INFO } from '../actions/walletAction';
 
 const INITIAL_STATE = {
-  currencies: [],
   expenses: [],
+  currencies: [],
   totalExpenses: 0,
 };
 
@@ -11,8 +11,7 @@ function wallet(state = INITIAL_STATE, action) {
   case WALLET_INFO:
     return {
       ...state,
-      currencies: [],
-      expenses: [],
+      currencies: action.payload,
     };
 
   default:

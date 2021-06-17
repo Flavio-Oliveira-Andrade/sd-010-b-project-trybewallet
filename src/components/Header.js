@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { email, expenses, currencies } = this.props;
+    const { email, expenses } = this.props;
     return (
       <fieldset>
         <span data-testid="email-field">
@@ -16,16 +16,9 @@ class Header extends React.Component {
         <span data-testid="header-currency-field">
           BRL
         </span>
-        <input
-          type="text"
-          value={ currencies }
-          placeholder="despesas"
-        />
-        { expenses }
-        <input
-          type="text"
-          placeholder="câmbio"
-        />
+        <span>
+          { expenses }
+        </span>
       </fieldset>
     );
   }
@@ -40,7 +33,6 @@ const mapStateToProps = (state) => ({
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.number.isRequired,
-  currencies: PropTypes.arrayOf().isRequired,
 };
 
 export default connect(mapStateToProps, null)(Header);

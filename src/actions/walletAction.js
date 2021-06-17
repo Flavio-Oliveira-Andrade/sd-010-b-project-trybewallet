@@ -1,10 +1,8 @@
 export const WALLET_INFO = 'wallet';
 
-function walletAction({ currencies, expenses }) {
-  return ({
-    type: WALLET_INFO,
-    payload: { currencies, expenses },
-  });
-}
+const walletAction = (currencies) => ({
+  type: WALLET_INFO,
+  payload: currencies,
+});
 
 export default walletAction;
