@@ -95,15 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  newExpense: PropTypes.shapeOf({
-    id,
-    value,
-    description,
-    currency,
-    method,
-    tag,
-    exchangeRates,
-  }),
+  newExpense: PropTypes.func,
 };
 
 Wallet.defaultProps = {

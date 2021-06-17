@@ -36,7 +36,7 @@ const mapStateToProps = (state) => ({
 
 WalletHeader.propTypes = {
   email: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf.isRequired,
+  values: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletHeader);
