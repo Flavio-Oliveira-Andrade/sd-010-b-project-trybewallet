@@ -26,6 +26,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+  // checkEmail: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   expenses: PropTypes.string.isRequired,
 };
