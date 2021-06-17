@@ -47,13 +47,13 @@ class Form extends Component {
 
   render() {
     const { currencies } = this.props;
-    const { value, descricao, method, currency, tag } = this.state;
+    const { value, description, method, currency, tag } = this.state;
     return (
       <div>
         <form>
           <FormVDM
             value={ value }
-            descricao={ descricao }
+            description={ description }
             method={ method }
             handleChange={ this.handleChange }
           />
