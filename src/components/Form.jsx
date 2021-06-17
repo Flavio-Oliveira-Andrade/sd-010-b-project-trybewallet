@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { currencyAPI, fetchCotation } from '../actions';
+import FormVDM from './FormVDM';
 
 class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      infoDispense: {
-        currency: '',
-        description: '',
-        method: '',
-        tag: '',
+      expenseDetails: {
+        currency: 'USD',
+        descricao: '',
+        method: 'dinheiro',
+        tag: 'alimentacao',
         value: '',
       },
     };
-    this.addExpense = this.addExpense.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.addExpense = this.addExpense.bind(this);
   }
 
   componentDidMount() {
@@ -26,59 +27,54 @@ class Form extends Component {
 
   handleChange(event) {
     const { target: { value, name } } = event;
-    const { infoDispense } = this.state;
-    const { idExpense } = this.props;
-    const id = idExpense;
+    const { expenseDetails } = this.state;
     this.setState({
-      infoDispense: {
-        ...infoDispense,
+      expenseDetails: {
+        ...expenseDetails,
         [name]: value,
-        id,
       },
     });
   }
 
   addExpense() {
-    const { infoDispense } = this.state;
+    const { expenseDetails } = this.state;
     const { cotation } = this.props;
-    cotation(infoDispense);
+    cotation(expenseDetails);
   }
 
   render() {
     const { currencies } = this.props;
+    const { value, descricao, method, currency, tag } = this.state;
     return (
       <div>
         <form>
-          <label htmlFor="valor-despesa">
-            Valor:
-            <input type="number" name="valor-despesa" id="valor-despesa" onChange={ this.handleChange } />
-          </label>
-          <label htmlFor="descricao-despesa">
-            Descrição:
-            <input type="text" name="descricao-despesa" id="descricao-despesa" onChange={ this.handleChange } />
-          </label>
+          <FormVDM
+            value={ value }
+            descricao={ descricao }
+            method={ method }
+            handleChange={ this.handleChange }
+          />
           <label htmlFor="select-moeda">
             Moeda:
-            <select name="select-moeda" id="select-moeda" onChange={ this.handleChange }>
+            <select
+              name="currency"
+              id="select-moeda"
+              onChange={ this.handleChange }
+              value={ currency }
+            >
               {Object.keys(currencies).filter((cur) => cur !== 'USDT')
                 .map((cur) => <option key={ cur } value={ cur }>{cur}</option>)}
             </select>
           </label>
-          <label htmlFor="metodo-pagamento-despesa">
-            Método de pagamento:
-            <select
-              type="text"
-              name="metodo-pagamento-despesa"
-              id="metodo-pagamento-despesa"
-            >
-              <option value="dinheiro">Dinheiro</option>
-              <option value="cartao-de-credito">Cartão de crédito</option>
-              <option value="cartao-de-debito">Cartão de débito</option>
-            </select>
-          </label>
           <label htmlFor="tag-despesa">
             Tag:
-            <select type="text" name="tag-despesa" id="tag-despesa">
+            <select
+              type="text"
+              name="tag"
+              id="tag-despesa"
+              onChange={ this.handleChange }
+              value={ tag }
+            >
               <option value="alimentacao">Alimentação</option>
               <option value="lazer">Lazer</option>
               <option value="trabalho">Trabalho</option>
@@ -93,20 +89,20 @@ class Form extends Component {
   }
 }
 
+Form.propTypes = {
+  cotation: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf.isRequired,
+  dispatchAPI: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchAPI: () => (dispatch(currencyAPI())),
-  cotation: (expense) => dispatch(fetchCotation(expense)),
+  cotation: (expense) => (dispatch(fetchCotation(expense))),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expense: state.wallet.expenseDetails,
 });
-
-Form.propTypes = {
-  cotation: PropTypes.func.isRequired,
-  currencies: PropTypes.any.isRequired,
-  dispatchAPI: PropTypes.func.isRequired,
-  idExpense: PropTypes.any,
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
