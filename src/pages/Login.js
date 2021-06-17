@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Inputs from '../components/Inputs';
-import loginAction from '../actions/userAction';
+import loginAction from '../actions';
 import cambio from '../img/cambio.jpg';
 
 class Login extends React.Component {
@@ -34,9 +34,9 @@ class Login extends React.Component {
     const { email, password, buttonDisable } = this.state;
     const { login, redirect } = this.props;
     return (
-      <div>
+      <div className="Login">
         { redirect && <Redirect to="/carteira" /> }
-        <form className="login">
+        <form>
           <img src={ cambio } alt="travoltaWallet" width="185px" />
           <br />
           <Inputs
@@ -69,7 +69,7 @@ class Login extends React.Component {
 }
 // usado para salvar o estado do component no global
 const mapStateToProps = (state) => ({
-  redirect: state.user.redirect,
+  redirect: state.user.password,
 });
 // usado para conectar as actions ao componentes do reducers
 const mapDisPatchToProps = (dispatch) => ({
@@ -78,7 +78,7 @@ const mapDisPatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  redirect: PropTypes.bool.isRequired,
+  redirect: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDisPatchToProps)(Login);
