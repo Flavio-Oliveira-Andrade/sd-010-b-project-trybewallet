@@ -12,3 +12,13 @@ export function wallet(despesa) {
     despesa,
   });
 }
+
+export const newExpense = (despesa) => async (dispatch) => {
+  const data = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const result = await data.json();
+
+  dispatch(wallet({
+    ...despesa,
+    exchangeRates: result,
+  }));
+};

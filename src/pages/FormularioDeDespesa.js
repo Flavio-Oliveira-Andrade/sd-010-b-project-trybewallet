@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from './Input';
 import Select from './Select';
-import { wallet } from '../actions';
+import { newExpense } from '../actions';
 import MoedasOptions from './MoedasOptions';
+import Header from './Header';
 
 class FormularioDeDespesa extends Component {
   constructor() {
@@ -12,10 +13,11 @@ class FormularioDeDespesa extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.maisUm = this.maisUm.bind(this);
+
     this.state = {
       id: 0,
       value: 0,
-      currency: 'BRL',
+      currency: 'USD',
       description: '',
       method: 'Dinheiro',
       tag: 'Alimentação',
@@ -38,22 +40,12 @@ class FormularioDeDespesa extends Component {
   }
 
   render() {
-    const { email } = this.props;
-    const { value, currency, description } = this.state;
+    const { value, description } = this.state;
     const { handleChange } = this;
 
     return (
       <form onSubmit>
-        <header>
-          <p data-testid="email-field">{ email }</p>
-        </header>
-        <div>
-          <p>despesas</p>
-          <p data-testid="total-field">{ value }</p>
-        </div>
-        <div>
-          <p data-testid="header-currency-field">{ currency }</p>
-        </div>
+        <Header />
         <Input value={ value } describe={ description } func={ handleChange } />
         <MoedasOptions handleChange={ this.handleChange } />
         <Select handleChange={ this.handleChange } />
@@ -68,16 +60,11 @@ class FormularioDeDespesa extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  buttoSaveState: (state) => dispatch(wallet(state)) });
+  buttoSaveState: (state) => dispatch(newExpense(state)) });
 
 FormularioDeDespesa.propTypes = {
-  email: PropTypes.string.isRequired,
   buttoSaveState: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormularioDeDespesa);
+export default connect(null, mapDispatchToProps)(FormularioDeDespesa);
