@@ -22,6 +22,7 @@ class Login extends React.Component {
   validateLogin() {
     const { email, password } = this.state;
     const isValidEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+
     if (password.length >= MIN_LENGTH && isValidEmail) {
       this.setState({ isBtnDisable: false });
     } else {
