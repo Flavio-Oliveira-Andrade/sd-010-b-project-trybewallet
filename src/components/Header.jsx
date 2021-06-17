@@ -28,9 +28,8 @@ class Header extends Component {
     const { userEmail } = this.props;
     return (
       <header>
-        <span data-testid="email-field">{ userEmail }</span>
+        <p data-testid="email-field">{ userEmail }</p>
         <span data-testid="total-field">{ this.totalExpenses() }</span>
-        <span data-testid="header-currency-field">BRL</span>
         <label htmlFor="actual-currency">
           Moeda atual:
           <select name="actual-currency" data-testid="header-currency-field">
