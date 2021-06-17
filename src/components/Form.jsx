@@ -1,16 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { currencyAPI } from '../actions';
+import { currencyAPI, fetchCotation } from '../actions';
 
 class Form extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      infoDispense: {
+        currency: '',
+        description: '',
+        method: '',
+        tag: '',
+        value: '',
+      },
+    };
+    this.addExpense = this.addExpense.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
   componentDidMount() {
     const { dispatchAPI } = this.props;
     dispatchAPI();
+  }
+
+  handleChange(event) {
+    const { target: { value, name } } = event;
+    const { infoDispense } = this.state;
+    const { idExpense } = this.props;
+    const id = idExpense;
+    this.setState({
+      infoDispense: {
+        ...infoDispense,
+        [name]: value,
+        id,
+      },
+    });
+  }
+
+  addExpense() {
+    const { infoDispense } = this.state;
+    const { cotation } = this.props;
+    cotation(infoDispense);
   }
 
   render() {
@@ -20,15 +51,15 @@ class Form extends Component {
         <form>
           <label htmlFor="valor-despesa">
             Valor:
-            <input type="number" name="valor-despesa" id="valor-despesa" />
+            <input type="number" name="valor-despesa" id="valor-despesa" onChange={ this.handleChange } />
           </label>
           <label htmlFor="descricao-despesa">
             Descrição:
-            <input type="text" name="descricao-despesa" id="descricao-despesa" />
+            <input type="text" name="descricao-despesa" id="descricao-despesa" onChange={ this.handleChange } />
           </label>
           <label htmlFor="select-moeda">
             Moeda:
-            <select name="select-moeda" id="select-moeda">
+            <select name="select-moeda" id="select-moeda" onChange={ this.handleChange }>
               {Object.keys(currencies).filter((cur) => cur !== 'USDT')
                 .map((cur) => <option key={ cur } value={ cur }>{cur}</option>)}
             </select>
@@ -56,6 +87,7 @@ class Form extends Component {
             </select>
           </label>
         </form>
+        <button type="button" onClick={ this.addExpense }>Adicionar despesa</button>
       </div>
     );
   }
@@ -63,6 +95,7 @@ class Form extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchAPI: () => (dispatch(currencyAPI())),
+  cotation: (expense) => dispatch(fetchCotation(expense)),
 });
 
 const mapStateToProps = (state) => ({
@@ -70,8 +103,10 @@ const mapStateToProps = (state) => ({
 });
 
 Form.propTypes = {
-  currencies: PropTypes.objectOf.isRequired,
+  cotation: PropTypes.func.isRequired,
+  currencies: PropTypes.any.isRequired,
   dispatchAPI: PropTypes.func.isRequired,
+  idExpense: PropTypes.any,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
