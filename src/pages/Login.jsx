@@ -10,26 +10,27 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      loginError: true,
+      isBtnDisable: true,
     };
     this.validateLogin = this.validateLogin.bind(this);
   }
 
+  // regex reference: https://regexr.com/3e48o
+
   validateLogin() {
     const MIN_LENGTH = 6;
     const { email, password } = this.state;
-    const verifySign = email.includes('@'); // change to regex
-    const verifyDotCom = email.includes('.com'); // change to regex
-    if (password.length >= MIN_LENGTH && verifySign && verifyDotCom) {
-      this.setState({ loginError: false });
+    const isValidEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+    if (password.length >= MIN_LENGTH && isValidEmail) {
+      this.setState({ isBtnDisable: false });
     }
-    if (password.length < MIN_LENGTH) {
-      this.setState({ loginError: true });
+    if (password.length < MIN_LENGTH || !isValidEmail) {
+      this.setState({ isBtnDisable: true });
     }
   }
 
   render() {
-    const { email, loginError } = this.state;
+    const { email, isBtnDisable } = this.state;
     const { setUserEmail } = this.props;
     return (
       <section className="login-container">
@@ -65,7 +66,7 @@ class Login extends React.Component {
             <button
               type="button"
               data-testid="btn-login"
-              disabled={ loginError }
+              disabled={ isBtnDisable }
               onClick={ () => setUserEmail(email) }
             >
               Entrar
