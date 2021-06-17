@@ -7,7 +7,6 @@ class Forms extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // currencies: [],
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
@@ -20,15 +19,11 @@ class Forms extends Component {
     const { fetchCurrencies, expenses } = this.props;
     fetchCurrencies();
     console.log(expenses);
-    // if (expenses.length === 1) {
-    //   fetchCurrencies();
-    //   console.log('ENTREI NO IF');
-    // }
   }
 
-  componentDidUpdate() {
-    const { fetchCurrencies, expenses } = this.props;
-  }
+  // componentDidUpdate() {
+  //   const { fetchCurrencies, expenses } = this.props;
+  // }
 
   handleChange({ target }) {
     const { name } = target;
@@ -40,12 +35,12 @@ class Forms extends Component {
   }
 
   addExpense() {
-    const { fetchCurrencies, currencies, expenses, saveNewExpanse } = this.props;
-    fetchCurrencies();
-    console.log('CHAMEI A API');
+    const { expenses, saveNewExpanse } = this.props;
+    // fetchCurrencies();
+    // console.log('CHAMEI A API');
     this.setState({
       id: expenses.length || 0,
-      exchangeRates: currencies,
+      // exchangeRates: currencies,
     }, () => saveNewExpanse(this.state));
   }
 
@@ -115,7 +110,7 @@ class Forms extends Component {
   }
 
   render() {
-    const { isFetching, expenses, fetchCurrencies } = this.props;
+    const { isFetching } = this.props;
     // console.log(isFetching);
     if (isFetching === true) return this.renderLoading();
     // console.log(this.renderForms());

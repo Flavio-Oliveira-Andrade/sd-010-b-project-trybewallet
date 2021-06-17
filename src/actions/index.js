@@ -6,10 +6,22 @@ export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const ERROR_CURRENCIES = 'ERROR_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
-export const saveExpense = (expense) => ({
-  type: SAVE_EXPENSE,
-  payload: expense,
-});
+// export const saveExpense = (expense) => ({
+//   type: SAVE_EXPENSE,
+//   payload: expense,
+// });
+
+export const saveExpense = (expense) => (dispatch) => {
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => (response.json()))
+    .then((json) => {
+      dispatch({
+        type: 'SAVE_EXPENSE',
+        payload: { ...expense, exchangeRates: json },
+
+      });
+    });
+};
 
 export const saveLoginEmail = (email) => ({
   type: SAVE_LOGIN_EMAIL,
