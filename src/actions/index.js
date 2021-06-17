@@ -26,17 +26,24 @@ const userInput = (email) => ({
 export default userInput;
 
 // action para salvar despesas
-export const addExpenses = (expense, objCurrency) => ({
+export const addExpenses = (expenses, cotation) => ({
   type: ADD_EXPENSES,
-  newExpense: {
-    id: expense.id,
-    value: expense.value,
-    description: expense.description,
-    currency: expense.currency,
-    method: expense.method,
-    tag: expense.tag,
-    exchangeRates: objCurrency,
+  expenses: {
+    ...expenses,
+    exchangeRates: cotation,
   },
 });
+
+export function fetchPrice(expense) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const cotation = await response.json();
+      dispatch(addExpenses(expense, cotation));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}
 
 // dispatch(addExpenses(expense, objCurrency));
