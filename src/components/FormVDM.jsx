@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class FormVDM extends Component {
   render() {
-    const { value, descricao, handleChange, method } = this.props;
+    const { value, description, handleChange, method } = this.props;
     return (
       <div>
         <label htmlFor="valor-despesa">
@@ -21,8 +21,8 @@ class FormVDM extends Component {
           Descrição:
           <input
             type="text"
-            value={ descricao }
-            name="descricao"
+            value={ description }
+            name="description"
             id="descricao-despesa"
             onChange={ handleChange }
           />
@@ -47,7 +47,7 @@ class FormVDM extends Component {
 }
 
 FormVDM.propTypes = {
-  descricao: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   method: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,

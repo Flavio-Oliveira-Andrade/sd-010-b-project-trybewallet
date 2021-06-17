@@ -10,7 +10,7 @@ class Form extends Component {
     this.state = {
       expenseDetails: {
         currency: 'USD',
-        descricao: '',
+        description: '',
         method: 'dinheiro',
         tag: 'alimentacao',
         value: '',

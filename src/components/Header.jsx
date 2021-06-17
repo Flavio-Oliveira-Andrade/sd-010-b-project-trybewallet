@@ -47,7 +47,7 @@ Header.propTypes = {
     length: PropTypes.number,
     reduce: PropTypes.func,
   }).isRequired,
-  userEmail: PropTypes.func.isRequired,
+  userEmail: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
