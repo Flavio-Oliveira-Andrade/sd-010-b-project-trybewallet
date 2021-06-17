@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import FormsExpenses from '../components/componentswallet/FormsExpenses';
 import Header from '../components/componentswallet/Header';
 import ButtonAddExpenses from '../components/componentswallet/ButtonAddExpenses';
-import { saveExpenses } from '../actions/index';
+import { saveExpenses, saveRequest } from '../actions/index';
 import objExpenses from '../helpers/initialState';
 
 function Wallet() {
@@ -19,8 +19,9 @@ function Wallet() {
   };
 
   function setClick() {
-    dispatch(saveExpenses(expenses));
+    dispatch(saveRequest(expenses));
   }
+
   // const getRequest = useCallback(async () => {
   //   dispatch(saveRequest());
   // }, [dispatch]);

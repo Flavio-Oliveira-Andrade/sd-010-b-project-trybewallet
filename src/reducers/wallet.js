@@ -9,11 +9,6 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, { ...action.expenses, id: state.expenses.length }],
     };
-  // case 'SAVE_REQUEST':
-  //   return {
-  //     ...state,
-  //     expenses: [{ ...state.expense, exchangeRates: action.response }],
-  //   };
   default:
     return state;
   }

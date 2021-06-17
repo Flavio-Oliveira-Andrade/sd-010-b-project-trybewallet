@@ -12,6 +12,6 @@ export const saveExpenses = (expenses) => ({
 
 export const saveRequest = (expenses) => async (dispatch) => {
   const response = await requestApi();
-  dispatch({ exchangeRates: response });
-  saveExpenses(expenses);
+  const salveDespesa = { ...expenses, exchangeRates: response };
+  dispatch(saveExpenses(salveDespesa));
 };
