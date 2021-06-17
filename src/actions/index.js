@@ -10,6 +10,13 @@ export const inputPassword = (state) => (
   { type: 'INPUT_PASSWORD', payload: { password: state } }
 );
 
+export const addExpense = (expenses) => ({
+  type: 'ADD_EXPENSE',
+  payload: {
+    expenses,
+  },
+});
+
 export const fetchingCurrencies = () => ({
   type: 'FETCHING_CURRENCIES',
   payload: {
@@ -20,17 +27,29 @@ export const fetchingCurrencies = () => ({
 export const requestCurrencies = (currencies) => ({
   type: 'REQUEST_CURRENCIES',
   payload: {
-    currencies,
+    currencies: Object.keys(currencies),
     isFetching: false,
   },
 });
 
-export const fetchCurrenciesCode = () => async (dispatch) => {
-  dispatch(fetchingCurrencies());
+export const requestExchanges = (exchangeRates) => ({
+  type: 'ADD_EXCHANGES',
+  payload: {
+    exchangeRates,
+    isFetching: false,
+  },
+});
 
+export const fetchCurrencies = () => async (dispatch) => {
+  dispatch(fetchingCurrencies());
   const currencies = await getCurrencies();
-  const currenciesKeys = Object.keys(currencies);
-  const USDT_INDEX = 1;
-  currenciesKeys.splice(USDT_INDEX, 1);
-  dispatch(requestCurrencies(currenciesKeys));
+  delete currencies.USDT;
+  dispatch(requestCurrencies(currencies));
+};
+
+export const fetchExchange = (state) => async (dispatch) => {
+  dispatch(fetchingCurrencies());
+  const currencies = await getCurrencies();
+  state.exchangeRates = currencies;
+  dispatch(addExpense(state));
 };

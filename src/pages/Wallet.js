@@ -2,18 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ExpensesForm from '../components/ExpensesForm';
-import { fetchCurrenciesCode } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
 
     this.sumExpenses = this.sumExpenses.bind(this);
-  }
-
-  componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
   }
 
   sumExpenses() {
@@ -23,11 +17,13 @@ class Wallet extends React.Component {
       return '0';
     }
 
-    return expenses.reduce((sum, expense) => sum + expense);
+    return expenses.reduce((sum, expense) => (
+      sum + parseInt(expense.value, 10) * expense.exchangeRates[expense.currency].ask
+    ), 0);
   }
 
   render() {
-    const { userEmail, currencies } = this.props;
+    const { userEmail } = this.props;
     return (
       <section>
         <header>
@@ -44,28 +40,21 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">Câmbio: BRL</p>
         </header>
         <main>
-          <ExpensesForm currencies={ currencies } />
+          <ExpensesForm />
         </main>
       </section>
     );
   }
 }
 
-const mapStateToProps = ({ user: { email }, wallet: { expenses, currencies } }) => ({
+const mapStateToProps = ({ user: { email }, wallet: { expenses } }) => ({
   userEmail: email,
   expenses,
-  currencies,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrenciesCode()),
 });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
-  getCurrencies: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps)(Wallet);
