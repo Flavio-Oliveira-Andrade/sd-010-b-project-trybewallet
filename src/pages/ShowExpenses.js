@@ -105,4 +105,5 @@ ShowExpenses.propTypes = {
 const mapStateToProps = (state) => ({
   wallet: state.wallet,
 });
+
 export default connect(mapStateToProps, null)(ShowExpenses);
