@@ -10,6 +10,6 @@ function App() {
       <Route path="/carteira" component={ Wallet } />
     </div>
   );
-};
+}
 
 export default App;
