@@ -57,11 +57,11 @@ class Form extends Component {
             method={ method }
             handleChange={ this.handleChange }
           />
-          <label htmlFor="select-moeda">
+          <label htmlFor="currency">
             Moeda:
             <select
               name="currency"
-              id="select-moeda"
+              id="currency"
               onChange={ this.handleChange }
               value={ currency }
             >
@@ -69,12 +69,12 @@ class Form extends Component {
                 .map((cur) => <option key={ cur } value={ cur }>{cur}</option>)}
             </select>
           </label>
-          <label htmlFor="tag-despesa">
+          <label htmlFor="Tag">
             Tag:
             <select
               type="text"
-              name="tag"
-              id="tag-despesa"
+              name="Tag"
+              id="Tag"
               onChange={ this.handleChange }
               value={ tag }
             >
