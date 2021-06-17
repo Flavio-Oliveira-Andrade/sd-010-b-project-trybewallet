@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setUser } from '../actions';
 
+const MIN_LENGTH = 6; // password
+
 class Login extends React.Component {
   constructor() {
     super();
@@ -18,13 +20,11 @@ class Login extends React.Component {
   // regex reference: https://regexr.com/3e48o
 
   validateLogin() {
-    const MIN_LENGTH = 6;
     const { email, password } = this.state;
     const isValidEmail = email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     if (password.length >= MIN_LENGTH && isValidEmail) {
       this.setState({ isBtnDisable: false });
-    }
-    if (password.length < MIN_LENGTH || !isValidEmail) {
+    } else {
       this.setState({ isBtnDisable: true });
     }
   }
