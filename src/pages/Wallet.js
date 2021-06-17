@@ -10,7 +10,7 @@ class Wallet extends React.Component {
     return (
       <main>
         <header className="headerWallet">
-          <img src={ cambio } alt="travoltaWallet" className="travoltaWallet" />
+          <img src={ cambio } alt="cambio" />
           <p data-testid="email-field">{userEmail}</p>
           <p data-testid="total-field">-0-</p>
           <p data-testid="header-currency-field">BRL</p>
