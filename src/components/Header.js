@@ -11,7 +11,9 @@ class Header extends React.Component {
           { email }
         </span>
         <span data-testid="total-field">
-          0
+          {!expenses ? 0 : expenses.reduce((acc, crr) => acc
+               + parseFloat(crr.exchangeRates[crr.selectedCurrency].ask * crr.value), 0)}
+          ;
         </span>
         <span data-testid="header-currency-field">
           BRL
@@ -28,11 +30,12 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
   currencies: state.user.email,
+  totalExpenses: state.wallet.currencies,
 });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf.isRequired,
 };
 
 export default connect(mapStateToProps, null)(Header);
