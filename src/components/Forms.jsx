@@ -105,11 +105,11 @@ const mapStateToProps = (state) => ({
   idExpense: state.wallet.expenses.length,
 });
 
-// Forms.propTypes = {
-//   sendFetch: PropTypes.func.isRequired,
-//   cotation: PropTypes.func.isRequired,
-//   idExpense: PropTypes.number.isRequired,
-//   currencies: PropTypes.objectOf(PropTypes.object.isRequired).isRequired,
-// };
+Forms.propTypes = {
+  fetchDispatch: PropTypes.func.isRequired,
+  cotation: PropTypes.func.isRequired,
+  idExpense: PropTypes.number.isRequired,
+  currencies: PropTypes.objectOf(PropTypes.object.isRequired).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
