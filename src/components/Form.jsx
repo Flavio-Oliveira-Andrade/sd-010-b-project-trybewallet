@@ -95,7 +95,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrency()),
-  addNewExpense: (expense) => dispatch(addExpense(expense)),
+  addNewExpense: (expense) => dispatch(newExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
