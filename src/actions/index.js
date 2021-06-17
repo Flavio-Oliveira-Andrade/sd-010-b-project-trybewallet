@@ -4,6 +4,12 @@ export const SAVE_LOGIN_EMAIL = 'SAVE_LOGIN_EMAIL';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const ERROR_CURRENCIES = 'ERROR_CURRENCIES';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+
+export const saveExpense = (expense) => ({
+  type: SAVE_EXPENSE,
+  payload: expense,
+});
 
 export const saveLoginEmail = (email) => ({
   type: SAVE_LOGIN_EMAIL,

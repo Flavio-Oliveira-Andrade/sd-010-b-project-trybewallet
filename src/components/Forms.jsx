@@ -1,19 +1,52 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies as fetchCurrenciesThunk } from '../actions';
+import { fetchCurrencies as fetchCurrenciesThunk, saveExpense } from '../actions';
 
 class Forms extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // currencies: [],
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.addExpense = this.addExpense.bind(this);
   }
 
   componentDidMount() {
-    const { fetchCurrencies } = this.props;
+    const { fetchCurrencies, expenses } = this.props;
     fetchCurrencies();
+    console.log(expenses);
+    // if (expenses.length === 1) {
+    //   fetchCurrencies();
+    //   console.log('ENTREI NO IF');
+    // }
+  }
+
+  componentDidUpdate() {
+    const { fetchCurrencies, expenses } = this.props;
+  }
+
+  handleChange({ target }) {
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  addExpense() {
+    const { fetchCurrencies, currencies, expenses, saveNewExpanse } = this.props;
+    fetchCurrencies();
+    console.log('CHAMEI A API');
+    this.setState({
+      id: expenses.length || 0,
+      exchangeRates: currencies,
+    }, () => saveNewExpanse(this.state));
   }
 
   renderForms() {
@@ -22,16 +55,21 @@ class Forms extends Component {
       <form>
         <label htmlFor="value">
           Valor
-          <input type="text" id="value" />
+          <input onChange={ this.handleChange } name="value" type="text" id="value" />
         </label>
         <label htmlFor="desc">
           Descrição
-          <input type="text" id="desc" />
+          <input
+            onChange={ this.handleChange }
+            name="description"
+            type="text"
+            id="desc"
+          />
         </label>
         { this.renderCurrencies(currencies) }
         <label htmlFor="pay">
           Método de pagamento
-          <select id="pay">
+          <select onChange={ this.handleChange } name="method" id="pay">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -39,7 +77,7 @@ class Forms extends Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag">
+          <select onChange={ this.handleChange } name="tag" id="tag">
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -47,7 +85,7 @@ class Forms extends Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="button">
+        <button onClick={ this.addExpense } type="button">
           Adicionar despesa
         </button>
       </form>
@@ -58,7 +96,7 @@ class Forms extends Component {
     return (
       <label htmlFor="moeda">
         Moeda
-        <select id="moeda">
+        <select onChange={ this.handleChange } name="currency" id="moeda">
           { Object.keys(currencies).map((curr) => {
             if (curr !== 'USDT') {
               return (<option key={ curr } value={ curr }>{curr}</option>);
@@ -77,10 +115,10 @@ class Forms extends Component {
   }
 
   render() {
-    const { isFetching } = this.props;
-    console.log(isFetching);
+    const { isFetching, expenses, fetchCurrencies } = this.props;
+    // console.log(isFetching);
     if (isFetching === true) return this.renderLoading();
-    console.log(this.renderForms());
+    // console.log(this.renderForms());
     return this.renderForms();
   }
 }
@@ -88,16 +126,20 @@ class Forms extends Component {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   isFetching: state.wallet.isFetching,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
+  saveNewExpanse: (expanse) => dispatch(saveExpense(expanse)),
 });
 
 Forms.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.shape().isRequired,
   isFetching: PropTypes.bool.isRequired,
+  saveNewExpanse: PropTypes.arrayOf(PropTypes.func).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

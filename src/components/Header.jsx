@@ -6,19 +6,42 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      total: 0,
+      // total: 0,
       currency: 'BRL',
     };
+    // this.updateTotal = this.updateTotal.bind(this);
   }
 
+  // componentDidMount() {
+  //   // this.updateTotal();
+  // }
+
+  // updateTotal() {
+  //   const { expenses } = this.props;
+  //   let totalValue = 0;
+  //   expenses.forEach((expense) => {
+  //     totalValue += ((expense.value) * (expense.exchangeRates[expense.currency].ask));
+  //   });
+  //   // console.log(values);
+  //   this.setState({
+  //     total: totalValue,
+  //   });
+  // }
+
   render() {
-    const { email } = this.props;
-    const { total, currency } = this.state;
+    const { email, expenses } = this.props;
+    const { currency } = this.state;
+    let totalValue = 0;
+    expenses.forEach((expense) => {
+      totalValue += ((expense.value) * (expense.exchangeRates[expense.currency].ask));
+    });
     return (
       <div>
         {/* image-logo */}
         <h3 data-testid="email-field">{ email }</h3>
-        <h3 data-testid="total-field">{ `Valor total: ${total}` }</h3>
+        <h3 data-testid="total-field">
+          { `Valor total: ${(Math.round(totalValue * 100) / 100).toFixed(2)}` }
+        </h3>
         <h3 data-testid="header-currency-field">{ currency }</h3>
       </div>
     );
@@ -27,6 +50,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expenses,
 });
 
 Header.propTypes = {
