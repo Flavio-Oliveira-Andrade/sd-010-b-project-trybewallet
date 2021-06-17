@@ -39,7 +39,6 @@ class FormComponent extends React.Component {
     });
   }
 
-  // Fazer o input de Moeda aqui para diminuir tamanho do render
   inputCurrency() {
     const { currencies } = this.props;
     const arrayCurrencies = Object.keys(currencies);
