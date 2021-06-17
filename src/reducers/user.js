@@ -1,19 +1,19 @@
-import LOGIN from '../actions'
+import { VALIDATE_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
+};
+
+function user(state = INITIAL_STATE, { type, email }) {
+  switch (type) {
+  case VALIDATE_EMAIL:
+    return {
+      ...state,
+      email,
+    };
+  default:
+    return state;
+  }
 }
 
-function userReducer(state = INITIAL_STATE, action) {
-    switch (action.type) {
-      case LOGIN:
-        return {
-          ...state,
-          email: action.payload.email,
-        }
-      default:
-        return state,
-    }
-}
-
-export default userReducer;
+export default user;

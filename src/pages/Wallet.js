@@ -1,9 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { emailValidate } from '../actions';
+import Form from '../components/Form';
+import Header from '../components/Header';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return (
+      <>
+        <Header />
+        <Form />
+        <Table />
+      </>
+    );
   }
 }
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
 
-export default Wallet;
+const mapDispatchToProps = (dispatch) => ({
+  checkEmail: ({ target: { value } }) => dispatch(emailValidate(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

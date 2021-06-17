@@ -1,13 +1,19 @@
-import NEW_RELEASES from '../actions';
+import { NEW_EXPENSE, DELETE_EXPENSE, GET_CURRENCY } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
 };
 
-function walletReducer(state = INITIAL_STATE, action) {
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case NEW_RELEASES:
+  case GET_CURRENCY:
+    delete action.payload.USDT;
+    return {
+      ...state,
+      currency: action.payload,
+    };
+  case NEW_EXPENSE:
     return {
       ...state,
       expenses: [
@@ -15,9 +21,14 @@ function walletReducer(state = INITIAL_STATE, action) {
         action.payload,
       ],
     };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.payload),
+    };
   default:
     return state;
   }
 }
 
-export default walletReducer;
+export default wallet;
