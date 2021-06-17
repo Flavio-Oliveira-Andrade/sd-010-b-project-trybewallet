@@ -7,38 +7,38 @@ class FormVDM extends Component {
     const { value, description, handleChange, method } = this.props;
     return (
       <div>
-        <label htmlFor="valor-despesa">
+        <label htmlFor="value">
           Valor:
           <input
             type=""
             value={ value }
             name="value"
-            id="valor-despesa"
+            id="value"
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="descricao-despesa">
+        <label htmlFor="description">
           Descrição:
           <input
             type="text"
             value={ description }
             name="description"
-            id="descricao-despesa"
+            id="description"
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="metodo-pagamento-despesa">
+        <label htmlFor="method">
           Método de pagamento:
           <select
             type="text"
             value={ method }
             name="method"
-            id="metodo-pagamento-despesa"
+            id="method"
             onChange={ handleChange }
           >
-            <option value="dinheiro">Dinheiro</option>
-            <option value="cartao-de-credito">Cartão de crédito</option>
-            <option value="cartao-de-debito">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
       </div>
