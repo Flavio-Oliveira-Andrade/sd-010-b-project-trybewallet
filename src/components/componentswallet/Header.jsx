@@ -5,18 +5,18 @@ function Header() {
   const emailUser = useSelector((state) => state.user.email);
   const expenses = useSelector((state) => state.wallet.expenses);
 
-  // const moeda = expenses.map(({ currency }) => currency);
-  const valor = expenses.map(({ value }) => value);
-
-  const soma = valor.reduce((acc, curr) => {
-    const convert = parseFloat(curr);
-    return convert + acc;
+  // codigo refatorado com a ajuda do Leandro Marcos
+  const soma = expenses.reduce((acc, curr) => {
+    acc += curr.value * curr.exchangeRates[curr.currency].ask;
+    return acc;
   }, 0);
+
+  const arredonda = (Math.round(soma * 100) / 100).toFixed(2);
 
   return (
     <div>
       <span data-testid="email-field">{`Email: ${emailUser}`}</span>
-      <span data-testid="total-field">{`Total das despesas: ${soma}`}</span>
+      <span data-testid="total-field">{`Total das despesas: ${arredonda}`}</span>
       <span
         data-testid="header-currency-field"
       >
