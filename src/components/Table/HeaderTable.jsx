@@ -1,8 +1,7 @@
 import React from 'react';
 
-function CabeçalhoTable() {
+function HeaderTable() {
   return (
-    <div>
     <tr>
       <th value="Descrição">Descrição</th>
       <th value="Tag">Tag</th>
@@ -14,8 +13,7 @@ function CabeçalhoTable() {
       <th value="Moeda de conversão">Moeda de conversão</th>
       <th value="Editar/Excluir">Editar/Excluir</th>
     </tr>
-    </div>
   );
 }
 
-export default CabeçalhoTable;
+export default HeaderTable;
