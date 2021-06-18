@@ -6,17 +6,17 @@ function InputSelectTag({
 }) {
   return (
     <div>
-      <label htmlFor="select-id-tag">
+      <label htmlFor="tag">
         Tag
         <select
           name="tag"
-          id="select-id-tag"
+          id="tag"
           value={ inputTag }
           onChange={ onChangeTag }
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
-          <option value="Lazer">Trabalho</option>
+          <option value="Trabalho">Trabalho</option>
           <option value="Transporte">Transporte</option>
           <option value="Saúde">Saúde</option>
         </select>
