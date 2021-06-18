@@ -10,9 +10,14 @@ function walletReducer(state = INITIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, { ...action.expenses, id: state.expenses.length }],
     };
+  case 'DELETE_EXPENSE':
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.expenses),
+    };
   default:
     return state;
   }
 }
-
+// Reducer de delete feito com a ajuda do Gabriel Miranda.
 export default walletReducer;
