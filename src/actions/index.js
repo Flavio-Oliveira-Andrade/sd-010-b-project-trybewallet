@@ -16,5 +16,6 @@ export const actionMoeda = (payload) => ({
 export const moedaCifrao = () => async (dispatch) => {
   const api = await getApi();
   delete api.USDT;
+  delete api.DOGE;
   return dispatch(actionMoeda(api));
 };
