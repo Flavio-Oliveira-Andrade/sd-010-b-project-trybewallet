@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { getNewId } from '../../services/idServices';
 
 function Table() {
   const expenses = useSelector((state) => state.wallet.expenses);
