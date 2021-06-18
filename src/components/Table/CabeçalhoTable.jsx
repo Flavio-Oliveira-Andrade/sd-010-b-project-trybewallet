@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function CabeçalhoTable() {
   return (
@@ -15,7 +15,7 @@ function CabeçalhoTable() {
         <th value="Editar/Excluir">Editar/Excluir</th>
       </tr>
     </div>
-  )
+  );
 }
 
-export default CabeçalhoTable
+export default CabeçalhoTable;
