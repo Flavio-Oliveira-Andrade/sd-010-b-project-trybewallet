@@ -73,7 +73,6 @@ class AddExpense extends Component {
             id="moeda"
             name="currency"
           >
-            <option selected disabled hidden>Escolha</option>
 
             { Object.values(moedas).map((item) => (
               <option
