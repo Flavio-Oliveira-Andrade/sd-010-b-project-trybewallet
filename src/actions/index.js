@@ -10,6 +10,7 @@ export const saveExpenses = (expenses) => ({
   expenses,
 });
 
+// Codigo ajustado com a ajuda do Jonathan Souza
 export const saveRequest = (expenses) => async (dispatch) => {
   const response = await requestApi();
   const salveDespesa = { ...expenses, exchangeRates: response };

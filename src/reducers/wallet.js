@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
 };
+// Codigo ajustado com a ajuda do Jonathan Souza
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'SAVE_EXPENSES':
