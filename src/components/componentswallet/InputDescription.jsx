@@ -6,11 +6,11 @@ function InputDescription({
 }) {
   return (
     <div>
-      <label htmlFor="description-id">
+      <label htmlFor="description">
         Descrição
         <input
           name="description"
-          id="description-id"
+          id="description"
           type="text"
           value={ description }
           onChange={ onChangeDescription }
