@@ -6,11 +6,11 @@ function InputSelectMethod({
 }) {
   return (
     <div>
-      <label htmlFor="select-id">
+      <label htmlFor="method">
         Método de pagamento
         <select
           name="method"
-          id="select-id"
+          id="method"
           value={ inputMethod }
           onChange={ onChangeMethod }
         >
