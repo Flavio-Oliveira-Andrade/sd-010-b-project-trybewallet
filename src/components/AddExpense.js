@@ -77,8 +77,7 @@ class AddExpense extends Component {
             { Object.values(moedas).map((item) => (
               <option
                 key={ item.code }
-                value={ item.ask }
-                name={ item.name }
+                value={ item.code }
               >
                 { item.code }
               </option>
