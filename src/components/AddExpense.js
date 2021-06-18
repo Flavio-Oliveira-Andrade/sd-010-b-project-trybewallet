@@ -13,7 +13,7 @@ class AddExpense extends Component {
     return (
       <>
         <label htmlFor="metodo">
-          Método de pagamento:
+          Método de pagamento
           <select
             type="text"
             id="metodo"
@@ -27,7 +27,7 @@ class AddExpense extends Component {
         </label>
 
         <label htmlFor="despesas">
-          Tag:
+          Tag
           <select id="despesas" name="tag">
             <option selected>-</option>
             <option>Alimentação</option>
@@ -39,7 +39,7 @@ class AddExpense extends Component {
         </label>
 
         <label htmlFor="descricao">
-          Descrição:
+          Descrição
           <input
             type="text"
             id="descricao"
@@ -59,7 +59,7 @@ class AddExpense extends Component {
 
       <form>
         <label htmlFor="valor">
-          Valor:
+          Valor
           <input
             type="number"
             id="valor"
@@ -68,7 +68,7 @@ class AddExpense extends Component {
         </label>
 
         <label htmlFor="moeda">
-          Moeda:
+          Moeda
           <select
             id="moeda"
             name="currency"
