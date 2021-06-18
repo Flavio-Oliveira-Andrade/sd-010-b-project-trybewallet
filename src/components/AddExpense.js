@@ -71,7 +71,7 @@ class AddExpense extends Component {
           Moeda
           <select
             id="moeda"
-            name="currency"
+            name="moeda"
           >
 
             { Object.values(moedas).map((item) => (
