@@ -24,7 +24,7 @@ class HeaderWallet extends Component {
     expenses.forEach((ex) => {
       Object.values(ex.exchangeRates).forEach((rate) => {
         if (rate.codein !== 'BRLT' && ex.currency === rate.code) {
-          console.log(rate);
+          // console.log(rate);
           total += ex.value * rate.ask;
         }
       });

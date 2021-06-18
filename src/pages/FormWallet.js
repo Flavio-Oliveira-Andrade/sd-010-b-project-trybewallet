@@ -23,6 +23,7 @@ class FormWallet extends Component {
     this.renderSelectMethod = this.renderSelectMethod.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderTable = this.renderTable.bind(this);
   }
 
   componentDidMount() {
@@ -81,6 +82,54 @@ class FormWallet extends Component {
     );
   }
 
+  renderTable() {
+    const { expensesArr } = this.props;
+    return (
+      <div>
+        <table>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+          {expensesArr.map((expense, i) => (
+            <tr key={ i }>
+              <td>{expense.description}</td>
+              <td>{expense.tag}</td>
+              <td>{expense.method}</td>
+              <td>{expense.value}</td>
+              <td>
+                {Object.values(expense.exchangeRates)
+                  .map((ex) => (ex.code === expense.currency
+                    && ex.codein !== 'BRLT' ? (ex.name.split('/')[0]) : null))}
+              </td>
+              <td>
+                {Object.values(expense.exchangeRates)
+                  .map((ex) => (ex.code === expense.currency
+                    && ex.codein !== 'BRLT' ? ((ex.ask * 100) / 100).toFixed(2) : null))}
+              </td>
+              <td>
+                {Object.values(expense.exchangeRates)
+                  .map((ex) => (ex.code === expense.currency
+                    && ex.codein !== 'BRLT'
+                    ? (ex.ask * expense.value).toFixed(2) : null))}
+              </td>
+              <td>
+                Real
+              </td>
+            </tr>
+          ))}
+        </table>
+      </div>
+    );
+  }
+
   render() {
     const { currencies } = this.props;
     // console.log(currencies);
@@ -124,6 +173,7 @@ class FormWallet extends Component {
             Adicionar despesa
           </button>
         </form>
+        { this.renderTable() }
       </div>
     );
   }
