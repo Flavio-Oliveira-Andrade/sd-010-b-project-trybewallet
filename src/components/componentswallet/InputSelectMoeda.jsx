@@ -18,11 +18,11 @@ function InputSelectMoeda({
 
   return (
     <div>
-      <label htmlFor="select-id">
+      <label htmlFor="currency">
         Moeda
         <select
           name="currency"
-          id="select-id"
+          id="currency"
           onChange={ onChangeMoeda }
           value={ inputMoeda }
         >
