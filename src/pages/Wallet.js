@@ -5,6 +5,7 @@ import Header from '../components/componentswallet/Header';
 import ButtonAddExpenses from '../components/componentswallet/ButtonAddExpenses';
 import { saveRequest } from '../actions/index';
 import objExpenses from '../helpers/initialState';
+import Table from '../components/Table/Table';
 
 function Wallet() {
   const [expenses, setExpenses] = useState(objExpenses);
@@ -47,6 +48,7 @@ function Wallet() {
         onChangeTag={ handleOnChange }
       />
       <ButtonAddExpenses handleOnClick={ hadleChange } />
+      <Table />
     </>
   );
 }
