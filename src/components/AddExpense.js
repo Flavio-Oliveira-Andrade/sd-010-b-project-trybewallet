@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { moedaCifrao } from '../actions';
 
-export default class AddExpense extends Component {
+class AddExpense extends Component {
+  componentDidMount() {
+    const { currencies } = this.props;
+    currencies();
+  }
+
   structure() {
     return (
       <>
@@ -45,6 +52,9 @@ export default class AddExpense extends Component {
   }
 
   render() {
+    const { moedas } = this.props;
+    console.log(typeof (moedas));
+
     return (
 
       <form>
@@ -63,7 +73,18 @@ export default class AddExpense extends Component {
             id="moeda"
             name="currency"
           >
-            <option>Moeda 1</option>
+            <option selected disabled hidden>Escolha</option>
+
+            { Object.values(moedas).map((item) => (
+              <option
+                key={ item.code }
+                value={ item.ask }
+                name={ item.name }
+              >
+                { item.code }
+              </option>
+            ))}
+
           </select>
         </label>
 
@@ -75,3 +96,17 @@ export default class AddExpense extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  moedas: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  currencies: () => dispatch(moedaCifrao()),
+});
+
+AddExpense.propTypes = ({
+  currencies: PropTypes.string,
+}).isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);

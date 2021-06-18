@@ -1,18 +1,20 @@
+import getApi from '../services/API';
+
 export const LOGIN = 'LOGIN';
-export const DESPESA_NOVA = 'DESPESA_NOVA';
-export const EXCLUIR = 'EXCLUIR';
+export const MOEDA = 'MOEDA';
 
 export const actionLogin = (payload) => ({
   type: LOGIN,
   payload,
 });
 
-export const actionNovaDespesaSuccess = (payload) => ({
-  type: DESPESA_NOVA,
+export const actionMoeda = (payload) => ({
+  type: MOEDA,
   payload,
 });
 
-export const actionExcluir = (payload) => ({
-  type: EXCLUIR,
-  payload,
-});
+export const moedaCifrao = () => async (dispatch) => {
+  const api = await getApi();
+  delete api.USDT;
+  return dispatch(actionMoeda(api));
+};
