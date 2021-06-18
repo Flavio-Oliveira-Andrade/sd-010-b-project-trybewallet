@@ -6,11 +6,11 @@ function InputValue({
 }) {
   return (
     <div>
-      <label htmlFor="value-id">
+      <label htmlFor="value">
         Valor
         <input
           name="value"
-          id="value-id"
+          id="value"
           type="number"
           value={ value }
           onChange={ onChangeValue }
