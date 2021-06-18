@@ -11,7 +11,6 @@ function userReducer(state = INITIAL_STATE, { type, payload }) {
     return {
       ...state,
       email: payload.email,
-      teste: 'batata-doce',
     };
 
   default:

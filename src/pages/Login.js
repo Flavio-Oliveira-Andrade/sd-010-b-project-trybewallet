@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { actionLogin } from '../actions';
 
-class Login extends React.Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
