@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 
 export default class AddExpense extends Component {
   structure() {
-    // const { description, method } = this.state;
-
     return (
       <>
         <label htmlFor="metodo">
