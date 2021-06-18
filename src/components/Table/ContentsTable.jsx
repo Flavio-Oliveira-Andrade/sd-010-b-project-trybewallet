@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getNewId } from '../../services/idServices';
+import { deleteExpense } from '../../actions/index';
 
 function ContentsTable() {
   const expenses = useSelector((state) => state.wallet.expenses);
@@ -24,6 +26,7 @@ function ContentsTable() {
           <button
             data-testid="delete-btn"
             type="button"
+            onClick={ () => dispatch(deleteExpense(item.id)) }
           >
             Deletar
           </button>
