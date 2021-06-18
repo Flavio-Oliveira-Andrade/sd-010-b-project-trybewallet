@@ -16,3 +16,8 @@ export const saveRequest = (expenses) => async (dispatch) => {
   const salveDespesa = { ...expenses, exchangeRates: response };
   dispatch(saveExpenses(salveDespesa));
 };
+
+export const deleteExpense = (expenses) => ({
+  type: 'DELETE_EXPENSE',
+  expenses,
+});
