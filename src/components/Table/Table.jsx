@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getNewId } from '../../services/idServices';
+import HeaderTable from './HeaderTable';
+import ContentsTable from './ContentsTable';
 
 // As conversões de moedas foram baseadas na ajuda dada pelo Marcos Leandro
 
