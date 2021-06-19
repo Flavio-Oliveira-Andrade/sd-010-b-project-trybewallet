@@ -15,7 +15,7 @@ class FormularioDeDespesa extends Component {
     this.maisUm = this.maisUm.bind(this);
 
     this.state = {
-      id: 0,
+      id: -1,
       value: 0,
       currency: 'USD',
       description: '',
@@ -30,17 +30,11 @@ class FormularioDeDespesa extends Component {
       id: previ.id + 1,
     }));
     buttoSaveState(this.state);
-    this.setState(() => ({
-      value: 0,
-      currency: 'USD',
-      description: '',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    }));
   }
 
   handleChange({ target }) {
-    const { name, value } = target;
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({
       [name]: value,
     });

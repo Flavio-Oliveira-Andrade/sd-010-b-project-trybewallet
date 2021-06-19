@@ -17,9 +17,9 @@ class Header extends React.Component {
     return (
       <header>
         <h4 data-testid="email-field">
-          Email:
-          { ' ' }
+
           { login }
+
         </h4>
         <p data-testid="total-field">
           { this.updateTotal(expenses) }
