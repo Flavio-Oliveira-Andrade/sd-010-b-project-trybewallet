@@ -1,16 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router";
-import { saveUserAction } from "../actions";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
+import { saveUserAction } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       active: true,
     };
 
@@ -43,19 +43,19 @@ class Login extends React.Component {
             data-testid="email-input"
             placeholder="Digite seu email"
             id="email"
-            onChange={this.handleInput}
+            onChange={ this.handleInput }
           />
           <input
             type="password"
             data-testid="password-input"
             placeholder="Digite sua senha"
             id="password"
-            onChange={this.handleInput}
+            onChange={ this.handleInput }
           />
         </form>
         <button
-          onClick={() => saveUserEmail(email)}
-          disabled={active}
+          onClick={ () => saveUserEmail(email) }
+          disabled={ active }
           type="button"
         >
           Entrar
