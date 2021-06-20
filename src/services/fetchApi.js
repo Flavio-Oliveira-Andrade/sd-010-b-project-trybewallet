@@ -1,7 +1,7 @@
 const URL = 'https://economia.awesomeapi.com.br/json/all';
 
-// Filtrando todas as moedas exceto o dolar turismo.
-const fetchApi = async () => {
+// Filtrando somente os codigos das moedas exceto o dolar turismo.
+export const fetchApiCurrence = async () => {
   const response = await fetch(URL);
   const responseJson = await response.json();
   return Object.values(responseJson)
@@ -9,4 +9,9 @@ const fetchApi = async () => {
     .map((currencie) => currencie.code);
 };
 
-export default fetchApi;
+// Trazendo todas as moedas exceto o dolar turismo
+export const fetchApi = async () => {
+  const response = await fetch(URL);
+  const responseJson = await response.json();
+  return responseJson;
+};
