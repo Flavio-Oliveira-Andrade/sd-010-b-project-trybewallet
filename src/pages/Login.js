@@ -3,7 +3,7 @@ import React from 'react';
 class Login extends React.Component {
   render() {
     return (
-      <form>
+      <>
         <label>
           <input
             type="email"
@@ -16,13 +16,13 @@ class Login extends React.Component {
             placeholder="password"
           />
           <button
-          type="button"
+            type="button"
           >
             Entrar
           </button>
         </label>
-      </form>
-    )
+      </>
+    );
   }
 }
 
