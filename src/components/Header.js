@@ -13,7 +13,8 @@ class Header extends Component {
     if (expense.length) {
       return expense.reduce((acc, cur) => {
         const currence = cur.currency;
-        return acc + (Number(cur.value) * cur.exchangeRates[currence].ask);
+        const result = acc + (Number(cur.value) * cur.exchangeRates[currence].ask);
+        return result;
       }, 0);
     }
     return 0;
