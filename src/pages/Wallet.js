@@ -41,4 +41,4 @@ Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
 };
 
-export default connect(null, mapStateToProps)(Wallet);
+export default connect(mapStateToProps)(Wallet);
