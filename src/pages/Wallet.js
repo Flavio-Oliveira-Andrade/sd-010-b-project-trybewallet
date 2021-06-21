@@ -1,17 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import FormSelect from '../components/FormSelect';
+import Header from '../components/Header';
 
 class Wallet extends React.Component {
   render() {
-    const { getEmail } = this.props;
+    const pagamento = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const api = ['Dados da API'];
     return (
       <div>
-        <header>
-          <p data-testid="email-field">{ getEmail }</p>
-          <p data-testid="total-field">0</p>
-          <p data-testid="header-currency-field">BRL</p>
-        </header>
+        <Header />
         <form>
           <label htmlFor="valor">
             Valor
@@ -32,51 +30,23 @@ class Wallet extends React.Component {
               // onChange={}
             />
           </label>
-          <label htmlFor="moeda">
-            Moeda
-            <select
-              id="moeda"
-              data-testid="currency-input"
-            >
-              <option name="moeda">Dados da API</option>
-            </select>
-          </label>
-          <label htmlFor="metodo">
-          Método de pagamento
-            <select
-              id="metodo"
-              data-testid="method-input"
-            >
-              <option name="metodo">Dinheiro</option>
-              <option name="metodo">Cartão de crédito</option>
-              <option name="metodo">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-          Tag
-          <select
-            id="tag"
-            data-testid="tag-input"
-          >
-            <option name="tag">Alimentação</option>
-            <option name="tag">Lazer</option>
-            <option name="tag">Trabalho</option>
-            <option name="tag">Transporte</option>
-            <option name="tag">Saúde</option>
-          </select>
-          </label>
+          <FormSelect
+            texto="moeda"
+            titulo="Moeda"
+            testid="currency-input"
+            array={ api }
+          />
+          <FormSelect
+            texto="metodo"
+            titulo="Método de pagamento"
+            testid="method-input"
+            array={ pagamento }
+          />
+          <FormSelect texto="tag" titulo="Tag" testid="tag-input" array={ tag } />
         </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  getEmail: state.user.email,
-});
-
-Wallet.propTypes = {
-  getEmail: PropTypes.string.isRequired,
-};
-
-export default connect(mapStateToProps)(Wallet);
+export default Wallet;
