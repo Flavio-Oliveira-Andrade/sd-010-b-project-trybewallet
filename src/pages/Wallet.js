@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ExpenseAddForm from '../components/ExpenseAddForm';
+import LineTableExpense from '../components/LineTableExpense';
 import dataAPI from '../services/API';
 import { actionWalletCurrencies } from '../actions';
 
@@ -29,7 +30,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, currencies } = this.props;
+    const { email, currencies, expenses } = this.props;
     const { total } = this.state;
     return (
       <div>
@@ -46,11 +47,29 @@ class Wallet extends React.Component {
           </span>
         </header>
         <ExpenseAddForm currencies={ currencies } addExpense={ this.addExpense } />
-      </div>);
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+          <LineTableExpense expenses={ expenses } />
+        </table>
+      </div>
+    );
   }
 }
 
 Wallet.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   email: PropTypes.string.isRequired,
   setCurrencies: PropTypes.func.isRequired,
@@ -59,6 +78,7 @@ Wallet.propTypes = {
 const mapStateToProps = (state) => ({ // LER
   email: state.user.email,
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
