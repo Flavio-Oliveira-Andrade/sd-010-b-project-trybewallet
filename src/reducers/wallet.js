@@ -16,8 +16,8 @@ export default function wallet(state = initialState, action) {
     return {
       ...state, expenses: [...state.expenses, action.data],
     };
-  // case 'REQUEST_API':
-  //   return state;
+  case 'DELETE_EXPENSES':
+    return { ...state, expenses: action.data };
   default:
     return state;
   }

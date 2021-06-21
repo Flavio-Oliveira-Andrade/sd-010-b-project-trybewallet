@@ -4,6 +4,7 @@ export const login = (value) => ({ type: 'LOGIN', value });
 export const requestAPI = () => ({ type: 'REQUEST_API' });
 export const getData = (data) => ({ type: 'GET_DATA', data });
 export const getExpenses = (data) => ({ type: 'EXPENSES', data });
+export const deleteExpenses = (data) => ({ type: 'DELETE_EXPENSES', data });
 
 export function FetchApi(requirement) {
   if (requirement === 'fetch') {

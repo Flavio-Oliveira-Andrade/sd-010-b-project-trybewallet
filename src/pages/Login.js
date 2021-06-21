@@ -23,7 +23,7 @@ class Login extends React.Component {
   onClick() {
     const { sendLogin } = this.props;
     const { email } = this.state;
-    console.log('Entrei aqui');
+    // console.log('Entrei aqui');
     sendLogin(email);
 
     this.setState({
