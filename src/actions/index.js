@@ -25,11 +25,12 @@ export const responseAction = () => async (dispatch) => {
 
 export const currencyExchange = (currencies) => ({
   type: ADD_EXPENSE,
-  payload: { currencies },
+  payload: currencies,
 });
 
 export const addExpenseAction = (items) => async (dispatch) => {
   const getExchange = await fetchAPI();
   const exchangeRates = { ...items, exchangeRates: getExchange };
+  console.log(exchangeRates);
   return dispatch(currencyExchange(exchangeRates));
 };

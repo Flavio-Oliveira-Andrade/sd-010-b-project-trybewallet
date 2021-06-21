@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { responseAction, addExpenseAction } from '../actions';
+import { responseAction, currencyExchange, addExpenseAction } from '../actions';
 
 class ExpensesForm extends React.Component {
   constructor(props) {
@@ -36,8 +36,9 @@ class ExpensesForm extends React.Component {
   }
 
   async handleClick() {
-    const { thirdDispatch } = this.props;
+    const { thirdDispatch, sentState } = this.props;
     thirdDispatch(this.state);
+    sentState(this.state);
     this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
@@ -115,18 +116,18 @@ class ExpensesForm extends React.Component {
 
   renderCurrency() {
     const { currencies } = this.props;
-    const selectedCurrency = this.state;
+    const currency = this.state;
     return (
-      <label htmlFor="currencyUsed">
+      <label htmlFor="currency">
         Moeda
         <select
           id="currency"
           name="currency"
-          value={ selectedCurrency }
+          value={ currency }
           onChange={ this.handleChange }
         >
-          {(currencies).map((currency) => (
-            <option key={ currency }>{currency}</option>
+          {(currencies).map((selectedCurrency) => (
+            <option key={ selectedCurrency }>{selectedCurrency}</option>
           )) }
         </select>
       </label>
@@ -136,18 +137,21 @@ class ExpensesForm extends React.Component {
   render() {
     return (
       <div>
-        {this.renderPaymentMethod()}
-        {this.renderTag()}
-        {this.renderValue()}
-        {this.renderDescription()}
-        {this.renderCurrency()}
-        <button
-          type="submit"
-          onClick={ this.handleClick }
-        >
-          Adicionar Despesas
-        </button>
+        <form>
+          {this.renderPaymentMethod()}
+          {this.renderTag()}
+          {this.renderValue()}
+          {this.renderDescription()}
+          {this.renderCurrency()}
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+          >
+            Adicionar Despesas
+          </button>
+        </form>
       </div>
+
     );
   }
 }
@@ -155,6 +159,9 @@ class ExpensesForm extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   secondDispatch: () => dispatch(responseAction()),
   thirdDispatch: (items) => dispatch(
+    currencyExchange(items),
+  ),
+  sentState: (items) => dispatch(
     addExpenseAction(items),
   ),
 });
@@ -169,6 +176,7 @@ ExpensesForm.propTypes = ({
   currencies: PropTypes.arrayOf.isRequired,
   secondDispatch: PropTypes.func.isRequired,
   thirdDispatch: PropTypes.func.isRequired,
+  sentState: PropTypes.func.isRequired,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
