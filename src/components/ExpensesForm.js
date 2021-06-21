@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { responseAction, currencyExchange, addExpenseAction } from '../actions';
+import { responseAction, addExpenseAction } from '../actions';
 
 class ExpensesForm extends React.Component {
   constructor(props) {
@@ -25,8 +25,8 @@ class ExpensesForm extends React.Component {
   }
 
   componentDidMount() {
-    const { secondDispatch } = this.props;
-    secondDispatch();
+    const { currencyValidation } = this.props;
+    currencyValidation();
   }
 
   handleChange({ target: { name, value } }) {
@@ -36,9 +36,8 @@ class ExpensesForm extends React.Component {
   }
 
   async handleClick() {
-    const { thirdDispatch, sentState } = this.props;
-    thirdDispatch(this.state);
-    sentState(this.state);
+    const { addExpenseValidation } = this.props;
+    addExpenseValidation(this.state);
     this.setState((previousState) => ({ id: previousState.id + 1 }));
   }
 
@@ -157,11 +156,8 @@ class ExpensesForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  secondDispatch: () => dispatch(responseAction()),
-  thirdDispatch: (items) => dispatch(
-    currencyExchange(items),
-  ),
-  sentState: (items) => dispatch(
+  currencyValidation: () => dispatch(responseAction()),
+  addExpenseValidation: (items) => dispatch(
     addExpenseAction(items),
   ),
 });
@@ -174,9 +170,8 @@ const mapStateToProps = (state) => ({
 
 ExpensesForm.propTypes = ({
   currencies: PropTypes.arrayOf.isRequired,
-  secondDispatch: PropTypes.func.isRequired,
-  thirdDispatch: PropTypes.func.isRequired,
-  sentState: PropTypes.func.isRequired,
+  currencyValidation: PropTypes.func.isRequired,
+  addExpenseValidation: PropTypes.func.isRequired,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
