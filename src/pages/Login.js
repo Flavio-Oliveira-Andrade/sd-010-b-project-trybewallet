@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { loginUser } from '../actions';
 
 
-class Login extends React.Component { 
-  constructor(props){
+class Login extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
       email: '',
@@ -21,9 +21,9 @@ class Login extends React.Component {
     const { email, password, loginButton } = this.state;
     const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const PASSWORD_LENGTH = 6;
-    if(EMAIL_REGEX.test(email) && password.length >= PASSWORD_LENGTH) {
+    if (EMAIL_REGEX.test(email) && password.length >= PASSWORD_LENGTH) {
       this.setState({ loginButton: false });
-    } else if(!loginButton) {
+    } else if (!loginButton) {
       this.setState({ loginButton: true });
     }
   }
@@ -40,7 +40,7 @@ class Login extends React.Component {
     e.preventDefault();
     const { loginUser } = this.props;
     const { email } = this.state;
-      loginUser(email);
+    loginUser(email);
   }
 
   render() {
@@ -50,12 +50,12 @@ class Login extends React.Component {
       <form>
         <label htmlFor="email-input">
           <input
-          type="email"
-          id="email-input"
-          data-testid="email-input"
-          placeholder="email"
-          onChange={ this.handle }
-          value={ email }
+            type="email"
+            id="email-input"
+            data-testid="email-input"
+            placeholder="email"
+            onChange={ this.handle }
+            value={ email }
           />
         </label>
         <label>
@@ -69,9 +69,9 @@ class Login extends React.Component {
           />
         </label>
         <button 
-        type="submit" 
-        disabled={ disableLogin }
-        onClick={ this.handleLogin }
+          type="submit" 
+          disabled={ disableLogin }
+          onClick={ this.handleLogin }
         >
           <Link to='/carteira'>Entrar</Link>
         </button>
