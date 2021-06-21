@@ -141,7 +141,12 @@ class ExpensesForm extends React.Component {
         {this.renderValue()}
         {this.renderDescription()}
         {this.renderCurrency()}
-        <button type="submit" onClick={ this.handleClick }>Adicionar Despesas</button>
+        <button
+          type="submit"
+          onClick={ this.handleClick }
+        >
+          Adicionar Despesas
+        </button>
       </div>
     );
   }
