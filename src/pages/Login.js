@@ -3,8 +3,8 @@ import React from 'react';
 class Login extends React.Component {
   render() {
     return (
-      <>
-        <label>
+      <form>
+        <div>
           <input
             type="email"
             data-testid="email-input"
@@ -20,9 +20,9 @@ class Login extends React.Component {
           >
             Entrar
           </button>
-        </label>
-      </>
-    );
+        </div>
+      </form>
+    )
   }
 }
 
