@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { loginUser } from '../actions';
 import { Link } from 'react-router-dom';
+import { loginUser } from '../actions';
 
-class Login extends React.Component {
+
+class Login extends React.Component { 
   constructor(props){
     super(props);
     this.state = {
@@ -20,7 +21,7 @@ class Login extends React.Component {
     const { email, password, loginButton } = this.state;
     const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const PASSWORD_LENGTH = 6;
-    if (EMAIL_REGEX.test(email) && password.length >= PASSWORD_LENGTH) {
+    if(EMAIL_REGEX.test(email) && password.length >= PASSWORD_LENGTH) {
       this.setState({ loginButton: false });
     } else if(!loginButton) {
       this.setState({ loginButton: true });
@@ -48,21 +49,21 @@ class Login extends React.Component {
     return(
       <form>
         <label htmlFor="email-input">
-          e-mail
           <input
           type="email"
           id="email-input"
           data-testid="email-input"
+          placeholder="email"
           onChange={ this.handle }
           value={ email }
           />
         </label>
         <label>
-          senha
           <input
             type="password"
             id="password-input"
             data-testid="password-input"
+            placeholder="password"
             onChange={ this.handle }
             value={ password }
           />
@@ -85,4 +86,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = { handleLogin: func.isRequired };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect (null, mapDispatchToProps)(Login);
