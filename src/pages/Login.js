@@ -51,13 +51,11 @@ class Login extends React.Component {
     const { name } = target;
     this.setState({
       [name]: target.value,
-    });
-    // this.validateInputs();
+    }, () => this.validateInputs());
   }
 
   render() {
     const { email, password, isButtonDisabled } = this.state;
-    // console.log(isButtonDisabled);
 
     return (
       <form>
