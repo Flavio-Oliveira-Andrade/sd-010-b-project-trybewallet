@@ -67,7 +67,7 @@ class Login extends React.Component {
               <button
                 type="button"
                 disabled={ button }
-                onClick={ () => { login({ email }); } }
+                onClick={ () => { login({ type: 'LOGIN', payload: email }); } }
               >
                 Entrar
               </button>
