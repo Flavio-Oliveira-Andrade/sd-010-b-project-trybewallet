@@ -23,7 +23,7 @@ class Header extends Component {
     return (
       <main>
         <header>
-          <section className="user-info" data-testid="emailfield">
+          <section className="user-info" data-testid="email-field">
             Usuario:
 
             {email}
