@@ -10,6 +10,7 @@ class Table extends React.Component {
     this.dell = this.dell.bind(this);
   }
 
+  // https://github.com/tryber/sd-010-b-project-trybewallet/pull/6
   dell(index) {
     const { expenses, dellExpense: apagar } = this.props;
     const arrExpenses = [...expenses];
