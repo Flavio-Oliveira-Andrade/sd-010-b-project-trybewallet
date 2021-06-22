@@ -20,15 +20,21 @@ class Login extends React.Component {
     this.handleBtnLogin = this.handleBtnLogin.bind(this);
   }
 
+  componentDidUpdate(_, prevState) {
+    const { email, password } = this.state;
+    if (prevState.email !== email || prevState.password !== password) {
+      this.mailAndPassValidation();
+    }
+  }
+
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
-    this.mailAndPassValidation();
   }
 
   // Help de Diegho Moraes pra essa sacada de analizar direto do estado
   mailAndPassValidation() {
-    const passwordMin = 5;
+    const passwordMin = 6;
     const { email, password } = this.state;
     this.setState({
       mailValidation: email.match(/[a-z]+@[a-z]+.com/g),
@@ -37,10 +43,10 @@ class Login extends React.Component {
   }
 
   handleBtnLogin() {
-    // const { userLogin, fetchData } = this.props;
-    // const { email } = this.state;
-    // userLogin(email);
-    // fetchData();
+    const { userLogin, fetchData } = this.props;
+    const { email } = this.state;
+    userLogin(email);
+    fetchData();
   }
 
   render() {
@@ -86,7 +92,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   userLogin: PropTypes.func.isRequired,
-  // fetchData: PropTypes.func.isRequired,
+  fetchData: PropTypes.func.isRequired,
   data: PropTypes.shape(Object).isRequired,
 };
 

@@ -115,12 +115,12 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { fetchData } = this.props;
+    const { fetchData, expenses } = this.props;
     fetchData();
     const { addExpense, data } = this.props;
     delete data.USDT;
     this.setState({ exchangeRates: data }, () => addExpense(this.state));
-    this.setState((previousState) => ({ id: previousState.id + 1 }));
+    this.setState({ id: expenses.length });
   }
 
   handleChange({ target }) {
@@ -152,6 +152,7 @@ Form.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   data: state.wallet.data,
+  expenses: state.wallet.expenses,
   editvalues: state.wallet.editionKey,
 });
 

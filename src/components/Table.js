@@ -56,6 +56,7 @@ class Table extends React.Component {
                     data-testid="edit-btn"
                     onClick={ () => editExpense(expense) }
                     type="button"
+                    // disable={ pathname === '/edition' }
                   >
                     Editar despesa
                   </button>
