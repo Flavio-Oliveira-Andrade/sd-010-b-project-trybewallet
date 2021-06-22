@@ -2,6 +2,6 @@
 export const EMAIL = 'EMAIL';
 
 export const emailAction = (payload) => ({
-  type: EMAIL,
+  type: 'EMAIL',
   payload,
 });
