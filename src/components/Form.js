@@ -58,7 +58,7 @@ class Form extends Component {
           <input type="text" id="description" onChange={ this.handleInput } />
         </label>
         <label htmlFor="currency">
-          Moeda:
+          Moeda
           <select onChange={ this.handleInput } id="currency">
             {currencie.map((value, index) => (
               <option key={ index }>{value}</option>
