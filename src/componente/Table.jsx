@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { deleteExpense, editExpense } from '../actions';
+import { deleteExpense, editExpense, setExpense } from '../actions';
 
 class Table extends Component {
   constructor(props) {
@@ -140,7 +140,7 @@ const mapStateToProps = ({ wallet: { expenses, currencies, isEdit,
 const mapDispatchProps = (dispatch) => ({
   remover: (expense) => dispatch(deleteExpense(expense)),
   edit: (expense, isEdit) => dispatch(editExpense(expense, isEdit)),
-  update: (expenses) => dispatch(setExpenses(expenses)),
+  update: (expenses) => dispatch(setExpense(expenses)),
 
 });
 export default connect(mapStateToProps, mapDispatchProps)(Table);

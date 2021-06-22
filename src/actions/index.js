@@ -4,4 +4,4 @@ export const addExpense = (expense) => ({ type: 'ADD', expense });
 export const updateCurrencies = (currency) => ({ type: 'UPDATE', currency });
 export const deleteExpense = (expense) => ({ type: 'DELETE', expense });
 export const editExpense = (expense) => ({ type: 'EDIT', expense, isEdit });
-export const setExpense = (expenses) => ({ typy: 'SET_EXPENSES', expenses });
+export const setExpense = (expenses) => ({ type: 'SET_EXPENSES', expenses });
