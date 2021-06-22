@@ -40,3 +40,8 @@ export const fetchApi = (expense) => (dispatch) => {
       dispatch(addExpenses(expense));
     });
 };
+
+export const dellExpense = (deleteExpense) => ({
+  type: 'DELL_EXPENSE',
+  payload: deleteExpense,
+});
