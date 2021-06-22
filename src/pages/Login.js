@@ -43,8 +43,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, disableBtn } = this.state; 
-    
+    const { email, password, disableBtn } = this.state;
+
     return (
       <form>
         <label htmlFor="email-input">
@@ -56,7 +56,8 @@ class Login extends React.Component {
             onChange={ this.handleChange }
             value={ email }
           />
-         <label htmlFor="password-input">
+        </label>
+        <label htmlFor="password-input">
           <input
               type="password"
               id="password-input"
@@ -64,8 +65,8 @@ class Login extends React.Component {
               placeholder="password"
               onChange={ this.handleChange }
               value={ password }
-            />
-          </label> 
+          />
+          </label>
 
           <button
             type="submit"
@@ -74,12 +75,10 @@ class Login extends React.Component {
           >
             <Link to="carteira">Entrar</Link>
           </button>
-        </label>
       </form>
     );
   }
 }
-
 
 const mapDispatchToProps = (dispatch) => ({
   handleUserLogin: (email) => dispatch(loginAction(email)),
