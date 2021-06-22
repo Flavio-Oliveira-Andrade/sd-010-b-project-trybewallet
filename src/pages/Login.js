@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { addUser } from '../actions';
 
+import '../style/login.css';
+import money from '../images/money.png';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -52,20 +55,26 @@ class Login extends React.Component {
     const { disabled, email } = this.state;
     const { addUserState } = this.props;
     return (
-      <section>
-        <div>Login</div>
-        <form>
-          <label htmlFor="email">
+      <section className="login-container">
+        <span className="title-login">Faça login para acesar sua carteira virtual!</span>
+        <form className="form-login">
+          <img className="image-money" src={ money } alt="money" />
+          {/* <a href="https://br.freepik.com/fotos-vetores-gratis/pessoas">
+            Pessoas vetor criado por pch.vector - br.freepik.com
+          </a> */}
+          <label className="labels" htmlFor="email">
             Email
             <input
               type="email"
               name="email"
               onChange={ this.handleChange }
               data-testid="email-input"
+              autoComplete="none"
+              className="inputs"
               required
             />
           </label>
-          <label htmlFor="password">
+          <label className="labels" htmlFor="password">
             Senha
             <input
               type="password"
@@ -73,6 +82,7 @@ class Login extends React.Component {
               minLength="6"
               onChange={ this.handleChange }
               data-testid="password-input"
+              className="inputs"
               required
             />
           </label>
@@ -83,12 +93,11 @@ class Login extends React.Component {
             // https://stackoverflow.com/questions/30187781/how-to-disable-a-button-when-an-input-is-empty
             disabled={ disabled }
             onClick={ () => addUserState(email) }
+            className="button-enter"
           >
             Entrar
           </button>
-
         </Link>
-
       </section>
     );
   }
