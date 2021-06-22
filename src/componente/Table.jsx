@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { deleteExpense, editExpense, setExpense } from '../actions';
+import { deleteExpense, editExpense, setExpenses } from '../actions';
 
 class Table extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class Table extends Component {
     return (<input
       className="buttonLogin"
       type="button"
-      value="Editar Despesa"
+      value="Editar despesa"
       onClick={ this.onClickSave }
     />);
   }
@@ -73,11 +73,10 @@ class Table extends Component {
         <td>{expense.exchangeRates[expense.currency].name.split('/')[0]}</td>
         <td>
           {Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}
-          {' '}
         </td>
         <td>
           {Number(expense.value * expense.exchangeRates[expense.currency].ask).toFixed(2)}
-          {' '}
+
         </td>
         <td>Real</td>
         <td>
@@ -123,6 +122,107 @@ class Table extends Component {
       </select>
     );
   }
+
+  renderDropMethods() {
+    const { method } = this.state;
+    return (
+      <select
+        data-testid="method-input"
+        value={ method }
+        id="method"
+        onChange={ this.onChange }
+      >
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de Crédito">Cartão de Crédito</option>
+        <option value="Cartão de Débito">Cartão de Débito</option>
+      </select>
+    );
+  }
+
+  renderDropTags() {
+    const { tag } = this.state;
+    return (
+      <select
+        data-testid="tag-input"
+        value={ tag }
+        id="tag"
+        onChange={ this.onChange }
+      >
+        <option value="Alimentação">Alimentação</option>
+        <option value="Lazer">Lazer</option>
+        <option value="Trabalho">Trabalho</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Saude">Saúde</option>
+      </select>
+    );
+  }
+
+  renderEditForm() {
+    const { value, description } = this.props;
+    return (
+      <select className="div-edit">
+        <form className="form-edit-expense">
+          <label htmlFor="value">
+            Valor:
+            <input
+              data-testid="value-input"
+              value={ value }
+              type="value"
+              onChange={ this.onChange }
+            />
+          </label>
+          <label htmlFor="currency">
+            Moeda:
+            {this.renderDropCoins()}
+          </label>
+          <label htmlFor="method">
+            Método de pagamento:
+            {this.renderDropMethods()}
+          </label>
+          <label htmlFor="tag">
+            Tag:
+            {this.renderDropTags()}
+          </label>
+          <label htmlFor="description">
+            Descrição:
+            <input
+              data-testid="description-input"
+              value={ description }
+              type="text"
+              id="description"
+              onChange={ this.onChange }
+            />
+          </label>
+          {this.renderSaveButton()}
+        </form>
+      </select>
+    );
+  }
+
+  render() {
+    const { isEdit } = this.props;
+    return (
+      <table border="1" rules="ROWS">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          { this.renderTable() }
+          {isEdit ? this.renderEditForm() : console.log('')}
+        </tbody>
+      </table>
+    );
+  }
 }
 Table.propTypes = {
   expenses: PropTypes.arrayOf(Object).isRequired,
@@ -140,7 +240,7 @@ const mapStateToProps = ({ wallet: { expenses, currencies, isEdit,
 const mapDispatchProps = (dispatch) => ({
   remover: (expense) => dispatch(deleteExpense(expense)),
   edit: (expense, isEdit) => dispatch(editExpense(expense, isEdit)),
-  update: (expenses) => dispatch(setExpense(expenses)),
+  update: (expenses) => dispatch(setExpenses(expenses)),
 
 });
 export default connect(mapStateToProps, mapDispatchProps)(Table);
