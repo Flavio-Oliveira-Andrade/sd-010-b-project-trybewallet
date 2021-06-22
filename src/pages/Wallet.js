@@ -3,10 +3,30 @@ import FormSelect from '../components/FormSelect';
 import Header from '../components/Header';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      api: [],
+    };
+
+    this.fetchAPI = this.fetchAPI.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchAPI();
+  }
+
+  async fetchAPI() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((data) => data.json());
+    delete response.USDT;
+    this.setState({ api: Object.keys(response) });
+  }
+
   render() {
     const pagamento = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const api = ['Dados da API'];
+    const { api } = this.state;
     return (
       <div>
         <Header />
