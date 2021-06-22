@@ -342,17 +342,13 @@ a {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.tableExpenses {
-  display: flex;
-}
-
 .tableWallet .tableHeader {
   height: 30px;
   background-color: #31393e;
   color: white;
 }
 
- .tableWallet .tableHeader thead tr th {
+ .tableWallet .tableHeader tr th {
   width: 300px;
 }
 
@@ -360,23 +356,23 @@ a {
   background-color: #f3f3f3;
 }
 
-.tableWallet .tableBody tbody tr td {
-  width: 145px;
+.tableWallet .tableBody td {
+  height: 50px;
   text-align: center;
   border-bottom: 1px solid #dddddd;
 }
 
 .areaButtons {
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
+  
 }
 
 .areaButtons .eraseButton {
   font-size: 1.2em;
   background-color: #D6D3D3;
   padding: 3px 10px 3px 10px;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 12px;
   height: 30px;
   border-radius: 5px;
   border: none;
@@ -413,8 +409,7 @@ a {
   font-size: 1.2em;
   background-color: #D6D3D3;
   padding: 2px 10px 3px 10px;
-  margin-left: 80px;
-  margin-top: 10px;
+  /* margin-left: 50px; */
   height: 30px;
   border-radius: 5px;
   border: none;

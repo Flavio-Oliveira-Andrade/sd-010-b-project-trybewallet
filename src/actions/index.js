@@ -53,10 +53,10 @@ export const shownExpense = () => ({
   },
 });
 
-export const saveCurrenciesList = (currencies) => ({
+export const saveCurrenciesList = (listCurrencies) => ({
   type: SAVE_CURRENCIES_LIST,
   payload: {
-    currencies,
+    listCurrencies,
   },
 });
 
@@ -65,8 +65,8 @@ export const saveCurrenciesList = (currencies) => ({
 // Thunk com Async / Await
 export function fetchCurrencies() {
   return async (dispatch) => {
-    const currencies = await getCurrencies();
-    return dispatch(saveCurrenciesList(currencies));
+    const listCurrencies = await getCurrencies();
+    return dispatch(saveCurrenciesList(listCurrencies));
   };
 }
 

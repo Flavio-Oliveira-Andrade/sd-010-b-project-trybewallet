@@ -10,15 +10,16 @@ import {
 // -------------------------------------------------------------------------------------------------
 const INITIAL_STATE = {
   expenses: [],
-  currencies: {},
+  currencies: [],
   totalExpenses: '0',
-  editingExpense: [],
+  editingExpense: {},
   editedExpense: false,
 };
 // -------------------------------------------------------------------------------------------------
 const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SAVE_CURRENCIES_LIST: { const { payload: { currencies } } = action;
+  case SAVE_CURRENCIES_LIST: { const { payload: { listCurrencies } } = action;
+    const currencies = Object.keys(listCurrencies); // https://qastack.com.br/programming/5072136/javascript-filter-for-objects // Aula : Object 24/03/2021
     return {
       ...state,
       currencies,
@@ -38,8 +39,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       totalExpenses,
     };
   }
-  case DELETE_EXPENSE: { const { payload: { id } } = action;
-    const { expenses } = state;
+  case DELETE_EXPENSE: { const { payload: { id } } = action; const { expenses } = state;
     const updatedExpenses = removeExpense(id, expenses);
     return {
       ...state,
