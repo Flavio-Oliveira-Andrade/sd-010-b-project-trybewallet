@@ -5,7 +5,7 @@ const initialState = {
 
 function user(state = initialState, action) {
   switch (action.type) {
-  case 'addUser':
+  case 'ADD_USER':
     return {
       ...state.user,
       email: action.payload.email,

@@ -1,13 +1,13 @@
 // Coloque aqui suas actions
 export const addUser = (email) => ({
-  type: 'addUser',
+  type: 'ADD_USER',
   payload: {
     email,
   },
 });
 
 export const receiveCurrencies = (currencies) => ({
-  type: 'receiveCurrencies',
+  type: 'RECEIVE_CURRENCIES',
   payload: {
     currencies,
   },
@@ -24,3 +24,19 @@ export function fetchApiCoin() {
       });
   };
 }
+
+export const addExpenses = (expenses) => ({
+  type: 'ADD_EXPENSES',
+  payload: {
+    expenses,
+  },
+});
+
+export const fetchApi = (expense) => (dispatch) => {
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((resp) => {
+      expense.exchangeRates = resp;
+      dispatch(addExpenses(expense));
+    });
+};
