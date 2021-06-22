@@ -8,17 +8,21 @@ import SelectWallet from '../components/SelectWallet';
 
 import cambio from '../img/cambio.jpg';
 
+const defautState = {
+  value: 0,
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+};
+
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     // this.state = Object.assign({}, ...defautState);
     this.state = {
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      ...defautState,
     };
 
     this.handle = this.handle.bind(this);
@@ -35,7 +39,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail, walletCurrencies, updateExpenses, total } = this.props;
+    const { userEmail, walletCurrencies, updateExpenses, total = 0 } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
@@ -102,7 +106,11 @@ Wallet.propTypes = {
   // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurr: PropTypes.func.isRequired,
   updateExpenses: PropTypes.func.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
+};
+
+Wallet.defaultProps = {
+  total: 0,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
