@@ -3,55 +3,106 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InputFormWallet from '../components/InputFormWallet';
 import fetchCurrencies from '../actions/walletActions';
+import updateWallet from '../actions/updateWalletAction';
 import SelectWallet from '../components/SelectWallet';
 
 import cambio from '../img/cambio.jpg';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    // this.state = Object.assign({}, ...defautState);
+    this.state = {
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
+
+    this.handle = this.handle.bind(this);
+    // this.fillTotal = this.fillTotal.bind(this);
+  }
+
   componentDidMount() {
     const { fetchCurr } = this.props;
     fetchCurr();
   }
 
+  handle({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
   render() {
-    const { userEmail, walletCurrencies } = this.props;
+    const { userEmail, walletCurrencies, updateExpenses, total } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
     return (
       <main>
-        <header>
-          <img src={ cambio } alt="cambio" />
+        <header className="headerWallet">
+          <img src={ cambio } alt="cambio" className="cambio" />
           <p data-testid="email-field">{ userEmail }</p>
-          <p data-testid="total-field">-0-</p>
+          <p data-testid="total-field">{` - ${total} -`}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <section>
           <form>
-            <InputFormWallet labelText="Valor: " />
-            <InputFormWallet labelText="Descrição: " />
-            <SelectWallet labelText="Moeda" options={ walletCurrencies } />
-            <SelectWallet labelText="Método de pagamento: " options={ opPayments } />
-            <SelectWallet labelText="Tag " options={ opTags } />
+            <InputFormWallet text="Valor" name="value" handle={ this.handle } />
+            <InputFormWallet text="Descrição" name="description" handle={ this.handle } />
+
+            <SelectWallet
+              text="Moeda"
+              options={ walletCurrencies }
+              name="currency"
+              handle={ this.handle }
+            />
+
+            <SelectWallet
+              text="Método de pagamento"
+              options={ opPayments }
+              name="method"
+              handle={ this.handle }
+            />
+
+            <SelectWallet
+              text="Tag"
+              options={ opTags }
+              name="tag"
+              handle={ this.handle }
+            />
+            <button
+              type="button"
+              onClick={ () => updateExpenses(this.state) }
+            >
+              Adicionar despesa
+            </button>
           </form>
         </section>
       </main>
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
   walletCurrencies: state.wallet.currencies,
+  // expenses: state.wallet.expenses,
+  total: state.wallet.total,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurr: () => dispatch(fetchCurrencies()),
+  updateExpenses: (dataWallet) => dispatch(updateWallet(dataWallet)),
 });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   walletCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurr: PropTypes.func.isRequired,
+  updateExpenses: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

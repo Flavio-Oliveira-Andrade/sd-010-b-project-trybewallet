@@ -1,33 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class InputFormWallet extends React.Component {
+class InputWallet extends React.Component {
   render() {
-    const { labelText, type = 'text', handle } = this.props;
-    const name = labelText.toLowerCase();
+    const { text, name, type = 'text', handle } = this.props;
     return (
       <label htmlFor={ name }>
-        { labelText }
+        { `${text}: ` }
         <input
           type={ type }
           name={ name }
           id={ name }
           onChange={ handle }
+          className={ name }
         />
       </label>
     );
   }
 }
 
-InputFormWallet.propTypes = {
-  labelText: PropTypes.string.isRequired,
+InputWallet.propTypes = {
+  text: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   type: PropTypes.string,
   handle: PropTypes.func,
 };
-
-InputFormWallet.defaultProps = {
+InputWallet.defaultProps = {
   type: 'text',
   handle: undefined,
 };
-
-export default InputFormWallet;
+export default InputWallet;
