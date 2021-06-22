@@ -1,13 +1,64 @@
-button {
-  background-color: green;
-  height : 80px;
-  width : 120px;
-}
-
 .email {
-  width: 200px;
+  font-size: 20px;
+  height: 30px;
+  margin-left: 700px;
+  margin-top: 5px;
+  width: 300px;
 }
 
 .password {
-  width: 200px;
+  font-size: 20px;
+  height: 30px;
+  margin-left: 700px;
+  margin-top: 5px;
+  width: 300px;
+}
+
+.value {
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.description {
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.currency {
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.method {
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.tag {
+  height: 30px;
+  margin-left: 10px;
+}
+
+.firstButton {
+  background-color: rgb(30, 155, 30);
+  color: white;
+  font-size: 30px;
+  height : 80px;
+  margin-left: 700px;
+  margin-top: 5px;
+  width : 310px;
+}
+
+.secondButton {
+  background-color: rgb(30, 155, 30);
+  color: white;
+  font-size: 20px;
+  height : 50px;
+  margin-left: 50px;
+  margin-top: 0;
+  width : 390px;
 }

@@ -1,6 +1,7 @@
 // O requisito 8 eu tive a imensa ajuda do meu colega Alexandre Damasceno. Link do PR dele: https://github.com/tryber/sd-010-b-project-trybewallet/pull/45/files
 import React from 'react';
 import { connect } from 'react-redux';
+import './Login.css';
 import PropTypes from 'prop-types';
 import { fetchApiMoeda, fetchAllcoins, addGastos } from '../actions';
 
@@ -19,6 +20,8 @@ class Formulario extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
     this.selectMethodFunction = this.selectMethodFunction.bind(this); // essa função foi pra não dar erro no lint por causa de muita linha no Render().
+    this.valueFunction = this.valueFunction.bind(this);
+    this.descriptionFunction = this.descriptionFunction.bind(this);
   }
 
   componentDidMount() {
@@ -37,19 +40,60 @@ class Formulario extends React.Component {
     fetchCoins().then((expenses) => this.setState({
       exchangeRates: expenses,
       id: gastosAtuaisArray.length,
-    })).then(() => gastoAction(this.state)); // A utilidade disso aqui é: Quando eu clicar no botão, eu tenho que fazer tudo isso aqui serve pra ATUALIZAR aquele meu estado, na parte do expenses =[].
+    })).then(() => gastoAction(this.state)); // A utilidade disso aqui é: Quando eu clicar no botão, eu tenho que fazer tudo isso aqui e serve pra ATUALIZAR aquele meu estado, na parte do expenses =[].
   }
 
   selectMethodFunction() {
     return (
+
       <label htmlFor="method">
         Método de pagamento
-        <select id="method" name="method" onChange={ this.handleOnChange }>
+        <select
+          id="method"
+          name="method"
+          className="method"
+          onChange={ this.handleOnChange }
+        >
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
+
+    );
+  }
+
+  valueFunction() {
+    return (
+
+      <label htmlFor="value">
+        Valor
+        <input
+          id="value"
+          type="text"
+          name="value"
+          className="value"
+          onChange={ this.handleOnChange }
+        />
+      </label>
+
+    );
+  }
+
+  descriptionFunction() {
+    return (
+
+      <label htmlFor="description">
+        Descrição
+        <input
+          id="description"
+          type="text"
+          name="description"
+          className="description"
+          onChange={ this.handleOnChange }
+        />
+      </label>
+
     );
   }
 
@@ -58,34 +102,25 @@ class Formulario extends React.Component {
     return (
       <section>
         <form onSubmit={ (event) => event.preventDefault() }>
-          <label htmlFor="value">
-            Valor
-            <input
-              id="value"
-              type="text"
-              name="value"
-              onChange={ this.handleOnChange }
-            />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input
-              id="description"
-              type="text"
-              name="description"
-              onChange={ this.handleOnChange }
-            />
-          </label>
+          { this.valueFunction() }
+          { this.descriptionFunction() }
+
           <label htmlFor="currency">
             Moeda
-            <select id="currency" name="currency" onChange={ this.handleOnChange }>
+            <select
+              id="currency"
+              name="currency"
+              className="currency"
+              onChange={ this.handleOnChange }
+            >
               {currencies.map((bt) => <option value={ bt } key={ bt }>{ bt }</option>)}
             </select>
           </label>
+
           { this.selectMethodFunction() }
           <label htmlFor="tag">
             Tag:
-            <select id="tag" name="tag" onChange={ this.handleOnChange }>
+            <select id="tag" name="tag" className="tag" onChange={ this.handleOnChange }>
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
@@ -93,12 +128,15 @@ class Formulario extends React.Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
+
           <button
             type="submit"
+            className="secondButton"
             onClick={ this.handleOnClick }
           >
             Adicionar despesa
           </button>
+
         </form>
       </section>
     ); // ATENÇÃO no map que eu fiz. Ele que faz aquele select aparecer diversas moedas de uma forma dinâmica, algo bem interessante.

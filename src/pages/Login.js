@@ -54,23 +54,30 @@ class Login extends React.Component {
     } // se for redirecionar, aí faz esse redirect aí pra dar certo. Lembrando que pra redirecionar, o botão é clicado e aí chama a função submit e já atualiza o estado pra redireciona: true
     return (
       <form>
-        <input
-          data-testid="email-input"
-          type="email"
-          name="email" // é bom botar o name porque fica melhor pra fazer o handleChange.
-          className="email"
-          onChange={ this.handleChange } // preciso botar isso aqui pra que ocorra a função ONCHANGE. Esse nome handleChange é nome padrão e genérico.
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          className="password"
-          onChange={ this.handleChange }
-        />
+        <div>
+          <input
+            data-testid="email-input"
+            type="email"
+            name="email" // é bom botar o name porque fica melhor pra fazer o handleChange.
+            placeholder="Digite seu email"
+            className="email"
+            onChange={ this.handleChange } // preciso botar isso aqui pra que ocorra a função ONCHANGE. Esse nome handleChange é nome padrão e genérico.
+          />
+        </div>
+        <div>
+          <input
+            data-testid="password-input"
+            type="password"
+            name="password"
+            placeholder=" Digite sua senha"
+            className="password"
+            onChange={ this.handleChange }
+          />
+        </div>
 
         <button
           type="button"
+          className="firstButton"
           disabled={ emailValido === '' || senhaValida === '' }
           onClick={ () => this.submit() } // ao clicar, chamo a função submit
         >
