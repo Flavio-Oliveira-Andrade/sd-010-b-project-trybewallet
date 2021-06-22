@@ -47,40 +47,41 @@ class Form extends Component {
 
   render() {
     const { currencie } = this.props;
+    const { currency, tag, method, description, value } = this.state; 
     return (
       <form>
         <label htmlFor="value">
           Valor:
-          <input type="number" id="value" onChange={ this.handleInput } />
+          <input value={ value } type="number" id="value" onChange={ this.handleInput } />
         </label>
         <label htmlFor="description">
           Descrição:
-          <input type="text" id="description" onChange={ this.handleInput } />
+          <input value={ description } type="text" id="description" onChange={ this.handleInput } />
         </label>
         <label htmlFor="currency">
-          Moeda:
-          <select onChange={ this.handleInput } id="currency">
-            {currencie.map((value, index) => (
-              <option key={ index }>{value}</option>
+          Moeda
+          <select value={ currency } data-testid="currency-input" onChange={ this.handleInput } id="currency">
+            {currencie.map((currence, index) => (
+              <option value={ currence } data-testid={ currence } key={ `Currence ${index}` }>{currence}</option>
             ))}
           </select>
         </label>
         <label htmlFor="method">
           Método de pagamento:
-          <select onChange={ this.handleInput } id="method">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
+          <select value={ method } onChange={ this.handleInput } id="method">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag:
-          <select onChange={ this.handleInput } id="tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+          <select value={ tag } onChange={ this.handleInput } id="tag">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         <button onClick={ this.handleExpenses } type="button">Adicionar despesa</button>

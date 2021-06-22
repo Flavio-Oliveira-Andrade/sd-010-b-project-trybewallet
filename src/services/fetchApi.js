@@ -4,9 +4,11 @@ const URL = 'https://economia.awesomeapi.com.br/json/all';
 export const fetchApiCurrence = async () => {
   const response = await fetch(URL);
   const responseJson = await response.json();
-  return Object.values(responseJson)
-    .filter((currencie) => currencie.codein !== 'BRLT')
-    .map((currencie) => currencie.code);
+  const { USDT, ...rest } = responseJson;
+  return Object.keys(rest);
+  // return Object.values(responseJson)
+  //   .filter((currencie) => currencie.codein !== 'BRLT')
+  //   .map((currencie) => currencie.code);
 };
 
 // Trazendo todas as moedas exceto o dolar turismo
