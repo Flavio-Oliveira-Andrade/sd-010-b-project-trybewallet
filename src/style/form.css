@@ -1,0 +1,18 @@
+.forms {
+  text-align: center;
+}
+
+.inputs-form {
+  border-radius: 10px;
+  margin: 8px;
+  padding: 3px;
+  text-align: center;
+}
+
+.inputs-form:focus {
+  outline: none;
+}
+
+.labels-form {
+  margin: 15px;
+}
