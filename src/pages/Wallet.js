@@ -19,6 +19,7 @@ class Wallet extends React.Component {
   async fetchAPI() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((data) => data.json());
+      // Dica de Fernanda Porto:
     delete response.USDT;
     this.setState({ api: Object.keys(response) });
   }

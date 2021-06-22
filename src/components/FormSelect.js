@@ -11,7 +11,16 @@ class FormSelect extends React.Component {
           id={ texto }
           data-testid={ testid }
         >
-          {array.map((string) => <option name={ texto } key={ texto }>{string}</option>)}
+          {
+            array.map((string) => (
+              <option
+                name={ texto }
+                key={ Object.values(string) }
+              >
+                {string}
+              </option>
+            ))
+          }
         </select>
       </label>
     );
