@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import InputFormWallet from '../components/InputFormWallet';
+import fetchCurrencies from '../actions/walletActions';
 import SelectWallet from '../components/SelectWallet';
 
 import cambio from '../img/cambio.jpg';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchCurr } = this.props;
+    fetchCurr();
+  }
+
   render() {
-    const { userEmail } = this.props;
+    const { userEmail, walletCurrencies } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
@@ -23,7 +29,7 @@ class Wallet extends React.Component {
           <form>
             <InputFormWallet labelText="Valor: " />
             <InputFormWallet labelText="Descrição: " />
-            <SelectWallet labelText="Moeda: " />
+            <SelectWallet labelText="Moeda" options={ walletCurrencies } />
             <SelectWallet labelText="Método de pagamento: " options={ opPayments } />
             <SelectWallet labelText="Tag " options={ opTags } />
           </form>
@@ -35,10 +41,17 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
+  walletCurrencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurr: () => dispatch(fetchCurrencies()),
 });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  walletCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fetchCurr: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
