@@ -1,24 +1,15 @@
 // Coloque aqui suas actions
-export const LOGIN = 'LOGIN';
-
-export const loginAction = (email) => ({
-  type: LOGIN,
-  email,
+export const action = (state) => ({
+  type: state.type,
+  payload: state.payload,
 });
 
-export function wallet(despesa) {
-  return ({
-    type: 'USER_LOGIN',
-    despesa,
-  });
-}
-
-export const newExpense = (despesa) => async (dispatch) => {
-  const data = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const result = await data.json();
-
-  dispatch(wallet({
-    ...despesa,
-    exchangeRates: result,
-  }));
-};
+// asynchronous action creator
+export const fetchData = () => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+  .then((response) => response.json())
+  .then((response) => dispatch({
+    type: 'GET_CURRENCY',
+    payload: response }))
+  .catch((error) => dispatch({
+    type: 'FAILED_REQUEST',
+    payload: error }));

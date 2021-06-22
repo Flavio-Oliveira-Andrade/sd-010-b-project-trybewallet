@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import Despesa from './Despesa';
-import FormularioDeDespesa from './FormularioDeDespesa';
+import React from 'react';
+import Header from '../components/Header';
+import FormularioDeDespesa from '../components/FormularioDeDespesa';
+import Table from '../components/Table';
 
-class Wallet extends Component {
+class Wallet extends React.Component {
   render() {
     return (
-      <div>
+      <main>
+        <Header />
         <FormularioDeDespesa />
-        <Despesa />
-      </div>
+        <Table />
+      </main>
     );
   }
 }
