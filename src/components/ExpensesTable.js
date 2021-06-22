@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 class ExpensesTable extends Component {
   render() {
     const { expense } = this.props;
-    const characterSize = -16;
     return (
       <div>
         <table>
@@ -31,7 +30,7 @@ class ExpensesTable extends Component {
                 <td>{value.value}</td>
                 <td>
                   {value.exchangeRates[value.currency]
-                    .name.slice(0, characterSize)}
+                    .name.split('/')[0]}
                 </td>
                 <td>{parseFloat(value.exchangeRates[value.currency].ask).toFixed(2)}</td>
                 <td>
