@@ -65,7 +65,7 @@ class ExpenseAddForm extends React.Component {
         <label htmlFor="method">
           Método de pagamento
           <select id="method" onChange={ (e) => this.Select(e) }>
-            <option value=""> </option>
+            {/* <option value=""> </option> */}
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -74,7 +74,7 @@ class ExpenseAddForm extends React.Component {
         <label htmlFor="tag">
           Tag
           <select id="tag" onChange={ (e) => this.Select(e) }>
-            <option value=""> </option>
+            {/* <option value=""> </option> */}
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>

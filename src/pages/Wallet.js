@@ -13,6 +13,7 @@ class Wallet extends React.Component {
       total: 0,
     };
     this.addExpense = this.addExpense.bind(this);
+    this.lessExpense = this.lessExpense.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +30,15 @@ class Wallet extends React.Component {
     });
   }
 
+  lessExpense(object) {
+    const { total } = this.state;
+    const valueGasto = object.value;
+    const cambio = object.exchangeRates[object.currency].ask;
+    this.setState({
+      total: total - (valueGasto * cambio),
+    });
+  }
+
   render() {
     const { email, currencies, expenses } = this.props;
     const { total } = this.state;
@@ -39,7 +49,7 @@ class Wallet extends React.Component {
             Email:
             {` ${email}`}
           </span>
-          <span id="total-field" value="0" data-testid="total-field">
+          <span id="total-field" value={ total } data-testid="total-field">
             {total}
           </span>
           <span data-testid="header-currency-field">
@@ -61,7 +71,11 @@ class Wallet extends React.Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
-          <LineTableExpense expenses={ expenses } />
+          <LineTableExpense
+            expenses={ expenses }
+            lessExpense={ this.lessExpense }
+            addExpense={ this.addExpense }
+          />
         </table>
       </div>
     );

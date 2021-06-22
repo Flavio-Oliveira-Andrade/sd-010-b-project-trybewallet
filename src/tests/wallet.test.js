@@ -228,7 +228,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
   });
 });
 
-describe.only('9 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
+describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
   test('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
@@ -330,8 +330,9 @@ describe('10 - Crie um botão para deletar uma despesa da tabela contendo as seg
       },
     ];
 
+    
     expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
-
+    
     const totalField = screen.getByTestId('total-field');
     expect(totalField).toContainHTML('131.37');
   });

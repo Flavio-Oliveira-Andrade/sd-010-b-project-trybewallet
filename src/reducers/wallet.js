@@ -10,6 +10,11 @@ function walletReducer(state = INITIAL_WALLET, action) {
     return { ...state, currencies: action.value };
   case 'EXPENSES':
     return { ...state, expenses: [...state.expenses, action.value] };
+  case 'DELETE': {
+    const newState = state.expenses;
+    return { ...state,
+      expenses: newState.filter((item) => (item.id !== parseInt(action.value, 10))) };
+  }
   default:
     return state;
   }
