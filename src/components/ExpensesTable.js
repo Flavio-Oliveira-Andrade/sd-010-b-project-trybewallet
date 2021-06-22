@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class ExpensesTable extends Component {
   render() {
     const { expense } = this.props;
+    const characterSize = -16;
     return (
       <div>
         <table>
@@ -28,9 +29,15 @@ class ExpensesTable extends Component {
                 <td>{value.tag}</td>
                 <td>{value.method}</td>
                 <td>{value.value}</td>
-                <td>{value.exchangeRates[value.currency].name}</td>
-                <td>{value.exchangeRates[value.currency].ask}</td>
-                <td>{value.exchangeRates[value.currency].ask * value.value}</td>
+                <td>
+                  {value.exchangeRates[value.currency]
+                    .name.slice(0, characterSize)}
+                </td>
+                <td>{parseFloat(value.exchangeRates[value.currency].ask).toFixed(2)}</td>
+                <td>
+                  {parseFloat(value.exchangeRates[value.currency]
+                    .ask * value.value).toFixed(2)}
+                </td>
                 <td>Real</td>
               </tr>
             ))}
