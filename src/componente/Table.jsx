@@ -59,6 +59,7 @@ class Table extends Component {
       type="button"
       value="Editar despesa"
       onClick={ this.onClickSave }
+      data-testid="edit-btn"
     />);
   }
 
