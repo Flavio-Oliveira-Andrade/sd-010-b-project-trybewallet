@@ -2,7 +2,7 @@ import { LOGIN_USER } from '../actions';
 
 const initialState = {
   email: '',
-}
+};
 
 const loginReducer = (state = initialState, action) => {
   const { type, email } = action;

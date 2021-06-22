@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import { Link } from 'react-router-dom';
-import { handleUserLogin as loginAction } from '../actions/index';
+import { handleLogin as userLogin } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -29,17 +29,14 @@ class Login extends React.Component {
 
   handleChange(event) {
     const { value, type } = event.target;
-    this.setState(
-      { [type]: value },
-      () => (this.validate()),
-    );
+    this.setState({ [type]: value }, () => this.validate());
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { handleUserLogin } = this.props;
+    const { handleLogin } = this.props;
     const { email } = this.state;
-    handleUserLogin(email);
+    handleLogin(email);
   }
 
   render() {
@@ -53,37 +50,33 @@ class Login extends React.Component {
             id="email-input"
             data-testid="email-input"
             placeholder="email"
-            onChange={ this.handleChange }
-            value={ email }
+            onChange={this.handleChange}
+            value={email}
           />
         </label>
         <label htmlFor="password-input">
           <input
-              type="password"
-              id="password-input"
-              data-testid="password-input"
-              placeholder="password"
-              onChange={ this.handleChange }
-              value={ password }
+            type="password"
+            id="password-input"
+            data-testid="password-input"
+            placeholder="password"
+            onChange={this.handleChange}
+            value={password}
           />
-          </label>
+        </label>
 
-          <button
-            type="submit"
-            disabled={ disableBtn }
-            onClick={ this.handleSubmit }
-          >
-            <Link to="carteira">Entrar</Link>
-          </button>
+        <button type="submit" disabled={disableBtn} onClick={this.handleSubmit}>
+          <Link to="carteira">Entrar</Link>
+        </button>
       </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  handleUserLogin: (email) => dispatch(loginAction(email)),
+  handleLogin: (email) => dispatch(userLogin(email)),
 });
 
-Login.propTypes = { handleUserLogin: func.isRequired };
+Login.propTypes = { handleLogin: func.isRequired };
 
 export default connect(null, mapDispatchToProps)(Login);
