@@ -1,4 +1,4 @@
-const INITIAL_STATE = {
+/* const INITIAL_STATE = {
   user: {
     email: '',
   },
@@ -9,5 +9,12 @@ const INITIAL_STATE = {
 };
 
 function user(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case 'GET_EMAIL':
+    return {
 
-}
+    };
+  default:
+    return state;
+  }
+} */
