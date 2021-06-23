@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import InputFormWallet from '../components/InputFormWallet';
 import fetchCurrencies from '../actions/walletActions';
 import updateWallet from '../actions/updateWalletAction';
+import TableWallet from '../components/TableWallet';
 import SelectWallet from '../components/SelectWallet';
 
 import cambio from '../img/cambio.jpg';
@@ -39,7 +40,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { userEmail, walletCurrencies, updateExpenses, total = 0 } = this.props;
+    const { userEmail, walletCurrencies, updateExpenses, total, expenses } = this.props;
     const opPayments = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const opTags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
@@ -48,7 +49,7 @@ class Wallet extends React.Component {
         <header className="headerWallet">
           <img src={ cambio } alt="cambio" className="cambio" />
           <p data-testid="email-field">{ userEmail }</p>
-          <p data-testid="total-field">{` - ${total} -`}</p>
+          <p data-testid="total-field">{` - R$${total} -`}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <section>
@@ -83,6 +84,7 @@ class Wallet extends React.Component {
               Adicionar despesa
             </button>
           </form>
+          <TableWallet expenses={ expenses } />
         </section>
       </main>
     );
@@ -91,7 +93,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
   walletCurrencies: state.wallet.currencies,
-  // expenses: state.wallet.expenses,
+  expenses: state.wallet.expenses,
   total: state.wallet.total,
 });
 
@@ -103,7 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   walletCurrencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchCurr: PropTypes.func.isRequired,
   updateExpenses: PropTypes.func.isRequired,
   total: PropTypes.number,
