@@ -1,10 +1,10 @@
 import React from 'react';
 
-import '../App.css'
+import '../App.css';
 
 class Login extends React.Component {
   render() {
-    return(
+    return (
       <div className="container">
         <input
           data-testid="email-input"
@@ -12,8 +12,13 @@ class Login extends React.Component {
           placeholder="Email"
           required
         />
-        <input data-testid="password-input" type="password" placeholder="Senha" required />
-        <button>Entrar</button>
+        <input
+          data-testid="password-input"
+          type="password"
+          placeholder="Senha"
+          required
+        />
+        <button type="button">Entrar</button>
       </div>
     );
   }
