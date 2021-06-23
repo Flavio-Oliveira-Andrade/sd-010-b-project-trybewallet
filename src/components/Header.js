@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
+  // função de calculo com ajuda de Fernanda Porto
   calculo(acc, curr) {
     return acc + parseFloat(curr.exchangeRates[curr.currency].ask * curr.value);
   }

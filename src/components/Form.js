@@ -1,3 +1,4 @@
+// Refatoração do formulario com ajuda de Fernanda Porto
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
