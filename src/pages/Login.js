@@ -42,9 +42,7 @@ function Login() {
         } }
         required
       />
-      {verify === true
-        ? <button type="button">Entrar</button>
-        : <button disabled type="button">Entrar</button>}
+      <button disabled={ !verify } type="button">Entrar</button>
     </div>
   );
 }
