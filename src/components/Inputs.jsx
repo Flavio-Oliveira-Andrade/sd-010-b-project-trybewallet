@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrencyThunk } from '../actions/getCurrencyActions';
 import { paymentTypes, tags } from '../services/formData';
-import { calculateTotalExpense, saveData, savePrice } from '../actions/tableActions';
+import { createExchange } from '../actions/tableActions';
 import apiRequest from '../services/apiRequest';
 
 class Inputs extends React.Component {
@@ -37,33 +37,12 @@ class Inputs extends React.Component {
     });
   }
 
-  handleTotalExpenses() {
-    const ONE_MILISECONDS = 1;
-    setTimeout(() => {
-      const { itensPrices, calcPrice } = this.props;
-      const sum = itensPrices.reduce((acc, curr) => {
-        acc += Number(curr);
-        return acc;
-      }, 0);
-      calcPrice(sum.toFixed(2));
-    }, ONE_MILISECONDS);
-  }
-
-  handleTotalPrice() {
-    const { value, currency, exchangeRates } = this.state;
-    const { getPrice } = this.props;
-    const currentValue = Number(exchangeRates[currency].ask) * Number(value);
-    getPrice(currentValue.toFixed(2));
-    this.handleTotalExpenses();
-  }
-
   async handleExchanges() {
-    const { getData } = this.props;
+    const { getExchange } = this.props;
     const answer = await apiRequest();
     delete answer.USDT;
     this.setState({ exchangeRates: answer });
-    this.handleTotalPrice();
-    getData(this.state);
+    getExchange(this.state);
   }
 
   render() {
@@ -129,9 +108,7 @@ const mapStateToProps = ({ wallet: {
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrency: () => dispatch(getCurrencyThunk()),
-  getData: (state) => dispatch(saveData(state)),
-  getPrice: (payload) => dispatch(savePrice(payload)),
-  calcPrice: (payload) => dispatch(calculateTotalExpense(payload)),
+  getExchange: (state) => dispatch(createExchange(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
@@ -139,5 +116,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
 Inputs.propTypes = {
   currencies: PropTypes.array,
   getCurrency: PropTypes.func,
-  getData: PropTypes.func,
+  getExchange: PropTypes.func,
 }.isRequired;

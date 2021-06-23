@@ -4,11 +4,19 @@ import propTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { userEmail, totalExpense } = this.props;
-    let currentExpense = 0;
-    if (totalExpense > 0) {
-      currentExpense = totalExpense;
-    }
+    const { userEmail, expenses } = this.props;
+    const totalExpenses = expenses.map((expense) => {
+      const {
+        currency, exchangeRates, value,
+      } = expense;
+      const { ask } = exchangeRates[currency];
+      const convertedValue = (value * ask).toFixed(2);
+      return convertedValue;
+    }).reduce((acc, curr) => {
+      acc += Number(curr);
+      return acc;
+    }, 0);
+
     return (
       <header>
         <div>Wellcome to the TrybeWallet!</div>
@@ -18,7 +26,7 @@ class Header extends React.Component {
         </p>
         <p data-testid="total-field">
           Despesa: R$
-          {currentExpense}
+          {totalExpenses}
         </p>
         <p data-testid="header-currency-field">BRL</p>
 
@@ -27,9 +35,10 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user: { email }, wallet: { totalExpense } }) => ({
+const mapStateToProps = ({ user: { email }, wallet: { totalExpense, expenses } }) => ({
   userEmail: email,
   totalExpense,
+  expenses,
 });
 
 export default connect(mapStateToProps, null)(Header);
