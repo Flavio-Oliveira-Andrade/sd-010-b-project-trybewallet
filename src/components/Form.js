@@ -1,9 +1,38 @@
 import React from 'react';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.getData = this.getData.bind(this);
+
+    this.state = {
+      currencies: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  async getData() {
+    const URL = 'https://economia.awesomeapi.com.br/json/all';
+    const fetchAPI = await fetch(URL);
+    const parseJSON = await fetchAPI.json();
+
+    const getCurrencies = Object.keys(parseJSON);
+    const removedUSDT = getCurrencies.filter((target) => target !== 'USDT');
+
+    this.setState({
+      currencies: [...removedUSDT],
+    });
+  }
+
   render() {
+    const { currencies } = this.state;
+
     return (
-      <form action="">
+      <form>
         <label htmlFor="value">
           Valor
           <input type="text" id="value" />
@@ -15,7 +44,9 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency">
-            <option value="BRL">BRL </option>
+            {currencies.map((currency) => (
+              <option key={ currency } value={ currency }>{ currency }</option>
+            ))}
           </select>
         </label>
         <label htmlFor="payment-method">
