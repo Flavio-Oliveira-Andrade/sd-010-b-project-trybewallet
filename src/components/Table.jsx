@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TBody from './TBody';
+// import TBody from './TBody';
 
 class Table extends React.Component {
   render() {
@@ -20,7 +20,8 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody className="table-body">
-          <TBody />
+          {/* <TBody /> */}
+
         </tbody>
       </table>
     );
