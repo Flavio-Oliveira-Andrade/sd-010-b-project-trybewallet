@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+// Ajuda de Fernanda Porto com o map da linha 14 ao 27
 
 class Table extends React.Component {
   funcaoTabela(cabecalho, linhas) {
@@ -7,9 +11,25 @@ class Table extends React.Component {
         <tr>
           {cabecalho.map((string, index) => (<th key={ index }>{string}</th>))}
         </tr>
-        <tr>
-          {linhas.map((string, index) => (<td key={ index }>{string}</td>))}
-        </tr>
+        {linhas.map((expenses, index) => (
+          <tr key={ expenses.id }>
+            <td key={ index }>{expenses.description}</td>
+            <td key={ index }>{expenses.tag}</td>
+            <td key={ index }>{expenses.method}</td>
+            <td key={ index }>{expenses.value}</td>
+            <td key={ index }>{expenses.exchangeRates[expenses.currency].name}</td>
+            <td key={ index }>
+              {parseFloat(expenses.exchangeRates[expenses.currency].ask)
+                .toFixed(2)}
+            </td>
+            <td key={ index }>
+              {parseFloat(expenses.value * expenses.exchangeRates[expenses.currency].ask)
+                .toFixed(2)}
+            </td>
+            <td key={ index }>Real</td>
+            <td key={ index }>Editar/Excluir</td>
+          </tr>
+        ))}
       </table>
     );
   }
@@ -17,13 +37,21 @@ class Table extends React.Component {
   render() {
     const cabecalho = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
       'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
-    const linhas = ['tes', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'fim'];
+    const { getExpenses } = this.props;
     return (
       <>
-        {this.funcaoTabela(cabecalho, linhas)}
+        {this.funcaoTabela(cabecalho, getExpenses)}
       </>
     );
   }
 }
 
-export default Table;
+const mapStateToProps = (state) => ({
+  getExpenses: state.wallet.expenses,
+});
+
+Table.propTypes = {
+  getExpenses: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps)(Table);
