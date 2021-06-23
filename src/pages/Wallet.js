@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from '../components/Header';
 import Form from '../components/Form';
+import CoastTable from '../components/CoastTable';
 
 class Wallet extends React.Component {
   render() {
@@ -9,6 +10,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <Form />
+        <CoastTable />
       </div>
     );
   }
