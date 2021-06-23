@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from './redux/store';
+import store from './redux';
 
 ReactDOM.render(
   <Provider store={ store }>
     <BrowserRouter>
-      <Switch>
-        <App />
-      </Switch>
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
