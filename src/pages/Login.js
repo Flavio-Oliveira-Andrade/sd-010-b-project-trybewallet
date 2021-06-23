@@ -34,10 +34,12 @@ function Login() {
         } }
         required
       />
-      <button 
+      <button
         disabled={ !handleValidateEmail() || !handleValidatePassword() }
         type="button"
-      >Entrar</button>
+      >
+        Entrar
+      </button>
     </div>
   );
 }
