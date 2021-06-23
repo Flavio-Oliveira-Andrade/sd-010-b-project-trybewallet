@@ -1,10 +1,16 @@
 export const USER = 'USER';
 export const CURRENCIES = 'CURRENCIES';
 export const EXPENSE = 'EXPENSE';
+export const DELETE = 'DELETE';
 
 export const saveUserAction = (user) => ({
   type: USER,
   user,
+});
+
+export const deleteExpenses = (id) => ({
+  type: DELETE,
+  id,
 });
 
 export const saveExpenses = ({

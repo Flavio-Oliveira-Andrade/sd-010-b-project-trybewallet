@@ -10,13 +10,10 @@ class Header extends Component {
 
   handleSum() {
     const { expense } = this.props;
-    if (expense.length) {
-      return expense.reduce((acc, cur) => {
-        const currence = cur.currency;
-        return acc + (Number(cur.value) * cur.exchangeRates[currence].ask);
-      }, 0);
-    }
-    return 0;
+    return expense.reduce((acc, cur) => {
+      const currence = cur.currency;
+      return acc + (Number(cur.value) * cur.exchangeRates[currence].ask);
+    }, 0);
   }
 
   render() {
