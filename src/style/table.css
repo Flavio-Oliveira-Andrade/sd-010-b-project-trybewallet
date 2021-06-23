@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container-table {
+  border-collapse: collapse;
+  font-size: 1em;
+  margin: auto;
+  padding: auto;
+}
+
+.container-table thead {
+  background-color: #73dc73;
+  color: black;
+  text-align: center;
+}
+
+.container-table th {
+  padding: 20px;
+}
+
+.container-table td {
+  padding: 15px;
+  text-align: center;
+}
+
+.container-table tbody tr {
+  border-bottom: 1px solid black;
+}
+
+.container-table tbody tr:nth-of-type( even ) {
+  background-color: #ade6ad;
+}
+
+.container-table tbody tr:last-of-type {
+  border-bottom: 2px solid #007400;
+}
