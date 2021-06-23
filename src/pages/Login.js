@@ -50,8 +50,8 @@ class Login extends React.Component {
             id="email-input"
             data-testid="email-input"
             placeholder="email"
-            onChange={this.handleChange}
-            value={email}
+            onChange={ this.handleChange }
+            value={ email }
           />
         </label>
         <label htmlFor="password-input">
@@ -60,12 +60,12 @@ class Login extends React.Component {
             id="password-input"
             data-testid="password-input"
             placeholder="password"
-            onChange={this.handleChange}
-            value={password}
+            onChange={ this.handleChange }
+            value={ password }
           />
         </label>
 
-        <button type="submit" disabled={disableBtn} onClick={this.handleSubmit}>
+        <button type="submit" disabled={ disableBtn } onClick={ this.handleSubmit }>
           <Link to="carteira">Entrar</Link>
         </button>
       </form>
