@@ -12,11 +12,11 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event){
+  handleChange(event) {
     const { password, email } = this.state;
     const minLength = 4;
-    if(password.length > minLength && email.includes('.com')){
-      this.setState({ [event.target.name]: event.target.value})
+    if (password.length > minLength && email.includes('.com')) {
+      this.setState({ [event.target.name]: event.target.value });
       this.setState({ disable: false });
     }
   }
@@ -24,28 +24,28 @@ class Login extends React.Component {
   render() {
     const { disable } = this.state;
     return (
-    <div className="Login">
-      <form className="formLogin">
-        <input
-        placeholder="email"
-        name="email"
-        data-testid="email-input"
-        onChange={ this.handleChange }
-        />
-        <input
-        placeholder="senha"
-        name="password"
-        data-testid="password-input"
-        onChange={ this.handleChange }
-        />
-        <button
-        type="button"
-        disabled={ disable }
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+      <div className="Login">
+        <form className="formLogin">
+          <input
+            placeholder="email"
+            name="email"
+            data-testid="email-input"
+            onChange={ this.handleChange }
+          />
+          <input
+            placeholder="senha"
+            name="password"
+            data-testid="password-input"
+            onChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            disabled={ disable }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 }
