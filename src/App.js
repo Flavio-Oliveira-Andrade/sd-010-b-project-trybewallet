@@ -9,10 +9,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/carteira" component={ Wallet } />
-          {/* <Route exact path="/movies/:id/edit" component={ EditMovie } />
-          <Route exact path="/movies/:id" component={ MovieDetails } /> */}
           <Route exact path="/" component={ Login } />
-          {/* <Route component={ NotFound } /> */}
         </Switch>
       </Router>
     </div>
