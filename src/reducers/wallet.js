@@ -14,8 +14,8 @@ export default function walletReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       wallet: {
-        currencies: [],
-        expenses: [],
+        currencies: action.payload.currencies,
+        expenses: action.payload.expenses,
       },
     };
   default:
