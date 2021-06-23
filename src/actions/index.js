@@ -4,6 +4,7 @@ export const LOGIN_INFO = 'login';
 export const WALLET_INFO = 'wallet';
 export const RESPONSE = 'response';
 export const ADD_EXPENSE = 'adding-expenses';
+export const REMOVE_EXPENSE = 'removing-expenses';
 
 export default function loginAction({ userEmail, userPassword }) {
   return ({
@@ -34,3 +35,10 @@ export const addExpenseAction = (items) => async (dispatch) => {
   console.log(exchangeRates);
   return dispatch(currencyExchange(exchangeRates));
 };
+
+export const removeExpense = (index) => ({
+  type: REMOVE_EXPENSE,
+  payload: {
+    index,
+  },
+});

@@ -1,4 +1,4 @@
-import { WALLET_INFO, ADD_EXPENSE } from '../actions';
+import { WALLET_INFO, ADD_EXPENSE, REMOVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   expenses: [],
@@ -18,6 +18,15 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, action.payload],
+    };
+
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses.slice(0, action.payload.index),
+        ...state.expenses.slice(action.payload.index + 1, state.expenses.length),
+      ],
     };
 
   default:

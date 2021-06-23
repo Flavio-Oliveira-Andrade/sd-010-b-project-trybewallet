@@ -1,72 +1,80 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
+import { removeExpense } from '../actions';
 
 class ExpensesTable extends React.Component {
-  convertValue(value, exchangeRates) {
-    const convertedValue = value * exchangeRates;
-    return parseFloat(convertedValue.toFixed(2));
+  constructor(props) {
+    super(props);
+
+    this.renderTable = this.renderTable.bind(this);
   }
 
   renderTable() {
-    const { expenses } = this.props;
-    const tableLine = expenses.map((expense, index) => {
-      const { description, tag, method, value, currency,
-        exchangeRates: { [currency]: { name, ask } } } = expense;
-
-      return (
-        <tr key={ index }>
-          <td>{description}</td>
-          <td>{tag}</td>
-          <td>{method}</td>
-          <td>{value}</td>
-          <td>{name.replace('/Real', '')}</td>
-          <td>{this.convertValue(1, ask)}</td>
-          <td>
-            {
-              this.convertValue(value, ask)
-            }
-          </td>
-          <td>Real</td>
-        </tr>
-      );
-    });
-
-    return tableLine;
+    const { expenses, deleteItem } = this.props;
+    return expenses.map((
+      { id, value, currency, method, tag, description, exchangeRates }, index,
+    ) => (
+      <tr key={ id }>
+        <td>{ description }</td>
+        <td>{ tag }</td>
+        <td>{ method }</td>
+        <td>{ value }</td>
+        <td>{ exchangeRates[currency].name }</td>
+        <td>{ parseFloat(exchangeRates[currency].ask).toFixed(2) }</td>
+        <td>
+          { (parseFloat(value) * parseFloat(exchangeRates[currency].ask)).toFixed(2) }
+        </td>
+        <td>Real</td>
+        <th>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ () => deleteItem(index) }
+          >
+            Delete
+          </button>
+        </th>
+      </tr>
+    ));
   }
 
   render() {
     return (
-      <section>
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderTable()}
-          </tbody>
-        </table>
-      </section>
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderTable()}
+        </tbody>
+      </table>
+
     );
   }
 }
 
-const mapStateToProps = ({ wallet: { expenses } }) => ({
-  expenses,
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  deleteItem: (index) => dispatch(removeExpense(index)),
 });
 
 ExpensesTable.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  expenses: propTypes.arrayOf(Object).isRequired,
+  deleteItem: propTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(ExpensesTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
