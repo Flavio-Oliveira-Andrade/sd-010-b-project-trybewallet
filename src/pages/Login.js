@@ -24,6 +24,16 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const minPasswordLength = 6;
+
+    const emailValidator = () => {
+      const regexCode = /\S+@\S+\.\S+/;
+
+      const validator = regexCode.test(email);
+      return validator;
+    };
+
+    const passwordValidator = password.length >= minPasswordLength;
 
     return (
       <div className="login-form">
@@ -46,7 +56,7 @@ class Login extends React.Component {
         </label>
         <button
           type="button"
-          disabled={ (email && password) === '' }
+          disabled={ !(emailValidator() && passwordValidator) }
         >
           Entrar
         </button>
