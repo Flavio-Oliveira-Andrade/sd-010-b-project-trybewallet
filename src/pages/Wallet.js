@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-class Wallet extends React.Component {
-  render() {
-    return <div>TrybeWallet</div>;
-  }
+function Wallet(props) {
+  const [despesa, setDespesa] = useState(0);
+
+  const { email } = props;
+  return (
+    <div>
+      <header>
+        <form>
+          <p data-testid="email-field">
+            Email:
+            { email }
+          </p>
+          <p data-testid="total-field">
+            Despesa:
+            { ` ${despesa}` }
+          </p>
+          <p data-testid="header-currency-field">
+            Câmbio: BRL
+          </p>
+        </form>
+      </header>
+    </div>
+  );
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
+
+export default connect(mapStateToProps, null)(Wallet);
