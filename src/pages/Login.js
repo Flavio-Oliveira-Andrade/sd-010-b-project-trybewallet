@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addUser } from '../actions';
+import { adicionarUsuario } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,7 +21,6 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const seisCaracteres = 6;
-    // const botao = document.querySelector('button');
     if ((emailRegex.test(email)) && (password.length > seisCaracteres)) {
       this.setState({ disabled: false });
     } else {
@@ -41,7 +40,7 @@ class Login extends React.Component {
 
   render() {
     const { disabled, email } = this.state;
-    const { addUserState } = this.props;
+    const { adicionarUsuarioState } = this.props;
     return (
       <section>
         <div>Tela de Login</div>
@@ -72,7 +71,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ disabled }
-            onClick={ () => addUserState(email) }
+            onClick={ () => adicionarUsuarioState(email) }
           >
             Entrar
           </button>
@@ -83,11 +82,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addUserState: (email) => dispatch(addUser(email)),
+  adicionarUsuarioState: (email) => dispatch(adicionarUsuario(email)),
 });
 
 Login.propTypes = {
-  addUserState: PropTypes.func.isRequired,
+  adicionarUsuarioState: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
