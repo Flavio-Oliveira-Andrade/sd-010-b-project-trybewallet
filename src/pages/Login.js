@@ -1,8 +1,15 @@
 import React from 'react';
+import LoginData from '../components/LoginData';
+import LoginButton from '../components/LoginButton';
 
 class Login extends React.Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <section className="login-container">
+        <LoginData />
+        <LoginButton />
+      </section>
+    );
   }
 }
 
