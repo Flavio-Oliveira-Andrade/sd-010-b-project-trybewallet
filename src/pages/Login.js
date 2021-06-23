@@ -21,7 +21,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     const seisCaracteres = 6;
-    if ((emailRegex.test(email)) && (password.length > seisCaracteres)) {
+    if ((emailRegex.test(email)) && (password.length >= seisCaracteres)) {
       this.setState({ disabled: false });
     } else {
       this.setState({ disabled: true });

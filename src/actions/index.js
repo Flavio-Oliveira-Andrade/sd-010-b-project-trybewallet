@@ -1,9 +1,7 @@
 // Coloque aqui suas actions
 export const adicionarUsuario = (email) => ({
-  type: 'adicionarUsuario',
-  payload: {
-    email,
-  },
+  type: 'EMAIL',
+  email,
 });
 
 export const receberMoeda = (currencies) => ({
