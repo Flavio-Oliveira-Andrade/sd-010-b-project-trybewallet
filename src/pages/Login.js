@@ -60,16 +60,16 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  changeEmail: (email) => dispatch(emailAction(email)),
-  changePassword: (password) => dispatch(passwordAction(password)),
-  changeEnabled: (isDisabled) => dispatch(disabledAction(isDisabled)),
-});
-
 const mapStateToProps = (state) => ({
   email: state.user.email,
   password: state.user.password,
   isDisabled: state.user.isDisabled,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeEmail: (email) => dispatch(emailAction(email)),
+  changePassword: (password) => dispatch(passwordAction(password)),
+  changeEnabled: (isDisabled) => dispatch(disabledAction(isDisabled)),
 });
 
 Login.propTypes = {
