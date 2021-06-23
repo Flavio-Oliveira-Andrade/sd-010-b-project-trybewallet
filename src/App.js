@@ -1,7 +1,17 @@
 import React from 'react';
+import { Route } from 'react-router';
+import Header from './components/Header';
+import Home from './components/Home';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Route path="/" component={ Home } />
+      </div>
+    );
+  }
 }
 
 export default App;
