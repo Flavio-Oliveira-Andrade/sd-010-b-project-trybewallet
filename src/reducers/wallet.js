@@ -1,8 +1,7 @@
 import {
   REQUEST_API, REQUEST_API_SUCESS, REQUEST_API_ERROR,
 } from '../actions/getCurrencyActions';
-import { CALCULATE_TOTAL_EXPENSE, SAVE_DATA, SAVE_PRICE } from '../actions/tableActions';
-
+import { SAVE_DATA, SAVE_PRICE, CALCULATE_TOTAL_EXPENSE } from '../actions/tableActions';
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
 const INITIAL_WALLET_STATE = {

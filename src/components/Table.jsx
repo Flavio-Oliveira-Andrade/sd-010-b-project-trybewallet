@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-// import TBody from './TBody';
+import TBody from './TBody';
 
 class Table extends React.Component {
   render() {
@@ -8,19 +7,19 @@ class Table extends React.Component {
       <table className="table-content">
         <thead className="table-heading">
           <tr>
-            <td>Descrição</td>
-            <td>Tag</td>
-            <td>Método de pagamento</td>
-            <td>Valor</td>
-            <td>Moeda</td>
-            <td>Câmbio utilizado</td>
-            <td>Valor convertido</td>
-            <td>Moeda de conversão</td>
-            <td>Editar/Excluir</td>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
           </tr>
         </thead>
         <tbody className="table-body">
-          {/* <TBody /> */}
+          <TBody />
 
         </tbody>
       </table>
@@ -28,9 +27,4 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = ({ wallet: { expenses, itensPrices } }) => ({
-  expenses,
-  itensPrices,
-});
-
-export default connect(mapStateToProps)(Table);
+export default Table;
