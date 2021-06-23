@@ -34,7 +34,10 @@ function Login() {
         } }
         required
       />
-      <button disabled={ !handleValidateEmail() || !handleValidatePassword() } type="button">Entrar</button>
+      <button 
+        disabled={ !handleValidateEmail() || !handleValidatePassword() }
+        type="button"
+      >Entrar</button>
     </div>
   );
 }
