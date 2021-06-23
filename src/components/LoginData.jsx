@@ -12,14 +12,14 @@ class LoginData extends React.Component {
           type="email"
           data-testid="email-input"
           placeholder="example@example.com"
-          onChange={ ({ target: { value } }) => checkEmail(value) }
+          onInput={ ({ target: { value } }) => checkEmail(value) }
         />
         <input
           type="password"
           data-testid="password-input"
           placeholder="min: 6 digits"
           pattern=".{6,}"
-          onChange={ ({ target: { value } }) => checkPassword(value) }
+          onInput={ ({ target: { value } }) => checkPassword(value) }
         />
       </fieldset>
     );

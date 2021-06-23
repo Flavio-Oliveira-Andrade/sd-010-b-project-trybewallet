@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoginData from './LoginData';
-import LoginButton from './LoginButton';
+import LoginData from '../components/LoginData';
+import LoginButton from '../components/LoginButton';
 
 class Home extends React.Component {
   render() {
