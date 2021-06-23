@@ -60,7 +60,7 @@ class Table extends React.Component {
                     type="button"
                     disabled={ disable }
                   >
-                    Editar despesa
+                    {disable ? 'Wait Edition' : 'Editar despesa'}
                   </button>
                 </Link>
               </td>

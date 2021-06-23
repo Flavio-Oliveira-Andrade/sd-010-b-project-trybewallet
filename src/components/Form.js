@@ -17,7 +17,6 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     const { expenses } = this.props;
-
     this.state = { id: expenses.length, ...intitialState };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);

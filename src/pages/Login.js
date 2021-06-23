@@ -94,13 +94,9 @@ Login.propTypes = {
   fetchData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  notfoundError: state.wallet.error,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   userLogin: (userMail) => dispatch(loginAction(userMail)),
   fetchData: () => dispatch(getDataThunk()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
