@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getDataThunk } from '../actions/apiRequests';
 import loginAction from '../actions/loginAction';
 
@@ -50,9 +50,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { data, userLogin } = this.props;
+    const { userLogin } = this.props;
     const { mailValidation, passwordValidation, email } = this.state;
-    if (data) return <Redirect to="/carteira" />;
     return (
       <form>
         <label htmlFor="email">
@@ -93,12 +92,10 @@ class Login extends React.Component {
 Login.propTypes = {
   userLogin: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
-  data: PropTypes.shape(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   notfoundError: state.wallet.error,
-  data: state.wallet.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({

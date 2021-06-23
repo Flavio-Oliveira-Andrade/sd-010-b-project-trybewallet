@@ -12,7 +12,6 @@ class Wallet extends React.Component {
     const { fetchData } = this.props;
     fetchData().then(() => {
       const { fetchCurrency, data } = this.props;
-      delete data.USDT;
       fetchCurrency(data);
     });
   }
@@ -24,17 +23,25 @@ class Wallet extends React.Component {
       <section>
         <Header />
         <Form />
-        <Table />
+        <Table disable={ false } />
       </section>
     );
   }
 }
 
 Wallet.propTypes = {
+  notfoundError: PropTypes.bool,
+  data: PropTypes.shape(Object),
+};
+
+Wallet.defaultProps = {
+  notfoundError: false,
+  data: PropTypes.shape(Object),
+};
+
+Wallet.propTypes = {
   fetchData: PropTypes.func.isRequired,
   fetchCurrency: PropTypes.func.isRequired,
-  notfoundError: PropTypes.bool.isRequired,
-  data: PropTypes.shape(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({

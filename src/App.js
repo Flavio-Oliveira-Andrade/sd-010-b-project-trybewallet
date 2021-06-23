@@ -8,18 +8,16 @@ import NotFound from './components/NotFound';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-
     this.renderRotes = this.renderRotes.bind(this);
   }
 
   renderRotes() {
     return (
       <Switch>
-        <Route path="/carteira" component={ Wallet } />
-        <Route path="/edition" component={ Edition } />
-        <Route path="/notfound" component={ NotFound } />
-        <Route exact path="/" component={ Login } />
+        <Route path="/carteira" render={ (props) => <Wallet { ...props } /> } />
+        <Route path="/edition" render={ (props) => <Edition { ...props } /> } />
+        <Route path="/notfound" render={ (props) => <NotFound { ...props } /> } />
+        <Route exact path="/" render={ (props) => <Login { ...props } /> } />
         <Route component={ NotFound } />
       </Switch>
     );

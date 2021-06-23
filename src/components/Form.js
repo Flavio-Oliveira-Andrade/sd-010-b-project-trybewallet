@@ -5,7 +5,6 @@ import { getDataThunk } from '../actions/apiRequests';
 import addExpenseAction from '../actions/addExpenseAction';
 
 const intitialState = {
-  id: -1,
   value: 0,
   description: '',
   currency: 'USD',
@@ -17,7 +16,9 @@ const intitialState = {
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...intitialState };
+    const { expenses } = this.props;
+
+    this.state = { id: expenses.length, ...intitialState };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -115,12 +116,15 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { fetchData, expenses } = this.props;
+    const { fetchData } = this.props;
     fetchData();
     const { addExpense, data } = this.props;
     delete data.USDT;
-    this.setState({ exchangeRates: data }, () => addExpense(this.state));
-    this.setState({ id: expenses.length });
+    this.setState({ exchangeRates: data }, () => {
+      const { expenses } = this.props;
+      addExpense(this.state);
+      this.setState({ id: expenses.length + 1 });
+    });
   }
 
   handleChange({ target }) {
@@ -143,10 +147,18 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
+  data: PropTypes.shape(Object),
+};
+
+Form.defaultProps = {
+  data: PropTypes.shape(Object),
+};
+
+Form.propTypes = {
   currencies: PropTypes.arrayOf(String).isRequired,
   addExpense: PropTypes.func.isRequired,
-  data: PropTypes.shape(Object).isRequired,
   fetchData: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({

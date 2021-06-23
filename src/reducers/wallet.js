@@ -10,7 +10,7 @@ import { FETCH_URL,
 const initialState = {
   currencies: [],
   expenses: [],
-  error: null,
+  error: false,
   loading: false,
 };
 

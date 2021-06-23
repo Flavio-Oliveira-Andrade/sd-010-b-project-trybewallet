@@ -24,6 +24,7 @@ class Table extends React.Component {
 
   render() {
     const { expensesInfo, removeExpense, editExpense } = this.props;
+    const { disable } = this.props;
     return (
       <table>
         <tbody>
@@ -48,6 +49,7 @@ class Table extends React.Component {
                   data-testid="delete-btn"
                   onClick={ () => removeExpense(expense) }
                   type="button"
+                  disabled={ disable }
                 >
                   x
                 </button>
@@ -56,7 +58,7 @@ class Table extends React.Component {
                     data-testid="edit-btn"
                     onClick={ () => editExpense(expense) }
                     type="button"
-                    // disable={ pathname === '/edition' }
+                    disabled={ disable }
                   >
                     Editar despesa
                   </button>
@@ -73,6 +75,7 @@ Table.propTypes = {
   expensesInfo: PropTypes.arrayOf(Object).isRequired,
   removeExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
+  disable: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

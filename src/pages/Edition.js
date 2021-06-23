@@ -1,45 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import editAction from '../actions/editAction';
 
-const intitialState = {
-  id: -1,
-  value: 0,
-  description: '',
-  currency: 'USD',
-  method: 'Dinheiro',
-  tag: 'Alimentação',
-  exchangeRates: {},
-};
-
 class Edition extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...intitialState };
+    const { editValues } = this.props;
+    this.state = { ...editValues };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.setInitialState = this.setInitialState.bind(this);
-  }
-
-  componentDidMount() {
-    this.setInitialState();
-  }
-
-  setInitialState() {
-    const { editValues } = this.props;
-    this.setState({
-      id: editValues.id,
-      value: editValues.value,
-      description: editValues.description,
-      currency: editValues.currency,
-      method: editValues.method,
-      tag: editValues.tag,
-      exchangeRates: editValues.exchangeRates,
-    });
   }
 
   handleValueInput() {
@@ -135,10 +107,9 @@ class Edition extends React.Component {
   }
 
   handleClick() {
-    // const { data, editRow } = this.props;
-    // delete data.USDT;
-    // this.setState({ exchangeRates: data }, );
-    // this.setState((previousState) => ({ id: previousState.id + 1 }));
+    const { editRow, history } = this.props;
+    editRow(this.state);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -147,7 +118,6 @@ class Edition extends React.Component {
   }
 
   render() {
-    const { editRow } = this.props;
     return (
       <div>
         <Header />
@@ -157,14 +127,12 @@ class Edition extends React.Component {
           {this.handleCurrencyInput()}
           {this.handlePaymentMethod()}
           {this.handleTagInput()}
-          <Link to="/carteira">
-            <button
-              type="button"
-              onClick={ () => editRow(this.state) }
-            >
-              Editar despesa
-            </button>
-          </Link>
+          <button
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Editar despesa
+          </button>
         </form>
         <Table disable />
       </div>
@@ -175,8 +143,8 @@ class Edition extends React.Component {
 Edition.propTypes = {
   currencies: PropTypes.arrayOf(String).isRequired,
   editRow: PropTypes.func.isRequired,
-  // data: PropTypes.shape(Object).isRequired,
   editValues: PropTypes.shape(Object).isRequired,
+  history: PropTypes.shape(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
