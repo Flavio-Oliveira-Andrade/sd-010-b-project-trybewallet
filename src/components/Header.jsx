@@ -3,15 +3,12 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 class Header extends React.Component {
-  constructor() {
-    super();
-
-    this.state = { currentExpense: 0 };
-  }
-
   render() {
-    const { userEmail } = this.props;
-    const { currentExpense } = this.state;
+    const { userEmail, totalExpense } = this.props;
+    let currentExpense = 0;
+    if (totalExpense > 0) {
+      currentExpense = totalExpense;
+    }
     return (
       <header>
         <div>Wellcome to the TrybeWallet!</div>
@@ -20,8 +17,8 @@ class Header extends React.Component {
           {userEmail}
         </p>
         <p data-testid="total-field">
-          Despesa:
-          { currentExpense }
+          Despesa: R$
+          {currentExpense}
         </p>
         <p data-testid="header-currency-field">BRL</p>
 
@@ -30,8 +27,9 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user: { email } }) => ({
+const mapStateToProps = ({ user: { email }, wallet: { totalExpense } }) => ({
   userEmail: email,
+  totalExpense,
 });
 
 export default connect(mapStateToProps, null)(Header);
