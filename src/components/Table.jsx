@@ -30,7 +30,6 @@ class Table extends React.Component {
 const mapStateToProps = ({ wallet: { expenses, itensPrices } }) => ({
   expenses,
   itensPrices,
-  totalExpense,
 });
 
 export default connect(mapStateToProps)(Table);
