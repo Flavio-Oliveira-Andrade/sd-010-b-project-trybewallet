@@ -5,6 +5,7 @@
 }
 
 .container-table {
+  background-color: white;
   border-collapse: collapse;
   font-size: 1em;
   margin: auto;
@@ -12,7 +13,7 @@
 }
 
 .container-table thead {
-  background-color: #73dc73;
+  background-color: #c8f288;
   color: black;
   text-align: center;
 }
@@ -31,9 +32,24 @@
 }
 
 .container-table tbody tr:nth-of-type( even ) {
-  background-color: #ade6ad;
+  background-color: #e2f7c2;
 }
 
 .container-table tbody tr:last-of-type {
-  border-bottom: 2px solid #007400;
+  border-bottom: 2px solid #c8f288;
+}
+
+.container-table button {
+  background-color: transparent;
+  border: 1px solid rgb(248, 56, 56);
+  border-radius: 5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px;
+}
+
+.container-table button:hover {
+  background-color: rgb(248, 56, 56);
+  border: none;
+  cursor: pointer;
 }

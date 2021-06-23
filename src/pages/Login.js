@@ -51,53 +51,60 @@ class Login extends React.Component {
     }
   }
 
+  renderEmailInput() {
+    return (
+      <label className="labels" htmlFor="email">
+        Email
+        <input
+          type="email"
+          name="email"
+          onChange={ this.handleChange }
+          data-testid="email-input"
+          autoComplete="none"
+          className="inputs"
+          required
+        />
+      </label>
+    );
+  }
+
   render() {
     const { disabled, email } = this.state;
     const { addUserState } = this.props;
     return (
-      <section className="login-container">
-        <span className="title-login">Faça login para acesar sua carteira virtual!</span>
-        <form className="form-login">
-          <img className="image-money" src={ money } alt="money" />
-          {/* <a href="https://br.freepik.com/fotos-vetores-gratis/pessoas">
-            Pessoas vetor criado por pch.vector - br.freepik.com
-          </a> */}
-          <label className="labels" htmlFor="email">
-            Email
-            <input
-              type="email"
-              name="email"
-              onChange={ this.handleChange }
-              data-testid="email-input"
-              autoComplete="none"
-              className="inputs"
-              required
-            />
-          </label>
-          <label className="labels" htmlFor="password">
-            Senha
-            <input
-              type="password"
-              name="password"
-              minLength="6"
-              onChange={ this.handleChange }
-              data-testid="password-input"
-              className="inputs"
-              required
-            />
-          </label>
-        </form>
-        <Link to="/carteira">
-          <button
-            type="button"
-            // https://stackoverflow.com/questions/30187781/how-to-disable-a-button-when-an-input-is-empty
-            disabled={ disabled }
-            onClick={ () => addUserState(email) }
-            className="button-enter"
-          >
-            Entrar
-          </button>
-        </Link>
+      <section className="green">
+        <div className="login-container">
+          <span className="title-login">
+            Faça login para acesar sua carteira virtual!
+          </span>
+          <form className="form-login">
+            <img className="image-money" src={ money } alt="money" />
+            { this.renderEmailInput()}
+            <label className="labels" htmlFor="password">
+              Senha
+              <input
+                type="password"
+                name="password"
+                minLength="6"
+                onChange={ this.handleChange }
+                data-testid="password-input"
+                className="inputs"
+                required
+              />
+            </label>
+          </form>
+          <Link to="/carteira">
+            <button
+              type="button"
+              // https://stackoverflow.com/questions/30187781/how-to-disable-a-button-when-an-input-is-empty
+              disabled={ disabled }
+              onClick={ () => addUserState(email) }
+              className="button-enter"
+            >
+              Entrar
+            </button>
+          </Link>
+        </div>
       </section>
     );
   }

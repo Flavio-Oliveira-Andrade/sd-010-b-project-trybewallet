@@ -7,8 +7,10 @@
   padding: 0;
 }
 
-body {
+.green {
   background-color: #7eb668;
+  height: 100vh;
+  padding-top: 10vh;
 }
 
 .login-container {
@@ -18,7 +20,6 @@ body {
   box-shadow: -18px -4px 25px -4px rgba(30, 30, 60, 0.32);
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10vh;
   padding: 20px 30px;
   text-align: center;
   width: 450px;

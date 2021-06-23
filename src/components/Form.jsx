@@ -134,6 +134,7 @@ class Form extends Component {
         { this.inputMethod() }
         {this.inputTag() }
         <button
+          className="button-add-expense"
           type="button"
           onClick={ this.handleClick }
         >
