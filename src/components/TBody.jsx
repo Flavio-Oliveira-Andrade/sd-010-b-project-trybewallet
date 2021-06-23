@@ -12,7 +12,7 @@ const TBody = () => {
     const {
       currency, description, exchangesRates, id, method, tag, value,
     } = expense;
-    const { ask, name } = exchangesRates[currency];
+    const { ask, name } = expense.exchangesRates[currency];
     const conversionCurrency = name.split('/')[0];
     const coin = name.split('/')[1];
 
