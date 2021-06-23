@@ -116,3 +116,4 @@ Wallet.defaultProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+// gostaria de agradecer ao fabio murturano por me exolicar boa parte desse projeto e me explicar o codigo deles e as sacadas que ele teve pois com certeza sem ele eu ainda iria estar muito perdido em redux;
