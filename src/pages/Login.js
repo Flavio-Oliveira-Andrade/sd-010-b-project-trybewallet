@@ -1,4 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import userActions from '../actions/userActions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -22,6 +27,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { userEmail } = this.props;
     const MAGIC_NUMBER = 6;
 
     const validationEmail = () => {
@@ -47,16 +53,31 @@ class Login extends React.Component {
             data-testid="password-input"
             onChange={ this.handleOnChange }
           />
-          <button
-            type="button"
-            disabled={ !(validationEmail() && passwordValidation) }
+          <Link
+            onClick={ () => (userEmail(email)) }
+            to="/carteira"
           >
-            Entrar
-          </button>
+            <button
+              type="button"
+              disabled={ !(validationEmail() && passwordValidation) }
+            >
+              Entrar
+            </button>
+          </Link>
         </div>
       </section>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  userEmail: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToPros = (dispatch) => ({
+  userEmail: (email) => dispatch(
+    userActions(email),
+  ),
+});
+
+export default connect(null, mapDispatchToPros)(Login);

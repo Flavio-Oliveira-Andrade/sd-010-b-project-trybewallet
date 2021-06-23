@@ -1,20 +1,14 @@
-/* const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+const INITIAL_STATE = {
+  email: '',
 };
 
-function user(state = INITIAL_STATE, action) {
+export default function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'GET_EMAIL':
+  case 'SET_EMAIL':
     return {
-
+      email: action.payload.email,
     };
   default:
     return state;
   }
-} */
+}
