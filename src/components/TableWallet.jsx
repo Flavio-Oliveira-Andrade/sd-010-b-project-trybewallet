@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import dellExpense from '../actions/dellExpenceActions';
 
 class TableWallet extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, dell } = this.props;
     return (
       <table width="100%" className="TableWallet">
         <tbody>
@@ -18,8 +20,8 @@ class TableWallet extends Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-          { expenses.map((exp) => (
-            <tr key={ exp.description }>
+          { expenses.map((exp, id) => (
+            <tr key={ id }>
               <td>{ exp.description }</td>
               <td>{ exp.tag }</td>
               <td>{ exp.method }</td>
@@ -34,7 +36,13 @@ class TableWallet extends Component {
               <td>Real</td>
               <td>
                 <button type="button">Edit</button>
-                <button type="button">Dell</button>
+                <button
+                  data-testid="delete-btn"
+                  type="button"
+                  onClick={ () => dell(id) }
+                >
+                  Dell
+                </button>
               </td>
             </tr>
           )) }
@@ -45,16 +53,13 @@ class TableWallet extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dell: (id) => dispatch(dellExpense(id)),
+});
+
 TableWallet.propTypes = {
-  // place: PropTypes.string.isRequired,
-  // type: PropTypes.string,
-  // name: PropTypes.string.isRequired,
-  // test: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dell: PropTypes.func.isRequired,
 };
 
-TableWallet.defaultProps = {
-  // type: 'text',
-};
-
-export default TableWallet;
+export default connect(null, mapDispatchToProps)(TableWallet);

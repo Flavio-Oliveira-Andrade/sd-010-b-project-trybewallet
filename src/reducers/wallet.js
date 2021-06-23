@@ -35,6 +35,14 @@ function wallerReducer(state = initialState, { type, payload }) {
         ...payload,
       }],
     };
+    newState.total = updateTotal(newState);
+    return newState;
+  }
+  case 'DELL_EXP': {
+    const newState = {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== payload.id),
+    };
 
     newState.total = updateTotal(newState);
     return newState;
