@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../App.css';
 
-function Login () {
+function Login() {
   return (
     <div className="container">
       <input
