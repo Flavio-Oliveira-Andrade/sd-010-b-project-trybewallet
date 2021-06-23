@@ -2,7 +2,7 @@ export const USER_INFO = 'USER_INFO';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
 
-export const userAction = (email) => ({
+const userAction = (email) => ({
   type: USER_INFO,
   payload: { email },
 });
