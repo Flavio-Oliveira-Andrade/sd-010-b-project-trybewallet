@@ -1,22 +1,29 @@
-export const NEW_USER = 'NEW_USER';
-export const WALLET_INFO = 'WALLET_INFO';
+export const USER_INFO = 'USER_INFO';
+export const WALLET_EXPENSES = 'WALLET_EXPENSES';
+export const WALLET_CURRENCIES = 'WALLET_EXCHANGE';
 
-const userAction = (email) => ({
-  type: 'NEW_USER',
+export const userAction = (email) => ({
+  type: USER_INFO,
   payload: { email },
 });
 
-const walletAction = (expenses, exchange) => ({
-  type: 'REQUEST_WALLET',
-  payload: { ...expenses, exchangeRates: exchange },
+const walletCurrencies = (currencies) => ({ // moedas
+  type: WALLET_CURRENCIES,
+  payload: { currencies },
 });
-// EXCHANGE?
 
-export const fetchWallet = (expenses) => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
-  .then((response) => response.json())
-  .then((json) => dispatch(walletAction(expenses, json)));
+export const walletExpenses = (expenses) => ({ // despesas
+  type: WALLET_EXPENSES,
+  payload: { expenses },
+});
+
+export function fetchWallet() {
+  return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((currencies) => {
+      delete currencies.USDT;
+      dispatch(walletCurrencies(currencies));
+    });
+}
 
 export default userAction;
-
-// export walletaction too?
-// Coloque aqui suas actions

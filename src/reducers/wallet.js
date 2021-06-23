@@ -1,16 +1,22 @@
-import { WALLET_INFO } from '../actions';
+import { WALLET_CURRENCIES, WALLET_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
-  currencies: [],
-  expenses: [],
+  currencies: [], // moeda
+  expenses: [], // gastos
 };
-
-// { EXPENSES: [], }?
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case WALLET_INFO:
-    return { expenses: state.expenses.concat(action.payload) };
+  case WALLET_CURRENCIES:
+    return {
+      ...state,
+      currencies: Object.keys(action.payload.currencies), // moeda
+    };
+  case WALLET_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload.expenses], // gasto, despesa
+    };
   default:
     return state;
   }

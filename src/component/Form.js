@@ -1,22 +1,17 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchWallet } from '../actions';
 
 class Form extends React.Component {
-  // constructor() {
-  // super();
-  // }
-  //
-  // this.state = {
-  // value: 0,
-  // description: '',
-  // currency: 'USD',
-  // method: 'Dinheiro',
-  // tag: 'Alimentação',
-  // };
+  componentDidMount() {
+    const { coinAPI } = this.props;
+    coinAPI();
+    console.log(coinAPI());
+  }
 
   render() {
+    const { email } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -30,10 +25,11 @@ class Form extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency" onChange={ this.handleChange }>
-            <option value="initial">0</option>
+            {/* { currencies.map((currencies) => (<option value={ currencies } key={ currencies }>
+                { this.currencies }
+              </option>))} */}
           </select>
         </label>
-
         <label htmlFor="method">
           Método de Pagamento
           <select id="method" onChange={ this.handleChange }>
@@ -57,4 +53,20 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  // currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  coinAPI: () => dispatch(fetchWallet()),
+  // currencies: () => dispatch(currencies),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
+
+Form.propTypes = {
+  email: PropTypes.string.isRequired,
+  coinAPI: PropTypes.func.isRequired,
+  // currencies: PropTypes.arrayOf(PropTypes.stirng).isRequired,
+};

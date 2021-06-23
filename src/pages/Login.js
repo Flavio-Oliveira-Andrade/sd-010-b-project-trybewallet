@@ -38,6 +38,7 @@ class Login extends React.Component {
     }
   }
   // refazer esse if!!! ver no plantãoq
+  // ref:
 
   render() {
     const { dispatchEmail } = this.props;
@@ -48,7 +49,7 @@ class Login extends React.Component {
           type="email"
           onChange={ this.validation }
           data-testid="email-input"
-          placeholder="alguem@email.com"
+          placeholder="alguem@alguem.com"
           required
         />
         <input
