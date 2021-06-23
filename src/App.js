@@ -1,6 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+
+import store from './store';
 import Login from './pages/Login';
 
 function App() {
