@@ -7,11 +7,15 @@ class Form extends React.Component {
   componentDidMount() {
     const { coinAPI } = this.props;
     coinAPI();
-    console.log(coinAPI());
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
   }
 
   render() {
-    const { email } = this.props;
+    const { currenciesName } = this.props;
+    console.log(currenciesName);
     return (
       <form>
         <label htmlFor="value">
@@ -24,10 +28,17 @@ class Form extends React.Component {
         </label>
         <label htmlFor="currency">
           Moeda
-          <select id="currency" onChange={ this.handleChange }>
-            {/* { currencies.map((currencies) => (<option value={ currencies } key={ currencies }>
-                { this.currencies }
-              </option>))} */}
+          <select
+            id="currency"
+            onChange={ this.handleChange }
+          >
+            { currenciesName.map((currencies) => (
+              <option
+                value={ currencies }
+                key={ currencies }
+              >
+                { currencies }
+              </option>))}
           </select>
         </label>
         <label htmlFor="method">
@@ -54,19 +65,16 @@ class Form extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
-  // currencies: state.wallet.currencies,
+  currenciesName: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   coinAPI: () => dispatch(fetchWallet()),
-  // currencies: () => dispatch(currencies),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
-  email: PropTypes.string.isRequired,
   coinAPI: PropTypes.func.isRequired,
-  // currencies: PropTypes.arrayOf(PropTypes.stirng).isRequired,
+  currenciesName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

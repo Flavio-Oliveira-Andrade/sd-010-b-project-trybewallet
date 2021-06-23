@@ -1,13 +1,13 @@
 export const USER_INFO = 'USER_INFO';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
-export const WALLET_CURRENCIES = 'WALLET_EXCHANGE';
+export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
 
 export const userAction = (email) => ({
   type: USER_INFO,
   payload: { email },
 });
 
-const walletCurrencies = (currencies) => ({ // moedas
+export const walletCurrencies = (currencies) => ({ // moedas
   type: WALLET_CURRENCIES,
   payload: { currencies },
 });
