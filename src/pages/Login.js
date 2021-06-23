@@ -9,7 +9,6 @@ function Login () {
         data-testid="email-input"
         type="email"
         placeholder="Email"
-        onChange={}
         required
       />
       <input
