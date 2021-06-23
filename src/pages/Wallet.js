@@ -29,12 +29,7 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        <form>
-          <Form />
-          <button type="button" onClick={ this.handleClick }>
-            Adicionar despesa
-          </button>
-        </form>
+        <Form />
       </>
     );
   }

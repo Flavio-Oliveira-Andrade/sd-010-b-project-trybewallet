@@ -18,10 +18,19 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
   }
 
   componentDidMount() {
+    // this.fetchAPI();
+  }
 
+  async fetchAPI() {
+    const response = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((data) => data.json());
+      // Dica de Fernanda Porto:
+    delete response.USDT;
+    return response;
   }
 
   handleChange({ target: { id, value } }) {
@@ -30,12 +39,13 @@ class Form extends React.Component {
     });
   }
 
-  handleClick() {
-    const { addDespesa } = this.props;
-    const despesas = this.state;
-    delete despesas.api;
-    addDespesa(despesas);
-    // this.setState({});
+  async handleClick() {
+    const api = await this.fetchAPI();
+    this.setState({ exchangeRates: api }, () => {
+      const { addDespesa } = this.props;
+      addDespesa(this.state);
+      this.setState((prevState) => ({ id: prevState.id + 1 }));
+    });
   }
 
   funcaoValor() {
@@ -143,13 +153,16 @@ class Form extends React.Component {
 
   render() {
     return (
-      <>
+      <form>
         { this.funcaoValor() }
         { this.funcaoDescricao() }
         { this.funcaoMoeda() }
         { this.funcaoMetodo() }
         { this.funcaoTag() }
-      </>
+        <button type="button" onClick={ this.handleClick }>
+          Adicionar despesa
+        </button>
+      </form>
     );
   }
 }
@@ -158,12 +171,13 @@ const mapStateToProps = (state) => ({
   getCurrency: state.wallet.currencies,
 });
 
-const funcaoQueEnviaActionProRedux = (dispatch) => ({
+const mapDispathToProps = (dispatch) => ({
   addDespesa: (despesas) => dispatch(nomeDaAction(despesas)),
 });
 
 Form.propTypes = {
   addDespesa: PropTypes.func.isRequired,
+  getCurrency: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, funcaoQueEnviaActionProRedux)(Form);
+export default connect(mapStateToProps, mapDispathToProps)(Form);
