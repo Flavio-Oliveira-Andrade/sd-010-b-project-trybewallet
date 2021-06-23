@@ -1,9 +1,19 @@
 // Coloque aqui suas actions
-const LOGIN = 'LOGIN';
+export const BUTTON_ENABLE = 'LBUTTON_ENABLE';
+export const EMAIL_CHECK = 'EMAIL_CHECK';
+export const PASSWORD_CHECK = 'PASSWORD_CHECK';
 
-const action = (payload) => ({
-  type: LOGIN,
+export const emailCheck = (payload) => ({
+  type: EMAIL_CHECK,
   payload,
 });
 
-export default action;
+export const passwordCheck = (payload) => ({
+  type: PASSWORD_CHECK,
+  payload,
+});
+
+export const buttonEnable = (payload) => ({
+  type: BUTTON_ENABLE,
+  payload,
+});
