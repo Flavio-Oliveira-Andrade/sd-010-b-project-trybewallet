@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { userLogin } from '../actions/userAction';
 
 class Login extends React.Component {
   constructor() {
@@ -8,12 +12,14 @@ class Login extends React.Component {
       email: '',
       password: '',
       isButtonDisabled: true,
+      redirect: false,
     };
 
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.validateInputs = this.validateInputs.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.redirectToWallet = this.redirectToWallet.bind(this);
   }
 
   // source: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/
@@ -54,11 +60,16 @@ class Login extends React.Component {
     }, () => this.validateInputs());
   }
 
-  render() {
-    const { email, password, isButtonDisabled } = this.state;
+  redirectToWallet() {
+    this.setState({ redirect: true });
+  }
 
+  render() {
+    const { email, password, isButtonDisabled, redirect } = this.state;
+    const { dispatchUserLogin } = this.props;
     return (
       <form>
+        { redirect && <Redirect to="/carteira" /> }
         <h3>Login</h3>
         <label htmlFor="email-input">
           E-mail:
@@ -84,7 +95,7 @@ class Login extends React.Component {
         </label>
         <button
           disabled={ isButtonDisabled }
-          // onClick={}
+          onClick={ () => { dispatchUserLogin(email); this.redirectToWallet(); } }
           type="button"
         >
           Entrar
@@ -94,4 +105,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchUserLogin: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUserLogin: (email) => dispatch(userLogin(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
