@@ -1,7 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCurrencyThunk } from '../actions/currencyActions';
 
 class Table extends React.Component {
+  componentDidMount() {
+    const { getCurrency } = this.props;
+    getCurrency();
+  }
+
   render() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="expense">
@@ -15,7 +24,7 @@ class Table extends React.Component {
         <label htmlFor="currency">
           Moeda:
           <select type="text" name="name" id="currency">
-            <option>USD</option>
+            {currencies.map((currency) => <option key={ currency }>{currency}</option>)}
           </select>
         </label>
         <label htmlFor="payment">
@@ -41,4 +50,17 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+const mapStateToProps = ({ wallet: { currencies } }) => ({
+  currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrency: () => dispatch(getCurrencyThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
+
+Table.propTypes = {
+  getCurrency: PropTypes.func,
+  currencies: PropTypes.array,
+}.isRequired;

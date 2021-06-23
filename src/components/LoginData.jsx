@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { emailCheck, passwordCheck } from '../actions';
+import { emailCheck, passwordCheck } from '../actions/loginActions';
 
 class LoginData extends React.Component {
   render() {
