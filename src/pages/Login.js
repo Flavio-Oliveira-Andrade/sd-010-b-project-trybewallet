@@ -8,7 +8,10 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
 
-    this.state = {};
+    this.state = {
+      email: '',
+      password: '',
+    };
   }
 
   handleChange({ target }) {
@@ -20,6 +23,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { email, password } = this.state;
+
     return (
       <div className="login-form">
         Login
@@ -41,6 +46,7 @@ class Login extends React.Component {
         </label>
         <button
           type="button"
+          disabled={ (email && password) === '' }
         >
           Entrar
         </button>
