@@ -10,9 +10,9 @@ const TBody = () => {
   console.log(expenses);
   const tBody = expenses.map((expense) => {
     const {
-      currency, description, id, method, tag, value,
+      currency, description, exchangesRates, id, method, tag, value,
     } = expense;
-    const { ask, name } = expense.exchangesRates[currency];
+    const { ask, name } = exchangesRates[currency];
     const conversionCurrency = name.split('/')[0];
     const coin = name.split('/')[1];
 
