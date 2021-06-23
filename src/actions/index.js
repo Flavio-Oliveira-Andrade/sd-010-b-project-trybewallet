@@ -9,3 +9,21 @@ export const userInfo = (email, senha) => ({
     senha,
   },
 });
+
+export const walletInfo = (expenses) => ({
+  type: WALLET_INFO,
+  payload: {
+    expenses,
+  },
+});
+
+export function fetchAPI(expense) {
+  return async (dispatch) => {
+    const currencyJson = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const currency = await currencyJson.json();
+    delete currency.USDT;
+
+    expense.exchangeRates = currency;
+    return dispatch(walletInfo(expense));
+  };
+}
