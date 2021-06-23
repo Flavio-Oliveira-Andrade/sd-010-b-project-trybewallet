@@ -5,19 +5,13 @@ import '../App.css';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [verify, setVerify] = useState(false);
 
-  function verifyInputs() {
-    // Essa parte do reg peguei no stackoverflow https://pt.stackoverflow.com/questions/348854/fun%C3%A7%C3%A3o-em-javascript-para-valida%C3%A7%C3%A3o-de-email-n%C3%A3o-entra-no-else#:~:text=A%20fun%C3%A7%C3%A3o%20replace%20serve%20para,o%20retorno%20de%20uma%20function%20).
-    // eslint-disable-next-line
-    const reg = /\S+@\S+\.\S+/;
-    const maxLength = 6;
+  function handleValidateEmail() {
+    return (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(email));
+  }
 
-    if (reg.test(email) === true && password.length >= maxLength) {
-      setVerify(true);
-    } else {
-      setVerify(false);
-    }
+  function handleValidatePassword() {
+    return (/[a-z0-9._%+-]{6}/.test(password));
   }
 
   return (
@@ -28,7 +22,6 @@ function Login() {
         placeholder="Email"
         onChange={ ({ target }) => {
           setEmail(target.value);
-          verifyInputs();
         } }
         required
       />
@@ -38,11 +31,10 @@ function Login() {
         placeholder="Senha"
         onChange={ ({ target }) => {
           setPassword(target.value);
-          verifyInputs();
         } }
         required
       />
-      <button disabled={ !verify } type="button">Entrar</button>
+      <button disabled={ !handleValidateEmail() || !handleValidatePassword() } type="button">Entrar</button>
     </div>
   );
 }
