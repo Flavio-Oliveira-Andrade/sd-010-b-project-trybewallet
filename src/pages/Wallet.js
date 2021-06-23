@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const currencyOptions = ['GBP', 'BRL', 'USD'];
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -62,9 +64,14 @@ class Wallet extends React.Component {
 
   render() {
     const { value, description, currency, payment, tag } = this.state;
+    const { emailUser, total } = this.props;
     return (
       <div>
-        TrybeWallet
+        <header>
+          <p data-testid="email-field">{`User: ${emailUser}`}</p>
+          <p data-testid="total-field">{`Total: R$${total}`}</p>
+          <p data-testid="header-currency-field">BRL</p>
+        </header>
         <form>
           { this.input('value', 'number', value, 'Valor') }
           { this.input('description', 'text', description, 'Descrição')}
@@ -78,4 +85,18 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  emailUser: state.user.email,
+  total: state.wallet.total,
+});
+
+Wallet.propTypes = {
+  emailUser: PropTypes.string.isRequired,
+  total: PropTypes.number,
+};
+
+Wallet.defaultProps = {
+  total: 0,
+};
+
+export default connect(mapStateToProps)(Wallet);
