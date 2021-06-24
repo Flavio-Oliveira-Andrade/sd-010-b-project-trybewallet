@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchApiCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor() {
@@ -10,8 +11,12 @@ class Wallet extends React.Component {
     this.renderCurrency = this.renderCurrency.bind(this);
     this.renderMethod = this.renderMethod.bind(this);
     this.renderTag = this.renderTag.bind(this);
-    // this.renderForm = this.renderForm.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
+  }
+
+  componentDidMount() {
+    const { moedasApi } = this.props;
+    moedasApi();
   }
 
   renderValue() {
@@ -34,14 +39,16 @@ class Wallet extends React.Component {
   }
 
   renderCurrency() {
+    const { moedas } = this.props;
     return (
       <label htmlFor="currency">
         Moeda
         <select id="currency" type="combobox">
-          <option value="moeda"> moeda </option>
-          <option value="moeda"> moeda </option>
-          <option value="moeda"> moeda </option>
-          <option value="moeda"> moeda </option>
+          {console.log(moedas)}
+          { moedas.map((currency, index) => (
+            <option key={ index } value={ currency }>
+              { currency }
+            </option>)) }
         </select>
       </label>
     );
@@ -120,10 +127,16 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  moedas: state.wallet.currencies,
+  isFetching: state.wallet.isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  moedasApi: () => dispatch(fetchApiCurrencies()),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string,
 }.isRequired;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
