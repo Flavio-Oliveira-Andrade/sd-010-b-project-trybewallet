@@ -17,6 +17,7 @@ class Wallet extends React.Component {
     );
     return parseFloat(sum).toFixed(2);
   }
+  // ref: função de soma com ajuda da @lara-capila
 
   render() {
     const { email } = this.props;
@@ -24,7 +25,7 @@ class Wallet extends React.Component {
       <>
         <header>
           <h1 data-testid="email-field">{ email }</h1>
-          <h2 data-testid="total-field">0</h2>
+          <h2 data-testid="total-field">{ this.sumExpenses() }</h2>
           <span data-testid="header-currency-field">
             Moeda de conversão:
             {' '}
