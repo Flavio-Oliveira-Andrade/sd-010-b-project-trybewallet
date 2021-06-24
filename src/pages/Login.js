@@ -8,18 +8,18 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    this.validateLogin = this.validateLogin.bind(this);
-
     this.state = {
       email: '',
       isDisabled: true,
     };
+
+    this.validateLogin = this.validateLogin.bind(this);
   }
 
   // Source:Função utilizada no projeto em grupo Trivia e adaptada neste contexto
   validateLogin() {
-    const emailInput = document.getElementById('email-input').value;
-    const passwordInput = document.getElementById('password-input').value;
+    const emailInput = document.getElementById('email-input-id').value;
+    const passwordInput = document.getElementById('password-input-id').value;
     const SIX_CHAR = 6;
 
     const validEmail = (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/).test(emailInput);
@@ -42,26 +42,24 @@ class Login extends React.Component {
 
     return (
       <div>
-        <label htmlFor="email-field">
-          E-mail
+        <label htmlFor="email-input-id">
+          E-mail:
           <input
-            name="email-field"
-            id="email-input"
+            id="email-input-id"
             type="email"
             data-testid="email-input"
             onChange={ this.validateLogin }
-            placeholder="Email"
+            placeholder="Digite aqui seu e-mail"
           />
         </label>
-        <label htmlFor="password-field">
-          Senha
+        <label htmlFor="password-input-id">
+          Senha:
           <input
-            name="password-field"
-            id="password-input"
+            id="password-input-id"
             type="text"
             data-testid="password-input"
             onChange={ this.validateLogin }
-            placeholder="Senha"
+            placeholder="Digite aqui sua senha"
           />
         </label>
         <Link to="/carteira">

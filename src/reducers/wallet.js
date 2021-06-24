@@ -2,10 +2,8 @@
 import { SAVE_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 export default function walletReducer(state = INITIAL_STATE, action) {
@@ -13,10 +11,8 @@ export default function walletReducer(state = INITIAL_STATE, action) {
   case SAVE_EXPENSES:
     return {
       ...state,
-      wallet: {
-        currencies: action.payload.currencies,
-        expenses: action.payload.expenses,
-      },
+      currencies: action.payload.currencies,
+      expenses: action.payload.expenses,
     };
   default:
     return state;
