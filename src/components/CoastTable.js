@@ -1,8 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { delExpense } from '../actions';
 
 class CoastTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(id) {
+    const { delExpenses, allExpenses } = this.props;
+    const newArray = allExpenses.filter((expense) => expense.id !== id);
+    console.log(newArray);
+    delExpenses(newArray);
+  }
+
   render() {
     const { allExpenses } = this.props;
     return (
@@ -36,6 +49,15 @@ class CoastTable extends React.Component {
                   .toFixed(2)}
               </td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.handleDelete(expense.id) }
+                >
+                  Deletar
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -45,12 +67,17 @@ class CoastTable extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  delExpenses: (deleteExpense) => dispatch(delExpense(deleteExpense)),
+});
+
 const mapStateToProps = (state) => ({
   allExpenses: state.wallet.expenses,
 });
 
 CoastTable.propTypes = {
   allExpenses: PropTypes.arrayOf.isRequired,
+  delExpenses: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(CoastTable);
+export default connect(mapStateToProps, mapDispatchToProps)(CoastTable);

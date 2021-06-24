@@ -14,6 +14,7 @@ class Header extends React.Component {
   render() {
     const { email, allExpenses } = this.props;
     const { moeda = 'BRL' } = this.state;
+    console.log(allExpenses);
     const total = allExpenses.reduce((acc, curr) => (
       acc + (+curr.value * curr.exchangeRates[curr.currency].ask)), 0);
     return (
