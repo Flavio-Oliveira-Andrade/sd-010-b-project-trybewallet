@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { saveCurrencies } from '../actions';
 
 class Form extends React.Component {
   constructor(props) {
@@ -21,6 +22,11 @@ class Form extends React.Component {
       method: '',
       tag: '',
     };
+  }
+
+  componentDidMount() {
+    const { getMoedas } = this.props;
+    getMoedas();
   }
 
   handleChange({ target }) {
@@ -160,9 +166,13 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getMoedas: () => dispatch(saveCurrencies()),
+});
+
 Form.propTypes = {
   currencies: PropTypes.arrayOf({}),
   saveExpense: PropTypes.func,
 }.isRequired;
 
-export default connect(mapStateToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
