@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchApiCurrencies, saveExpense } from '../actions/index';
+import TabelaGastos from '../components/TabelaGastos';
 
 class Wallet extends React.Component {
   constructor() {
@@ -205,6 +206,7 @@ class Wallet extends React.Component {
         TrybeWallet
         {this.renderHeader()}
         {this.renderForm()}
+        <TabelaGastos />
       </div>
     );
   }
