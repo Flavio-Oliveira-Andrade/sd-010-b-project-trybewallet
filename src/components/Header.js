@@ -8,7 +8,7 @@ class Header extends Component {
 
     this.state = {
       totalExpenses: 0,
-      currency: 'BRL'
+      currency: 'BRL',
     };
   }
 
