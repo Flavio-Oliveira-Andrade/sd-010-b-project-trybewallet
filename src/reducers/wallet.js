@@ -1,4 +1,4 @@
-import { NEW_EXPENSE } from '../actions/index';
+import { NEW_EXPENSE, DELETE_EXPENSE } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -6,14 +6,23 @@ const INITIAL_STATE = {
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
+  const { expense, toDelete } = action;
+
   switch (action.type) {
   case NEW_EXPENSE:
     return {
       ...state,
       expenses: [
         ...state.expenses,
-        action.expense,
+        expense,
       ],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((_, index) => (
+        index !== toDelete.index
+      )),
     };
   default:
     return state;
