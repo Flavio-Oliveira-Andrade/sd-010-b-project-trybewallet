@@ -10,11 +10,11 @@ class Header extends Component {
   }
 
   somaDespesa() {
-    const { despesas } = this.props;
-    const soma = despesas.reduce(
+    const { expenses } = this.props;
+    const soma = expenses.reduce(
       (accumulator, currentValue) => accumulator
       + (currentValue.exchangeRates[currentValue.currency].ask
-        * currentValue.value),
+      * currentValue.value),
       0,
     );
     return parseFloat(soma).toFixed(2);
@@ -24,9 +24,9 @@ class Header extends Component {
     const { email } = this.props;
     return (
       <header>
-        <p data-testid="email-field">
+        <div data-testid="email-field">
           { email }
-        </p>
+        </div>
         <span data-testid="total-field">
           R$
           {' '}
@@ -46,12 +46,12 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  despesas: state.wallet.despesas,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  despesas: PropTypes.arrayOf(Object).isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
 };

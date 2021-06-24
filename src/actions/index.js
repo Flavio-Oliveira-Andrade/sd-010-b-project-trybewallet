@@ -4,25 +4,25 @@ export const adicionarUsuario = (email) => ({
   email,
 });
 
-export const receberMoeda = (moedas) => ({
+export const receberMoeda = (currencies) => ({
   type: 'RECEBER_MOEDAS',
-  moedas,
+  currencies,
 });
 
 export function fetchApi() {
   return (dispatch) => {
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
-      .then((moeda) => {
-        delete moeda.USDT;
-        dispatch(receberMoeda(moeda));
+      .then((moedaCorrente) => {
+        delete moedaCorrente.USDT;
+        dispatch(receberMoeda(moedaCorrente));
       });
   };
 }
 
-export const adicionarDespesa = (despesas) => ({
+export const adicionarDespesa = (expenses) => ({
   type: 'ADICIONAR_DESPESAS',
-  despesas,
+  expenses,
 });
 
 export const fetchApiDespesa = (despesa) => (dispatch) => {
@@ -33,3 +33,8 @@ export const fetchApiDespesa = (despesa) => (dispatch) => {
       dispatch(adicionarDespesa(despesa));
     });
 };
+
+export const dellExpense = (deleteExpense) => ({
+  type: 'DELL_EXPENSE',
+  payload: deleteExpense,
+});
