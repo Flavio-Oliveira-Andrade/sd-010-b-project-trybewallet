@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-function inputMethod(form, setForm) {
+function inputMethod() {
   return (
     <label className="labels-form" htmlFor="payment">
       Método de pagamento
@@ -18,7 +18,7 @@ function inputMethod(form, setForm) {
   );
 }
 
-function inputCurrency(form, setForm) {
+function inputCurrency() {
   return (
     <label className="labels-form" htmlFor="currencie">
       Moeda
@@ -26,12 +26,14 @@ function inputCurrency(form, setForm) {
         className="inputs-form"
         id="currencie"
         name="currency"
-      />
+      >
+        <option value="Teste">Teste</option>
+      </select>
     </label>
   );
 }
 
-function inputTag(form, setForm) {
+function inputTag() {
   return (
     <label className="labels-form" htmlFor="tag">
       Tag
@@ -76,9 +78,9 @@ function Wallet() {
           Valor:
           <input type="number" id="value" name="value" />
         </label>
-        { inputCurrency(form, setForm) }
-        { inputMethod(form, setForm) }
-        {inputTag(form, setForm)}
+        { inputCurrency() }
+        { inputMethod() }
+        {inputTag()}
         <label htmlFor="desc">
           Descrição:
           <input type="text" name="desc" />
@@ -86,8 +88,8 @@ function Wallet() {
         <button
           type="button"
           onClick={ () => {
-            setField(0)
-            setForm(0)
+            setField(0);
+            setForm(0);
           } }
         >
           Opa
