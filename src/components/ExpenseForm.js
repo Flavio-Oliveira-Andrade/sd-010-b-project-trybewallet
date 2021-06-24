@@ -4,7 +4,19 @@ import PropTypes from 'prop-types';
 import { expenseFormAction, expensesAction } from '../actions';
 
 class ExpenseForm extends React.Component {
-  setExp() {
+  async setExp() {
+    const { expenseForm, changeExpenseForm } = this.props;
+    const results = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const data = await results.json();
+    const newExpenseForms = {
+      ...expenseForm,
+      exchangeRates: data,
+    };
+    changeExpenseForm(newExpenseForms);
+    this.helper();
+  }
+
+  helper() {
     const { expenseForm, changeExpenses } = this.props;
     const ID = expenseForm.id + 1;
     const newExpenseForm = {
@@ -15,12 +27,9 @@ class ExpenseForm extends React.Component {
 
   async handleChange({ target: { id, value } }) {
     const { expenseForm, changeExpenseForm } = this.props;
-    const results = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await results.json();
     const newExpenseForm = {
       ...expenseForm,
       [id]: value,
-      exchangeRates: data,
     };
     changeExpenseForm(newExpenseForm);
   }
