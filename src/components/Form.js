@@ -12,6 +12,7 @@ class Form extends Component {
       // method: '',
       // tag: '',
     };
+
   }
 
   functionValue() {
@@ -96,11 +97,11 @@ class Form extends Component {
   render() {
     return (
       <form>
-        { this.funcaoValor() }
-        { this.funcaoDescricao() }
-        { this.funcaoMoeda() }
-        { this.funcaoMetodo() }
-        { this.funcaoTag() }
+        { this.functionValue() }
+        { this.functionDescription() }
+        { this.functionCurrency() }
+        { this.functionMethod() }
+        { this.functionTag() }
       </form>
     );
   }
