@@ -13,14 +13,14 @@ export const addNewExpense = (expense) => ({
   expense,
 });
 
-export const dispatchAction = (expense) => async (dispatch) => {
+export const fetchAPIExpenseAction = (expense) => async (dispatch) => {
   const URL = 'https://economia.awesomeapi.com.br/json/all';
 
   const fetchAPI = await fetch(URL);
-  const parseJSON = fetchAPI.json();
+  const parseJSON = await fetchAPI.json();
 
   dispatch(addNewExpense({
     ...expense,
-    exchangeRate: parseJSON,
+    exchangeRates: parseJSON,
   }));
 };
