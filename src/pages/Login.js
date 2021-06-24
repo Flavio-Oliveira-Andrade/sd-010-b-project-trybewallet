@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
-import actionLogin from '../actions';
 import { connect } from 'react-redux';
+import actionLogin from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -18,20 +18,18 @@ class Login extends React.Component {
   }
 
   handleChange(event) {
-        this.setState({ [event.target.name]: event.target.value }, this.verifyEmailPass());
-    }
-  
+    this.setState({ [event.target.name]: event.target.value }, this.verifyEmailPass());
+  }
 
   verifyEmailPass() {
     const { password, email } = this.state;
     const minLength = 4;
-      this.setState({ disable: password.length > minLength && email.includes('.com') });
+    this.setState({ disable: password.length > minLength && email.includes('.com') });
   }
-
 
   render() {
     const { email, password, disable } = this.state;
-    const {redirect, login } = this.props;
+    const { redirect, login } = this.props;
     return (
       <div className="Login">
         { redirect && <Redirect to="/carteira" /> }
@@ -51,7 +49,7 @@ class Login extends React.Component {
           <button
             type="button"
             disabled={ !disable }
-            onClick={ () => login({ email,password }) }
+            onClick={ () => login({ email, password }) }
           >
             Entrar
           </button>
@@ -63,15 +61,15 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
   redirect: state.user.password,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: (email) => dispatch(actionLogin(email)),
-})
+});
 
 Login.propTypes = {
   redirect: PropTypes.string.isRequired,
-  value: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

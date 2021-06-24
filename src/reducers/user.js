@@ -1,5 +1,4 @@
-import { rules } from "eslint-plugin-sonarjs";
-import { useReducer } from "react";
+// import { rules } from "eslint-plugin-sonarjs";
 
 const initialState = {
   password: '',
@@ -8,17 +7,17 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
-    switch(type) {
-      case 'LOGIN':
-        return {
-          ...state,
-          password: payload.password,
-          email: payload.email,
-          redirect: true,
-        };
-        default:
-          return state;
-    }
-}
+  switch (type) {
+  case 'LOGIN':
+    return {
+      ...state,
+      password: payload.password,
+      email: payload.email,
+      redirect: true,
+    };
+  default:
+    return state;
+  }
+};
 
 export default userReducer;
