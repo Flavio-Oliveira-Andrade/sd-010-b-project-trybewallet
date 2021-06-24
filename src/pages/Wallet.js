@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetchCurrencies from '../actions/walletAction';
+import { fetchCurrencies } from '../actions/walletAction';
 
 // const currencyOptions = ['GBP', 'BRL', 'USD'];
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -84,7 +84,7 @@ class Wallet extends React.Component {
           { this.select('currency', currency, 'Moeda', currencies) }
           { this.select('payment', payment, 'Método de Pagamento', paymentMethods) }
           { this.select('tag', tag, 'Tag', tagOptions) }
-          <button type="button">submit</button>
+          <button type="button">Adicionar despesa</button>
         </form>
       </div>
     );

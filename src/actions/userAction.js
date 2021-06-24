@@ -1,8 +1,8 @@
 import { LOGIN } from '.';
 
-export const userLogin = (userEmail) => ({
+const userLogin = (userEmail) => ({
   type: LOGIN,
   payload: userEmail,
 });
 
-export const WHATEVER = 'WHATEVER';
+export default userLogin;
