@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import fetchCurrencies from '../actions/walletAction';
 
-const currencyOptions = ['GBP', 'BRL', 'USD'];
+// const currencyOptions = ['GBP', 'BRL', 'USD'];
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
@@ -21,6 +22,11 @@ class Wallet extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.input = this.input.bind(this);
     this.select = this.select.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetchCurrency } = this.props;
+    fetchCurrency();
   }
 
   handleChange({ target }) { // event desconstruction
@@ -64,7 +70,7 @@ class Wallet extends React.Component {
 
   render() {
     const { value, description, currency, payment, tag } = this.state;
-    const { emailUser, total } = this.props;
+    const { emailUser, total, currencies } = this.props;
     return (
       <div>
         <header>
@@ -74,8 +80,8 @@ class Wallet extends React.Component {
         </header>
         <form>
           { this.input('value', 'number', value, 'Valor') }
-          { this.input('description', 'text', description, 'Descrição')}
-          { this.select('currency', currency, 'Moeda', currencyOptions)}
+          { this.input('description', 'text', description, 'Descrição') }
+          { this.select('currency', currency, 'Moeda', currencies) }
           { this.select('payment', payment, 'Método de Pagamento', paymentMethods) }
           { this.select('tag', tag, 'Tag', tagOptions) }
           <button type="button">submit</button>
@@ -85,18 +91,25 @@ class Wallet extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrency: () => dispatch(fetchCurrencies()),
+});
+
 const mapStateToProps = (state) => ({
   emailUser: state.user.email,
   total: state.wallet.total,
+  currencies: state.wallet.currencies,
 });
 
 Wallet.propTypes = {
   emailUser: PropTypes.string.isRequired,
   total: PropTypes.number,
+  fetchCurrency: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Wallet.defaultProps = {
   total: 0,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
