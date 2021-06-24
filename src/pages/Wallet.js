@@ -1,6 +1,55 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+function inputMethod(form, setForm) {
+  return (
+    <label className="labels-form" htmlFor="payment">
+      Método de pagamento
+      <select
+        className="inputs-form"
+        id="payment"
+        name="method"
+      >
+        <option>Dinheiro</option>
+        <option>Cartão de crédito</option>
+        <option>Cartão de débito</option>
+      </select>
+    </label>
+  );
+}
+
+function inputCurrency(form, setForm) {
+  return (
+    <label className="labels-form" htmlFor="currencie">
+      Moeda
+      <select
+        className="inputs-form"
+        id="currencie"
+        name="currency"
+      />
+    </label>
+  );
+}
+
+function inputTag(form, setForm) {
+  return (
+    <label className="labels-form" htmlFor="tag">
+      Tag
+      <select
+        className="inputs-form"
+        id="tag"
+        name="tag"
+      >
+        <option>Alimentação</option>
+        <option>Lazer</option>
+        <option>Trabalho</option>
+        <option>Transporte</option>
+        <option>Saúde</option>
+      </select>
+    </label>
+  );
+}
+
 function Wallet() {
   const [field, setField] = useState(0);
   const emailUser = useSelector((state) => state.user.email);
@@ -13,56 +62,6 @@ function Wallet() {
     description: '',
     exchangeRates: {},
   });
-
-  function inputMethod() {
-    return (
-      <label className="labels-form" htmlFor="payment">
-        Método de pagamento
-        <select
-          className="inputs-form"
-          id="payment"
-          name="method"
-        >
-          <option>Dinheiro</option>
-          <option>Cartão de crédito</option>
-          <option>Cartão de débito</option>
-        </select>
-      </label>
-    );
-  }
-
-  function inputCurrency() {
-    return (
-      <label className="labels-form" htmlFor="currencie">
-        Moeda
-        <select
-          className="inputs-form"
-          id="currencie"
-          name="currency"
-        >
-        </select>
-      </label>
-    );
-  }
-
-  function inputTag() {
-    return (
-      <label className="labels-form" htmlFor="tag">
-        Tag
-        <select
-          className="inputs-form"
-          id="tag"
-          name="tag"
-        >
-          <option>Alimentação</option>
-          <option>Lazer</option>
-          <option>Trabalho</option>
-          <option>Transporte</option>
-          <option>Saúde</option>
-        </select>
-      </label>
-    );
-  }
 
   return (
     <>
@@ -77,19 +76,19 @@ function Wallet() {
           Valor:
           <input type="number" id="value" name="value" />
         </label>
-        {inputCurrency()}
-        {inputMethod()}
-        {inputTag()}
+        { inputCurrency(form, setForm) }
+        { inputMethod(form, setForm) }
+        {inputTag(form, setForm)}
         <label htmlFor="desc">
           Descrição:
           <input type="text" name="desc" />
         </label>
         <button
-        type="button"
-        onClick={ () => {
-          setField(0)
-          setForm(0)
-        } }
+          type="button"
+          onClick={ () => {
+            setField(0)
+            setForm(0)
+          } }
         >
           Opa
         </button>
