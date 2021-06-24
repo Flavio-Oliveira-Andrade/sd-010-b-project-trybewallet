@@ -1,48 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { addNewExpense } from '../actions';
-
-class Expenses extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.dispatchAction = this.dispatchAction.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-
-    const { expenses } = this.props;
-    this.state = {
-      currency: '',
-      description: '',
-      exchangeRate: {},
-      id: expenses.length,
-      method: '',
-      tag: '',
-      value: '',
-    };
-  }
-  
-  handleClick() {
-    const { newExpense } = this.props;
-  }
-
+class ExpensesButton extends React.Component {
   render() {
-    return ();
+    const { handler } = this.props;
+
+    return (
+      <button
+        type="button"
+        name="adicionar despesa"
+        onClick={ handler }
+      >
+        Adicionar despesa
+      </button>
+    );
   }
 }
 
-Expense.propTypes = {
-  newExpense: propTypes.func,
+ExpensesButton.propTypes = {
+  handler: PropTypes.func,
 }.isRequired;
 
-const mapStateToProps = (state) => ({
-  newExpense: state.wallet.expenses,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  newExpense: (expense) => dispatch(addNewExpense(expense)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Expenses);
+export default ExpensesButton;
