@@ -13,7 +13,11 @@ class HeaderWallet extends React.Component {
         <p>
           Total de Gastos:
           {' '}
-          <span data-testid="total-field">{value}</span>
+          <span data-testid="total-field">
+            Valor
+            {' '}
+            {value}
+          </span>
         </p>
         <p>
           Moeda:

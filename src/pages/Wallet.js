@@ -70,7 +70,7 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="valueSpent">
             Valor
-            <input type="text" name="value" id="value-spent" onChange={ this.handle } />
+            <input type="text" name="value" id="valueSpent" onChange={ this.handle } />
           </label>
           <label htmlFor="description-spent">
             Descrição
