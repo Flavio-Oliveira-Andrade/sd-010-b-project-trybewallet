@@ -14,3 +14,8 @@ export const preencheCurrencies = (currencies) => ({
   type: 'ADD_CURRENCIES',
   currencies,
 });
+
+export const removeExpenses = (despesa) => ({
+  type: 'REMOVE_DESPESA',
+  despesa,
+});

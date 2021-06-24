@@ -22,10 +22,6 @@ class Form extends React.Component {
     this.fetchAPI = this.fetchAPI.bind(this);
   }
 
-  componentDidMount() {
-    // this.fetchAPI();
-  }
-
   async fetchAPI() {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((data) => data.json());

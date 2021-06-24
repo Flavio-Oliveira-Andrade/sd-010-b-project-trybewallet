@@ -16,6 +16,11 @@ function walletReducer(state = initialState, action) {
       ...state,
       currencies: action.currencies,
     };
+  case 'REMOVE_DESPESA':
+    return {
+      ...state,
+      expenses: state.expenses.filter((linha) => linha !== action.despesa),
+    };
   default:
     return state;
   }
