@@ -1,75 +1,99 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { fetchAPIExpenseAction } from '../actions';
+import ExpensesButton from './Expenses';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getData = this.getData.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      currencies: [],
+      id: 0,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
     };
   }
 
-  componentDidMount() {
-    this.getData();
-  }
-
-  async getData() {
-    const URL = 'https://economia.awesomeapi.com.br/json/all';
-    const fetchAPI = await fetch(URL);
-    const parseJSON = await fetchAPI.json();
-
-    const getCurrencies = Object.keys(parseJSON);
-    const removedUSDT = getCurrencies.filter((target) => target !== 'USDT');
-
+  handleChange({ target: { name, value } }) {
     this.setState({
-      currencies: [...removedUSDT],
+      [name]: value,
     });
   }
 
+  handleClick() {
+    const { newExpense, expenses } = this.props;
+    const expensesLength = expenses.length;
+
+    newExpense(this.state);
+
+    if (expensesLength >= 0) {
+      this.setState({ id: expensesLength + 1 });
+    }
+  }
+
   render() {
-    const { currencies } = this.state;
+    const { currencies } = this.props;
 
     return (
       <form>
         <label htmlFor="value">
           Valor
-          <input type="text" id="value" />
+          <input type="text" id="value" name="value" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="i">
           Descrição
-          <input type="text" id="description" />
+          <input type="text" id="i" name="description" onChange={ this.handleChange } />
         </label>
         <label htmlFor="currency">
           Moeda
-          <select id="currency">
+          <select id="currency" name="currency" onChange={ this.handleChange }>
             {currencies.map((currency) => (
               <option key={ currency } value={ currency }>{ currency }</option>
             ))}
           </select>
         </label>
-        <label htmlFor="payment-method">
+        <label htmlFor="payment">
           Método de pagamento
-          <select id="payment-method">
-            <option value="BRL">Dinheiro</option>
-            <option value="BRL">Cartão de crédito</option>
-            <option value="BRL">Cartão de débito</option>
+          <select id="payment" name="method" onChange={ this.handleChange }>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag">
-            <option value="BRL">Alimentação</option>
-            <option value="BRL">Lazer</option>
-            <option value="BRL">Trabalho</option>
-            <option value="BRL">Transporte</option>
-            <option value="BRL">Saúde</option>
+          <select id="tag" name="tag" onChange={ this.handleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
+        <ExpensesButton handler={ this.handleClick } />
       </form>
     );
   }
 }
 
-export default Form;
+Form.propTypes = {
+  newExpense: PropTypes.func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  newExpense: (expense) => dispatch(fetchAPIExpenseAction(expense)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
