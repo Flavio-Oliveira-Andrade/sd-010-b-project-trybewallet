@@ -1,8 +1,9 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { EDIT_INPUT_STATE } from '../actions';
+import { EDIT_INPUT_STATE, EDIT_STATUS } from '../actions';
 
 const initialState = {
   editionKey: {},
+  status: false,
 };
 
 const editionReducer = (state = initialState, action) => {
@@ -11,6 +12,13 @@ const editionReducer = (state = initialState, action) => {
     return {
       ...state,
       editionKey: action.payload.row,
+      status: action.payload.clicked,
+    };
+
+  case EDIT_STATUS:
+    return {
+      ...state,
+      status: action.status,
     };
   default:
     return state;

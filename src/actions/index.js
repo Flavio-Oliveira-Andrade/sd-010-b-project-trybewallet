@@ -8,3 +8,4 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const EDIT_INPUT_STATE = 'EDIT_INPUT_STATE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const EDIT_STATUS = 'EDIT_STATUS';

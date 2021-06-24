@@ -33,6 +33,12 @@ const walletReducer = (state = initialState, action) => {
       loading: false,
       data: action.payload,
     };
+  case FETCH_URL_ERROR:
+    return {
+      ...state,
+      loading: false,
+      error: action.error,
+    };
   case ADD_EXPENSE:
     return {
       ...state,
@@ -51,12 +57,6 @@ const walletReducer = (state = initialState, action) => {
         .filter((row) => row.id !== action.payload.row.id)
         .concat(action.payload.row)
         .sort((a, b) => a.id - b.id),
-    };
-  case FETCH_URL_ERROR:
-    return {
-      ...state,
-      loading: false,
-      error: action.error,
     };
   default:
     return state;

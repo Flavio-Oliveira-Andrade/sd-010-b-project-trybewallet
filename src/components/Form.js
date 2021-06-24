@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { getDataThunk } from '../actions/apiRequests';
-import addExpenseAction from '../actions/addExpenseAction';
+import {
+  addExpenseAction,
+  editAction,
+  editStateStatusOff } from '../actions/expensesActions';
 
 const intitialState = {
   value: 0,
@@ -20,6 +23,22 @@ class Form extends React.Component {
     this.state = { id: expenses.length, ...intitialState };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.getRowEditionInfo = this.getRowEditionInfo.bind(this);
+  }
+
+  componentDidUpdate() {
+    const { shouldEdit, changeEditionStatus } = this.props;
+    if (shouldEdit) {
+      console.log('entrou');
+      this.getRowEditionInfo();
+      changeEditionStatus(false);
+    }
+  }
+
+  getRowEditionInfo() {
+    const { editvalues } = this.props;
+    console.log(editvalues);
+    this.setState({ ...editvalues });
   }
 
   handleValueInput() {
@@ -61,11 +80,11 @@ class Form extends React.Component {
       <label htmlFor="currency">
         Moeda:
         <select
+          value={ currency }
           onChange={ this.handleChange }
           name="currency"
           id="currency"
           data-testid="currency-input"
-          value={ currency }
         >
           {currencies
             .map((bit) => (bit !== 'USDT' ? <option key={ bit }>{bit}</option> : null))}
@@ -80,11 +99,11 @@ class Form extends React.Component {
       <label htmlFor="method">
         Método de pagamento:
         <select
+          value={ method }
           onChange={ this.handleChange }
           name="method"
           id="method"
           data-testid="method-input"
-          value={ method }
         >
           <option name="method">Dinheiro</option>
           <option name="method">Cartão de crédito</option>
@@ -99,11 +118,11 @@ class Form extends React.Component {
       <label htmlFor="tag">
         Tag
         <select
+          value={ tag }
           onChange={ this.handleChange }
           name="tag"
           id="tag"
           data-testid="tag-input"
-          value={ tag }
         >
           <option name="tag">Alimentação</option>
           <option name="tag">Lazer</option>
@@ -115,15 +134,21 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { fetchData } = this.props;
-    fetchData();
-    const { addExpense, data } = this.props;
-    delete data.USDT;
-    this.setState({ exchangeRates: data }, () => {
-      const { expenses } = this.props;
-      addExpense(this.state);
-      this.setState({ id: expenses.length + 1 });
-    });
+    const { shouldEdit } = this.props;
+    if (!shouldEdit) {
+      const { fetchData } = this.props;
+      fetchData();
+      const { addExpense, data } = this.props;
+      delete data.USDT;
+      this.setState({ exchangeRates: data }, () => {
+        const { expenses } = this.props;
+        addExpense(this.state);
+        this.setState({ id: expenses.length + 1 });
+      });
+    } else {
+      const { editedRow } = this.props;
+      editedRow(this.state);
+    }
   }
 
   handleChange({ target }) {
@@ -132,6 +157,7 @@ class Form extends React.Component {
   }
 
   render() {
+    const { shouldEdit } = this.props;
     return (
       <form>
         {this.handleValueInput()}
@@ -139,7 +165,9 @@ class Form extends React.Component {
         {this.handleCurrencyInput()}
         {this.handlePaymentMethod()}
         {this.handleTagInput()}
-        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+        <button type="button" onClick={ this.handleClick }>
+          {!shouldEdit ? 'Adicionar despesa' : 'Editar Despesa'}
+        </button>
       </form>
     );
   }
@@ -147,10 +175,12 @@ class Form extends React.Component {
 
 Form.propTypes = {
   data: PropTypes.shape(Object),
+  editvalues: PropTypes.arrayOf(Object),
 };
 
 Form.defaultProps = {
   data: PropTypes.shape(Object),
+  editvalues: PropTypes.arrayOf(Object),
 };
 
 Form.propTypes = {
@@ -158,18 +188,24 @@ Form.propTypes = {
   addExpense: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(Object).isRequired,
+  editedRow: PropTypes.func.isRequired,
+  shouldEdit: PropTypes.bool.isRequired,
+  changeEditionStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   data: state.wallet.data,
   expenses: state.wallet.expenses,
-  editvalues: state.wallet.editionKey,
+  editvalues: state.edit.editionKey,
+  shouldEdit: state.edit.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (stateData) => dispatch(addExpenseAction(stateData)),
   fetchData: () => dispatch(getDataThunk()),
+  editedRow: (stateData) => dispatch(editAction(stateData)),
+  changeEditionStatus: (stateData) => dispatch(editStateStatusOff(stateData)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

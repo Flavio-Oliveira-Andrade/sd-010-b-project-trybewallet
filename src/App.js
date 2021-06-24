@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
-import Edition from './pages/Edition';
+// import Edition from './pages/Edition';
 import NotFound from './components/NotFound';
 
 class App extends React.Component {
@@ -14,10 +14,14 @@ class App extends React.Component {
   renderRotes() {
     return (
       <Switch>
-        <Route path="/carteira" render={ (props) => <Wallet { ...props } /> } />
-        <Route path="/edition" render={ (props) => <Edition { ...props } /> } />
-        <Route path="/notfound" render={ (props) => <NotFound { ...props } /> } />
+        <Route exact path="/carteira" render={ (props) => <Wallet { ...props } /> } />
+        {/* <Route
+          exact
+          path="/carteira/edition"
+          render={ (props) => <Edition { ...props } /> }
+        /> */}
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
+        <Route path="/notfound" render={ (props) => <NotFound { ...props } /> } />
         <Route component={ NotFound } />
       </Switch>
     );
