@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveCurrencies } from '../actions';
+import { saveCurrencies, setExpense } from '../actions';
 
 class Form extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class Form extends React.Component {
     this.method = this.method.bind(this);
     this.tag = this.tag.bind(this);
     this.saveExpense = this.saveExpense.bind(this);
+    this.button = this.button.bind(this);
 
     this.state = {
       value: '',
@@ -146,6 +147,17 @@ class Form extends React.Component {
     );
   }
 
+  button() {
+    return (
+      <button
+        type="button"
+        onClick={ this.saveExpense }
+      >
+        Adicionar despesa
+      </button>
+    );
+  }
+
   render() {
     const { value, description, currency, method, tag } = this.state;
     return (
@@ -157,6 +169,7 @@ class Form extends React.Component {
           { this.method(method) }
           { this.tag(tag) }
         </form>
+        { this.button() }
       </section>
     );
   }
@@ -168,6 +181,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getMoedas: () => dispatch(saveCurrencies()),
+  saveExpense: (expense) => dispatch(setExpense(expense)),
 });
 
 Form.propTypes = {

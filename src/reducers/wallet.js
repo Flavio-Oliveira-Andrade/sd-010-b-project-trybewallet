@@ -2,6 +2,8 @@
 import {
   REQUEST_CURRENCIES,
   RESOLVED_CURRENCIES,
+  REJECT_CURRENCIES,
+  RESOLVED_EXPENSE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -17,6 +19,14 @@ function wallet(state = INITIAL_STATE, action) {
     return { ...state, loadCurrencies: true };
   case RESOLVED_CURRENCIES:
     return { ...state, loadCurrencies: false, currencies: action.currency };
+  case REJECT_CURRENCIES:
+    return { ...state, loadCurrencies: false, error: action.error }
+  case RESOLVED_EXPENSE:
+    return {
+      ...state,
+      loadExpense: false,
+      expenses: [...state.expenses],
+    };
   default:
     return state;
   }
