@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class HeaderWallet extends React.Component {
   render() {
     const { value, onChange, email } = this.props;
-    console.log(this.props);
     return (
       <div>
         <p data-testid="email-field">
