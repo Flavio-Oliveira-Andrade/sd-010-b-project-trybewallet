@@ -9,6 +9,7 @@
       "jsx": true
     },
     "sourceType": "module"
+  
   },
   "plugins": ["react", "sonarjs"],
   "rules": {

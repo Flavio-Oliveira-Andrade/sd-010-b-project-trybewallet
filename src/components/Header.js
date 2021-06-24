@@ -1,30 +1,45 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { string } from 'prop-types';
+import propTypes from 'prop-types';
 
-export class Header extends Component {
+class Header extends React.Component {
   render() {
-    const { email } = this.props;
-    const totalExpense = 0;
-    const currency = 'BRL';
+    const { userEmail, expenses } = this.props;
+    const totalExpenses = expenses.map((expense) => {
+      const {
+        currency, exchangeRates, value,
+      } = expense;
+      const { ask } = exchangeRates[currency];
+      const convertedValue = (value * ask).toFixed(2);
+      return convertedValue;
+    }).reduce((acc, currency) => {
+      acc += Number(currency);
+      return acc;
+    }, 0);
 
     return (
-      <header div className="wallet-header">
-        <h1>TrybeWallet</h1>
-        <p data-testid="email-field">{`Email: ${email} `}</p>
-        <p data-testid="total-field">{`Despesa: ${totalExpense} `}</p>
-        <span data-testid="header-currency-field">{ currency }</span>
+      <header>
+        <div>Wellcome to the TrybeWallet!</div>
+        <p data-testid="email-field">
+          {`Email: ${userEmail}`}
+        </p>
+        <p data-testid="total-field">
+          {`Total das desepesas: ${totalExpenses}`}
+        </p>
+        <span data-testid="header-currency-field">BRL</span>
       </header>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
+const mapStateToProps = ({ user: { email }, wallet: { totalExpense, expenses } }) => ({
+  userEmail: email,
+  totalExpense,
+  expenses,
 });
 
-Header.propTypes = {
-  email: string.isRequired,
-};
+export default connect(mapStateToProps, null)(Header);
 
-export default connect(mapStateToProps)(Header);
+Header.propTypes = {
+  userEmail: propTypes.string,
+}.isRequired;

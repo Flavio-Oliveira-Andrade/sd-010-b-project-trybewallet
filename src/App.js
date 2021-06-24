@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/carteira" component={ Wallet } />
+        <Route exact="/carteira" component={ Wallet } />
       </Switch>
     );
   }
