@@ -2,5 +2,5 @@
 
 export const addUser = (email) => ({
   type: 'ADD_USER',
-  email
-})
+  email,
+});

@@ -19,7 +19,7 @@ function Login() {
   }
 
   function addEmail() {
-    dispatch({ type: 'ADD_USER', email })
+    dispatch({ type: 'ADD_USER', email });
   }
 
   return (
@@ -46,7 +46,7 @@ function Login() {
         <button
           disabled={ !handleValidateEmail() || !handleValidatePassword() }
           type="button"
-          onClick={addEmail}
+          onClick={ addEmail }
         >
           Entrar
         </button>
