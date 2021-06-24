@@ -1,5 +1,6 @@
 export const USER_LOGIN = 'USER_LOGIN';
 export const NEW_EXPENSE = 'NEW_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const userLogin = (email) => ({
   type: USER_LOGIN,
@@ -24,3 +25,8 @@ export const fetchAPIExpenseAction = (expense) => async (dispatch) => {
     exchangeRates: parseJSON,
   }));
 };
+
+export const deleteExpense = (toDelete) => ({
+  type: DELETE_EXPENSE,
+  toDelete,
+});
