@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchAPIExpenseAction } from '../actions';
-import ExpensesButton from './Expenses';
+import ExpensesButton from './Button';
 
 class Form extends React.Component {
   constructor(props) {
