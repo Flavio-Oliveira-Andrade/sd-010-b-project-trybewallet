@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 function Wallet() {
   const [field, setField] = useState(0);
-  const [cambio, setCambio] = useState('BRL');
   const emailUser = useSelector((state) => state.user.email);
   const [form, setForm] = useState({
     id: 0,
@@ -13,14 +12,64 @@ function Wallet() {
     tag: 'Alimentação',
     description: '',
     exchangeRates: {},
-  })
+  });
+
+  function inputMethod() {
+    return (
+      <label className="labels-form" htmlFor="payment">
+        Método de pagamento
+        <select
+          className="inputs-form"
+          id="payment"
+          name="method"
+        >
+          <option>Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  function inputCurrency() {
+    return (
+      <label className="labels-form" htmlFor="currencie">
+        Moeda
+        <select
+          className="inputs-form"
+          id="currencie"
+          name="currency"
+        >
+        </select>
+      </label>
+    );
+  }
+
+  function inputTag() {
+    return (
+      <label className="labels-form" htmlFor="tag">
+        Tag
+        <select
+          className="inputs-form"
+          id="tag"
+          name="tag"
+        >
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
+        </select>
+      </label>
+    );
+  }
 
   return (
     <>
       <header>
         <h2 data-testid="email-field">{emailUser}</h2>
         <h3 data-testid="total-field">{field}</h3>
-        <h3 data-testid="header-currency-field">{cambio}</h3>
+        <h3 data-testid="header-currency-field">BRL</h3>
       </header>
 
       <form>
@@ -28,35 +77,22 @@ function Wallet() {
           Valor:
           <input type="number" id="value" name="value" />
         </label>
-        <label htmlFor="moeda">
-          Moeda:
-          <select name="moeda" id="moeda">
-            <option value="BRL">BRL</option>
-            <option value="USD">USD</option>
-          </select>
-        </label>
-        <label htmlFor="method">
-          Método de pagamento:
-          <select name="method" id="method">
-            <option value="money">Dinheiro</option>
-            <option value="cred">Cartão de crédito</option>
-            <option value="deb">Cartão de debito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag:
-          <select name="tag" id="tag">
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
+        {inputCurrency()}
+        {inputMethod()}
+        {inputTag()}
         <label htmlFor="desc">
           Descrição:
           <input type="text" name="desc" />
         </label>
+        <button
+        type="button"
+        onClick={ () => {
+          setField(0)
+          setForm(0)
+        } }
+        >
+          Opa
+        </button>
       </form>
 
     </>
