@@ -3,27 +3,23 @@ import PropTypes from 'prop-types';
 
 class HeaderWallet extends React.Component {
   render() {
-    const { value, onChange, email } = this.props;
+    const { value, email } = this.props;
     return (
-      <div>
+      <header>
         <p data-testid="email-field">
           Olá
           {` ${email}`}
         </p>
-        <form>
-          <label htmlFor="total-spent">
-            Total de gastos
-            <input
-              data-testid="total-field"
-              onChange={ onChange }
-              id="total-spent"
-              type="number"
-              value={ value }
-            />
-          </label>
-          <select><option data-testid="header-currency-field">BRL</option></select>
-        </form>
-      </div>
+        <p>
+          Total de Gastos:
+          {' '}
+          <span data-testid="total-field">{value}</span>
+        </p>
+        <p>
+          Moeda:
+          <span data-testid="header-currency-field">BRL</span>
+        </p>
+      </header>
     );
   }
 }
@@ -31,7 +27,6 @@ class HeaderWallet extends React.Component {
 HeaderWallet.propTypes = {
   value: PropTypes.number.isRequired,
   email: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default HeaderWallet;
