@@ -8,10 +8,11 @@ const INITIAL_STATE_USER = {
 function user(state = INITIAL_STATE_USER, action) {
   switch (action.type) {
   case EMAIL:
-    return { ...state, email: action.payload }; // recebendo email
-
+    return { ...state, email: action.payload };
+    // recebendo email ( adicionando novo elemento ao estado)
+    // spread operado + valor da action
   default:
-    return state;
+    return state; // retornando estado atual
   }
 }
 

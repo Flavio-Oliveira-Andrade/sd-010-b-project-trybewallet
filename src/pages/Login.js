@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+// import { emailChange } from '../actions';
 import { emailChange } from '../actions';
 
 class Login extends React.Component {
@@ -42,7 +43,7 @@ class Login extends React.Component {
     );
   }
 
-  loginValidation() {
+  loginValidation() { // função que validará o e-mail
     const { email, password } = this.state;
     let disabled = false;
     const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
@@ -78,7 +79,7 @@ class Login extends React.Component {
           <button
             type="submit"
             disabled={ disabled }
-            onClick={ this.handleClick }
+            onClick={ this.handleClick } // logica que enviará para o informações para o reducers
             className="login-btn"
           >
             Entrar
@@ -90,12 +91,15 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  handleEmail: (payload) => dispatch(emailChange(payload)),
+const mapDispatchToProps = (dispatch) => ({ // função que retornará um bojeto
+  handleEmail: (value) => dispatch(emailChange(value)),
+  // mapeando dispatch para uma prop (handleEmail)
 });
 
 Login.propTypes = {
   handleEmail: PropTypes.func.isRequired,
+  // handleEmail sendo retornada na handleClick
 };
 
 export default connect(null, mapDispatchToProps)(Login);
+// exportando a função connect que retorna outra função e esta é chamada em seguida
