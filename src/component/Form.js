@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchWallet, walletExpenses, exchangeRateAPI } from '../actions';
+import { fetchWallet, walletExpenses } from '../actions';
 
 class Form extends React.Component {
   constructor() {
@@ -33,7 +33,11 @@ class Form extends React.Component {
     const { dispatchExpenses } = this.props;
     const { id } = this.state;
     this.setState({ id: id + 1 });
-    dispatchExpenses(this.state);
+    // exchangeRates(this.state);
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((requisicao) => requisicao.json())
+      .then((requisicao) => this.setState({
+        exchangeRates: requisicao }, () => dispatchExpenses(this.state)));
   }
 
   render() {
@@ -94,7 +98,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   coinAPI: () => dispatch(fetchWallet()),
   dispatchExpenses: (expenses) => dispatch(walletExpenses(expenses)),
-  exchangeRate: (expenses) => dispatch(exchangeRateAPI(expenses)),
+  // exchangeRates: (expenses) => dispatch(exchangeRateAPI(expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
