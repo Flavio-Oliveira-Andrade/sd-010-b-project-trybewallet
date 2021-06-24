@@ -1,4 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router';
+import PropTypes from 'prop-types';
+import actionLogin from '../actions';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor() {
@@ -6,25 +10,31 @@ class Login extends React.Component {
     this.state = {
       password: '',
       email: '',
-      disable: true,
+      disable: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.verifyEmailPass = this.verifyEmailPass.bind(this);
   }
 
   handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value }, this.verifyEmailPass());
+    }
+  
+
+  verifyEmailPass() {
     const { password, email } = this.state;
     const minLength = 4;
-    if (password.length > minLength && email.includes('.com')) {
-      this.setState({ [event.target.name]: event.target.value });
-      this.setState({ disable: false });
-    }
+      this.setState({ disable: password.length > minLength && email.includes('.com') });
   }
 
+
   render() {
-    const { disable } = this.state;
+    const { email, password, disable } = this.state;
+    const {redirect, login } = this.props;
     return (
       <div className="Login">
+        { redirect && <Redirect to="/carteira" /> }
         <form className="formLogin">
           <input
             placeholder="email"
@@ -40,7 +50,8 @@ class Login extends React.Component {
           />
           <button
             type="button"
-            disabled={ disable }
+            disabled={ !disable }
+            onClick={ () => login({ email,password }) }
           >
             Entrar
           </button>
@@ -50,4 +61,17 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  redirect: state.user.password,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (email) => dispatch(actionLogin(email)),
+})
+
+Login.propTypes = {
+  redirect: PropTypes.string.isRequired,
+  value: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
