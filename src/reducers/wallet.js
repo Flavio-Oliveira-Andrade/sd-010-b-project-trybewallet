@@ -3,6 +3,8 @@
 const INITIAL_USER_STATE = {
   currencies: [],
   expenses: [],
+  dados: { },
+  isFetching: false,
 };
 
 const wallet = (state = INITIAL_USER_STATE, action) => {
@@ -21,6 +23,11 @@ const wallet = (state = INITIAL_USER_STATE, action) => {
     return {
       ...state,
       error: action.payload.error,
+    };
+  case 'SALVAR_DESPESA':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
     };
   default:
     return state;

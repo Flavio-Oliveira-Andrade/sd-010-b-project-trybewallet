@@ -23,3 +23,19 @@ export const fetchApiCurrencies = () => (dispatch) => {
       dispatch(requestApiSuccess(currenciesObject));
     });
 };
+
+export const saveExpense = (expense) => (dispatch) => {
+  dispatch(requestApi());
+  fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then(
+      (sucesso) => {
+        const aux = sucesso;
+        delete aux.USDT;
+        return dispatch({
+          type: 'SALVAR_DESPESA',
+          payload: { ...expense, exchangeRates: sucesso },
+        });
+      },
+    );
+};
