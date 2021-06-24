@@ -14,14 +14,13 @@ function Wallet() {
         <h3 data-testid="header-currency-field">{cambio}</h3>
       </header>
       <section>
-        <h1 
-          onClick={() => {
-            setCambio('BRL')
-            setField(0)
-          }}
+        <button type="button" onClick={ () => {
+          setCambio('BRL');
+          setField(0);
+        } }
         >
           Ola
-        </h1>
+        </button>
       </section>
     </>
   );
