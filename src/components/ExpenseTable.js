@@ -37,8 +37,12 @@ class ExpenseTable extends React.Component {
                 <td>{(ask * parseInt(value, 10)).toFixed(2)}</td>
                 <td>Real</td>
                 <td>
-                  <button type="button">Editar</button>
-                  <button type="button">Excluir</button>
+                  <button data-testid="delete-btn" type="button">
+                    Editar
+                  </button>
+                  <button data-testid="delete-btn" type="button">
+                    Excluir
+                  </button>
                 </td>
               </tr>
             );
