@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ExpenseForm from '../components/ExpenseForm';
 import { currenciesAction } from '../actions';
+import ExpenseTable from '../components/ExpenseTable';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Wallet extends React.Component {
     const results = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await results.json();
     const currencies = Object.keys(data);
-    const newCurrencies = currencies.filter((coin) => coin !== 'USDT');
+    const newCurrencies = currencies.filter((currencie) => currencie !== 'USDT');
     changeCurrencies(newCurrencies);
   }
 
@@ -27,20 +28,23 @@ class Wallet extends React.Component {
           <span
             data-testid="email-field"
           >
-            {`E-mail : ${email}`}
+            {`E-mail: ${email}`}
           </span>
           <span
             data-testid="total-field"
           >
-            {`Despesas totais: ${expenses.reduce((acc, expense) => (acc + expense), 0)}`}
+            {`Despesas totais: R$ ${expenses.reduce(
+              (acc, expense) => (acc + parseInt(expense.value, 10)), 0,
+            )} `}
           </span>
           <span
             data-testid="header-currency-field"
           >
-            Câmbio: BRL
+            BRL
           </span>
         </header>
         <ExpenseForm />
+        <ExpenseTable />
       </div>
     );
   }

@@ -2,6 +2,15 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  expenseForm: {
+    id: 0,
+    value: '',
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
+    exchangeRates: {},
+  },
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -9,7 +18,13 @@ function wallet(state = INITIAL_STATE, action) {
   case 'CURRENCIES':
     return { ...state, currencies: action.currencies };
   case 'EXPENSES':
-    return { ...state, expenses: [...state.expenses, action.expenses] };
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expenses],
+      expenseForm: { ...state.expenseForm, id: action.ID },
+    };
+  case 'EXPENSEFORM':
+    return { ...state, expenseForm: action.expenseForm };
   default:
     return state;
   }

@@ -4,6 +4,7 @@ export const PASSWORD = 'PASSWORD';
 export const ISDISABLED = 'ISDISABLED';
 export const CURRENCIES = 'CURRENCIES';
 export const EXPENSES = 'EXPENSES';
+export const EXPENSEFORM = 'EXPENSEFORM';
 
 export const emailAction = (email) => ({
   type: EMAIL,
@@ -25,7 +26,13 @@ export const currenciesAction = (currencies) => ({
   currencies,
 });
 
-export const expensesAction = (expenses) => ({
+export const expensesAction = (expenses, ID) => ({
   type: EXPENSES,
   expenses,
+  ID,
+});
+
+export const expenseFormAction = (expenseForm) => ({
+  type: EXPENSEFORM,
+  expenseForm,
 });
