@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function Wallet() {
   const [field, setField] = useState(0);
-  const [cambio, setCambio] = useState('BRL')
-  const emailUser = useSelector(state => state.user.email);
+  const [cambio, setCambio] = useState('BRL');
+  const emailUser = useSelector((state) => state.user.email);
 
   return (
     <>
@@ -14,7 +14,14 @@ function Wallet() {
         <h3 data-testid="header-currency-field">{cambio}</h3>
       </header>
       <section>
-        <h1>Ola</h1>
+        <h1 
+          onClick={() => {
+            setCambio('BRL')
+            setField(0)
+          }}
+        >
+          Ola
+        </h1>
       </section>
     </>
   );
