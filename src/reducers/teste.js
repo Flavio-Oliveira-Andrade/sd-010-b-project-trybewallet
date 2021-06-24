@@ -1,10 +1,7 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
 import { ADDEMAIL } from '../actions/index';
 
 const initialState = {
-  user: {
-    email: '',
-  },
+  email: [],
 };
 
 export default function emailReducer(state = initialState, action) {
@@ -12,7 +9,7 @@ export default function emailReducer(state = initialState, action) {
   case ADDEMAIL:
     return {
       ...state,
-      email: action.payload.email,
+      email: [...state.email].push(action.payload.email),
     };
   default:
     return state;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addAnEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,6 +10,8 @@ class Login extends React.Component {
       password: '',
       login: true,
     };
+    this.functionCheck = this.functionCheck.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -18,12 +22,18 @@ class Login extends React.Component {
     });
   }
 
-  confirmationCheck ({ password, email }) {
+  functionCheck() {
+    const { email } = this.state;
+    const { functionDispatch } = this.props;
+    functionDispatch(email);
+  }
+
+  confirmationCheck({ password, email }) {
     const caract = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const emailTest = caract.test(email);
     const passwordMin = 6;
 
-    if (email  && password.length >= passwordMin) {
+    if (emailTest && password.length >= passwordMin) {
       this.setState({
         login: false,
       });
@@ -41,26 +51,39 @@ class Login extends React.Component {
         <label htmlFor="email">
           Email:
           <input
+            value={ email }
             id="email"
-            type=""
+            type="email"
             name="email"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             data-testid="email-input"
           />
         </label>
         <label htmlFor="password">
           Senha:
           <input
+            value={ password }
             id="password"
+            type="password"
             name="password"
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
             data-testid="password-input"
           />
         </label>
-        <button>Entrar</button>
+        <button
+          type="submit"
+          disabled={ login }
+          onClick={ this.functionCheck }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  functionDispatch: (email) => dispatch(addAnEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
