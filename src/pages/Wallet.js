@@ -86,8 +86,6 @@ function Wallet() {
           <input
             type="text"
             id="description"
-            name="description"
-            className="inputs-form"
           />
         </label>
         <button
