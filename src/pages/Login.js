@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import saveMail from '../actions/userActions';
 
@@ -9,21 +9,11 @@ class Login extends React.Component {
     super(props);
 
     this.validateLogin = this.validateLogin.bind(this);
-    this.btnEnter = this.btnEnter.bind(this);
 
     this.state = {
       email: '',
       isDisabled: true,
-      loginTrue: false,
     };
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      email: '',
-      isDisabled: true,
-      loginTrue: false,
-    });
   }
 
   // Source:Função utilizada no projeto em grupo Trivia e adaptada neste contexto
@@ -46,45 +36,43 @@ class Login extends React.Component {
     }
   }
 
-  btnEnter() {
-    const { email } = this.state;
-    const { login } = this.props;
-    login(email);
-    this.setState({
-      loginTrue: true,
-    });
-  }
-
   render() {
-    const { loginTrue, isDisabled } = this.state;
-
-    if (loginTrue) {
-      return <Redirect to="/carteira" />;
-    }
+    const { email, isDisabled } = this.state;
+    const { login } = this.props;
 
     return (
       <div>
-        <input
-          id="email-input"
-          type="email"
-          data-testid="email-input"
-          onChange={ this.validateLogin }
-          placeholder="Email"
-        />
-        <input
-          id="password-input"
-          type="text"
-          data-testid="password-input"
-          onChange={ this.validateLogin }
-          placeholder="Senha"
-        />
-        <button
-          type="button"
-          onClick={ this.btnEnter }
-          disabled={ isDisabled }
-        >
-          Entrar
-        </button>
+        <label htmlFor="email-field">
+          E-mail
+          <input
+            name="email-field"
+            id="email-input"
+            type="email"
+            data-testid="email-input"
+            onChange={ this.validateLogin }
+            placeholder="Email"
+          />
+        </label>
+        <label htmlFor="password-field">
+          Senha
+          <input
+            name="password-field"
+            id="password-input"
+            type="text"
+            data-testid="password-input"
+            onChange={ this.validateLogin }
+            placeholder="Senha"
+          />
+        </label>
+        <Link to="/carteira">
+          <button
+            type="button"
+            onClick={ () => login(email) }
+            disabled={ isDisabled }
+          >
+            Entrar
+          </button>
+        </Link>
       </div>
     );
   }
