@@ -4,3 +4,10 @@ export const addUser = (email) => ({
   type: 'ADD_USER',
   email,
 });
+
+export const receiveCurrencies = (currencies) => ({
+  type: 'RECEIVE_CURRENCIES',
+  payload: {
+    currencies,
+  },
+});
