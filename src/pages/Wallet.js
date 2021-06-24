@@ -53,9 +53,9 @@ function Wallet() {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <label>
+        <label htmlFor="desc">
           Descrição:
-          <input type="text" name="name" />
+          <input type="text" name="desc" />
         </label>
       </form>
 
