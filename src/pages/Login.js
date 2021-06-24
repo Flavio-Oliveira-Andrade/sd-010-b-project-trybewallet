@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+
 import { addAnEmail } from '../actions';
 
 class Login extends React.Component {
@@ -9,6 +12,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       login: true,
+      redirect: false,
     };
     this.functionCheck = this.functionCheck.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,6 +30,7 @@ class Login extends React.Component {
     const { email } = this.state;
     const { functionDispatch } = this.props;
     functionDispatch(email);
+    this.setState({ redirect: true });
   }
 
   confirmationCheck({ password, email }) {
@@ -45,7 +50,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { login, password, email } = this.state;
+    const { login, password, email, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <form>
         <label htmlFor="email">
@@ -81,6 +89,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  functionDispatch: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   functionDispatch: (email) => dispatch(addAnEmail(email)),
