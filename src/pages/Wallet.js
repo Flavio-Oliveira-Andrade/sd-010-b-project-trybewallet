@@ -81,9 +81,14 @@ function Wallet() {
         { inputCurrency() }
         { inputMethod() }
         {inputTag()}
-        <label htmlFor="desc">
-          Descrição:
-          <input type="text" name="desc" />
+        <label className="labels-form" htmlFor="description">
+          Descrição
+          <input
+            type="text"
+            id="description"
+            name="description"
+            className="inputs-form"
+          />
         </label>
         <button
           type="button"
