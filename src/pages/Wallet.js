@@ -14,7 +14,7 @@ function Wallet() {
         <h3 data-testid="header-currency-field">{cambio}</h3>
       </header>
       <section>
-        <button 
+        <button
           type="button"
           onClick={ () => {
             setCambio('BRL');
