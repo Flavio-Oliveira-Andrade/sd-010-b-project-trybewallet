@@ -4,6 +4,7 @@ import {
   RESOLVED_CURRENCIES,
   REJECT_CURRENCIES,
   RESOLVED_EXPENSE,
+  DELETE_EXPENSE
 } from '../actions/index';
 
 const INITIAL_STATE = {
@@ -20,12 +21,17 @@ function wallet(state = INITIAL_STATE, action) {
   case RESOLVED_CURRENCIES:
     return { ...state, loadCurrencies: false, currencies: action.currency };
   case REJECT_CURRENCIES:
-    return { ...state, loadCurrencies: false, error: action.error }
+    return { ...state, loadCurrencies: false, error: action.error };
   case RESOLVED_EXPENSE:
     return {
       ...state,
       loadExpense: false,
       expenses: [...state.expenses],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.id),
     };
   default:
     return state;
