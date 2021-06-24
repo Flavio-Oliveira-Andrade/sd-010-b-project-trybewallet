@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchWallet, walletExpenses, exchangeRateAPI } from '../actions';
+// import { fetchWallet, walletExpenses } from '../actions';
 
-class Form extends React.Component {
+class Table extends React.Component {
   constructor() {
     super();
 
@@ -20,21 +20,21 @@ class Form extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    const { coinAPI } = this.props;
-    coinAPI();
-  }
+//   componentDidMount() {
+//     const { coinAPI } = this.props;
+//     coinAPI();
+//   }
 
-  handleChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
-  }
+//   handleChange({ target: { name, value } }) {
+//     this.setState({ [name]: value });
+//   }
 
-  handleClick() {
-    const { dispatchExpenses } = this.props;
-    const { id } = this.state;
-    this.setState({ id: id + 1 });
-    dispatchExpenses(this.state);
-  }
+//   handleClick() {
+//     const { dispatchExpenses } = this.props;
+//     const { id } = this.state;
+//     this.setState({ id: id + 1 });
+//     dispatchExpenses(this.state);
+//   }
 
   render() {
     const { exchange } = this.props;
@@ -87,20 +87,15 @@ class Form extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  exchange: state.wallet.currencies,
-  expenses: state.wallet.expenses,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  coinAPI: () => dispatch(fetchWallet()),
-  dispatchExpenses: (expenses) => dispatch(walletExpenses(expenses)),
-  exchangeRate: (expenses) => dispatch(exchangeRateAPI(expenses)),
+
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
-Form.propTypes = {
-  coinAPI: PropTypes.func.isRequired,
-  exchange: PropTypes.arrayOf(PropTypes.string).isRequired,
-  dispatchExpenses: PropTypes.func.isRequired,
+Table.propTypes = {
+
 };

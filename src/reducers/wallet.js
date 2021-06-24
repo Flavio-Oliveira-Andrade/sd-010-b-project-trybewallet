@@ -2,7 +2,7 @@ import { WALLET_CURRENCIES, WALLET_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // moeda
-  expenses: [], // gastos
+  expenses: [], // gastos, despesas
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
