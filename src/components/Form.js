@@ -12,7 +12,6 @@ class Form extends Component {
       // method: '',
       // tag: '',
     };
-
   }
 
   functionValue() {
