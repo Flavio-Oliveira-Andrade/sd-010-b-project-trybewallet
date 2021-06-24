@@ -1,6 +1,6 @@
-import fetchApi from "../services/fetchApi";
-
 // Coloque aqui suas actions
+import fetchApi from '../services/fetchApi';
+
 export const LOGIN = 'LOGIN';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RESOLVED_CURRENCIES = 'RESOLVED_CURRENCIES';

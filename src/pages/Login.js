@@ -66,7 +66,7 @@ class Login extends React.Component {
             <button
               type="button"
               disabled={ isDisable }
-              inClick={ () => salvaLogin(email) }
+              onClick={ () => salvaLogin(email) }
             >
               Entrar
             </button>

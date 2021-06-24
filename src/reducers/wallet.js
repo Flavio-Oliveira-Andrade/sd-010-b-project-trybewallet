@@ -4,7 +4,7 @@ import {
   RESOLVED_CURRENCIES,
   REJECT_CURRENCIES,
   RESOLVED_EXPENSE,
-  DELETE_EXPENSE
+  DELETE_EXPENSE,
 } from '../actions/index';
 
 const INITIAL_STATE = {
