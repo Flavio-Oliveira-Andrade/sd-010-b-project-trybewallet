@@ -1,3 +1,5 @@
+import { REQUEST_COINS_SUCESS, REQUEST_COINS_ERROR } from '../actions/walletActions';
+
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
@@ -5,9 +7,15 @@ const INITIAL_STATE = {
 
 export default function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'SET_EMAIL':
+  case REQUEST_COINS_SUCESS:
     return {
-      email: action.payload.email,
+      ...state,
+      currencies: action.payload.coins,
+    };
+  case REQUEST_COINS_ERROR:
+    return {
+      ...state,
+      error: action.payload.error,
     };
   default:
     return state;
