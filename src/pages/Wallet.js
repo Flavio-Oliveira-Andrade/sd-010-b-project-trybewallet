@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import FormWallet from '../components/formWallet';
 
 function Wallet(props) {
@@ -27,9 +27,9 @@ function Wallet(props) {
   );
 }
 
-// Wallet.propTypes = {
-//   email: PropTypes,
-// };
+Wallet.propTypes = {
+  email: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   email: state.user.email,

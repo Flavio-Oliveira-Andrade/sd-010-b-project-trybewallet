@@ -7,22 +7,22 @@ function FormWallet() {
   return (
     <form>
       <label htmlFor="valor">
-        Valor:
-        <input type="text" name="valor" />
+        Valor :
+        <input type="number" id="valor" name="valor" />
       </label>
-      <label htmlFor="description">
-        Descrição:
-        <input type="text" name="description" />
+      <label htmlFor="descrição">
+        Descrição :
+        <input type="text" id="descrição" name="descrição" />
       </label>
-      <label htmlFor="currency">
-        <select>
-          Moeda:
-        </select>
+      <label htmlFor="moeda">
+        Moeda :
+        <select id="moeda"> </select>
       </label>
       <label htmlFor="payment">
-        Método de pagamento
+        Método de pagamento :
         <select
-          name="payment"
+          name={ payment }
+          id="payment"
           value={ payment }
           onChange={ ({ target }) => setPayment({ name: target.value }) }
         >
@@ -34,7 +34,8 @@ function FormWallet() {
       <label htmlFor="tag">
         Tag
         <select
-          name="tag"
+          name={ tag }
+          id="tag"
           value={ tag }
           onChange={ ({ target }) => setTag({ name: target.value }) }
         >
