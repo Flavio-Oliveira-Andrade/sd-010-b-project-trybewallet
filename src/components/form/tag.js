@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Tag() {
-  const [tag, setTag] = useState({ name: 'alimentação' });
+  const [tag, setTag] = useState('alimentação');
 
   return (
     <label htmlFor="tag">
@@ -10,7 +10,7 @@ export default function Tag() {
         name={ tag }
         id="tag"
         value={ tag }
-        onChange={ ({ target }) => setTag({ name: target.value }) }
+        onChange={ ({ target }) => setTag(target.value) }
       >
         <option value="Alimentação">Alimentação</option>
         <option value="Lazer">Lazer</option>

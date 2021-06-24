@@ -1,13 +1,8 @@
-import axios from 'axios';
-
 const apiUrl = 'https://economia.awesomeapi.com.br/json/all';
 
 export default async function fetchCurrency() {
-  await axios.get(apiUrl)
-    .then((response) => {
-      const res = response.data;
-      delete res.USDT;
-      console.log(res);
-      return res;
-    });
+  const response = await fetch(apiUrl);
+  const responseJson = await response.json();
+  delete responseJson.USDT;
+  return responseJson;
 }

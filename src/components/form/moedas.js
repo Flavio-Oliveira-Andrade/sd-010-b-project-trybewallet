@@ -12,8 +12,8 @@ export default function Moedas() {
   }, []);
 
   const moedas = Object.keys(currency).map((item) => (
-    <option key={ item }>
-      {item.name}
+    <option key={ item } value={ item }>
+      {item}
     </option>
   ));
 
@@ -21,7 +21,7 @@ export default function Moedas() {
     <div>
       <label htmlFor="moeda">
         Moeda :
-        <select id="moeda">
+        <select id="moeda" value={ currency }>
           { moedas }
         </select>
       </label>
