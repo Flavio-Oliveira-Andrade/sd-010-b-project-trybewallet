@@ -25,6 +25,8 @@ function wallet(state = INITIAL_STATE, action) {
     };
   case 'EXPENSEFORM':
     return { ...state, expenseForm: action.expenseForm };
+  case 'DELETE':
+    return { ...state, expenses: action.newExpenses };
   default:
     return state;
   }

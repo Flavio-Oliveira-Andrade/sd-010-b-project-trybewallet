@@ -1,24 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Thead from './Thead';
+import { deleteAction } from '../actions';
 
 class ExpenseTable extends React.Component {
+  delete({ target: { id } }) {
+    const { expenses, deleteExpenses } = this.props;
+    const newExpenses = expenses.filter((e) => e.id !== parseInt(id, 10));
+    deleteExpenses(newExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          <Thead />
         </thead>
         <tbody>
           {expenses.map((expense) => {
@@ -37,10 +35,17 @@ class ExpenseTable extends React.Component {
                 <td>{(ask * parseInt(value, 10)).toFixed(2)}</td>
                 <td>Real</td>
                 <td>
-                  <button data-testid="delete-btn" type="button">
+                  <button
+                    type="button"
+                  >
                     Editar
                   </button>
-                  <button data-testid="delete-btn" type="button">
+                  <button
+                    data-testid="delete-btn"
+                    id={ id }
+                    onClick={ (e) => this.delete(e) }
+                    type="button"
+                  >
                     Excluir
                   </button>
                 </td>
@@ -57,8 +62,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpenses: (newExpenses) => dispatch(deleteAction(newExpenses)),
+});
+
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
+  deleteExpenses: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(ExpenseTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

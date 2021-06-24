@@ -34,7 +34,10 @@ class Wallet extends React.Component {
             data-testid="total-field"
           >
             {`Despesas totais: R$ ${expenses.reduce(
-              (acc, expense) => (acc + parseInt(expense.value, 10)), 0,
+              (acc, expense) => (
+                acc + parseInt(expense.value, 10)
+                * expense.exchangeRates[expense.currency].ask
+              ), 0,
             )} `}
           </span>
           <span

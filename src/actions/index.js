@@ -5,6 +5,7 @@ export const ISDISABLED = 'ISDISABLED';
 export const CURRENCIES = 'CURRENCIES';
 export const EXPENSES = 'EXPENSES';
 export const EXPENSEFORM = 'EXPENSEFORM';
+export const DELETE = 'DELETE';
 
 export const emailAction = (email) => ({
   type: EMAIL,
@@ -35,4 +36,9 @@ export const expensesAction = (expenses, ID) => ({
 export const expenseFormAction = (expenseForm) => ({
   type: EXPENSEFORM,
   expenseForm,
+});
+
+export const deleteAction = (newExpenses) => ({
+  type: DELETE,
+  newExpenses,
 });
