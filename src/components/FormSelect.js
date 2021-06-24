@@ -20,6 +20,7 @@ class FormSelect extends React.Component {
   }
 
   render() {
+    // [{texto: 'valor', titulo: 'Valor', testid: 'test', funcao: () => {} }, {texto: 'valor', titulo: 'Valor', testid: 'test', funcao: () => {} }].map((e) => <FormSelect key={e.texto} {...e}/>)
     const { texto, titulo, testid, funcao } = this.props;
     const { array } = this.state;
     return (
