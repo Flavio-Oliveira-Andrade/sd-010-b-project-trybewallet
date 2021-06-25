@@ -14,7 +14,6 @@ class HeaderWallet extends React.Component {
 }
 
 HeaderWallet.propTypes = {
-  value: PropTypes.number.isRequired,
   email: PropTypes.string.isRequired,
 };
 
