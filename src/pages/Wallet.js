@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { tagItems, payMethod } from './WalletArrays';
 import HeaderWallet from './HeaderWallet';
-import { loadDataSuccess } from '../actions/index';
+import { exchangeRates } from '../actions/index';
 import Table from './Table';
 import ButtonAdd from './buttonAdd';
 
@@ -14,7 +14,7 @@ class Wallet extends React.Component {
     this.state = {
       coins: [],
       number: 0,
-      expense: {
+      expenses: {
         id: 0,
         value: 0,
         currency: '',
@@ -76,31 +76,32 @@ class Wallet extends React.Component {
   }
 
   handle({ target: { value, name } }) {
-    const { expense } = this.state;
+    const { expenses } = this.state;
     this.setState({
-      expense: {
-        ...expense,
+      expenses: {
+        ...expenses,
         [name]: value,
       },
     });
   }
 
   handleClick() {
-    const { expense } = this.state;
-    const { expense: { id } } = this.state;
+    const { expenses } = this.state;
+    const { expenses: { id } } = this.state;
     this.setState({
-      expense: {
-        ...expense,
+      expenses: {
+        ...expenses,
         id: id + 1,
       },
     });
     const { data } = this.props;
-    data(expense);
+    data(expenses);
   }
 
   render() {
-    const { coins, number, expense: { value } } = this.state;
+    const { coins, number, expenses: { value } } = this.state;
     const { expenses, total, email } = this.props;
+    console.log(this.props);
     const coinsArr = Object.keys(coins);
     return (
       <header>
@@ -147,7 +148,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  data: (state) => dispatch(loadDataSuccess(state)),
+  data: (state) => dispatch(exchangeRates(state)),
 });
 
 Wallet.propTypes = {

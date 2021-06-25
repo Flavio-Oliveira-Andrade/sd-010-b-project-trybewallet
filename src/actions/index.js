@@ -1,26 +1,32 @@
-// Coloque aqui suas actions
-const addEmail = (payLoad) => ({
-  type: 'ADD_EXPENSES',
-  payLoad,
+const logginSucess = (email) => ({
+  type: 'loggin_sucess',
+  email,
 });
-
-export const loadSuccess = (exchangeRates, data) => ({
+const addExpenses = (expenses) => ({
+  type: 'ADD_EXPENSES',
+  expenses,
+});
+const loadExchange = (exchangeRates, data) => ({
   type: 'REQUEST_EXCHANGE',
   payLoad: {
     exchangeRates,
     ...data,
   },
 });
-
 export const removeExpense = (payLoad) => ({
   type: 'REMOVE',
   payLoad,
 });
-
-export const loadDataSuccess = (data) => async (dispatch) => {
-  const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const resolve = await api.json();
-  dispatch(loadSuccess(resolve, data));
+export const exchangeRates = (data) => async (dispatch) => {
+  const baseUrl = 'https://economia.awesomeapi.com.br/json/all';
+  const endPoint = await fetch(baseUrl);
+  const resolve = await endPoint.json();
+  dispatch(loadExchange(resolve, data));
 };
-
-export default addEmail;
+const storeLog = (email) => (dispatch) => {
+  dispatch(logginSucess(email));
+};
+export const storeExpenses = (expenses) => (dispatch) => {
+  dispatch(addExpenses(expenses));
+};
+export default storeLog;
