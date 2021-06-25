@@ -44,14 +44,14 @@ class Expendes extends Component {
           <td>{this.convertValue(value, exchangeRates[currency].ask)}</td>
           <td>{this.getCoin(exchangeRates[currency].name)[1]}</td>
           <td>
-          <button
-            type="button"
-            data-testid="delete-btn"
-            className="btn-delet"
-            onClick={ () => deletExpense(id) }
-          >
-          Deletar
-          </button>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              className="btn-delet"
+              onClick={ () => deletExpense(id) }
+            >
+            Deletar
+            </button>
           </td>
         </tr>))
     );
