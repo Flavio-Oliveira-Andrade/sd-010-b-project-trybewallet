@@ -43,7 +43,7 @@ export const sumExpense = () => ({
 
 export const dellExpense = (expenses) => ({
   type: DELETE_EXPENSE,
-  payload: expenses,
+  payload: { expenses },
 });
 
 export default userAction;
