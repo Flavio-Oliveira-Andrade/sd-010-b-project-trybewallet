@@ -29,15 +29,12 @@ class Expense extends React.Component {
   }
 
   onClick() {
-    const { addExpenses, getCurrency } = this.props;
+    const { id, updateId, addExpenses,
+      getCurrency, currencies2: exchangeRates } = this.props;
 
-    this.setState((previousState) => ({
-      id: previousState.id + 1,
-      value: 0,
-      description: '',
-    }));
-
-    addExpenses(this.state);
+    this.setState({ value: 0, description: '' });
+    updateId();
+    addExpenses({ ...this.state, exchangeRates, id });
     getCurrency();
   }
 
@@ -94,6 +91,7 @@ class Expense extends React.Component {
             key={ index }
             value={ result }
             data-testid={ result }
+            className="moeda"
           >
             { result }
           </option>
@@ -183,8 +181,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Expense.propTypes = {
-  currencies: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.func).isRequired,
+  currencies2: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCurrency: PropTypes.func.isRequired,
+  updateId: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   addExpenses: PropTypes.func.isRequired,
 };

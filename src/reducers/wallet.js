@@ -1,4 +1,4 @@
-import { REQUEST_API, GET_COTATION, ADD_EXPENSE } from '../actions';
+import { REQUEST_API, GET_COTATION, ADD_EXPENSE, DEL_ITEM } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -30,6 +30,11 @@ function walletReducer(state = INITIAL_STATE, action) {
           exchangeRates: state.currencies,
         },
       ],
+    };
+  case DEL_ITEM:
+    return {
+      ...state,
+      expenses: state.expenses.filter((item) => item.id !== action.id),
     };
   default:
     return state;
