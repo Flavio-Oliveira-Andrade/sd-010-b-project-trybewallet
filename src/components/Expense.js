@@ -84,6 +84,7 @@ class Expense extends React.Component {
         data-testid="currency-input"
         value={ currency }
         id="moeda"
+        className="moeda"
         onChange={ (e) => this.setState({ currency: e.target.value }) }
       >
         { loading ? null : Object.keys(currencies).filter(
@@ -108,6 +109,7 @@ class Expense extends React.Component {
         data-testid="tag-input"
         value={ tag }
         id="tag"
+        className="tag"
         onChange={ (e) => this.setState({ tag: e.target.value }) }
       >
         <option value="Alimentação">Alimentação</option>
@@ -145,17 +147,20 @@ class Expense extends React.Component {
           Tag:
           {this.renderizaSelectTag()}
         </label>
-        <label htmlFor="name">
-          Descrição:
-          <input
-            type="text"
-            data-testid="description-input"
-            value={ description }
-            onChange={ (e) => this.setState({ description: e.target.value }) }
-          />
+        <label htmlFor="descricao">
+            Descrição
+            <input
+              type="text"
+              id="descricao"
+              data-testid="description-input"
+              className="descricao"
+              value={ description }
+              onChange={ (e) => this.setState({ description: e.target.value }) }
+            />
         </label>
         <button
           type="button"
+          className="button"
           onClick={ this.onClick }
         >
           Adicionar despesa
