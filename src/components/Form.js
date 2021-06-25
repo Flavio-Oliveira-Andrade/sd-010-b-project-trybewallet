@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 // import { Container } from './styles';
 function inputMethod(tableItem, setTableItem) {
   return (
@@ -112,7 +113,7 @@ function inputCurrency(currencyState, tableItem, setTableItem) {
   );
 }
 
-function From(props) {
+function Form(props) {
   const dispatch = useDispatch();
   const { totalValue, setTotalValue } = props;
   const [currencyState, setCurrencyState] = useState([]);
@@ -162,4 +163,9 @@ function From(props) {
   );
 }
 
-export default From;
+Form.propTypes = {
+  totalValue: PropTypes.number.isRequired,
+  setTotalValue: PropTypes.func.isRequired,
+};
+
+export default Form;
