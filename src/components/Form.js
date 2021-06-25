@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '../api';
 
 // import { Container } from './styles';
 function inputMethod() {
@@ -13,21 +14,6 @@ function inputMethod() {
         <option>Dinheiro</option>
         <option>Cartão de crédito</option>
         <option>Cartão de débito</option>
-      </select>
-    </label>
-  );
-}
-
-function inputCurrency() {
-  return (
-    <label className="labels-form" htmlFor="currencie">
-      Moeda
-      <select
-        className="inputs-form"
-        id="currencie"
-        name="currency"
-      >
-        <option value="Teste">Teste</option>
       </select>
     </label>
   );
@@ -53,13 +39,35 @@ function inputTag() {
 }
 
 function From() {
+  const [currency, setCurrency] = useState([]);
+
+  async function getApi() {
+    const JSON = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const cotation = await JSON.json();
+    const currencies = Object.keys(cotation)
+      .filter((item) => item !== 'USDT');
+    setCurrency(currencies);
+  }
+
+  useEffect(() => {
+    getApi();
+  }, []);
   return (
     <form>
       <label htmlFor="value">
         Valor:
         <input type="number" id="value" name="value" />
       </label>
-      { inputCurrency() }
+      <label className="labels-form" htmlFor="currencie">
+        Moeda
+        <select
+          className="inputs-form"
+          id="currencie"
+          name="currency"
+        >
+          {currency.map((item) => <option key={ item } value={ item }>{item}</option>)}
+        </select>
+      </label>
       { inputMethod() }
       {inputTag()}
       <label className="labels-form" htmlFor="description">
