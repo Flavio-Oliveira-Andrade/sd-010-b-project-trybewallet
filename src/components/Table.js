@@ -1,19 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { action } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
     super(props);
 
-    this.removeExpense = this.removeExpense.bind(this);
-    this.tableHeader = this.tableHeader.bind(this);
+    this.remover = this.remover.bind(this);
+    this.tHeader = this.tHeader.bind(this);
 
     this.state = {};
   }
 
-  removeExpense(event) {
+  remover(event) {
     event.preventDefault();
     const id = event.target.value;
     const { myDispatch } = this.props;
@@ -23,7 +23,7 @@ class Table extends React.Component {
     });
   }
 
-  tableHeader() {
+  tHeader() {
     return (
       <tr>
         <th>Descrição</th>
@@ -44,7 +44,7 @@ class Table extends React.Component {
     return (
       <table>
         <tbody>
-          {this.tableHeader()}
+          {this.tHeader()}
           {expenses.map((entry, index) => (
             <tr key={ index }>
               <td>{entry.description}</td>
@@ -63,7 +63,7 @@ class Table extends React.Component {
                   type="button"
                   data-testid="delete-btn"
                   value={ entry.id }
-                  onClick={ this.removeExpense }
+                  onClick={ this.remover }
                 >
                   Excluir
                 </button>

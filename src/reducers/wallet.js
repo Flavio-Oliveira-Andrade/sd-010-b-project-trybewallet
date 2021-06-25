@@ -1,12 +1,23 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  errors: '',
+  error: '',
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case 'CURRENCY':
+  case 'ADD_EXPENSE':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
+    };
+  case 'REMOVE_EXPENSE':
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((entry) => (
+        entry.id !== parseInt(action.payload, 10)))],
+    };
+  case 'GET_CURRENCY':
     return {
       ...state,
       currencies: [
@@ -14,18 +25,7 @@ function walletReducer(state = INITIAL_STATE, action) {
         action.payload,
       ],
     };
-  case 'ADD_EXPENSE':
-    return {
-      ...state,
-      expenses: [...state.expenses, action.payload],
-    };
-  case 'REMOVE_EXPENSIVE':
-    return {
-      ...state,
-      expenses: [...state.expenses.filter((entry) => (
-        entry.id !== parseInt(action.payload, 10)))],
-    };
-  case 'FAIL':
+  case 'FAILED_REQUEST':
     return {
       ...state,
       error: action.payload,

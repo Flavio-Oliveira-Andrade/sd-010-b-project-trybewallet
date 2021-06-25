@@ -8,10 +8,9 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    this.changeHandler = this.changeHandler.bind(this);
-    this.checker = this.checker.bind(this);
-    this.redirects = this.redirects.bind(this);
-    this.saveMe = this.saveMe.bind(this);
+    this.changer = this.changer.bind(this);
+    this.regex = this.regex.bind(this);
+    this.saveLogin = this.saveLogin.bind(this);
 
     this.state = {
       email: '',
@@ -21,31 +20,17 @@ class Login extends React.Component {
     };
   }
 
-  checker() {
+  changer({ target }) {
+    const { name, value } = target;
     const { email, password } = this.state;
-    const regex = /\S+@\S+\.\S+/;
-    const noMagicNumbers = 5;
-    if (regex.test(email) && password.length >= noMagicNumbers) {
+    const minPasswordLength = 5;
+    this.setState({
+      [name]: value,
+    });
+    if (this.regex(email) && (password.length >= minPasswordLength)) {
       this.setState({
         isDisabled: false,
       });
-    }
-  }
-
-  changeHandler(event) {
-    this.setState({
-      [event.target.type]: event.target.value,
-    });
-    this.checker();
-  }
-
-  saveMe(event) {
-    event.preventDefault();
-    const { myDispatch } = this.props;
-    const { email, passwd } = this.state;
-    if (email && passwd) {
-      myDispatch({ type: 'LOGIN', payload: email });
-      this.setState({ redirect: true });
     } else {
       this.setState({
         isDisabled: true,
@@ -53,46 +38,62 @@ class Login extends React.Component {
     }
   }
 
-  redirects(email) {
+  saveLogin(e) {
+    e.preventDefault();
     const { myDispatch } = this.props;
-    myDispatch(email);
-    this.setState({
-      redirect: true,
-    });
+    const { email, password } = this.state;
+    if (email && password) {
+      myDispatch({ type: 'LOGIN', payload: email });
+      this.setState({ redirect: true });
+    }
+  }
+
+  regex(email) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
   }
 
   render() {
-    const { isDisabled, redirect } = this.state;
-    if (redirect) return <Redirect to="/carteira" />;
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/carteira" />;
+    }
+    const { isDisabled } = this.state;
     return (
-      <div>
-        <div>Login</div>
-        <input
-          type="email"
-          placeholder="Email"
-          data-testid="email-input"
-          onChange={ this.changeHandler }
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          data-testid="password-input"
-          onChange={ this.changeHandler }
-        />
+      <form className="login-form">
+        <h1>Trybe Wallet</h1>
+        <label htmlFor="email">
+          E-mail:
+          <input
+            type="email"
+            name="email"
+            onChange={ this.changer }
+            data-testid="email-input"
+          />
+        </label>
+        <label htmlFor="password">
+          Senha:
+          <input
+            type="password"
+            name="password"
+            onChange={ this.changer }
+            data-testid="password-input"
+          />
+        </label>
         <button
           type="button"
+          onClick={ this.saveLogin }
           disabled={ isDisabled }
-          onClick={ this.saveMe }
         >
           Entrar
         </button>
-      </div>
+      </form>
     );
   }
 }
 
-const mapDispatchToProps = (propSender) => ({
-  myDispatch: (value) => propSender(action(value)),
+const mapDispatchToProps = (dispatch) => ({
+  myDispatch: (state) => dispatch(action(state)),
 });
 
 Login.propTypes = {

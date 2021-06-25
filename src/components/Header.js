@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.sumItAll = this.sumItAll.bind(this);
+
+    this.theSum = this.theSum.bind(this);
   }
 
-  sumItAll() {
+  theSum() {
     const { expenses } = this.props;
     const expensesArray = expenses.map((entry) => (
       entry.value * entry.exchangeRates[entry.currency].ask));
@@ -21,13 +22,16 @@ class Header extends React.Component {
     return (
       <header>
         <div data-testid="email-field">
+          E-mail:&nbsp;
           { email }
         </div>
         <div data-testid="total-field">
-          { expenses.lenght > 0 ? this.sumItAll() : 0 }
+          Despesa total:&nbsp;
+          { expenses.length > 0 ? this.theSum() : 0}
         </div>
         <div data-testid="header-currency-field">
-          Cambio
+          Câmbio utilizado:&nbsp;
+          BRL
         </div>
       </header>
     );

@@ -6,24 +6,25 @@ import { action, goFetch } from '../actions';
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.changeHandler.bind(this);
+
+    this.changer = this.changer.bind(this);
     this.submit = this.submit.bind(this);
 
     this.state = {
       valor: undefined,
       descricao: undefined,
       moeda: 'USD',
-      pag: undefined,
+      'método de pagamento': undefined,
       tag: undefined,
     };
   }
 
   componentDidMount() {
-    const { dispatch2Fetch } = this.props;
-    dispatch2Fetch();
+    const { myDispatchToFetch } = this.props;
+    myDispatchToFetch();
   }
 
-  changeHandler({ target }) {
+  changer({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -32,17 +33,17 @@ class Form extends React.Component {
 
   async submit(event) {
     event.preventDefault();
-    const { entradas, cotacoes, myDispatch, dispatch2Fetch } = this.props;
-    await dispatch2Fetch();
-    const { valor, descricao, moeda, pagamento, tag } = this.state;
-    let ID = 0;
-    if (entradas.lenght > 0) {
-      ID = (entradas[entradas.lenght - 1].id) + 1;
+    const { entradas, cotacoes, myDispatch, myDispatchToFetch } = this.props;
+    await myDispatchToFetch();
+    const { valor, descricao, 'método de pagamento': pagamento, moeda, tag } = this.state;
+    let newId = 0;
+    if (entradas.length > 0) {
+      newId = (entradas[entradas.length - 1].id) + 1;
     }
     myDispatch({
       type: 'ADD_EXPENSE',
       payload: {
-        id: ID,
+        id: newId,
         value: valor,
         currency: moeda,
         method: pagamento,
@@ -54,31 +55,32 @@ class Form extends React.Component {
   }
 
   render() {
-    const { moeda, pag: pagamento, tag } = this.state;
+    const { moeda, 'método de pagamento': pagamento, tag } = this.state;
     const { moedas } = this.props;
     return (
       <form onSubmit={ this.submit }>
         <label htmlFor="valor">
-          valor
-          <input onChange={ this.changeHandler } id="valor" type="number" />
+          Valor
+          <input onChange={ this.changer } id="valor" name="valor" type="number" />
         </label>
         <label htmlFor="descricao">
-          <textarea name="descricao" id="descricao" onChange={ this.changeHandler } />
+          Descrição
+          <textarea name="descricao" id="descricao" onChange={ this.changer } />
         </label>
         <label htmlFor="moeda">
-          moeda
-          <select id="moeda" name="moeda" value={ moeda } onChange={ this.changeHandler }>
+          Moeda
+          <select id="moeda" name="moeda" value={ moeda } onChange={ this.changer }>
             { Array.isArray(moedas) ? (moedas.map((entry) => (
               <option key={ entry } value={ entry }>{ entry }</option>))) : '' }
           </select>
         </label>
-        <label htmlFor="pagamento">
-          Pagamento
+        <label htmlFor="método de pagamento">
+          Método de pagamento
           <select
-            id="pag"
-            name="pag"
+            id="método de pagamento"
+            name="método de pagamento"
             value={ pagamento }
-            onChange={ this.changeHandler }
+            onChange={ this.changer }
           >
             <option hiddden="true">-</option>
             <option key="dinheiro" value="Dinheiro">Dinheiro</option>
@@ -88,7 +90,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag" name="tag" value={ tag } onChange={ this.handleChange }>
+          <select id="tag" name="tag" value={ tag } onChange={ this.changer }>
             <option hiddden="true">-</option>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
@@ -105,7 +107,7 @@ class Form extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   myDispatch: (state) => dispatch(action(state)),
-  dispatch2Fetch: () => dispatch(goFetch()),
+  myDispatchToFetch: () => dispatch(goFetch()),
 });
 
 const mapStateToProps = (state) => ({
@@ -119,7 +121,7 @@ Form.propTypes = {
   entradas: PropTypes.arrayOf(PropTypes.any),
   moedas: PropTypes.arrayOf(PropTypes.any),
   myDispatch: PropTypes.func.isRequired,
-  dispatch2Fetch: PropTypes.func.isRequired,
+  myDispatchToFetch: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
