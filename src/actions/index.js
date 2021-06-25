@@ -12,10 +12,18 @@ export const apiSuccess = (rates, data) => ({
   },
 });
 
+export const requestFAIL = (error) => ({
+  type: 'FAIL_REQUEST', payload: { error },
+});
+
 export const loadData = (data) => async (dispatch) => {
-  const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const promise = await api.json();
-  dispatch(apiSuccess(promise, data));
+  try {
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const promise = await api.json();
+    dispatch(apiSuccess(promise, data));
+  } catch (error) {
+    dispatch(requestFAIL(error));
+  }
 };
 
 export default login;

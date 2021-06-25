@@ -20,7 +20,10 @@ const walletReducer = (state = initialState, action) => {
   {
     const newState = {
       ...state,
-      expenses: [...state.expenses, ...action.payload],
+      expenses: [...state.expenses, { id: state.expenses.length === 0 ? 0
+        : state.expenses[state.expenses.length - 1].id + 1,
+      ...action.payload,
+      }],
     };
     newState.total = update(newState);
     return newState;
