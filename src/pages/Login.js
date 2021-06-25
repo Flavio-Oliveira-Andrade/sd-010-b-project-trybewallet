@@ -11,6 +11,7 @@ class Login extends React.Component {
     this.changeHandler = this.changeHandler.bind(this);
     this.checker = this.checker.bind(this);
     this.redirects = this.redirects.bind(this);
+    this.saveMe = this.saveMe.bind(this);
 
     this.state = {
       email: '',
@@ -38,16 +39,30 @@ class Login extends React.Component {
     this.checker();
   }
 
+  saveMe(event) {
+    event.preventDefault();
+    const { myDispatch } = this.props;
+    const { email, passwd } = this.state;
+    if (email && passwd) {
+      myDispatch({ type: 'LOGIN', payload: email });
+      this.setState({ redirect: true });
+    } else {
+      this.setState({
+        isDisabled: true,
+      });
+    }
+  }
+
   redirects(email) {
-    const { setEmail } = this.props;
-    setEmail(email);
+    const { myDispatch } = this.props;
+    myDispatch(email);
     this.setState({
       redirect: true,
     });
   }
 
   render() {
-    const { isDisabled, email, redirect } = this.state;
+    const { isDisabled, redirect } = this.state;
     if (redirect) return <Redirect to="/carteira" />;
     return (
       <div>
@@ -67,7 +82,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ isDisabled }
-          onClick={ () => this.redirects(email) }
+          onClick={ this.saveMe }
         >
           Entrar
         </button>
@@ -77,11 +92,11 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (propSender) => ({
-  setEmail: (value) => propSender(action(value)),
+  myDispatch: (value) => propSender(action(value)),
 });
 
 Login.propTypes = {
-  setEmail: PropTypes.func.isRequired,
+  myDispatch: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
