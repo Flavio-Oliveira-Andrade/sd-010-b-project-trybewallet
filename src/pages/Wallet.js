@@ -5,6 +5,7 @@ import { tagItems, payMethod } from './WalletArrays';
 import HeaderWallet from './HeaderWallet';
 import { loadDataSuccess } from '../actions/index';
 import Table from './Table';
+import ButtonAdd from './buttonAdd';
 
 class Wallet extends React.Component {
   constructor() {
@@ -14,7 +15,7 @@ class Wallet extends React.Component {
       coins: [],
       expense: {
         id: 0,
-        value: '',
+        value: 0,
         currency: '',
         method: '',
         tag: '',
@@ -60,7 +61,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { coins } = this.state;
+    const { coins, expense: { value } } = this.state;
     const { expenses, total, email } = this.props;
     const coinsArr = Object.keys(coins);
     return (
@@ -69,7 +70,13 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="value">
             Valor
-            <input type="number" name="value" id="value" onChange={ this.handle } />
+            <input
+              type="number"
+              value={ value }
+              name="value"
+              id="value"
+              onChange={ this.handle }
+            />
           </label>
           <label htmlFor="description">
             Descrição
@@ -97,13 +104,7 @@ class Wallet extends React.Component {
               {tagItems.map((item, index) => <option key={ index }>{item}</option>)}
             </select>
           </label>
-          <button
-            type="button"
-            data-testid="delete-btn"
-            onClick={ this.handleClick }
-          >
-            Adicionar despesa
-          </button>
+          <ButtonAdd onClick={ this.handleClick } />
         </form>
         <Table expenses={ expenses } />
       </header>
