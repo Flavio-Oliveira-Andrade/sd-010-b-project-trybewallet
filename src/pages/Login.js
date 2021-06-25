@@ -5,7 +5,6 @@ import { Redirect } from 'react-router';
 // import { Link as button } from 'react-router-dom';
 
 import { addEmail } from '../actions';
-import { setEmailAction, setPasswordAction } from '../actions/userAction';
 import '../css/loginPage.css';
 
 class Login extends React.Component {
@@ -69,8 +68,6 @@ class Login extends React.Component {
             password.length <= serialLength || (!this.handleVerify())
           }
           onClick={ () => {
-            setEmailAction(email);
-            setPasswordAction(password);
             const { addEmailUser } = this.props;
             addEmailUser(email);
             this.setState({ redirect: true });
@@ -93,8 +90,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addEmailUser: (email) => dispatch(addEmail(email)),
-  setEmailAction: (email) => dispatch(setEmailAction(email)),
-  setPasswordAction: (password) => dispatch(setPasswordAction(password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

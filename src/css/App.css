@@ -1,51 +1,57 @@
-/* * {
-    box-sizing: border-box;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  input {
-    border:none;
-    background-image:none;
-    background-color:transparent;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    background-color: #404040;
-    color: white;
-    padding: 10px;
-    margin: 10px;
-  }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
 
-  a {
-    text-decoration: none;
-    color: rgb(102, 177, 243);
-  }
+input, select {
+  border:none;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-color: #404040;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+}
 
-  .link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+a {
+  text-decoration: none;
+  color: rgb(102, 177, 243);
+}
 
-  .Login {
-    background-color: #333333;
-    border-radius: 4px;
-    padding: 20px;
-  }
+.link {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
 
-  .Login .login-inputs {
-    display: flex;
-    flex-direction: column;
-  }
+.Login {
+  background-color: #333333;
+  border-radius: 4px;
+  padding: 20px;
+}
 
-  button {
-    border:none;
-    background-image:none;
-    background-color:transparent;
-    background-color: #ffffff;
-    color: rgb(102, 177, 243);
-    padding: 10px;
-    margin: 10px;
-    font-weight: 800;
-    border: 5px;
-  } */
+.Login .login-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background-image:none;
+  background-color:transparent;
+  background-color: #ffffff;
+  border:none;
+  color: rgb(102, 177, 243);
+  font-weight: 800;
+  margin: 10px;
+  padding: 10px;
+}

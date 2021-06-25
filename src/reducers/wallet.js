@@ -1,16 +1,33 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-const initialState = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+import { ADD, SAVE, REMOVE } from '../actions/types';
+
+const INITIAL_STATE = {
+  currencies: [],
+  expenses: [],
 };
 
-export default function walletReducer(state = initialState, action) {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  // case value:
-  //   break;
+  case SAVE:
+    return {
+      ...state,
+      currencies: action.payload.currencies,
+    };
+  case ADD:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload.expense],
+    };
+  case REMOVE: {
+    const newExpenses = state.expenses
+      .filter((expense) => expense.id !== action.payload.id);
+    return {
+      ...state,
+      expenses: newExpenses,
+    };
+  }
   default:
     return state;
   }
-}
+};
+
+export default wallet;

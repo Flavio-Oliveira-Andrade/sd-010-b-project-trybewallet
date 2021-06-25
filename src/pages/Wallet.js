@@ -1,28 +1,60 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import FormWallet from '../components/formWallet';
+import Moedas from '../components/form/moedas';
+import Valor from '../components/form/valor';
+import Payment from '../components/form/payment';
+import Tag from '../components/form/tag';
+import Descrição from '../components/form/descrição';
+import Header from '../components/header';
+import { addExpense, fetchExp } from '../actions/index';
 
 function Wallet(props) {
-  const despesa = useState(0);
+  const [id, setId] = useState(0);
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('hot-dog');
+  const [method, setMethod] = useState('Dinheiro');
+  const [tag, setTag] = useState('Alimentação');
+  const [currency, setCurrency] = useState('USD');
+  const { despesa, setDespesa } = useState(0);
+  const { email, fetchExpenses, currencies } = props;
 
-  const { email } = props;
+  if (currencies.length === 0) {
+    fetchExpenses();
+  }
+  const mountExpense = async () => {
+    fetchExpenses();
+    const newExpense = { id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: currencies,
+    };
+    const { addExpenseToState } = props;
+    addExpenseToState(newExpense);
+  };
+
   return (
     <div>
-      <header>
-        <p data-testid="email-field">
-          Email:
-          { email }
-        </p>
-        <p data-testid="total-field">
-          Despesa:
-          { ` ${despesa}` }
-        </p>
-        <p data-testid="header-currency-field">
-          Câmbio: BRL
-        </p>
-      </header>
-      <FormWallet />
+      <Header despesa={ despesa } setDespesa={ setDespesa } email={ email } />
+      <form>
+        <Valor value={ value } setValue={ setValue } />
+        <Descrição description={ description } setDescription={ setDescription } />
+        <Moedas currency={ currency } setCurrency={ setCurrency } />
+        <Payment method={ method } setMethod={ setMethod } />
+        <Tag tag={ tag } setTag={ setTag } />
+      </form>
+      <button
+        type="submit"
+        onClick={ () => {
+          setId(id + 1);
+          mountExpense();
+        } }
+      >
+        Adicionar despesa
+      </button>
     </div>
   );
 }
@@ -33,6 +65,13 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  fetchExpenses: () => dispatch(fetchExp()),
+  addExpenseToState: (expenses) => dispatch(addExpense(expenses)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

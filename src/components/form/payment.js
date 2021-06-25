@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // https://stackoverflow.com/questions/55757761/handle-an-input-with-react-hooks
-export default function Payment() {
-  const [payment, setPayment] = useState('dinheiro');
-
+// eslint-disable-next-line react/prop-types
+export default function Payment({ method, setMethod }) {
   return (
     <label htmlFor="payment">
-      Método de pagamento :
+      Método de method :
       <select
-        name={ payment }
+        name={ method }
         id="payment"
-        value={ payment }
-        onChange={ ({ target }) => setPayment(target.value) }
+        value={ method }
+        onChange={ ({ target }) => setMethod(target.value) }
       >
         <option value="Dinheiro">Dinheiro</option>
         <option value="Cartão de crédito">Cartão de crédito</option>

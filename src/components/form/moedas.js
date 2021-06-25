@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import fetchCurrency from '../../services/API';
 
-export default function Moedas() {
-  const [currency, setCurrency] = useState([]);
+// eslint-disable-next-line react/prop-types
+export default function Moedas({ currency, setCurrency }) {
+  const [currencies, setCurrencies] = useState([]);
 
   useEffect(() => {
     const fetchAPI = async () => {
-      setCurrency(await fetchCurrency());
+      setCurrencies(await fetchCurrency());
     };
     fetchAPI();
   }, []);
 
-  const moedas = Object.keys(currency).map((item) => (
+  const moedas = Object.keys(currencies).map((item) => (
     <option key={ item } value={ item }>
       {item}
     </option>
@@ -21,7 +22,12 @@ export default function Moedas() {
     <div>
       <label htmlFor="moeda">
         Moeda :
-        <select id="moeda" value={ currency }>
+        <select
+          id="moeda"
+          value={ moedas.item }
+          name={ currency }
+          onChange={ ({ target }) => setCurrency(target.value) }
+        >
           { moedas }
         </select>
       </label>

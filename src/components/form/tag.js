@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function Tag() {
-  const [tag, setTag] = useState('alimentação');
-
+// eslint-disable-next-line react/prop-types
+export default function Tag({ tag, setTag }) {
   return (
     <label htmlFor="tag">
       Tag
