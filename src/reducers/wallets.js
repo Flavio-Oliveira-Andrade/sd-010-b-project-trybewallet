@@ -1,4 +1,4 @@
-import initialState from './INITIAL_STATE';
+import initialState from './initialState';
 
 function totalSum(param) {
   const length = param.length <= 0
@@ -25,15 +25,14 @@ const wallet = (state = initialState, action) => {
     return value;
   }
   case 'REMOVE':
-    console.log(state);
-    {
-      const newState = {
-        ...state,
-        expenses: state.expenses.filter((i) => i.id !== Number(action.payLoad)),
-      };
-      newState.total = totalSum(newState.expenses);
-      return newState;
-    }
+  {
+    const newState = {
+      ...state,
+      expenses: state.expenses.filter((i) => i.id !== Number(action.payLoad)),
+    };
+    newState.total = totalSum(newState.expenses);
+    return newState;
+  }
   default:
     return state;
   }

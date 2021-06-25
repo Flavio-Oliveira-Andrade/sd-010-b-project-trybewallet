@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import addEmail from '../actions';
+import changeEmail from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -11,74 +11,78 @@ class Login extends React.Component {
       email: '',
       password: '',
       disable: true,
-      forcedRender: 0,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.verifyInputs = this.verifyInputs.bind(this);
-    this.loginUser = this.loginUser.bind(this);
+    this.handleState = this.handleState.bind(this);
+    this.storeDispatch = this.storeDispatch.bind(this);
   }
 
-  verifyInputs({ target: { value, name } }) {
-    const { forcedRender } = this.state;
-    this.setState({ forcedRender: forcedRender + 1 });
-    if (name.includes('email')) {
-      this.setState({ email: value });
-    } else { this.setState({ password: value }); }
+  handleState({ target: { value, name } }) {
+    this.setState({ [name]: value });
     this.handleChange();
   }
 
   handleChange() {
+    const lengthNumber = 5;
     const { email, password } = this.state;
-    const magicNumber = 5;
-    if (email.includes('.com') && password.length >= magicNumber) {
+    if (email.includes('.com') && password.length >= lengthNumber) {
       this.setState({ disable: false });
     } else {
       this.setState({ disable: true });
     }
   }
 
-  loginUser() {
+  storeDispatch() {
     const { email } = this.state;
-    const { payLoad } = this.props;
-    payLoad(email);
+    const { changeEmail: user } = this.props;
+    user(email);
+    console.log(email);
   }
 
   render() {
     const { disable } = this.state;
     return (
-      <div>
+      <section>
         <form>
-          <label htmlFor="input-email" id="email">
+          <label htmlFor="Email">
+            {' '}
             Email
             <input
               data-testid="email-input"
-              onChange={ this.verifyInputs }
-              type="text"
-              name="input-email"
-              id="input-email"
+              id="Email"
+              placeholder="Insert e-mail"
+              type="email"
+              name="email"
+              onChange={ this.handleState }
+              required
             />
           </label>
-          <label htmlFor="input-password">
-            Senha
+          <label htmlFor="Password">
+            {' '}
+            Password
             <input
               data-testid="password-input"
-              onChange={ this.verifyInputs }
-              type="password"
-              id="input-password"
-              name="input-password"
+              id="Password"
+              placeholder="Insert password"
+              type="text"
+              name="password"
+              min="6"
+              onChange={ this.handleState }
+              required
             />
           </label>
           <Link to="/carteira">
             <button
               type="submit"
+              id="loginButton"
               disabled={ disable }
-              onClick={ this.loginUser }
+              onClick={ this.storeDispatch }
             >
               Entrar
             </button>
           </Link>
         </form>
-      </div>
+      </section>
     );
   }
 }
@@ -86,13 +90,11 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
-
 const mapDispatchToProps = (dispatch) => ({
-  payLoad: (email) => dispatch(addEmail(email)),
-});
-
+  changeEmail: (email) => dispatch(changeEmail(email)),
+}
+);
 Login.propTypes = {
-  payLoad: PropTypes.func.isRequired,
+  changeEmail: PropTypes.func.isRequired,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

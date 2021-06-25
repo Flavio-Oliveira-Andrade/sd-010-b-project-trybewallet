@@ -77,9 +77,7 @@ class WalletTable extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   data: (id) => dispatch(removeExpense(id)),
 });
-
 WalletTable.propTypes = {
   data: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.string).isRequired };
-
 export default connect(null, mapDispatchToProps)(WalletTable);

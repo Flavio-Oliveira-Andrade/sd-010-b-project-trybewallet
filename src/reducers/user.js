@@ -1,4 +1,4 @@
-import initialState from './INITIAL_STATE';
+import initialState from './initialState';
 
 const user = (state = initialState, action) => {
   switch (action.type) {
