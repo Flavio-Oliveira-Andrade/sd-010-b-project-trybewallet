@@ -67,17 +67,17 @@ class Wallet extends React.Component {
       <header>
         <HeaderWallet value={ total } email={ email } onChange={ this.handle } />
         <form>
-          <label htmlFor="valueSpent">
+          <label htmlFor="value">
             Valor
-            <input type="number" name="value" id="valueSpent" onChange={ this.handle } />
+            <input type="number" name="value" id="value" onChange={ this.handle } />
           </label>
-          <label htmlFor="description-spent">
+          <label htmlFor="description">
             Descrição
-            <input id="description-spent" name="description" onChange={ this.handle } />
+            <input id="description" name="description" onChange={ this.handle } />
           </label>
-          <label htmlFor="coint-countrie">
+          <label htmlFor="currency">
             Moeda
-            <select id="coint-countrie" name="currency" onChange={ this.handle }>
+            <select id="currency" name="currency" onChange={ this.handle }>
               {
                 coinsArr
                   .filter((item) => item !== 'USDT')
@@ -85,15 +85,15 @@ class Wallet extends React.Component {
               }
             </select>
           </label>
-          <label htmlFor="payment-method">
+          <label htmlFor="method">
             Método de pagamento
-            <select id="payment-method" name="method" onChange={ this.handle }>
+            <select id="method" name="method" onChange={ this.handle }>
               {payMethod.map((item, index) => <option key={ index }>{item}</option>)}
             </select>
           </label>
-          <label htmlFor="tag-selection">
+          <label htmlFor="tag">
             Tag
-            <select id="tag-selection" name="tag" onChange={ this.handle }>
+            <select id="tag" name="tag" onChange={ this.handle }>
               {tagItems.map((item, index) => <option key={ index }>{item}</option>)}
             </select>
           </label>
