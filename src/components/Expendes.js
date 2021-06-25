@@ -50,7 +50,7 @@ class Expendes extends Component {
               className="btn-delet"
               onClick={ () => deletExpense(id) }
             >
-            Deletar
+              Deletar
             </button>
           </td>
         </tr>))
