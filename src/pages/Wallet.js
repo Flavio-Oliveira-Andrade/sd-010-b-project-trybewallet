@@ -3,7 +3,26 @@ import WalletHeader from '../components/WalletHeader';
 import './wallet.css';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      moedas: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((returnes) => returnes.json())
+      .then((resolves) => {
+        this.setState((oldState) => ({
+          ...oldState,
+          moedas: Object.keys(resolves),
+        }));
+      });
+  }
+
   render() {
+    const { moedas } = this.state;
     return (
       <>
         <WalletHeader />
@@ -19,7 +38,10 @@ class Wallet extends React.Component {
           <label htmlFor="select-moeda">
             Moeda
             <select id="select-moeda" name="select-moeda">
-              <option value="BRL">BRL</option>
+              {moedas.map((moeda) => (
+                moeda !== 'USDT'
+                && <option value={ moeda } key={ moeda }>{ moeda }</option>
+              ))}
             </select>
           </label>
           <label htmlFor="input-metodo-pgto">
