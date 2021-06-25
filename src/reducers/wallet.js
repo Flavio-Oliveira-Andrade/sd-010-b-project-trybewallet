@@ -1,7 +1,8 @@
 import {
   REQUEST_COINS_SUCESS,
   REQUEST_COINS_ERROR,
-  NEW_EXPENSE } from '../actions/walletActions';
+  NEW_EXPENSE,
+  DEL_EXPENSE } from '../actions/walletActions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -28,6 +29,11 @@ export default function walletReducer(state = INITIAL_STATE, action) {
         action.expense,
       ],
     });
+  case DEL_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
+    };
   default:
     return state;
   }
