@@ -158,7 +158,7 @@ function Form(props) {
       { inputMethod(tableItem, setTableItem) }
       {inputTag(tableItem, setTableItem)}
       {description(tableItem, setTableItem)}
-      <button onClick={ addItem } type="button">Adicionar</button>
+      <button onClick={ addItem } type="button">Adicionar despesa</button>
     </form>
   );
 }
