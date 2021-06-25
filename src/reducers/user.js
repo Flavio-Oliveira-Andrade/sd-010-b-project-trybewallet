@@ -2,9 +2,7 @@
 import { ADDEMAIL } from '../actions/index';
 
 const initialState = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 export default function emailReducer(state = initialState, action) {
