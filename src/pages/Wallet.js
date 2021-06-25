@@ -6,8 +6,6 @@ import Form from '../components/Form';
 function Wallet() {
   const [field, setField] = useState(0);
   const emailUser = useSelector((state) => state.user.email);
-  const walletUser = useSelector((state) => state.wallet.expenses);
-  console.log(walletUser);
 
   return (
     <>

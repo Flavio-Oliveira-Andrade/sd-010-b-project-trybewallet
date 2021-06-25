@@ -81,7 +81,6 @@ function description(tableItem, setTableItem) {
             ...tableItem,
             description: target.value,
           });
-          console.log(tableItem);
         } }
         type="text"
         id="description"
@@ -140,7 +139,6 @@ function Form(props) {
   useEffect(() => {
     getApi();
   }, []);
-  console.log(totalValue);
 
   async function addItem() {
     setTotalValue(totalValue + tableItem.value);
