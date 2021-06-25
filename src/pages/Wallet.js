@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editExp, loadData } from '../actions';
 
+const Methodpay = ['Dinheiro', 'Cartão de Crédito', 'Cartão de débito'];
+const Tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+
 class Wallet extends React.Component {
   // constructor() {
   //   super();
@@ -26,8 +29,47 @@ class Wallet extends React.Component {
     return (
       <div>
         <h1 data-testid="email-field">{ email }</h1>
-        <h1 data-testid="total-field">{`${total}`}</h1>
+        <h1 data-testid="total-field">{`$ ${total}`}</h1>
         <h1 data-testid="header-currency-field">BRL</h1>
+        <form>
+          <label htmlFor="valor">
+            Valor
+            <input
+              name="valor"
+              type="number"
+            />
+          </label>
+          <label htmlFor="description">
+            Descrição
+            <input
+              name="description"
+              type="text"
+            />
+          </label>
+          <label htmlFor="moeda">
+            Moeda
+            <select name="moeda">
+              <option value="1">1</option>
+            </select>
+          </label>
+          <label htmlFor="method_payment">
+            Método de pagamento
+            <select name="method_payment" id="method_payment">
+              { Methodpay.filter((opt) => opt !== 'USDT')
+                .map((op, index) => <option key={ index }>{op}</option>)}
+            </select>
+          </label>
+          <label htmlFor="category_expenses">
+            Tag
+            <select name="category_expenses">
+              {Tags.map((op, index) => (
+                <option key={ index }>
+                  {op}
+                  {' '}
+                </option>))}
+            </select>
+          </label>
+        </form>
       </div>
     );
   }
