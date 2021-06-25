@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import fetchCurrency from '../../services/API';
 
-export default function Moedas({ currency, setCurrency }) {
-  const [currencies, setCurrencies] = useState([]);
-
-  useEffect(() => {
-    const fetchAPI = async () => {
-      setCurrencies(await fetchCurrency());
-    };
-    fetchAPI();
-  }, []);
-
+export default function Moedas({ currencies, currency, setCurrency }) {
+  delete currencies.USDT;
   const moedas = Object.keys(currencies).map((item) => (
     <option key={ item } value={ item }>
       {item}

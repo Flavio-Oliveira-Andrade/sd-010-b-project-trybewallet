@@ -10,6 +10,8 @@ import Header from '../components/header';
 import { addExpense, fetchExp } from '../actions/index';
 import ExpensesTable from '../components/table/tableWallet';
 
+// Com a ajuda dos colegas Lucas Martins , Lucas Ribeiro e Dhiego, eu consegui pensar numa logica para validação
+// para chamar a API sem se tornar um looping, e povoar meu array, após o click.
 function Wallet(props) {
   const [id, setId] = useState(0);
   const [value, setValue] = useState('');
@@ -17,14 +19,10 @@ function Wallet(props) {
   const [method, setMethod] = useState('Dinheiro');
   const [tag, setTag] = useState('Alimentação');
   const [currency, setCurrency] = useState('USD');
-  const { despesa, setDespesa } = useState(0);
   const { email, fetchExpenses, currencies } = props;
-
-  if (currencies.length === 0) {
-    fetchExpenses();
-  }
+  if (currencies.length === 0) fetchExpenses();
   const mountExpense = async () => {
-    // fetchExpenses();
+    fetchExpenses();
     const newExpense = { id,
       value,
       description,
@@ -39,11 +37,15 @@ function Wallet(props) {
 
   return (
     <div>
-      <Header despesa={ despesa } setDespesa={ setDespesa } email={ email } />
+      <Header email={ email } />
       <form>
         <Valor value={ value } setValue={ setValue } />
         <Descrição description={ description } setDescription={ setDescription } />
-        <Moedas currency={ currency } setCurrency={ setCurrency } />
+        <Moedas
+          currencies={ currencies }
+          currency={ currency }
+          setCurrency={ setCurrency }
+        />
         <Payment method={ method } setMethod={ setMethod } />
         <Tag tag={ tag } setTag={ setTag } />
       </form>
