@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 // import { Container } from './styles';
 function inputMethod(tableItem, setTableItem) {
   return (
@@ -112,6 +113,7 @@ function inputCurrency(currencyState, tableItem, setTableItem) {
 }
 
 function From() {
+  const dispatch = useDispatch();
   const [currencyState, setCurrencyState] = useState([]);
   const [tableItem, setTableItem] = useState({
     id: 0,
@@ -120,10 +122,15 @@ function From() {
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
+    exchangeRates: {},
   });
   async function getApi() {
     const JSON = await fetch('https://economia.awesomeapi.com.br/json/all');
     const cotation = await JSON.json();
+    setTableItem({
+      ...tableItem,
+      exchangeRates: cotation,
+    });
     const currencies = Object.keys(cotation)
       .filter((item) => item !== 'USDT');
     setCurrencyState(currencies);
@@ -131,6 +138,11 @@ function From() {
   useEffect(() => {
     getApi();
   }, []);
+
+  async function addItem() {
+    dispatch({ type: 'ADD_EXPENSES', expenses: tableItem });
+  }
+
   return (
     <form>
       {value(tableItem, setTableItem)}
@@ -138,7 +150,7 @@ function From() {
       { inputMethod(tableItem, setTableItem) }
       {inputTag(tableItem, setTableItem)}
       {description(tableItem, setTableItem)}
-      <button type="button">Adicionar</button>
+      <button onClick={ addItem } type="button">Adicionar</button>
     </form>
   );
 }
