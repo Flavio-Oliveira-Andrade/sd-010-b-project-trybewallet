@@ -77,7 +77,7 @@ class Wallet extends React.Component {
     this.setState({ ...inicialState });
   }
 
-  updateTotal(expenses) {
+  updateTotal(expenses) { // source: https://github.com/tryber/sd-010-b-project-trybewallet/pull/110
     return expenses.reduce((acc, curr) => (
       acc + ((+curr.value) * curr.exchangeRates[curr.currency].ask)), 0); // +curr = parseFloat
   }
@@ -85,11 +85,7 @@ class Wallet extends React.Component {
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { emailUser, currencies, expenses } = this.props;
-    // console.log(expenses);
 
-    // const tot = expenses.reduce((acc, curr) => (
-    //   acc + ((+curr.value) * curr.exchangeRates[curr.currency].ask) // +curr = parseFloat
-    // ), 0);
     return (
       <div>
         <header>
@@ -125,15 +121,10 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   emailUser: PropTypes.string.isRequired,
-  // total: PropTypes.number,
   fetchCurrency: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExpenses: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
-
-// Wallet.defaultProps = {
-//   total: 0,
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

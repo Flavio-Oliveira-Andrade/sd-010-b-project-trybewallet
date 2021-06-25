@@ -29,7 +29,6 @@ export default (state = initialState, { type, payload }) => { // action desconst
       ...state,
       expenses: [...state.expenses].filter(({ id }) => (// expense.id desconstruction
         id !== parseInt(payload, 10))),
-      // total: updateTotal([...state.expenses]),
     };
   default:
     return state;
