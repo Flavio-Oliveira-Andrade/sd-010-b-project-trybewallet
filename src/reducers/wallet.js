@@ -1,6 +1,5 @@
 const initialState = {
   expenses: [],
-  currencies: [],
   total: 0,
 };
 
@@ -20,12 +19,9 @@ const walletReducer = (state = initialState, action) => {
   {
     const newState = {
       ...state,
-      expenses: [...state.expenses, { id: state.expenses.length === 0 ? 0
-        : state.expenses[state.expenses.length - 1].id + 1,
-      ...action.payload,
-      }],
+      expenses: [...state.expenses, action.payload],
     };
-    newState.total = update(newState);
+    newState.total = update(newState.expenses);
     return newState;
   }
   case 'EDIT_EXP': {
@@ -33,7 +29,7 @@ const walletReducer = (state = initialState, action) => {
       if (expenses.id === action.payload.exp.id) {
         expenses.value = action.payload.exp.value;
         expenses.description = action.payload.exp.description;
-        expenses.currencies = action.payload.exp.currencies;
+        expenses.currency = action.payload.exp.currency;
         expenses.method = action.payload.exp.method;
         expenses.tag = action.payload.exp.tag;
       }
@@ -43,7 +39,7 @@ const walletReducer = (state = initialState, action) => {
   case 'DELETE_EXP': {
     const newState = {
       ...state,
-      expenses: state.expenses.filter(({ id }) => id !== action.payload.id),
+      expenses: state.expenses.filter(({ id }) => id !== Number(action.payload)),
     };
     newState.total = update(newState);
     return newState;

@@ -1,8 +1,8 @@
 const login = (value) => ({ type: 'LOGIN', payload: value });
 
-export const removeExpense = (id) => ({ type: 'DELETE_EXP', payload: { id } });
+export const removeExpense = (id) => ({ type: 'DELETE_EXP', id });
 
-export const editExp = (exp) => ({ type: 'EDIT_EXP', payload: { exp } });
+// export const editExp = (exp) => ({ type: 'EDIT_EXP', payload: { exp } });
 
 export const apiSuccess = (rates, data) => ({
   type: 'SUCCESS_API',

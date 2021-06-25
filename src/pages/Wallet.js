@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { editExp, loadData } from '../actions';
+import { loadData } from '../actions';
+import Button from './Button';
 
 const Methodpay = ['Dinheiro', 'Cartão de Crédito', 'Cartão de débito'];
 const Tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -11,20 +12,20 @@ class Wallet extends React.Component {
     super();
     this.state = {
       curr: [],
-      // value: '',
-      // currency: '',
-      // method: '',
-      // tag: '',
-      // description: '',
-      // id: false,
+      expense: {
+        value: '',
+        currency: '',
+        method: '',
+        tag: '',
+        description: '',
+        id: 0,
+      },
     };
     this.getinfoAPI = this.getinfoAPI.bind(this);
   }
 
   componentDidMount() {
     this.getinfoAPI();
-    // const { fetchAPI } = this.props;
-    // fetchAPI();
   }
 
   async getinfoAPI() {
@@ -33,9 +34,19 @@ class Wallet extends React.Component {
     this.setState({ curr: solve });
   }
 
+  handleChange(event) {
+    const { expense } = this.state;
+    this.setState({
+      expense: {
+        ...expense,
+        [event.target.name]: event.target.value,
+      },
+    });
+  }
+
   render() {
     const { email, total } = this.props;
-    const { curr } = this.state;
+    const { curr, expense: { value } } = this.state;
     const currency = Object.keys(curr);
     return (
       <div>
@@ -43,42 +54,42 @@ class Wallet extends React.Component {
         <h1 data-testid="total-field">{`$ ${total}`}</h1>
         <h1 data-testid="header-currency-field">BRL</h1>
         <form>
-          <label htmlFor="valor">
+          <label htmlFor="value">
             Valor
             <input
-              name="valor"
+              name="value"
               type="number"
+              onChange={ this.handleChange }
+              value={ value }
             />
           </label>
           <label htmlFor="description">
             Descrição
-            <input
-              name="description"
-              type="text"
-            />
+            <input name="description" id="description" onChange={ this.handleChange } />
           </label>
-          <label htmlFor="moeda">
+          <label htmlFor="currency">
             Moeda
-            <select name="moeda">
+            <select name="currency" id="currency" onChange={ this.handleChange }>
               { currency.filter((currenc) => currenc !== 'USDT')
                 .map((op, index) => <option key={ index }>{op}</option>)}
             </select>
           </label>
-          <label htmlFor="method_payment">
+          <label htmlFor="method">
             Método de pagamento
-            <select name="method_payment" id="method_payment">
+            <select name="method" id="method" onChange={ this.handleChange }>
               { Methodpay.map((op, index) => <option key={ index }>{op}</option>)}
             </select>
           </label>
-          <label htmlFor="category_expenses">
+          <label htmlFor="tag">
             Tag
-            <select name="category_expenses">
+            <select name="tag" id="tag" onChange={ this.handleChange }>
               {Tags.map((op, index) => (
                 <option key={ index }>
                   {op}
                 </option>))}
             </select>
           </label>
+          <Button onClick={ this.handleClick } />
         </form>
       </div>
     );
@@ -95,7 +106,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getinfoAPI: () => dispatch(loadData()),
   addingExpenses: (wallet) => dispatch(loadData(wallet)),
-  editingExpenses: (wallet) => dispatch(editExp(wallet)),
+  // editingExpenses: (wallet) => dispatch(editExp(wallet)),
 });
 
 Wallet.propTypes = {
