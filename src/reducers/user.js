@@ -2,7 +2,6 @@
 import INITIAL_STATE from './INITIAL_STATE';
 
 const user = (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
   case 'ADD_SUCCESS':
     return {

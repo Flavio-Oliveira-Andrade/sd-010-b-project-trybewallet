@@ -61,7 +61,6 @@ class Wallet extends React.Component {
 
   render() {
     const { coins } = this.state;
-    console.log(this.props);
     const { expenses, total, email } = this.props;
     const coinsArr = Object.keys(coins);
     return (

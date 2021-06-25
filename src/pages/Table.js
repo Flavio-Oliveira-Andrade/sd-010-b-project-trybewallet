@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { removeItem } from '../actions/index';
 
 class Table extends React.Component {
-  constructor(props) {
-    super(props);
-    const { expenses } = this.props;
-    this.state = {
-      value: expenses,
-    };
+  constructor() {
+    super();
     this.executTr = this.executTr.bind(this);
     this.remoteItem = this.remoteItem.bind(this);
   }
@@ -34,7 +31,15 @@ class Table extends React.Component {
               <td>{item.value}</td>
               <td>{item.value}</td>
               <td>Real Brasileiro</td>
-              <button onClick={ this.remoteItem } data-testid="delete-btn" name={ item.id } type="submit">Remover</button>
+              <button
+                onClick={ this.remoteItem }
+                data-testid="delete-btn"
+                name={ item.id }
+                type="submit"
+              >
+                Remover
+
+              </button>
             </tr>
           ))
         }
@@ -71,5 +76,9 @@ class Table extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   data: (id) => dispatch(removeItem(id)),
 });
+
+Table.propTypes = {
+  data: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired };
 
 export default connect(null, mapDispatchToProps)(Table);

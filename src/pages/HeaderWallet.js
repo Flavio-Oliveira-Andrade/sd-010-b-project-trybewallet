@@ -4,22 +4,15 @@ import PropTypes from 'prop-types';
 class HeaderWallet extends React.Component {
   render() {
     const { value, email } = this.props;
+
+    const rounded = value === 0
+      ? 0
+      : parseFloat((Math.round(value * 100) / 100).toFixed(2));
     return (
       <header>
-        <p data-testid="email-field">
-          Olá
-          {` ${email}`}
-        </p>
-        <p>
-          <span data-testid="total-field">
-            {`Total das despesas ${value}
-          `}
-          </span>
-        </p>
-        <p>
-          Moeda:
-          <span data-testid="header-currency-field">BRL</span>
-        </p>
+        <span data-testid="email-field">{`Email: ${email}`}</span>
+        <span data-testid="total-field">{`Total das despesas: ${rounded}`}</span>
+        <span data-testid="header-currency-field">Moeda: BRL</span>
       </header>
     );
   }
