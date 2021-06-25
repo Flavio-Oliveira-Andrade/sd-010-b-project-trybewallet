@@ -148,15 +148,15 @@ class Expense extends React.Component {
           {this.renderizaSelectTag()}
         </label>
         <label htmlFor="descricao">
-            Descrição
-            <input
-              type="text"
-              id="descricao"
-              data-testid="description-input"
-              className="descricao"
-              value={ description }
-              onChange={ (e) => this.setState({ description: e.target.value }) }
-            />
+          Descrição
+          <input
+            type="text"
+            id="descricao"
+            data-testid="description-input"
+            className="descricao"
+            value={ description }
+            onChange={ (e) => this.setState({ description: e.target.value }) }
+          />
         </label>
         <button
           type="button"
