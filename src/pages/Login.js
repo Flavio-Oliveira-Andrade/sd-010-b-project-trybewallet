@@ -26,6 +26,7 @@ class Login extends React.Component {
             required
           />
         </label>
+        <button type="button">Entrar</button>
       </main>
     );
   }
