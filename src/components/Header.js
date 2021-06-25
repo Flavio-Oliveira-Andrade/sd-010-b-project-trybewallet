@@ -8,7 +8,7 @@ class Header extends React.Component {
       const tax = next.exchangeRates[next.currency].ask;
       return acumulater + next.value * tax;
     }, 0);
-    return result ;
+    return result;
   }
 
   render() {
