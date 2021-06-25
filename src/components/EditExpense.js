@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI, editaDespesas, updateItem } from '../actions';
 
 class EditExpense extends React.Component {
   constructor(props) {
