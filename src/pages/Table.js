@@ -1,7 +1,49 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { removeItem } from '../actions/index';
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    const { expenses } = this.props;
+    this.state = {
+      value: expenses,
+    };
+    this.executTr = this.executTr.bind(this);
+    this.remoteItem = this.remoteItem.bind(this);
+  }
+
+  remoteItem({ target: { name } }) {
+    console.log(name);
+    const { data } = this.props;
+    data(name);
+  }
+
+  executTr() {
+    const { expenses } = this.props;
+    return (
+      <>
+        {
+          expenses.map((item, index) => (
+            <tr key={ index }>
+              <td>{item.description}</td>
+              <td>{item.tag}</td>
+              <td>{item.method}</td>
+              <td>{item.value}</td>
+              <td>{item.currency}</td>
+              <td>{item.value}</td>
+              <td>{item.value}</td>
+              <td>Real Brasileiro</td>
+              <button onClick={ this.remoteItem } data-testid="delete-btn" name={ item.id } type="submit">Remover</button>
+            </tr>
+          ))
+        }
+      </>
+    );
+  }
+
   render() {
+    const { expenses } = this.props;
     return (
       <div>
         <table>
@@ -16,10 +58,18 @@ class Table extends React.Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
+          {
+            expenses.length > 0
+            && this.executTr()
+          }
         </table>
       </div>
     );
   }
 }
 
-export default Table;
+const mapDispatchToProps = (dispatch) => ({
+  data: (id) => dispatch(removeItem(id)),
+});
+
+export default connect(null, mapDispatchToProps)(Table);

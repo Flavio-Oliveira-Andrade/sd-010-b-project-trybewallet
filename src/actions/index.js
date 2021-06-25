@@ -12,6 +12,11 @@ export const loadSuccess = (exchangeRates, data) => ({
   },
 });
 
+export const removeItem = (payLoad) => ({
+  type: 'REMOVE_SUCCESS',
+  payLoad,
+});
+
 export const loadDataSuccess = (data) => async (dispatch) => {
   const api = await fetch('https://economia.awesomeapi.com.br/json/all');
   const resolve = await api.json();

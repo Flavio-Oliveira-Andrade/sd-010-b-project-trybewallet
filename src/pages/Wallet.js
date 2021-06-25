@@ -61,8 +61,8 @@ class Wallet extends React.Component {
 
   render() {
     const { coins } = this.state;
-    const { expenses, total, email } = this.props;
     console.log(this.props);
+    const { expenses, total, email } = this.props;
     const coinsArr = Object.keys(coins);
     return (
       <header>
@@ -100,7 +100,7 @@ class Wallet extends React.Component {
           </label>
           <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
         </form>
-        <Table expenses={ expenses } coins={ coins } />
+        <Table expenses={ expenses } />
       </header>
     );
   }

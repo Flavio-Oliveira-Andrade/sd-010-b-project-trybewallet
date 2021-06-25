@@ -20,6 +20,17 @@ const wallet = (state = INITIAL_STATE, action) => {
     StateValue.total = calculatorTotal(StateValue.expenses);
     return StateValue;
   }
+  case 'REMOVE_SUCCESS':
+    console.log(action);
+    console.log(state);
+    {
+      const newState = {
+        ...state,
+        expenses: state.expenses.filter((i) => i.id !== Number(action.payLoad)),
+      };
+      newState.total = calculatorTotal(newState.expenses);
+      return newState;
+    }
   default:
     return state;
   }
