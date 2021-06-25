@@ -1,53 +1,105 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchApiCoin } from '../actions';
 
 class FormExpanses extends React.Component {
+  componentDidMount() {
+    const { saveCoin } = this.props;
+    saveCoin();
+  }
+
+  inputMethod() {
+    return (
+      <label htmlFor="payment">
+        Método de pagamento
+        <select id="payment" name="method" onChange={ this.handlechange }>
+          <option>Dinheiro</option>
+          <option>Cartão de crédito</option>
+          <option>Cartão de débito</option>
+        </select>
+      </label>
+    );
+  }
+
+  inputCurrency() {
+    const { coinNames } = this.props;
+    return (
+      <label htmlFor="currencie">
+        Moeda
+        <select id="currencie" name="currency" onChange={ this.handlechange }>
+          { coinNames.map((currencie) => (
+            <option
+              value={ currencie }
+              key={ currencie }
+            >
+              { currencie }
+            </option>
+          ))}
+        </select>
+      </label>
+    );
+  }
+
+  inputTag() {
+    return (
+      <label htmlFor="tag">
+        Tag
+        <select id="tag" name="tag" onChange={ this.handlechange }>
+          <option>Alimentação</option>
+          <option>Lazer</option>
+          <option>Trabalho</option>
+          <option>Transporte</option>
+          <option>Saúde</option>
+        </select>
+      </label>
+    );
+  }
+
   render() {
     return (
       <form>
-        <label htmlFor="valor" id="valor">
+        <label htmlFor="value">
           Valor
-          <input type="text" name="valor" aria-labelledby="valor" />
+          <input
+            type="number"
+            id="value"
+            name="value"
+          />
         </label>
-        <label htmlFor="descrição" id="descrição">
+        <label htmlFor="description">
           Descrição
-          <textarea type="text" name="descrição" aria-labelledby="descrição" />
+          <input
+            type="text"
+            id="description"
+            name="description"
+          />
         </label>
-        <label htmlFor="moeda" id="moeda">
-          Moeda
-          <select
-            name="moeda"
-            aria-labelledby="moeda"
-          >
-            <option value="Vazio">Vazio</option>
-          </select>
-        </label>
-        <label htmlFor="paymentType" id="paymentType">
-          Método de pagamento
-          <select
-            name="paymentType"
-            aria-labelledby="paymentType"
-          >
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag" id="tag">
-          Tag
-          <select
-            name="tag"
-            aria-labelledby="tag"
-          >
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
+        { this.inputCurrency() }
+        { this.inputMethod() }
+        {this.inputTag() }
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesas
+        </button>
       </form>
     );
   }
 }
 
-export default FormExpanses;
+FormExpanses.propTypes = {
+  saveCoin: PropTypes.func.isRequired,
+  coinNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  coinNames: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  saveCoin: () => dispatch(fetchApiCoin()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormExpanses);
