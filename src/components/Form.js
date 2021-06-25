@@ -112,8 +112,9 @@ function inputCurrency(currencyState, tableItem, setTableItem) {
   );
 }
 
-function From() {
+function From(props) {
   const dispatch = useDispatch();
+  const { totalValue, setTotalValue } = props;
   const [currencyState, setCurrencyState] = useState([]);
   const [tableItem, setTableItem] = useState({
     id: 0,
@@ -138,8 +139,14 @@ function From() {
   useEffect(() => {
     getApi();
   }, []);
+  console.log(totalValue);
 
   async function addItem() {
+    setTotalValue(totalValue + tableItem.value);
+    setTableItem({
+      ...tableItem,
+      id: tableItem.id + 1,
+    });
     dispatch({ type: 'ADD_EXPENSES', expenses: tableItem });
   }
 
