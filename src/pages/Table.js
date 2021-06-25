@@ -11,7 +11,6 @@ class Table extends React.Component {
   }
 
   remoteItem({ target: { name } }) {
-    console.log(name);
     const { data } = this.props;
     data(name);
   }
@@ -27,10 +26,13 @@ class Table extends React.Component {
               <td>{item.tag}</td>
               <td>{item.method}</td>
               <td>{item.value}</td>
-              <td>{item.currency}</td>
-              <td>{item.value}</td>
-              <td>{item.value}</td>
-              <td>Real Brasileiro</td>
+              <td>{item.exchangeRates[item.currency].name.split('/')[0]}</td>
+              <td>{Number(item.exchangeRates[item.currency].ask)}</td>
+              <td>
+                {parseFloat(item.value * item.exchangeRates[item.currency].ask)
+                  .toFixed(2) }
+              </td>
+              <td>Real</td>
               <button
                 onClick={ this.remoteItem }
                 data-testid="delete-btn"

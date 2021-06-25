@@ -69,7 +69,7 @@ class Wallet extends React.Component {
         <form>
           <label htmlFor="valueSpent">
             Valor
-            <input type="text" name="value" id="valueSpent" onChange={ this.handle } />
+            <input type="number" name="value" id="valueSpent" onChange={ this.handle } />
           </label>
           <label htmlFor="description-spent">
             Descrição
@@ -97,7 +97,13 @@ class Wallet extends React.Component {
               {tagItems.map((item, index) => <option key={ index }>{item}</option>)}
             </select>
           </label>
-          <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            onClick={ this.handleClick }
+          >
+            Adicionar despesa
+          </button>
         </form>
         <Table expenses={ expenses } />
       </header>
