@@ -49,7 +49,9 @@ class Expendes extends Component {
             data-testid="delete-btn"
             className="btn-delet"
             onClick={ () => deletExpense(id) }
-          >Deletar</button>
+          >
+          Deletar
+          </button>
           </td>
         </tr>))
     );
