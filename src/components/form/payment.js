@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // https://stackoverflow.com/questions/55757761/handle-an-input-with-react-hooks
-// eslint-disable-next-line react/prop-types
 export default function Payment({ method, setMethod }) {
   return (
     <label htmlFor="payment">
-      Método de method :
+      Método de pagamento :
       <select
         name={ method }
         id="payment"
@@ -19,3 +19,8 @@ export default function Payment({ method, setMethod }) {
     </label>
   );
 }
+
+Payment.propTypes = {
+  method: PropTypes.string,
+  setMethod: PropTypes.func,
+}.isRequired;

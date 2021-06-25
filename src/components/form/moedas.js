@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import fetchCurrency from '../../services/API';
 
-// eslint-disable-next-line react/prop-types
 export default function Moedas({ currency, setCurrency }) {
   const [currencies, setCurrencies] = useState([]);
 
@@ -34,3 +34,8 @@ export default function Moedas({ currency, setCurrency }) {
     </div>
   );
 }
+
+Moedas.propTypes = {
+  currency: PropTypes.string,
+  setCurrency: PropTypes.func,
+}.isRequired;

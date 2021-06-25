@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 export default function Tag({ tag, setTag }) {
   return (
     <label htmlFor="tag">
@@ -20,3 +20,8 @@ export default function Tag({ tag, setTag }) {
     </label>
   );
 }
+
+Tag.propTypes = {
+  tag: PropTypes.string,
+  setTag: PropTypes.func,
+}.isRequired;

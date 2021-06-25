@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 export default function Valor({ value, setValue }) {
   return (
     <div>
@@ -17,3 +17,8 @@ export default function Valor({ value, setValue }) {
     </div>
   );
 }
+
+Valor.propTypes = {
+  value: PropTypes.string,
+  setValue: PropTypes.func,
+}.isRequired;
