@@ -17,6 +17,7 @@ class Table extends React.Component {
 
   executTr() {
     const { expenses } = this.props;
+    console.log(this.props);
     return (
       <>
         {
@@ -40,7 +41,6 @@ class Table extends React.Component {
                 type="submit"
               >
                 Remover
-
               </button>
             </tr>
           ))
@@ -52,7 +52,7 @@ class Table extends React.Component {
   render() {
     const { expenses } = this.props;
     return (
-      <div>
+      <section>
         <table>
           <tbody>
             <tr>
@@ -72,7 +72,7 @@ class Table extends React.Component {
             }
           </tbody>
         </table>
-      </div>
+      </section>
     );
   }
 }

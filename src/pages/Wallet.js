@@ -13,6 +13,7 @@ class Wallet extends React.Component {
 
     this.state = {
       coins: [],
+      number: 0,
       expense: {
         id: 0,
         value: 0,
@@ -25,16 +26,53 @@ class Wallet extends React.Component {
     this.handle = this.handle.bind(this);
     this.getApi = this.getApi.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.transformNumber = this.transformNumber.bind(this);
+    this.createLabel = this.createLabel.bind(this);
   }
 
   componentDidMount() {
     this.getApi();
   }
 
+  componentDidUpdate(prevProps) {
+    const { total } = this.props;
+    if (prevProps.total !== total) {
+      this.transformNumber();
+    }
+  }
+
   async getApi() {
     const api = await fetch('https://economia.awesomeapi.com.br/json/all');
     const resolve = await api.json();
     this.setState({ coins: resolve });
+  }
+
+  transformNumber() {
+    const { total } = this.props;
+    const transform = total === 0 ? parseFloat(Math.round(total * 100) / 100).toFixed(2)
+      : Number(total);
+    this.setState({ number: transform });
+  }
+
+  createLabel(handle, value) {
+    return (
+      <>
+        <label htmlFor="value">
+          Valor
+          <input
+            type="number"
+            value={ value }
+            name="value"
+            id="value"
+            onChange={ handle }
+          />
+        </label>
+        <label htmlFor="description">
+          Descrição
+          <input id="description" name="description" onChange={ handle } />
+        </label>
+      </>
+    );
   }
 
   handle({ target: { value, name } }) {
@@ -61,27 +99,17 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { coins, expense: { value } } = this.state;
+    const { coins, number, expense: { value } } = this.state;
     const { expenses, total, email } = this.props;
     const coinsArr = Object.keys(coins);
     return (
       <header>
         <HeaderWallet value={ total } email={ email } onChange={ this.handle } />
+        <span data-testid="total-field">
+          {`Total das despesas: ${number}`}
+        </span>
         <form>
-          <label htmlFor="value">
-            Valor
-            <input
-              type="number"
-              value={ value }
-              name="value"
-              id="value"
-              onChange={ this.handle }
-            />
-          </label>
-          <label htmlFor="description">
-            Descrição
-            <input id="description" name="description" onChange={ this.handle } />
-          </label>
+          {this.createLabel(this.handle, value)}
           <label htmlFor="currency">
             Moeda
             <select id="currency" name="currency" onChange={ this.handle }>
