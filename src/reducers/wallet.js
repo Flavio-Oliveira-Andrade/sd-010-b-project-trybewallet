@@ -27,12 +27,12 @@ const walletReducer = (state = initialState, action) => {
   }
   case 'EDIT_EXP': {
     state.expenses.forEach((expenses) => {
-      if (expenses.id === payload.exp.id) {
-        expenses.value = payload.exp.value;
-        expenses.description = payload.exp.description;
-        expenses.currency = payload.exp.currency;
-        expenses.method = payload.exp.method;
-        expenses.tag = payload.exp.tag;
+      if (expenses.id === action.payload.exp.id) {
+        expenses.value = action.payload.exp.value;
+        expenses.description = action.payload.exp.description;
+        expenses.currency = action.payload.exp.currency;
+        expenses.method = action.payload.exp.method;
+        expenses.tag = action.payload.exp.tag;
       }
     });
     return { ...state, expenses: [...state.expenses] };
@@ -40,7 +40,7 @@ const walletReducer = (state = initialState, action) => {
   case 'DELETE_EXP': {
     const newState = {
       ...state,
-      expenses: state.expenses.filter(({ id }) => id !== payload.id),
+      expenses: state.expenses.filter(({ id }) => id !== action.payload.id),
     };
     newState.total = update(newState);
     return newState;
