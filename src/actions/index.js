@@ -38,7 +38,7 @@ export const exchangeRateAPI = (expenses) => (dispatch) => {
 
 // export const dell = (id) => ({
 //   type: DELETE_EXPENSE,
-//   payload: 
+//   payload:
 // });
 
 export default userAction;
