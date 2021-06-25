@@ -6,8 +6,8 @@ const initialState = {
 
 const update = (initialstate = initialState) => {
   const result = initialstate.expenses.length <= 0 ? 0
-    : initialstate.expenses.map(({ value, currency, rates }) => Number(value)
-    * rates[currency].ask);
+    : initialstate.expenses.map(({ value, currencies, rates }) => Number(value)
+    * rates[currencies].ask);
 
   const finalValue = result === 0 ? result : result.reduce((acc, curr) => acc + curr);
 
@@ -33,7 +33,7 @@ const walletReducer = (state = initialState, action) => {
       if (expenses.id === action.payload.exp.id) {
         expenses.value = action.payload.exp.value;
         expenses.description = action.payload.exp.description;
-        expenses.currency = action.payload.exp.currency;
+        expenses.currencies = action.payload.exp.currencies;
         expenses.method = action.payload.exp.method;
         expenses.tag = action.payload.exp.tag;
       }

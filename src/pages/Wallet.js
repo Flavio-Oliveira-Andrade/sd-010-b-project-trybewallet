@@ -7,25 +7,36 @@ const Methodpay = ['Dinheiro', 'Cartão de Crédito', 'Cartão de débito'];
 const Tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class Wallet extends React.Component {
-  // constructor() {
-  //   super();
-  //   // this.state = {
-  //   //   value: '',
-  //   //   currency: 'BRL',
-  //   //   method: '',
-  //   //   tag: '',
-  //   //   description: '',
-  //   //   id: false,
-  //   // };
-  // }
+  constructor() {
+    super();
+    this.state = {
+      curr: [],
+      // value: '',
+      // currency: '',
+      // method: '',
+      // tag: '',
+      // description: '',
+      // id: false,
+    };
+    this.getinfoAPI = this.getinfoAPI.bind(this);
+  }
 
   componentDidMount() {
-    const { fetchAPI } = this.props;
-    fetchAPI();
+    this.getinfoAPI();
+    // const { fetchAPI } = this.props;
+    // fetchAPI();
+  }
+
+  async getinfoAPI() {
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const solve = await api.json();
+    this.setState({ curr: solve });
   }
 
   render() {
     const { email, total } = this.props;
+    const { curr } = this.state;
+    const currency = Object.keys(curr);
     return (
       <div>
         <h1 data-testid="email-field">{ email }</h1>
@@ -49,14 +60,14 @@ class Wallet extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select name="moeda">
-              <option value="1">1</option>
+              { currency.filter((currenc) => currenc !== 'USDT')
+                .map((op, index) => <option key={ index }>{op}</option>)}
             </select>
           </label>
           <label htmlFor="method_payment">
             Método de pagamento
             <select name="method_payment" id="method_payment">
-              { Methodpay.filter((opt) => opt !== 'USDT')
-                .map((op, index) => <option key={ index }>{op}</option>)}
+              { Methodpay.map((op, index) => <option key={ index }>{op}</option>)}
             </select>
           </label>
           <label htmlFor="category_expenses">
@@ -65,7 +76,6 @@ class Wallet extends React.Component {
               {Tags.map((op, index) => (
                 <option key={ index }>
                   {op}
-                  {' '}
                 </option>))}
             </select>
           </label>
@@ -83,7 +93,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchAPI: () => dispatch(loadData()),
+  getinfoAPI: () => dispatch(loadData()),
   addingExpenses: (wallet) => dispatch(loadData(wallet)),
   editingExpenses: (wallet) => dispatch(editExp(wallet)),
 });
@@ -93,7 +103,7 @@ Wallet.propTypes = {
   // currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   // expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   total: PropTypes.number,
-  fetchAPI: PropTypes.func.isRequired,
+  // getinfoAPI: PropTypes.func.isRequired,
   // addingExpenses: PropTypes.func.isRequired,
   // editingExpenses: PropTypes.func.isRequired,
 };
