@@ -10,6 +10,12 @@ function wallet(state = initialState, action) {
       ...state,
       currencies: Object.keys(action.payload.currencies),
     };
+  case 'ADD_EXPENSES':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload.expenses],
+    };
+
   default:
     return state;
   }

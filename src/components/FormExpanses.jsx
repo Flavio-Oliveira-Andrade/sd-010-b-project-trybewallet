@@ -1,12 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchApiCoin } from '../actions';
+import { addExpenses, fetchApi, fetchApiCoin } from '../actions';
 
 class FormExpanses extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: 0,
+      value: 0,
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+      exchangeRates: {},
+    };
+
+    this.handlechange = this.handlechange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.inputMethod = this.inputMethod.bind(this);
+    this.inputCurrency = this.inputCurrency.bind(this);
+    this.inputTag = this.inputTag.bind(this);
+  }
+
   componentDidMount() {
     const { saveCoin } = this.props;
     saveCoin();
+  }
+
+  handleClick() {
+    const { saveExpense } = this.props;
+    const { id } = this.state;
+    this.setState({ id: id + 1 });
+    saveExpense(this.state);
+  }
+
+  handlechange({ target: { name, value } }) {
+    this.setState({
+      [name]: value,
+    });
   }
 
   inputMethod() {
@@ -92,14 +125,18 @@ class FormExpanses extends React.Component {
 FormExpanses.propTypes = {
   saveCoin: PropTypes.func.isRequired,
   coinNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  saveExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   coinNames: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveCoin: () => dispatch(fetchApiCoin()),
+  saveExpense: (expense) => dispatch(fetchApi(expense)),
+  expense: (expenses) => dispatch(addExpenses(expenses)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormExpanses);
