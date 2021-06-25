@@ -27,7 +27,7 @@ class Table extends React.Component {
               <td>{item.method}</td>
               <td>{item.value}</td>
               <td>{item.exchangeRates[item.currency].name.split('/')[0]}</td>
-              <td>{Number(item.exchangeRates[item.currency].ask)}</td>
+              <td>{parseFloat(item.exchangeRates[item.currency].ask).toFixed(2)}</td>
               <td>
                 {parseFloat(item.value * item.exchangeRates[item.currency].ask)
                   .toFixed(2) }
