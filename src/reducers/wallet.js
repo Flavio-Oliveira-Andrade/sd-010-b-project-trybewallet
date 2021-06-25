@@ -10,7 +10,7 @@ function wallet(state = initialState, action) {
   case 'RECEIVE_CURRENCY':
     return {
       ...state,
-      currencies: action.currenciesFilter,
+      currencies: action.currencies,
     };
   default:
     return state;
