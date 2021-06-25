@@ -1,6 +1,6 @@
 export const ADD_USER = 'ADD_USER';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIESS';
-export const ADD_CURRENCIES = 'ADD_CURRENCIES';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const logOn = (payload) => ({
   type: ADD_USER,
@@ -26,8 +26,8 @@ export function fetchApiCoin() {
   };
 }
 
-export const addCurrencies = (expenses) => ({
-  type: ADD_CURRENCIES,
+export const addExpenses = (expenses) => ({
+  type:ADD_EXPENSES,
   payload: {
     expenses,
   },
@@ -41,3 +41,8 @@ export const fetchApi = (expense) => (dispatch) => {
       dispatch(addExpenses(expense));
     });
 };
+
+export const dellExpense = (deleteExpense) => ({
+  type: 'DELL_EXPENSE',
+  payload: deleteExpense,
+});
