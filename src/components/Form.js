@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import api from '../api';
-
 // import { Container } from './styles';
 function inputMethod() {
   return (
