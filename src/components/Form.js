@@ -139,11 +139,13 @@ function Form(props) {
   useEffect(() => {
     getApi();
   }, []);
-
   async function addItem() {
+    const JSON = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const cotation2 = await JSON.json();
     setTotalValue(totalValue + tableItem.value);
     setTableItem({
       ...tableItem,
+      exchangeRates: cotation2,
       id: tableItem.id + 1,
     });
     dispatch({ type: 'ADD_EXPENSES', expenses: tableItem });
