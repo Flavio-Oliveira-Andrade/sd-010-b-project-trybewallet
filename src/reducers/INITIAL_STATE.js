@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
+  user: '',
   email: '',
-  password: '',
   expenses: [],
   total: 0,
 };

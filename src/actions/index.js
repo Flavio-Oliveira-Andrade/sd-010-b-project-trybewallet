@@ -1,19 +1,19 @@
 // Coloque aqui suas actions
 const addEmail = (payLoad) => ({
-  type: 'ADD_SUCCESS',
+  type: 'ADD_EXPENSES',
   payLoad,
 });
 
 export const loadSuccess = (exchangeRates, data) => ({
-  type: 'LOAD_DATA_SUCCESS',
+  type: 'REQUEST_EXCHANGE',
   payLoad: {
     exchangeRates,
     ...data,
   },
 });
 
-export const removeItem = (payLoad) => ({
-  type: 'REMOVE_SUCCESS',
+export const removeExpense = (payLoad) => ({
+  type: 'REMOVE',
   payLoad,
 });
 

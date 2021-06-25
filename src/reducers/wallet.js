@@ -1,37 +1,41 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import INITIAL_STATE from './INITIAL_STATE';
+import initialState from './INITIAL_STATE';
 
-function calculatorTotal(param) {
-  const returned = param.length <= 0
+function totalSum(param) {
+  const length = param.length <= 0
     ? 0
-    : param.map((i) => Number(i.value) * Number(i.exchangeRates[i.currency].ask));
-  const calculated = returned === 0 ? 0 : returned.reduce((a, b) => a + b);
-  return calculated;
+    : param.map((item) => Number(item.value) * Number(item
+      .exchangeRates[item.currency].ask));
+  const sum = length === 0 ? 0 : length.reduce((a, b) => a + b);
+  return sum;
 }
-
-const wallet = (state = INITIAL_STATE, action) => {
+const wallet = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
-  case 'LOAD_DATA_SUCCESS':
+  case 'ADD_EXPENSES':
+    return {
+      expenses: action.expenses,
+    };
+  case 'REQUEST_EXCHANGE':
   {
-    const StateValue = {
+    const value = {
       ...state,
       expenses: [...state.expenses, action.payLoad],
     };
-    StateValue.total = calculatorTotal(StateValue.expenses);
-    return StateValue;
+    value.total = totalSum(value.expenses);
+    return value;
   }
-  case 'REMOVE_SUCCESS':
-  {
-    const newState = {
-      ...state,
-      expenses: state.expenses.filter((i) => i.id !== Number(action.payLoad)),
-    };
-    newState.total = calculatorTotal(newState.expenses);
-    return newState;
-  }
+  case 'REMOVE':
+    console.log(state);
+    {
+      const newState = {
+        ...state,
+        expenses: state.expenses.filter((i) => i.id !== Number(action.payLoad)),
+      };
+      newState.total = totalSum(newState.expenses);
+      return newState;
+    }
   default:
     return state;
   }
 };
-
 export default wallet;

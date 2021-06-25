@@ -1,23 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeItem } from '../actions/index';
+import { removeExpense } from '../actions/index';
 
-class Table extends React.Component {
+class WalletTable extends React.Component {
   constructor() {
     super();
-    this.executTr = this.executTr.bind(this);
-    this.remoteItem = this.remoteItem.bind(this);
+    this.tableMaker = this.tableMaker.bind(this);
+    this.removeExpense = this.removeExpense.bind(this);
   }
 
-  remoteItem({ target: { name } }) {
+  removeExpense({ target: { name } }) {
     const { data } = this.props;
     data(name);
   }
 
-  executTr() {
+  tableMaker() {
     const { expenses } = this.props;
-    console.log(this.props);
     return (
       <>
         {
@@ -35,7 +34,7 @@ class Table extends React.Component {
               </td>
               <td>Real</td>
               <button
-                onClick={ this.remoteItem }
+                onClick={ this.removeExpense }
                 data-testid="delete-btn"
                 name={ item.id }
                 type="submit"
@@ -67,8 +66,7 @@ class Table extends React.Component {
               <th>Editar/Excluir</th>
             </tr>
             {
-              expenses.length > 0
-            && this.executTr()
+              expenses.length > 0 && this.tableMaker()
             }
           </tbody>
         </table>
@@ -76,13 +74,12 @@ class Table extends React.Component {
     );
   }
 }
-
 const mapDispatchToProps = (dispatch) => ({
-  data: (id) => dispatch(removeItem(id)),
+  data: (id) => dispatch(removeExpense(id)),
 });
 
-Table.propTypes = {
+WalletTable.propTypes = {
   data: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.string).isRequired };
 
-export default connect(null, mapDispatchToProps)(Table);
+export default connect(null, mapDispatchToProps)(WalletTable);
