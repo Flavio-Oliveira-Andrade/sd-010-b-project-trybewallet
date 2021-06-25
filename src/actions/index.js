@@ -39,3 +39,8 @@ export const saveExpense = (expense) => (dispatch) => {
       },
     );
 };
+
+export const deleteExpense = (newStateExpenses) => ({
+  type: 'DELETE_EXPENSE',
+  payload: newStateExpenses,
+});

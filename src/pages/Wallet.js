@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApiCurrencies, saveExpense } from '../actions/index';
+import { fetchApiCurrencies, saveExpense, deleteExpense } from '../actions/index';
 import TabelaGastos from '../components/TabelaGastos';
 
 class Wallet extends React.Component {
@@ -15,6 +15,7 @@ class Wallet extends React.Component {
       tag: 'Alimentação',
       // expenses: false,
     };
+    // this.deleteExpense = this.deleteExpense.bind(this);
     this.renderValue = this.renderValue.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
@@ -223,6 +224,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   moedasApi: () => dispatch(fetchApiCurrencies()),
   sendExpense: (expense) => dispatch(saveExpense(expense)),
+  deleteExpense: (expense) => dispatch(deleteExpense(expense)),
 });
 
 Wallet.propTypes = {
