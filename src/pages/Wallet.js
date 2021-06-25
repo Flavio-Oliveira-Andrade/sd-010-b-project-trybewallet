@@ -13,9 +13,7 @@ class Wallet extends React.Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      // expenses: false,
     };
-    // this.deleteExpense = this.deleteExpense.bind(this);
     this.renderValue = this.renderValue.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
