@@ -12,14 +12,13 @@ class CoastTable extends React.Component {
   handleDelete(id) {
     const { delExpenses, allExpenses } = this.props;
     const newArray = allExpenses.filter((expense) => expense.id !== id);
-    console.log(newArray);
     delExpenses(newArray);
   }
 
   render() {
     const { allExpenses } = this.props;
     return (
-      <table className="container-table">
+      <table>
         <thead>
           <tr>
             <th>Descrição</th>
