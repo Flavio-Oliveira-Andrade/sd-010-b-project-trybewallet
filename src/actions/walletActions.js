@@ -27,7 +27,7 @@ export function fetchAPI() {
     const currenciesJSON = await fetch('https://economia.awesomeapi.com.br/json/all');
     const currencies = await currenciesJSON.json();
     delete currencies.USDT;
-    console.log(currencies);
+    // console.log(currencies);
     return dispatch(saveCurrencies(currencies));
   };
 }

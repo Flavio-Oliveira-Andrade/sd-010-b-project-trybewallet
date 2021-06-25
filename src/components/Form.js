@@ -8,10 +8,10 @@ class Form extends Component {
     super(props);
 
     this.state = {
-      id: 0,
+      id: -1,
       value: 0,
       description: '',
-      currency: 'BRL',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
       exchangeRates: {},
@@ -33,21 +33,14 @@ class Form extends Component {
     });
   }
 
-  handleClick() {
+  async handleClick() {
     const { formSaveCurrencies, getCurrency, formSaveExpenses } = this.props;
-    formSaveCurrencies();
-
-    // const expensesLength = getExpenses.length;
-    // // console.log(expensesLength);
+    await formSaveCurrencies();
 
     this.setState((oldState) => ({
       id: oldState.id + 1,
       exchangeRates: getCurrency,
     }));
-    // console.log(this.state);
-
-    // const stateForStore = this.state,
-    // stateForStoreid = expensesLength;
 
     formSaveExpenses(this.state);
   }
@@ -57,7 +50,7 @@ class Form extends Component {
       <label htmlFor="value">
         Valor
         <input
-          type="text"
+          type="number"
           id="value"
           data-testid="value-input"
           onChange={ this.handleChange }
