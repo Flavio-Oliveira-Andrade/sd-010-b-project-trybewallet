@@ -1,11 +1,12 @@
 import React from 'react';
-
+import WalletHeader from '../components/WalletHeader';
 import './wallet.css';
 
 class Wallet extends React.Component {
   render() {
     return (
       <>
+        <WalletHeader />
         <form>
           <label htmlFor="input-despesa">
             Valor
@@ -40,7 +41,6 @@ class Wallet extends React.Component {
             </select>
           </label>
         </form>
-        <div />
       </>
     );
   }
