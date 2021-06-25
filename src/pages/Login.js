@@ -20,15 +20,23 @@ class Login extends React.Component {
     this.isFormOk = this.isFormOk.bind(this);
   }
 
+  componentDidMount() {
+    const button = document.getElementById('button');
+    button.disabled = true;
+  }
+
   componentDidUpdate() {
     this.isFormOk();
   }
 
   isFormOk() {
     const { emailValid, passwordValid } = this.state;
+    const button = document.getElementById('button');
+
     if (emailValid && passwordValid) {
-      const button = document.getElementById('button');
       button.disabled = false;
+    } else {
+      button.disabled = true;
     }
   }
 
@@ -105,7 +113,6 @@ class Login extends React.Component {
         <button
           id="button"
           type="button"
-          disabled
           onClick={ this.handleSubmit }
         >
           Entrar
