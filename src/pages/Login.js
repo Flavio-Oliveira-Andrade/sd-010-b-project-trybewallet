@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { emailChange } from '../actions';
 
 class Login extends React.Component {
@@ -15,13 +15,13 @@ class Login extends React.Component {
       login: false,
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.loginValidation = this.loginValidation.bind(this);
   }
 
-  handleClick(event) {
-    event.preventDefault();
+  handleClick(e) {
+    e.preventDefault();
 
     const { handleEmail } = this.props;
     const { email } = this.state;
@@ -42,7 +42,7 @@ class Login extends React.Component {
     );
   }
 
-  loginValidation() { // função que validará o e-mail
+  loginValidation() {
     const { email, password } = this.state;
     let disabled = false;
     const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
@@ -54,8 +54,10 @@ class Login extends React.Component {
   render() {
     const { email, password, disabled, login } = this.state;
     return (
-
       <main className="login-main">
+        <header className="login-header">
+          <h1>Trybe Wallet</h1>
+        </header>
         <form className="login-form">
           <input
             type="text"
@@ -78,7 +80,7 @@ class Login extends React.Component {
           <button
             type="submit"
             disabled={ disabled }
-            onClick={ this.handleClick } // logica que enviará para o informações para o reducers
+            onClick={ this.handleClick }
             className="login-btn"
           >
             Entrar
