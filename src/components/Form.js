@@ -167,6 +167,7 @@ Form.propTypes = {
   formSaveCurrencies: PropTypes.func.isRequired,
   getCurrency: PropTypes.func.isRequired,
   formSaveExpenses: PropTypes.func.isRequired,
+  
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Form);
