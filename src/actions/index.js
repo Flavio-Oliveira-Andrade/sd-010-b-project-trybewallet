@@ -7,7 +7,5 @@ export const addUser = (email) => ({
 
 export const receiveCurrencies = (currencies) => ({
   type: 'RECEIVE_CURRENCIES',
-  payload: {
-    currencies,
-  },
+  currenciesFilter,
 });
