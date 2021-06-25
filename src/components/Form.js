@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '../api';
 
 // import { Container } from './styles';
 function inputMethod() {
@@ -18,7 +19,7 @@ function inputMethod() {
   );
 }
 
-function inputCurrency() {
+function inputCurrency(currency) {
   return (
     <label className="labels-form" htmlFor="currencie">
       Moeda
@@ -27,7 +28,9 @@ function inputCurrency() {
         id="currencie"
         name="currency"
       >
-        <option value="Teste">Teste</option>
+        {currency.map(
+          (item) => <option key={ item.code } value={ item.code }>{item.code}</option>,
+        )}
       </select>
     </label>
   );
@@ -53,13 +56,40 @@ function inputTag() {
 }
 
 function From() {
+  const [currency, setCurrency] = useState([]);
+  function getApi() {
+    api.get('all').then((response) => {
+      const resp = response.data;
+      setCurrency([
+        resp.USD,
+        resp.CAD,
+        resp.EUR,
+        resp.GBP,
+        resp.ARS,
+        resp.BTC,
+        resp.LTC,
+        resp.JPY,
+        resp.CHF,
+        resp.AUD,
+        resp.CNY,
+        resp.ILS,
+        resp.ETH,
+        resp.XRP,
+      ]);
+      console.log(response.data);
+    });
+  }
+
+  useEffect(() => {
+    getApi();
+  }, []);
   return (
     <form>
       <label htmlFor="value">
         Valor:
         <input type="number" id="value" name="value" />
       </label>
-      { inputCurrency() }
+      { inputCurrency(currency) }
       { inputMethod() }
       {inputTag()}
       <label className="labels-form" htmlFor="description">
