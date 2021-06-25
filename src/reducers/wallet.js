@@ -1,4 +1,4 @@
-import { MOEDA } from '../actions';
+import { MOEDA, DESPESA, EXCLUIR } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -12,6 +12,17 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       currencies: payload,
     };
+  case DESPESA:
+    return {
+      ...state,
+      expenses: payload,
+    };
+  case EXCLUIR: {
+    return {
+      ...state,
+      expenses: state.expenses.filter((elem, index) => index !== payload.index),
+    };
+  }
 
   default:
     return state;
