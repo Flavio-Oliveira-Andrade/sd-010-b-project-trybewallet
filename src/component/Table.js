@@ -11,7 +11,7 @@ class Table extends React.Component {
 
   handleClick(id) {
     const { dispatchDelete, expenses } = this.props;
-    // lógica de remoção -> newExpenses (sem o item que vc quer remover)
+    // lógica de remoção -> newExpenses (sem o item que vc quer remover) - ajuda do @adao-junior
     const newExpenses = expenses.filter((expense) => expense.id !== id);
     console.log(newExpenses);
     dispatchDelete(newExpenses);
