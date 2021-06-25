@@ -9,6 +9,25 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleValidation = this.handleValidation.bind(this);
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleValidation(email, password) {
+    const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+    const passMaxLength = 6;
+    const emailValidation = emailRegex.test(email);
+    if (password.length >= passMaxLength && emailValidation) {
+      return false;
+    }
+    return true;
   }
 
   render() {
@@ -16,34 +35,29 @@ class Login extends React.Component {
     return (
       <div>
         <h2>Login</h2>
+        <form>
+          <input
+            name="email"
+            type="text"
+            data-testid="email-input"
+            placeholder="Email"
+            value={ email }
+            onChange={ this.handleChange }
+          />
 
-        <input
-          type="email"
-          data-testid="email-input"
-          onChange={
-            (event) => this.setState({ email: event.target.value })
-          }
-        />
+          <input
+            name="password"
+            type="password"
+            data-testid="password-input"
+            placeholder="Password"
+            value={ password }
+            onChange={ this.handleChange }
+          />
 
-        <input
-          type="password"
-          data-testid="password-input"
-          onChange={
-            (event) => this.setState({ password: event.target.value })
-          }
-        />
-
-        <Link to="/carteira">
-          <button
-            type="submit"
-            onClick={
-              () => console.log(email, password)
-            }
-          >
-            Entrar
-          </button>
-        </Link>
-
+          {this.handleValidation(email, password)
+            ? <button type="button" disabled>Entrar</button>
+            : <button type="button"><Link to="/carteira">Entrar</Link></button> }
+        </form>
       </div>
     );
   }
