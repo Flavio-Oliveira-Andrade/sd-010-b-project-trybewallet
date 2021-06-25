@@ -50,16 +50,17 @@ function inputTag(tableItem, setTableItem) {
   );
 }
 
-function value(tableItem, setTableItem) {
+function value(tableItem, setTableItem, setNumber) {
   return (
     <label htmlFor="value">
       Valor:
       <input
         onChange={ ({ target }) => {
-          const number = parseFloat(target.value);
+          const numberValue = target.value;
+          setNumber(parseFloat(target.value));
           setTableItem({
             ...tableItem,
-            value: number,
+            value: numberValue,
           });
         } }
         type="number"
@@ -115,6 +116,7 @@ function inputCurrency(currencyState, tableItem, setTableItem) {
 function Form(props) {
   const dispatch = useDispatch();
   const { totalValue, setTotalValue } = props;
+  const [number, setNumber] = useState(0);
   const [currencyState, setCurrencyState] = useState([]);
   const [tableItem, setTableItem] = useState({
     id: 0,
@@ -142,7 +144,7 @@ function Form(props) {
   async function addItem() {
     const JSON = await fetch('https://economia.awesomeapi.com.br/json/all');
     const cotation2 = await JSON.json();
-    setTotalValue(totalValue + tableItem.value);
+    setTotalValue(totalValue + number);
     setTableItem({
       ...tableItem,
       exchangeRates: cotation2,
@@ -150,10 +152,9 @@ function Form(props) {
     });
     dispatch({ type: 'ADD_EXPENSES', expenses: tableItem });
   }
-
   return (
     <form>
-      {value(tableItem, setTableItem)}
+      {value(tableItem, setTableItem, setNumber)}
       {inputCurrency(currencyState, tableItem, setTableItem)}
       { inputMethod(tableItem, setTableItem) }
       {inputTag(tableItem, setTableItem)}
