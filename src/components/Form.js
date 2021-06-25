@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../api';
-
 
 function inputMethod() {
   return (
@@ -28,9 +27,9 @@ function inputCurrency(currency) {
         id="currencie"
         name="currency"
       >
-        {currency.map((item) => {
-          return <option key={item.code} value={item.code}>{item.code}</option>
-        })}
+        { currency.map(
+          (item) => <option key={ item.code } value={ item.code }>{ item.code }</option>,
+        ) }
       </select>
     </label>
   );
@@ -56,14 +55,11 @@ function inputTag() {
 }
 
 function Form() {
-  const [ currency, setCurrency ] = useState([])
+  const [currency, setCurrency] = useState([]);
 
-  useEffect(() => {
-    getApi()
-  }, [])
-  async function getApi() {
-    api.get("all").then((response) => {
-      const currencies = response.data
+  function getApi() {
+    api.get('all').then((response) => {
+      const currencies = response.data;
       const array = [
         currencies.USD,
         currencies.CAD,
@@ -80,27 +76,31 @@ function Form() {
         currencies.ETH,
         currencies.XRP,
       ];
-      setCurrency(array)
-    }).catch( (error) => console.log(error));
+      setCurrency(array);
+    }).catch((error) => console.log(error));
   }
+
+  useEffect(() => {
+    getApi();
+  }, []);
 
   return (
     <form>
-        <label htmlFor="value">
-          Valor:
-          <input type="number" id="value" name="value" />
-        </label>
-        { inputCurrency(currency) }
-        { inputMethod() }
-        { inputTag() }
-        <label className="labels-form" htmlFor="description">
-          Descrição
-          <input
-            type="text"
-            id="description"
-          />
-        </label>
-      </form>
+      <label htmlFor="value">
+        Valor:
+        <input type="number" id="value" name="value" />
+      </label>
+      { inputCurrency(currency) }
+      { inputMethod() }
+      { inputTag() }
+      <label className="labels-form" htmlFor="description">
+        Descrição
+        <input
+          type="text"
+          id="description"
+        />
+      </label>
+    </form>
   );
 }
 
