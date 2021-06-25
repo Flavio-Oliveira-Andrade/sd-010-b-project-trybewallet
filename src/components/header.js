@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function Header(props, { email }) {
-  const { expenses } = props;
+function Header(props) {
+  const { expenses, email } = props;
   let sum = 0;
   if (expenses.length !== 0) {
     const total = expenses.reduce((acc, curr) => {
@@ -36,6 +36,7 @@ Header.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
+  email: state.user.email,
   expenses: state.wallet.expenses,
 });
 
