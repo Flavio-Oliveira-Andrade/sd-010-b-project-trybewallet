@@ -8,6 +8,7 @@ import Tag from '../components/form/tag';
 import Descrição from '../components/form/descrição';
 import Header from '../components/header';
 import { addExpense, fetchExp } from '../actions/index';
+import ExpensesTable from '../components/table/tableWallet';
 
 function Wallet(props) {
   const [id, setId] = useState(0);
@@ -55,6 +56,7 @@ function Wallet(props) {
       >
         Adicionar despesa
       </button>
+      <ExpensesTable />
     </div>
   );
 }
