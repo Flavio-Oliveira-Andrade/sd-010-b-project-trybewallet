@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
   case DESPESA:
     return {
       ...state,
-      expenses: payload,
+      expenses: [...state.expenses, payload],
     };
   case EXCLUIR: {
     return {
