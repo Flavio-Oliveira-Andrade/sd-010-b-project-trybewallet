@@ -1,18 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { dell } from '../actions';
+import { dellExpense } from '../actions';
 
 class Table extends React.Component {
-  // constructor() {
-  //   super();
+  constructor() {
+    super();
 
-  //   this.dispatchDelete = this.dispatchDelete.bind(this);
-  // }
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-  // dispatchDelete(id) {
-
-  // }
+  handleClick(id) {
+    const { dispatchDelete } = this.props;
+    dispatchDelete(id);
+    // addExpenses();
+  }
 
   render() {
     const { expenses } = this.props;
@@ -51,13 +53,13 @@ class Table extends React.Component {
                 <button
                   type="button"
                   data-testid="delete-btn"
-                  // onClick={ }
+                  onClick={ this.handleClick() }
                 >
                   Deletar
                 </button>
               </td>
             </tr>
-          ))}
+          )) }
         </tbody>
       </table>
     );
@@ -65,17 +67,18 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  // dispatchDelete: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dispatchDelete: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   // dispatchDelete: (id) => dispatch(
-//   //  dell(id),
-//   // ),
-// });
-export default connect(mapStateToProps, null)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchDelete: (deleteExpense) => dispatch(
+    dellExpense(deleteExpense),
+  ),
+
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
