@@ -6,11 +6,12 @@ function Header(props, { email }) {
   const { expenses } = props;
   let sum = 0;
   if (expenses.length !== 0) {
-    sum = expenses.reduce((acc, curr) => {
+    const total = expenses.reduce((acc, curr) => {
       const moeda = curr.currency;
       acc += curr.value * parseFloat(curr.exchangeRates[moeda].ask);
       return acc;
     }, 0);
+    sum = total.toFixed(2);
     console.log(sum);
   }
 
@@ -21,7 +22,7 @@ function Header(props, { email }) {
         { email }
       </p>
       <p data-testid="total-field">
-        { sum.toFixed(2) }
+        { sum }
       </p>
       <p data-testid="header-currency-field">
         Câmbio: BRL

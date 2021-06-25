@@ -23,7 +23,7 @@ function Wallet(props) {
     fetchExpenses();
   }
   const mountExpense = async () => {
-    fetchExpenses();
+    // fetchExpenses();
     const newExpense = { id,
       value,
       description,
