@@ -11,7 +11,7 @@ export default function walletReducer(state = INITIAL_STATE, action) {
   case SAVE_EXPENSES:
     return {
       ...state,
-      expenses: action.expenses,
+      expenses: [...state.expenses, action.expenses],
     };
   case SAVE_CURRENCIES:
     return {
