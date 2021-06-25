@@ -55,6 +55,7 @@ class Form extends React.Component {
       <label id="currency" htmlFor="currency">
         Moeda
         <select
+          aria-labelledby="currency"
           value={ value }
           onChange={ this.handleChange }
           name="currency"

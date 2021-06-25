@@ -14,6 +14,8 @@ const INITIAL_STATE = {
   loadExpense: false,
 };
 
+const id = (state, expense) => ({ ...expense, id: (state.length) });
+
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case REQUEST_CURRENCIES:
@@ -26,7 +28,7 @@ function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       loadExpense: false,
-      expenses: [...state.expenses],
+      expenses: [...state.expenses, id(state.expenses, action.expense)],
     };
   case DELETE_EXPENSE:
     return {
