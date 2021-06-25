@@ -66,7 +66,6 @@ Wallet.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-  email: state.user.email,
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
 });
