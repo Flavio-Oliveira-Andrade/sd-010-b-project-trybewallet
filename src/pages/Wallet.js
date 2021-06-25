@@ -1,8 +1,17 @@
 import React from 'react';
+import Header from '../components/Header';
+import AddExpense from '../components/AddExpense';
+import Expendes from '../components/Expendes';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return (
+      <>
+        <Header />
+        <AddExpense />
+        <Expendes />
+      </>
+    );
   }
 }
 
