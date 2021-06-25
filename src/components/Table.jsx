@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { dellExpense } from '../actions'
+import { dellExpense } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
