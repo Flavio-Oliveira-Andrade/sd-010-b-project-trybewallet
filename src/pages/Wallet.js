@@ -18,6 +18,7 @@ class Wallet extends React.Component {
     );
     return parseFloat(sum).toFixed(2);
   }
+
   // ref: função de soma com ajuda da @lara-capila
 
   render() {

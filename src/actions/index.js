@@ -29,7 +29,7 @@ export function fetchWallet() {
 }
 
 // export const exchangeRateAPI = (expenses) => (dispatch) => {
-//   fetch('https://economia.awesomeapi.com.br/json/all')
+//   fetch(‘https://economia.awesomeapi.com.br/json/all’)
 //     .then((response) => response.json())
 //     .then((exchangeRates) => {
 //       expenses.exchangeRates = exchangeRates;
@@ -41,9 +41,9 @@ export const sumExpense = () => ({
   type: SUM_EXPENSE,
 });
 
-export const dellExpense = (deleteExpense) => ({
+export const dellExpense = (expenses) => ({
   type: DELETE_EXPENSE,
-  payload: deleteExpense,
+  payload: expenses,
 });
 
 export default userAction;

@@ -107,5 +107,5 @@ Form.propTypes = {
   coinAPI: PropTypes.func.isRequired,
   exchange: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatchExpenses: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

@@ -6,13 +6,15 @@ import { dellExpense } from '../actions';
 class Table extends React.Component {
   constructor() {
     super();
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(id) {
-    const { dispatchDelete } = this.props;
-    dispatchDelete(id);
+    const { dispatchDelete, expenses } = this.props;
+    // lógica de remoção -> newExpenses (sem o item que vc quer remover)
+    const newExpenses = expenses.filter((expense) => expense.id !== id);
+    console.log(newExpenses);
+    dispatchDelete(newExpenses);
     // addExpenses();
   }
 
@@ -53,7 +55,7 @@ class Table extends React.Component {
                 <button
                   type="button"
                   data-testid="delete-btn"
-                  onClick={ this.handleClick() }
+                  onClick={ () => this.handleClick(e.id) }
                 >
                   Deletar
                 </button>
@@ -67,7 +69,7 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   dispatchDelete: PropTypes.func.isRequired,
 };
 
@@ -79,6 +81,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchDelete: (deleteExpense) => dispatch(
     dellExpense(deleteExpense),
   ),
-
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
