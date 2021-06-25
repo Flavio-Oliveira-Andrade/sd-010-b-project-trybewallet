@@ -8,23 +8,47 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: false,
       email: '',
+      emailValid: false,
+      passwordValid: false,
       redirect: false,
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isFormOk = this.isFormOk.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.isFormOk();
+  }
+
+  isFormOk() {
+    const { emailValid, passwordValid } = this.state;
+    if (emailValid && passwordValid) {
+      const button = document.getElementById('button');
+      button.disabled = false;
+    }
   }
 
   handleEmailChange(eve) {
     const email = eve.target.value;
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    this.setState({
-      login: regex.test(email),
-      email,
-    });
+    const emailValid = regex.test(email);
+    if (emailValid) {
+      this.setState((oldState) => ({
+        ...oldState,
+        emailValid: true,
+        email,
+      }));
+    } else {
+      this.setState((oldState) => ({
+        ...oldState,
+        email,
+        emailValid: false,
+      }));
+    }
   }
 
   handlePasswordChange(eve) {
@@ -33,23 +57,21 @@ class Login extends React.Component {
     if (password.length >= six) {
       this.setState((oldState) => ({
         ...oldState,
-        login: true,
+        passwordValid: true,
       }));
     } else {
-      this.setState({ login: false });
+      this.setState({ passwordValid: false });
     }
   }
 
   handleSubmit() {
-    const { email, login } = this.state;
-    if (login) {
-      const { dispatchUser } = this.props;
-      dispatchUser(email);
-      this.setState((oldState) => ({
-        ...oldState,
-        redirect: true,
-      }));
-    }
+    const { email } = this.state;
+    const { dispatchUser } = this.props;
+    dispatchUser(email);
+    this.setState((oldState) => ({
+      ...oldState,
+      redirect: true,
+    }));
   }
 
   render() {
@@ -80,7 +102,14 @@ class Login extends React.Component {
             onChange={ this.handlePasswordChange }
           />
         </label>
-        <button type="button" onClick={ this.handleSubmit }>Entrar</button>
+        <button
+          id="button"
+          type="button"
+          disabled
+          onClick={ this.handleSubmit }
+        >
+          Entrar
+        </button>
         {redirect && <Redirect to="/carteira" />}
       </main>
     );

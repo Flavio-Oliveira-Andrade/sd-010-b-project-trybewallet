@@ -1,8 +1,8 @@
 // Coloque aqui suas actions
-export const userAction = (state) => ({
+export const userAction = (email) => ({
   type: 'CHANGE-EMAIL',
   payload: {
-    email: state,
+    email,
   },
 });
 
