@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchAPI } from '../actions/walletActions';
 
 class Form extends Component {
   constructor(props) {
@@ -12,6 +15,11 @@ class Form extends Component {
       // method: '',
       // tag: '',
     };
+  }
+
+  componentDidMount() {
+    const { formSaveCurrencies } = this.props;
+    formSaveCurrencies();
   }
 
   functionValue() {
@@ -43,6 +51,9 @@ class Form extends Component {
   }
 
   functionCurrency() {
+    const { getCurrency } = this.props;
+    const currenciesKeys = Object.keys(getCurrency);
+
     return (
       <label htmlFor="currency">
         Moeda
@@ -51,7 +62,10 @@ class Form extends Component {
           data-testid="currency-input"
           onChange={ this.handleChange }
         >
-          <option value="1">1</option>
+          {
+            currenciesKeys.map((currency, key) => (
+              <option key={ key } value={ currency }>{currency}</option>))
+          }
         </select>
       </label>
     );
@@ -106,4 +120,17 @@ class Form extends Component {
   }
 }
 
-export default Form;
+const mapStateToProps = (state) => ({
+  getCurrency: state.wallet.currencies,
+});
+
+const mapDispathToProps = (dispatch) => ({
+  formSaveCurrencies: () => dispatch(fetchAPI()),
+});
+
+Form.propTypes = {
+  formSaveCurrencies: PropTypes.func.isRequired,
+  getCurrency: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispathToProps)(Form);
