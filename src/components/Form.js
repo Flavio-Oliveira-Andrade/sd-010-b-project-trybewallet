@@ -102,6 +102,7 @@ class Form extends Component {
   }
 
   functionMethod() {
+    const { method } = this.state;
     return (
       <label htmlFor="method">
         Método de pagamento
@@ -109,7 +110,7 @@ class Form extends Component {
           id="method"
           data-testid="method-input"
           onChange={ this.handleChange }
-          value={ this.state.method }
+          value={ method }
         >
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
@@ -120,6 +121,7 @@ class Form extends Component {
   }
 
   functionTag() {
+    const { tag } = this.state;
     return (
       <label htmlFor="tag">
         Tag
@@ -127,7 +129,7 @@ class Form extends Component {
           id="tag"
           data-testid="tag-input"
           onChange={ this.handleChange }
-          value={ this.state.tag }
+          value={ tag }
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
@@ -172,7 +174,7 @@ Form.propTypes = {
   formSaveCurrencies: PropTypes.func.isRequired,
   getCurrency: PropTypes.func.isRequired,
   formSaveExpenses: PropTypes.func.isRequired,
-  getExpenses: PropTypes.func.isRequired,
+  // getExpenses: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Form);
