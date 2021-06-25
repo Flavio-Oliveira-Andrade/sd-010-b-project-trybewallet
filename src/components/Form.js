@@ -88,6 +88,29 @@ function description(tableItem, setTableItem) {
   );
 }
 
+function inputCurrency(currencyState, tableItem, setTableItem) {
+  return (
+    <label className="labels-form" htmlFor="currencie">
+      Moeda
+      <select
+        className="inputs-form"
+        id="currencie"
+        name="currency"
+        onChange={ ({ target }) => {
+          setTableItem({
+            ...tableItem,
+            currency: target.value,
+          });
+        } }
+      >
+        {currencyState.map(
+          (item) => <option key={ item } value={ item }>{item}</option>,
+        )}
+      </select>
+    </label>
+  );
+}
+
 function From() {
   const [currencyState, setCurrencyState] = useState([]);
   const [tableItem, setTableItem] = useState({
@@ -111,24 +134,7 @@ function From() {
   return (
     <form>
       {value(tableItem, setTableItem)}
-      <label className="labels-form" htmlFor="currencie">
-        Moeda
-        <select
-          className="inputs-form"
-          id="currencie"
-          name="currency"
-          onChange={ ({ target }) => {
-            setTableItem({
-              ...tableItem,
-              currency: target.value,
-            });
-          } }
-        >
-          {currencyState.map(
-            (item) => <option key={ item } value={ item }>{item}</option>,
-          )}
-        </select>
-      </label>
+      {inputCurrency(currencyState, tableItem, setTableItem)}
       { inputMethod(tableItem, setTableItem) }
       {inputTag(tableItem, setTableItem)}
       {description(tableItem, setTableItem)}
