@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpense, fetchCurrencies } from '../actions/walletAction';
+import ExpenseTable from '../components/ExpenseTable';
 
-// const currencyOptions = ['GBP', 'BRL', 'USD'];
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 const inicialState = {
@@ -73,7 +73,6 @@ class Wallet extends React.Component {
   saveExpense(event) {
     event.preventDefault();
     const { addExpenses } = this.props;
-    console.log(this.state);
     addExpenses(this.state);
     this.setState({ ...inicialState });
   }
@@ -96,6 +95,7 @@ class Wallet extends React.Component {
           { this.select('tag', tag, 'Tag', tagOptions) }
           <button type="submit">Adicionar despesa</button>
         </form>
+        <ExpenseTable />
       </div>
     );
   }
@@ -114,14 +114,14 @@ const mapStateToProps = (state) => ({
 
 Wallet.propTypes = {
   emailUser: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   fetchCurrency: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExpenses: PropTypes.func.isRequired,
 };
 
-// Wallet.defaultProps = {
-//   total: 0,
-// };
+Wallet.defaultProps = {
+  total: 0,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

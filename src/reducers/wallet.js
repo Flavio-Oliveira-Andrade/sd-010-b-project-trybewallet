@@ -15,7 +15,6 @@ export default (state = initialState, { type, payload }) => { // action desconst
       currencies: payload.filtered,
     };
   case ADD_EXPENSE:
-    console.log(payload.value);
     return { ...state,
       expenses: [...state.expenses, { // I got this id logic from Fabio's PR: https://github.com/tryber/sd-010-b-project-trybewallet/blob/fabio-marturano-project-trybewallet/src/reducers/wallet.js
         id: state.expenses.length === 0
@@ -28,14 +27,3 @@ export default (state = initialState, { type, payload }) => { // action desconst
     return state;
   }
 };
-
-// soma() {
-//   const { expenses } = this.props;
-//   const sum = expenses.reduce(
-//     (acumulador, valorAtual) => (
-//       acumulador + (
-//         valorAtual.exchangeRates[valorAtual.currency].ask * valorAtual.value)),
-//     0,
-//   );
-//   return parseFloat(sum).toFixed(2);
-// }

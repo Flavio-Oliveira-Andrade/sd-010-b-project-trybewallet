@@ -27,8 +27,3 @@ export const addExpense = (expense) => (dispatch) => {
         payload: { ...expense, exchangeRates },
       })));
 };
-
-// {
-//   type: ADD_EXPENSE,
-//   payload: { ...expense },
-// }
