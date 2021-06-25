@@ -30,15 +30,15 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { dispatchExpenses } = this.props;
-    const { id } = this.state;
-    this.setState({ id: id + 1 });
+    const { dispatchExpenses, expenses } = this.props;
+    this.setState({ id: expenses.length });
     // exchangeRates(this.state);
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((requisicao) => requisicao.json())
       .then((requisicao) => this.setState({
         exchangeRates: requisicao }, () => dispatchExpenses(this.state)));
   }
+  // esse fetch dentro do handleClick fiz com ajuda do @Zambs e ele pediu para não usar no projeto. vou refazer;
 
   render() {
     const { exchange } = this.props;
@@ -70,8 +70,8 @@ class Form extends React.Component {
           Método de Pagamento
           <select id="method" name="method" onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de débito">Cartão de débito</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de Débito">Cartão de Débito</option>
           </select>
         </label>
         <label htmlFor="tag">
@@ -107,4 +107,5 @@ Form.propTypes = {
   coinAPI: PropTypes.func.isRequired,
   exchange: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatchExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
