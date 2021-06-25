@@ -7,7 +7,6 @@ import { fetchAwesomeApi } from '../actions/walletActions';
 class Wallet extends React.Component {
   componentDidMount() {
     const { fetchcoins } = this.props;
-
     fetchcoins();
   }
 

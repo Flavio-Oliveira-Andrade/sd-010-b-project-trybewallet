@@ -5,7 +5,7 @@ export const getCorrentCoins = () => (
     .then((res) => (
       res
         .json()
-        .then((json) => (res.ok ? Promise.resolve(json) : Promise.reject(json)))
+        .then((json) => json)
     ))
 );
 
