@@ -1,7 +1,6 @@
-// I get helped by the Fabio's PR: https://github.com/tryber/sd-010-b-project-trybewallet/blob/fabio-marturano-project-trybewallet/src/actions/fetchCurrAction.js
-import { CURRENCY, FAILED_REQUEST, ADD_EXPENSE } from '.';
+import { CURRENCY, FAILED_REQUEST, ADD_EXPENSE, DELETE_EXPENSE, EDIT_EXPENSE } from '.';
 
-const filterCurrencies = (json) => {
+const filterCurrencies = (json) => { // I get helped by the Fabio's PR: https://github.com/tryber/sd-010-b-project-trybewallet/blob/fabio-marturano-project-trybewallet/src/actions/fetchCurrAction.js
   const filtered = Object
     .keys(json).filter((currency) => currency !== 'USDT' && currency !== 'DOGE');
 
@@ -27,3 +26,13 @@ export const addExpense = (expense) => (dispatch) => {
         payload: { ...expense, exchangeRates },
       })));
 };
+
+export const deleteExpense = (expenseID) => ({ // https://github.com/tryber/sd-010-b-project-trybewallet/blob/ee7a721aa351abda4eec2042c2ca0fd05507bccf/src/actions/index.js#L77
+  type: DELETE_EXPENSE,
+  payload: expenseID,
+});
+
+export const editExpense = (expenseID) => ({ // https://github.com/tryber/sd-010-b-project-trybewallet/blob/ee7a721aa351abda4eec2042c2ca0fd05507bccf/src/actions/index.js#L77
+  type: EDIT_EXPENSE,
+  payload: expenseID,
+});

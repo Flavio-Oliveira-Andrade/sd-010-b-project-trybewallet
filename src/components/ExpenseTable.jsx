@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import EditDelButton from './EditDelButton';
 
 class ExpenseTable extends Component {
   constructor() {
@@ -50,7 +51,7 @@ class ExpenseTable extends Component {
           <td>{(value * exchangeRates[currency].ask).toFixed(2)}</td>
           <td>Real</td>
           <td>
-            button
+            <EditDelButton id={ id } />
           </td>
         </tr>
       ),

@@ -77,14 +77,24 @@ class Wallet extends React.Component {
     this.setState({ ...inicialState });
   }
 
+  updateTotal(expenses) {
+    return expenses.reduce((acc, curr) => (
+      acc + ((+curr.value) * curr.exchangeRates[curr.currency].ask)), 0); // +curr = parseFloat
+  }
+
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { emailUser, total, currencies } = this.props;
+    const { emailUser, currencies, expenses } = this.props;
+    // console.log(expenses);
+
+    // const tot = expenses.reduce((acc, curr) => (
+    //   acc + ((+curr.value) * curr.exchangeRates[curr.currency].ask) // +curr = parseFloat
+    // ), 0);
     return (
       <div>
         <header>
           <p data-testid="email-field">{`User: ${emailUser}`}</p>
-          <p data-testid="total-field">{`Total: ${total}`}</p>
+          <p data-testid="total-field">{`Total: ${this.updateTotal(expenses)}`}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <form onSubmit={ this.saveExpense }>
@@ -110,18 +120,20 @@ const mapStateToProps = (state) => ({
   emailUser: state.user.email,
   total: state.wallet.total,
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 Wallet.propTypes = {
   emailUser: PropTypes.string.isRequired,
-  total: PropTypes.number,
+  // total: PropTypes.number,
   fetchCurrency: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   addExpenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-Wallet.defaultProps = {
-  total: 0,
-};
+// Wallet.defaultProps = {
+//   total: 0,
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
