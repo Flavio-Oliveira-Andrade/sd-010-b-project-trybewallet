@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionDeleteExpense } from '../actions/index';
 
 class Expendes extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Expendes extends Component {
   }
 
   renderExpendes() {
-    const { spend } = this.props;
+    const { spend, deletExpense } = this.props;
 
     return (
       spend.map(({ description, tag, method, value, id, currency, exchangeRates }) => (
@@ -43,7 +44,12 @@ class Expendes extends Component {
           <td>{this.convertValue(value, exchangeRates[currency].ask)}</td>
           <td>{this.getCoin(exchangeRates[currency].name)[1]}</td>
           <td>
-            <button id="0" type="button">Deletar</button>
+          <button
+              type="button"
+              data-testid="delete-btn"
+              className="btn-delet"
+              onClick={ () => deletExpense(id) }
+          >Deletar</button>
           </td>
         </tr>))
     );
@@ -76,9 +82,12 @@ class Expendes extends Component {
 const mapStateToProps = (state) => ({
   spend: state.wallet.expenses,
 });
-
+const mapDispatchToProps = (dispatch) => ({
+  deletExpense: (id) => dispatch(actionDeleteExpense(id)),
+});
 Expendes.propTypes = {
   spend: PropTypes.arrayOf(Object).isRequired,
+  deletExpense: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Expendes);
+export default connect(mapStateToProps, mapDispatchToProps)(Expendes);

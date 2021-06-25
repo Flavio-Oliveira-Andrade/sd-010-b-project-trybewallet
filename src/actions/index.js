@@ -1,5 +1,7 @@
 export const EMAIL_USER = 'EMAIL_USER';
 export const WALLET_SPEND = 'WALLET_SPEND';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const DELET_EXPENSE = 'DELET_EXPENSE';
 
 export const actionEmail = (email) => ({
   type: EMAIL_USER,
@@ -25,3 +27,7 @@ export const fetchWalletSpend = (spend) => async (dispatch) => {
 
   dispatch(actionWalletSpend(spend, getCoins));
 };
+export const actionDeleteExpense = (id) => ({
+  type: DELET_EXPENSE,
+  id,
+});

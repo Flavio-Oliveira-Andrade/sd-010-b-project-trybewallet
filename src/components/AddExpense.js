@@ -108,14 +108,15 @@ class AddExpense extends React.Component {
     return (
       <button
         type="button"
-        onClick={ () => addSpend({
-          id: qtdSpended,
-          value: spent,
-          method: paymentMethod,
-          currency: coin,
-          description,
-          tag,
-        }) }
+          onClick={ () =>
+            addSpend({
+            id: qtdSpended,
+            value: spent,
+            method: paymentMethod,
+            currency: coin,
+            description,
+            tag,
+          }) }
       >
         Adicionar despesa
       </button>
