@@ -125,14 +125,14 @@ class AddExpense extends React.Component {
   render() {
     const { coins, coin, spent, paymentMethod, tag, description } = this.state;
     return (
-        <form>
-          {this.spend(this.handleClick, spent)}
-          {this.coin(this.handleClick, coin, coins)}
-          {this.paymentMethod(this.handleClick, paymentMethod)}
-          {this.tag(this.handleClick, tag)}
-          {this.description(this.handleClick, description)}
-          {this.handleSpendAdded()}
-        </form>
+      <form>
+        {this.spend(this.handleClick, spent)}
+        {this.coin(this.handleClick, coin, coins)}
+        {this.paymentMethod(this.handleClick, paymentMethod)}
+        {this.tag(this.handleClick, tag)}
+        {this.description(this.handleClick, description)}
+        {this.handleSpendAdded()}
+      </form>
     );
   }
 }
