@@ -1,6 +1,7 @@
 export const USER_INFO = 'USER_INFO';
 export const WALLET_EXPENSES = 'WALLET_EXPENSES';
 export const WALLET_CURRENCIES = 'WALLET_CURRENCIES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 const userAction = (email) => ({
   type: USER_INFO,
@@ -34,5 +35,10 @@ export const exchangeRateAPI = (expenses) => (dispatch) => {
       dispatch(walletExpenses(expenses));
     });
 };
+
+// export const dell = (id) => ({
+//   type: DELETE_EXPENSE,
+//   payload: 
+// });
 
 export default userAction;
