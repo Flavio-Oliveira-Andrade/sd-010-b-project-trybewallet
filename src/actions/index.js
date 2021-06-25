@@ -27,7 +27,7 @@ export function fetchApiCoin() {
 }
 
 export const addExpenses = (expenses) => ({
-  type:ADD_EXPENSES,
+  type: ADD_EXPENSES,
   payload: {
     expenses,
   },
