@@ -31,7 +31,7 @@ class LoginForm extends Component {
     const email = event.target.value;
 
     this.setState({
-      email: event.target.value,
+      email: email,
       disabledEmail: !this.emailValidate(email),
     });
   }
@@ -40,7 +40,7 @@ class LoginForm extends Component {
     const password = event.target.value;
 
     this.setState({
-      password: event.target.value,
+      password: password,
       disabledPassword: !this.passwordValidate(password),
     });
   }
@@ -56,8 +56,6 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { email, password, disabledEmail, disabledPassword } = this.state;
-
     return (
       <form action="">
         <input
