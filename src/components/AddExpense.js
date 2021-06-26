@@ -6,37 +6,12 @@ import { fetchWalletSpend } from '../actions';
 class AddExpense extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      coins: [],
-      spent: 0,
-      coin: 'USD',
-      paymentMethod: '',
-      tag: '',
-      description: '',
-    };
 
     this.coin = this.coin.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.handleSpendAdded = this.handleSpendAdded.bind(this);
   }
-
-  componentDidMount() {
-    this.fetchCoin();
-  }
-
-  async fetchCoin() {
-    const data = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const objCoins = await data.json();
-    delete objCoins.USDT;
-
-    const coins = Object.values(objCoins);
-    this.setState({ coins });
-  }
-
-  handleClick({ target: { id, value } }) {
-    this.setState({ [id]: value });
-  }
-
+ 
+ // component
   spend(handleClick, state) {
     return (
       <label htmlFor="spent">
@@ -45,7 +20,7 @@ class AddExpense extends React.Component {
       </label>
     );
   }
-
+ // component
   coin(handleClick, state, coins) {
     return (
       <label htmlFor="coin">
@@ -58,7 +33,7 @@ class AddExpense extends React.Component {
       </label>
     );
   }
-
+  // component
   paymentMethod(handleClick, state) {
     return (
       <label htmlFor="paymentMethod">
@@ -76,7 +51,7 @@ class AddExpense extends React.Component {
       </label>
     );
   }
-
+  // component
   tag(handleClick, state) {
     return (
       <label htmlFor="tag">
@@ -91,7 +66,7 @@ class AddExpense extends React.Component {
       </label>
     );
   }
-
+  // component
   description(handleClick, state) {
     return (
       <label htmlFor="description">
@@ -100,9 +75,9 @@ class AddExpense extends React.Component {
       </label>
     );
   }
-
+  // component
   handleSpendAdded() {
-    const { coin, spent, paymentMethod, tag, description } = this.state;
+    const { coin, spent, paymentMethod, tag, description } = this.props.states;
     const { addSpend, qtdSpended } = this.props;
 
     return (
@@ -123,14 +98,15 @@ class AddExpense extends React.Component {
   }
 
   render() {
-    const { coins, coin, spent, paymentMethod, tag, description } = this.state;
+    const { coins, coin, spent, paymentMethod, tag, description } = this.props.states;
+    const { handleClick } = this.props; 
     return (
       <form>
-        {this.spend(this.handleClick, spent)}
-        {this.coin(this.handleClick, coin, coins)}
-        {this.paymentMethod(this.handleClick, paymentMethod)}
-        {this.tag(this.handleClick, tag)}
-        {this.description(this.handleClick, description)}
+        {this.spend(handleClick, spent)}
+        {this.coin(handleClick, coin, coins)}
+        {this.paymentMethod(handleClick, paymentMethod)}
+        {this.tag(handleClick, tag)}
+        {this.description(handleClick, description)}
         {this.handleSpendAdded()}
       </form>
     );

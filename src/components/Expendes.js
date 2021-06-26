@@ -52,6 +52,13 @@ class Expendes extends Component {
             >
               Deletar
             </button>
+            <button 
+              data-testid="edit-btn" 
+              type="button"
+              // onClick={ () =>  }
+            >
+              Editar dispeasa
+            </button>
           </td>
         </tr>))
     );
