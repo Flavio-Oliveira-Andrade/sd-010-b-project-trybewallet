@@ -2,10 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { getDataThunk } from '../actions/apiRequests';
-import {
-  addExpenseAction,
-  editAction,
-  editStateStatusOff } from '../actions/expensesActions';
+import { addExpenseAction } from '../actions/expensesActions';
 
 const intitialState = {
   value: 0,
@@ -24,15 +21,6 @@ class Form extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.getRowEditionInfo = this.getRowEditionInfo.bind(this);
-  }
-
-  componentDidUpdate() {
-    const { shouldEdit, changeEditionStatus } = this.props;
-    if (shouldEdit) {
-      console.log('entrou');
-      this.getRowEditionInfo();
-      changeEditionStatus(false);
-    }
   }
 
   getRowEditionInfo() {
@@ -134,21 +122,15 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { shouldEdit } = this.props;
-    if (!shouldEdit) {
-      const { fetchData } = this.props;
-      fetchData();
-      const { addExpense, data } = this.props;
-      delete data.USDT;
-      this.setState({ exchangeRates: data }, () => {
-        const { expenses } = this.props;
-        addExpense(this.state);
-        this.setState({ id: expenses.length + 1 });
-      });
-    } else {
-      const { editedRow } = this.props;
-      editedRow(this.state);
-    }
+    const { fetchData } = this.props;
+    fetchData();
+    const { addExpense, data } = this.props;
+    delete data.USDT;
+    this.setState({ exchangeRates: data }, () => {
+      const { expenses } = this.props;
+      addExpense(this.state);
+      this.setState({ id: expenses.length + 1 });
+    });
   }
 
   handleChange({ target }) {
@@ -157,7 +139,6 @@ class Form extends React.Component {
   }
 
   render() {
-    const { shouldEdit } = this.props;
     return (
       <form>
         {this.handleValueInput()}
@@ -166,7 +147,7 @@ class Form extends React.Component {
         {this.handlePaymentMethod()}
         {this.handleTagInput()}
         <button type="button" onClick={ this.handleClick }>
-          {!shouldEdit ? 'Adicionar despesa' : 'Editar Despesa'}
+          Adicionar despesa
         </button>
       </form>
     );
@@ -188,9 +169,6 @@ Form.propTypes = {
   addExpense: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(Object).isRequired,
-  editedRow: PropTypes.func.isRequired,
-  shouldEdit: PropTypes.bool.isRequired,
-  changeEditionStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -198,14 +176,11 @@ const mapStateToProps = (state) => ({
   data: state.wallet.data,
   expenses: state.wallet.expenses,
   editvalues: state.edit.editionKey,
-  shouldEdit: state.edit.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (stateData) => dispatch(addExpenseAction(stateData)),
   fetchData: () => dispatch(getDataThunk()),
-  editedRow: (stateData) => dispatch(editAction(stateData)),
-  changeEditionStatus: (stateData) => dispatch(editStateStatusOff(stateData)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

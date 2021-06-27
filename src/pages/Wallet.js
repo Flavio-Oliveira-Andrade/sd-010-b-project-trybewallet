@@ -6,8 +6,15 @@ import { getDataThunk, getCurrencieData } from '../actions/apiRequests';
 import Header from '../components/Header';
 import Form from '../components/Form';
 import Table from '../components/Table';
+import EditionForm from '../components/EditionForm';
 
 class Wallet extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   const { editionStatus } = this.props;
+  //   this.state = { ...editionStatus };
+  // }
+
   componentDidMount() {
     const { fetchData } = this.props;
     fetchData().then(() => {
@@ -17,13 +24,13 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { notfoundError } = this.props;
+    const { notfoundError, editionStatus } = this.props;
     if (notfoundError) return <Redirect to="/notfound" />;
     return (
       <section>
         <Header />
-        <Form />
-        <Table disable={ false } />
+        {!editionStatus ? <Form /> : <EditionForm />}
+        <Table />
       </section>
     );
   }
@@ -42,12 +49,13 @@ Wallet.defaultProps = {
 Wallet.propTypes = {
   fetchData: PropTypes.func.isRequired,
   fetchCurrency: PropTypes.func.isRequired,
+  editionStatus: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  loading: state.wallet.loading,
   data: state.wallet.data,
   notfoundError: state.wallet.error,
+  editionStatus: state.edit.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({

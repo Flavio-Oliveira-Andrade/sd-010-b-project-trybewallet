@@ -19,18 +19,18 @@ export const removeExpenseAction = (expense) => ({
   },
 });
 
-export const editAction = (row) => ({
-  type: EDIT_EXPENSE,
-  payload: {
-    row,
-  },
-});
-
 export const editStateAction = (row) => ({
   type: EDIT_INPUT_STATE,
   payload: {
     row,
-    clicked: true,
+    status: true,
+  },
+});
+
+export const editAction = (row) => ({
+  type: EDIT_EXPENSE,
+  payload: {
+    row,
   },
 });
 

@@ -12,7 +12,7 @@ const editionReducer = (state = initialState, action) => {
     return {
       ...state,
       editionKey: action.payload.row,
-      status: action.payload.clicked,
+      status: action.payload.status,
     };
 
   case EDIT_STATUS:

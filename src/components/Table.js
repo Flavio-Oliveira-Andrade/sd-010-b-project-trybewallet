@@ -58,8 +58,7 @@ class Table extends React.Component {
   render() {
     const teste = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
       'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
-    const { rowInfo, removeExpense } = this.props;
-    const { disable } = this.props;
+    const { rowInfo, removeExpense, disable } = this.props;
     return (
       <table>
         {this.generateTable(teste, rowInfo, removeExpense, disable)}
@@ -77,6 +76,7 @@ Table.propTypes = {
 
 const mapStateToProps = (state) => ({
   rowInfo: state.wallet.expenses,
+  disable: state.edit.status,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
-import Table from '../components/Table';
-import editAction from '../actions/editAction';
+import { editAction, editStateStatusOff } from '../actions/expensesActions';
 
 class Edition extends React.Component {
   constructor(props) {
@@ -107,9 +105,9 @@ class Edition extends React.Component {
   }
 
   handleClick() {
-    const { editRow, history } = this.props;
+    const { editRow, changeStatus } = this.props;
     editRow(this.state);
-    history.push('/carteira');
+    changeStatus(false);
   }
 
   handleChange({ target }) {
@@ -119,23 +117,19 @@ class Edition extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <form>
-          {this.handleValueInput()}
-          {this.handleDescriptionTextarea()}
-          {this.handleCurrencyInput()}
-          {this.handlePaymentMethod()}
-          {this.handleTagInput()}
-          <button
-            type="button"
-            onClick={ this.handleClick }
-          >
-            Editar despesa
-          </button>
-        </form>
-        <Table disable />
-      </div>
+      <form>
+        {this.handleValueInput()}
+        {this.handleDescriptionTextarea()}
+        {this.handleCurrencyInput()}
+        {this.handlePaymentMethod()}
+        {this.handleTagInput()}
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Editar despesa
+        </button>
+      </form>
     );
   }
 }
@@ -144,17 +138,17 @@ Edition.propTypes = {
   currencies: PropTypes.arrayOf(String).isRequired,
   editRow: PropTypes.func.isRequired,
   editValues: PropTypes.shape(Object).isRequired,
-  history: PropTypes.shape(Object).isRequired,
+  changeStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
-  data: state.wallet.data,
   editValues: state.edit.editionKey,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   editRow: (stateData) => dispatch(editAction(stateData)),
+  changeStatus: (bool) => dispatch(editStateStatusOff(bool)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edition);
