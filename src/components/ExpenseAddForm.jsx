@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionExpenses } from '../actions';
+import { actionExpenses, actionUpdateExpenses } from '../actions';
 import SelectCurrencies from './SelectCurrencies';
 import dataAPI from '../services/API';
 
@@ -33,15 +33,19 @@ class ExpenseAddForm extends React.Component {
     });
   }
 
-  controlForm(e) {
+  controlForm(e, bool) {
     e.preventDefault();
-    const { Expenses, addExpense } = this.props;
-    const { id } = this.state;
-    this.setState({
-      id: id + 1,
-    });
-    document.getElementById('formExpense').reset();
-    Expenses(dataAPI(), this.state, 'expenses', addExpense);
+    const { Expenses, addExpense, updateExpenses } = this.props;
+    if (!bool) {
+      const { id } = this.state;
+      this.setState({
+        id: id + 1,
+      });
+      document.getElementById('formExpense').reset();
+      Expenses(dataAPI(), this.state, 'expenses', addExpense);
+    } else {
+      updateExpenses(e, 'update');
+    }
   }
 
   render() {
@@ -65,7 +69,7 @@ class ExpenseAddForm extends React.Component {
         <label htmlFor="method">
           Método de pagamento
           <select id="method" onChange={ (e) => this.Select(e) }>
-            {/* <option value=""> </option> */}
+            <option value=""> </option>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -74,7 +78,7 @@ class ExpenseAddForm extends React.Component {
         <label htmlFor="tag">
           Tag
           <select id="tag" onChange={ (e) => this.Select(e) }>
-            {/* <option value=""> </option> */}
+            <option value=""> </option>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -85,7 +89,7 @@ class ExpenseAddForm extends React.Component {
         <button
           type="submit"
           onClick={ (e) => {
-            this.controlForm(e);
+            this.controlForm(e, false);
           } }
         >
           Adicionar despesa
@@ -98,10 +102,12 @@ ExpenseAddForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   Expenses: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
+  updateExpenses: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   Expenses: (API, state, type, add) => dispatch(actionExpenses(API, state, type, add)),
+  updateExpenses: (value, type) => dispatch(actionUpdateExpenses(value, type)),
 });
 
 export default connect(null, mapDispatchToProps)(ExpenseAddForm);

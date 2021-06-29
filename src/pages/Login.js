@@ -29,11 +29,15 @@ class Login extends React.Component {
   render() {
     const { setUser } = this.props;
     return (
-      <div>
+      <div className="containerLogin">
+        <img src="https://image.freepik.com/vetores-gratis/carteira-e-desenho-animado-do-dinheiro_138676-2086.jpg" alt="Wallet" />
+        <h1>
+          TrybeWallet
+        </h1>
         <form>
           <label htmlFor="email">
-            E-mail:
             <input
+              placeholder=" E-mail"
               type="email"
               id="email"
               onChange={ (e) => setUser(e.target.value, e.target.id) }
@@ -41,8 +45,8 @@ class Login extends React.Component {
             />
           </label>
           <label htmlFor="password">
-            Senha:
             <input
+              placeholder="Senha"
               type="password"
               id="password"
               data-testid="password-input"
@@ -50,7 +54,10 @@ class Login extends React.Component {
             />
           </label>
           <Link to="/carteira">
-            <button type="submit" data-testid="my-action">
+            <button
+              type="submit"
+              data-testid="my-action"
+            >
               Entrar
             </button>
           </Link>

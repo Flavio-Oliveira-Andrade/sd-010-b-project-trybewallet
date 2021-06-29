@@ -9,6 +9,7 @@ class LineTableExpense extends React.Component {
     this.state = {
     };
     this.delExpenses = this.delExpenses.bind(this);
+    this.editDespesa = this.editDespesa.bind(this);
   }
 
   delExpenses({ target }) {
@@ -18,6 +19,20 @@ class LineTableExpense extends React.Component {
       if (linhaTR.id === target.value) {
         deleteExpenses(linhaTR.id, 'delete');
       }
+    });
+  }
+
+  editDespesa(gastos) {
+    const e = {};
+    const chaves = Object.keys(gastos);
+    const form = document.querySelector('#formExpense');
+    chaves.forEach((chave) => {
+      form.childNodes.forEach((label) => {
+        if (chave === label.htmlFor) {
+          label.lastChild.value = gastos[chave];
+          e[chave] = gastos[chave];
+        }
+      });
     });
   }
 
@@ -40,7 +55,18 @@ class LineTableExpense extends React.Component {
               </td>
               <td>Real</td>
               <td>
-                <button type="button">Editar</button>
+                <button
+                  type="button"
+                  data-testid="edit-btn"
+                  value={ gastos.id }
+                  onClick={ (e) => {
+                    this.editDespesa(gastos);
+                    this.delExpenses(e);
+                    lessExpense(gastos);
+                  } }
+                >
+                  Editar
+                </button>
                 <button
                   type="button"
                   data-testid="delete-btn"
@@ -63,7 +89,7 @@ class LineTableExpense extends React.Component {
 }
 
 LineTableExpense.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   deleteExpenses: PropTypes.func.isRequired,
   lessExpense: PropTypes.func.isRequired,
 };

@@ -17,16 +17,24 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    const { setCurrencies } = this.props;
+    const { setCurrencies, history: { location } } = this.props;
     setCurrencies(dataAPI(), 'currencies');
+    if (location.pathname === '/carteira') {
+      document.querySelector('.imgWallet').style.display = 'none';
+    }
+  }
+
+  componentWillUnmount() {
+    document.querySelector('.imgWallet').style.display = 'block';
   }
 
   addExpense(object) {
     const { total } = this.state;
     const valueGasto = object.value;
     const cambio = object.exchangeRates[object.currency].ask;
+    const totalConvert = Number((total + (valueGasto * cambio)).toFixed(2));
     this.setState({
-      total: total + (valueGasto * cambio),
+      total: totalConvert,
     });
   }
 
@@ -34,8 +42,9 @@ class Wallet extends React.Component {
     const { total } = this.state;
     const valueGasto = object.value;
     const cambio = object.exchangeRates[object.currency].ask;
+    const totalConvert = Number((total - (valueGasto * cambio)).toFixed(2));
     this.setState({
-      total: total - (valueGasto * cambio),
+      total: totalConvert,
     });
   }
 
@@ -43,18 +52,21 @@ class Wallet extends React.Component {
     const { email, currencies, expenses } = this.props;
     const { total } = this.state;
     return (
-      <div>
+      <div className="containerWallet">
         <header>
-          <span data-testid="email-field">
-            Email:
-            {` ${email}`}
-          </span>
-          <span id="total-field" value={ total } data-testid="total-field">
-            {total}
-          </span>
-          <span data-testid="header-currency-field">
-            BRL
-          </span>
+          <img src="https://image.freepik.com/vetores-gratis/carteira-e-desenho-animado-do-dinheiro_138676-2086.jpg" alt="Wallet" />
+          <div>
+            <span data-testid="email-field">
+              Email:
+              {` ${email}`}
+            </span>
+            <span data-testid="total-field">
+              {total}
+            </span>
+            <span data-testid="header-currency-field">
+              BRL
+            </span>
+          </div>
         </header>
         <ExpenseAddForm currencies={ currencies } addExpense={ this.addExpense } />
         <table>
@@ -71,11 +83,7 @@ class Wallet extends React.Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
-          <LineTableExpense
-            expenses={ expenses }
-            lessExpense={ this.lessExpense }
-            addExpense={ this.addExpense }
-          />
+          <LineTableExpense expenses={ expenses } lessExpense={ this.lessExpense } />
         </table>
       </div>
     );
@@ -83,10 +91,11 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
-  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   setCurrencies: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = (state) => ({ // LER

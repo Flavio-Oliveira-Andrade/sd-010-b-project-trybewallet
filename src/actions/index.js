@@ -29,3 +29,7 @@ export function actionExpenses(API, state, type, add) {
 export function actionDeleteExpenses(value, type) {
   return { type: type.toUpperCase(), value };
 }
+
+export function actionUpdateExpenses(value, type) {
+  return { type: type.toUpperCase(), value };
+}

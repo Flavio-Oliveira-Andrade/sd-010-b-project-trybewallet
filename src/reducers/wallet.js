@@ -15,6 +15,9 @@ function walletReducer(state = INITIAL_WALLET, action) {
     return { ...state,
       expenses: newState.filter((item) => (item.id !== parseInt(action.value, 10))) };
   }
+  case 'UPDATE': {
+    return { ...state, expenses: [...state.expenses, action] };
+  }
   default:
     return state;
   }
