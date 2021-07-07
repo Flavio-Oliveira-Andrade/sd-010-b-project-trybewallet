@@ -7,7 +7,7 @@ function Wallet() {
   const [field, setField] = useState(0);
   const emailUser = useSelector((state) => state.user.email);
 
-  return (
+  return ( 
     <>
       <Header emailUser={ emailUser } field={ field } />
       <Form totalValue={ field } setTotalValue={ setField } />

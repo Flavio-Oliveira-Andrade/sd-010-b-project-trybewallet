@@ -17,7 +17,7 @@ function Login() {
   function handleValidatePassword() { 
     return (/[a-z0-9._%+-]{6}/.test(password));
   }
-
+ 
   function addEmail() {
     dispatch({ type: 'ADD_USER', email });
   }

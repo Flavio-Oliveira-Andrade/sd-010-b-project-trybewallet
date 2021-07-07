@@ -9,7 +9,7 @@ function user(state = initialState, action) {
     return {
       ...state.user,
       email: action.email,
-    };
+    }; 
   default:
     return state;
   }

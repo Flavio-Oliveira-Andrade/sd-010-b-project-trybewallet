@@ -15,7 +15,7 @@ export const receiveCurrencies = (currencies) => ({
 export const addCurrencies = (expanses) => ({
   type: 'ADD_EXPENSES',
   expanses,
-});
+}); 
 
 export const addValues = (values) => ({
   type: 'ADD_VALUES',
