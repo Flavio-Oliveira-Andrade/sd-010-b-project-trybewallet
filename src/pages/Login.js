@@ -14,7 +14,7 @@ function Login() {
     return (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(email));
   }
 
-  function handleValidatePassword() {
+  function handleValidatePassword() { 
     return (/[a-z0-9._%+-]{6}/.test(password));
   }
 
