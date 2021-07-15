@@ -3,11 +3,11 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import editar from '../img/editar.png';
 import excluir from '../img/excluir.png';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpense } from '../actions';
 
 class EditDeleteButtons extends React.Component {
   render() {
-    const { expense, deletar } = this.props;
+    const { expense, deletar, editer } = this.props;
     return (
       <td className="table-cel">
         <div className="buttons-container">
@@ -21,7 +21,12 @@ class EditDeleteButtons extends React.Component {
           >
             <img src={ excluir } alt="lixeira" width="20px" />
           </button>
-          <button type="button" className="edit" data-testid="edit-btn">
+          <button
+            type="button"
+            className="edit"
+            data-testid="edit-btn"
+            onClick={ () => editer(expense) }
+          >
             <img src={ editar } alt="editar" width="20px" />
           </button>
         </div>
@@ -36,6 +41,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deletar: (payload) => dispatch(deleteExpense(payload)),
+  editer: (payload) => dispatch(editExpense(payload)),
 });
 
 EditDeleteButtons.propTypes = {

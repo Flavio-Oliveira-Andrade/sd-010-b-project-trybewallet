@@ -1,0 +1,17 @@
+.edit-form {
+  align-items: center;
+  background: rgba(15, 153, 15, 0.986);
+  color: black;
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+}
+
+.expense-form {
+  align-items: center;
+  background: rgb(46, 44, 44);
+  color: white;
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+}

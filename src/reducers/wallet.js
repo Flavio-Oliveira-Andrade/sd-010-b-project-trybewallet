@@ -1,14 +1,16 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { REQUEST_CURRENCIES, ADD_EXPENSE,
-  GET_CURRENCIES, FAILED_FETCH, UPDATE_TOTAL,
-  DELETE_EXPENSE } from '../actions';
+  GET_CURRENCIES, FAILED_FETCH, UPDATE_EXPENSE,
+  DELETE_EXPENSE, EDIT_EXPENSE } from '../actions';
+
+// import { initialStateWithExpenses } from '../tests/mockData';
 
 const initialState = {
   currencies: [],
   expenses: [],
   isFeching: false,
   error: '',
-  totalSum: 0,
+  idToEdit: null,
 };
 
 const wallet = (state = initialState, action) => {
@@ -22,7 +24,6 @@ const wallet = (state = initialState, action) => {
     return {
       ...state,
       isFeching: true,
-
     };
   case GET_CURRENCIES:
     return {
@@ -36,15 +37,22 @@ const wallet = (state = initialState, action) => {
       error: action.payload,
       isFeching: false,
     };
-  case UPDATE_TOTAL:
-    return {
-      ...state,
-      totalSum: action.payload,
-    };
   case DELETE_EXPENSE:
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense !== action.payload),
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      edit: action.payload,
+      idToEdit: action.payload.id,
+    };
+  case UPDATE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
+      edit: null,
     };
   default:
     return state;
