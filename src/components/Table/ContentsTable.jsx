@@ -30,6 +30,13 @@ function ContentsTable() {
           >
             Deletar
           </button>
+          <button
+            type="button"
+            data-testid="edit-btn"
+            onClick={ () => dispatch(deleteExpense(item.id)) }
+          >
+            Editar despesa
+          </button>
         </td>
       </tr>
     );
