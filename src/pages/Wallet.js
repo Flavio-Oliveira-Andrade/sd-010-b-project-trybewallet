@@ -18,8 +18,6 @@ class Wallet extends React.Component {
       const valuesCurrency = Object.values(current.exchangeRates);
 
       const dataCurrency = valuesCurrency.find((e) => e.code === currencyUse);
-      console.log(dataCurrency);
-
       const askNow = dataCurrency.ask;
 
       const expensesOfUser = current.value;

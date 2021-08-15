@@ -1,49 +1,97 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Table extends Component {
-  // constructor(prop) {
-  //   super(prop);
-  // }
+class Table extends Component {
+  constructor(prop) {
+    super(prop);
 
-  render() {
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
+  deleteExpense = (id) => {
+    this.props.deleteExpense(id);
+  };
+
+render() {
+    const { expenses } = this.props;
     return (
       <section>
         <table>
-          <tr>
-            <th>
-              Descrição
-            </th>
-            <th>
-              Tag
-            </th>
-            <th>
-              Método de pagamento
-            </th>
-            <th>
-              Valor
-            </th>
-            <th>
-              Moeda
-            </th>
-            <th>
-              Câmbio
-            </th>
-            <th>
-              Câmbio utilizado
-            </th>
-            <th>
-              Valor convertido
-            </th>
-            <th>
-              Moeda de conversão
-            </th>
-            <th>
-              Editar/Excluir
-            </th>
-          </tr>
+          <thead>
+            <tr>
+              <th> Descrição </th>
+              <th> Tag </th>
+              <th> Método de pagamento </th>
+              <th> Valor </th>
+              <th> Moeda </th>
+              <th> Câmbio </th>
+              <th> Câmbio utilizado </th>
+              <th> Valor convertido </th>
+              <th> Moeda de conversão </th>
+              <th> Editar/Excluir </th>
+            </tr>
+          </thead>
+          <tbody>
+            {expenses.map((expense) => (
+              <tr key={ expense.id }>
+                <td>{expense.description}</td>
+                <td>{expense.tag}</td>
+                <td>{expense.method}</td>
+                <td>{expense.value}</td>
+                <td>{expense.currency}</td>
+                <td>
+                  {Object.values(expense.exchangeRates).filter(
+                    (currency) => ((currency.code === expense.currency)),
+                  )[0].bid}
+                </td>
+                <td>
+                  {Object.values(
+                    expense.exchangeRates,
+                  ).filter((currency) => ((currency.code === expense.currency)))[0].ask}
+                </td>
+                <td>
+                  {(expense.value) * (Object.values(
+                    expense.exchangeRates,
+                  ).filter((currency) => ((currency.code === expense.currency)))[0].ask) }
+
+                </td>
+                <td>
+                  {Object.values(
+                    expense.exchangeRates,
+                  ).filter((currency) => ((currency.code === expense.currency)))[0].name.split('/')[1]}
+                </td>
+                <td>
+                  {}
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </section>
     );
   }
 }
+// <tr>
+//   {expenses.map((expense, index) => (
+//     <td key={ index }>
+//       { expense.description }
+//       <td>{ expense.value }</td>
+//       <td>{ expense.tag }</td>
+//     </td>))}
+// </tr>
+//         </table>
+//       </section>
+//     );
+//   }
+// }
+
+Table.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+export default connect(mapStateToProps, null)(Table);

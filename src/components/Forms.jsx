@@ -13,9 +13,9 @@ class Forms extends Component {
     this.state = {
       expensesInfo: {
         value: '',
-        currency: '',
-        method: '',
-        tag: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
         description: '',
         id: 0,
       },
