@@ -20,20 +20,20 @@ class Table extends Component {
             <td>{expense.value}</td>
             <td>{expense.currency}</td>
             <td>
-              { Object.values(expense.exchangeRates).filter(
+              {Math.round(Object.values(expense.exchangeRates).filter(
                 (currency) => ((currency.code === expense.currency)),
-              )[0].bid}
+              )[0].bid).toFixed(2)}
             </td>
             <td>
               {console.log(expense.exchangeRates)}
-              { Object.values(expense.exchangeRates).filter(
+              {Math.round(Object.values(expense.exchangeRates).filter(
                 (currency) => ((currency.code === expense.currency)),
-              )[0].ask}
+              )[0].ask).toFixed(2)}
             </td>
             <td>
-              {expense.value * Object.values(expense.exchangeRates).filter(
+              {expense.value * Math.round(Object.values(expense.exchangeRates).filter(
                 (currency) => ((currency.code === expense.currency)),
-              )[0].ask }
+              )[0].ask).toFixed(2) }
             </td>
             <td>
               { Object.values(expense.exchangeRates).filter(
