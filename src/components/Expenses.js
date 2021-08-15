@@ -10,7 +10,7 @@ class Expenses extends React.Component {
         {expenses.map((expense, key) => (
           <div key={ key }>
             <span>{ expense.value }</span>
-            <span>{ expense.escription }</span>
+            <span>{ expense.description }</span>
             <span>{ expense.tag }</span>
           </div>
         ))}
