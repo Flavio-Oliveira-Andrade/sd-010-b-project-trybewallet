@@ -3,6 +3,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const REQUEST_API = 'REQUEST_API';
 export const GET_COINS = 'GET_COINS';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DEL_EXPENSE = 'DEL_EXPENSE';
 
 export const addEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -21,6 +22,13 @@ export const addExpense = (expense, coins) => ({
   expense: {
     ...expense,
     exchangeRates: coins,
+  },
+});
+
+export const delExpense = (deleteExpense) => ({
+  type: DEL_EXPENSE,
+  expense: {
+    ...deleteExpense,
   },
 });
 
