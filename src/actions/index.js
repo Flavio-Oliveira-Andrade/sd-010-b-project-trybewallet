@@ -25,11 +25,9 @@ export const addExpense = (expense, coins) => ({
   },
 });
 
-export const delExpense = (deleteExpense) => ({
+export const delExpense = (toDelete) => ({
   type: DEL_EXPENSE,
-  expense: {
-    ...deleteExpense,
-  },
+  toDelete,
 });
 
 export function fetchCotation(expense) {

@@ -7,20 +7,13 @@ class Table extends Component {
   constructor() {
     super();
     this.cotationTable = this.cotationTable.bind(this);
-    // this.delExpense = this.delExpense.bind(this);
   }
-
-  // delExpense() {
-  //   const { expenses /* deleteExpense */ } = this.props;
-  //   console.log(expenses);
-  //   console.log(expenses.id);
-  // }
 
   cotationTable() {
     const { expenses, deleteExpense } = this.props;
     return (
       <tbody>
-        {expenses.map((expense) => (
+        {expenses.map((expense, index) => (
           <tr key={ expense.id }>
             <td>{expense.description}</td>
             <td>{expense.tag}</td>
@@ -28,18 +21,18 @@ class Table extends Component {
             <td>{expense.value}</td>
             <td>{expense.currency}</td>
             <td>
-              {Math.round(Object.values(expense.exchangeRates).filter(
+              {parseFloat(Object.values(expense.exchangeRates).filter(
                 (currency) => ((currency.code === expense.currency)),
               )[0].bid).toFixed(2)}
             </td>
             <td>
               {console.log(expense.id)}
-              {Math.round(Object.values(expense.exchangeRates).filter(
+              {parseFloat(Object.values(expense.exchangeRates).filter(
                 (currency) => ((currency.code === expense.currency)),
               )[0].ask).toFixed(2)}
             </td>
             <td>
-              {expense.value * Math.round(Object.values(expense.exchangeRates).filter(
+              {expense.value * parseFloat(Object.values(expense.exchangeRates).filter(
                 (currency) => ((currency.code === expense.currency)),
               )[0].ask).toFixed(2) }
             </td>
@@ -52,18 +45,18 @@ class Table extends Component {
               <button
                 type="button"
                 data-testid="delete-btn"
-                onClick={ () => deleteExpense(expense.id) }
+                onClick={ () => deleteExpense({ index }) }
               >
                 Deletar
               </button>
             </td>
           </tr>
         ))}
-      </tbody>);
+      </tbody>
+    );
   }
 
   render() {
-    // const { expenses } = this.props;
     return (
       <section>
         <table>
@@ -98,7 +91,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteExpense: (id) => dispatch(delExpense(id)),
+  deleteExpense: (expense) => dispatch(delExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

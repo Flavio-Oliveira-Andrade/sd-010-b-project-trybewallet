@@ -7,6 +7,8 @@ const INITIAL_STATE = {
 };
 
 function wallet(state = INITIAL_STATE, action) {
+  const { toDelete } = action;
+
   switch (action.type) {
   case REQUEST_API:
     return {
@@ -25,7 +27,7 @@ function wallet(state = INITIAL_STATE, action) {
   case DEL_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, action.deleteExpense],
+      expenses: state.expenses.filter((_data, i) => i !== toDelete.index),
     };
   default:
     return state;
@@ -33,3 +35,8 @@ function wallet(state = INITIAL_STATE, action) {
 }
 
 export default wallet;
+
+/* expenses: [
+  state.expenses.filter((item, index) => index !== action.expense),
+],
+}; */
