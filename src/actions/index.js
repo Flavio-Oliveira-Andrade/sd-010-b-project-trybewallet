@@ -2,6 +2,7 @@
 export const REQUEST_API = 'REQUEST_API';
 export const GET_CURRENCY = 'GET_CURRENCY';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
 
 export const requestAPI = () => ({ type: REQUEST_API });
 export const getCurrency = (data) => ({ type: GET_CURRENCY, data });
@@ -31,6 +32,14 @@ export const addExpenses = (expenses, cotation) => ({
   expenses: {
     ...expenses,
     exchangeRates: cotation,
+  },
+});
+
+export const deleteExpenses = (expenses, id) => ({
+  type: DELETE_EXPENSES,
+  expenses: {
+    ...expenses,
+    id,
   },
 });
 

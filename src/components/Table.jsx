@@ -3,17 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Table extends Component {
-  constructor(prop) {
-    super(prop);
+  // constructor(prop) {
+  //   super(prop);
+  // }
 
-    this.deleteExpense = this.deleteExpense.bind(this);
-  }
-
-  deleteExpense = (id) => {
-    this.props.deleteExpense(id);
-  };
-
-render() {
+  render() {
     const { expenses } = this.props;
     return (
       <section>
@@ -54,7 +48,6 @@ render() {
                   {(expense.value) * (Object.values(
                     expense.exchangeRates,
                   ).filter((currency) => ((currency.code === expense.currency)))[0].ask) }
-
                 </td>
                 <td>
                   {Object.values(
@@ -62,7 +55,13 @@ render() {
                   ).filter((currency) => ((currency.code === expense.currency)))[0].name.split('/')[1]}
                 </td>
                 <td>
-                  {}
+                  <button
+                    onClick={ () => this.deleteExpense(expense.id) }
+                    type="button"
+                    className="button button-delete"
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             ))}
@@ -72,6 +71,7 @@ render() {
     );
   }
 }
+
 // <tr>
 //   {expenses.map((expense, index) => (
 //     <td key={ index }>
